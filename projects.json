@@ -1,0 +1,79 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "EnergyOS",
+      "subtitle": "Dashboard SaaS Inteligente",
+      "description": "Dashboard SaaS inteligente com atualização em tempo real, indicadores estratégicos e visualização dinâmica de dados.",
+      "category": "SaaS / Dashboard",
+      "technologies": ["React", "Chart.js", "WebSockets", "Node.js"],
+      "difficulty": 85,
+      "highlights": ["UI/UX Estratégico", "Tempo Real", "API Integration"],
+      "link": "https://raphaeljdk.github.io/EnergyOS-um-dashboard-SaaS-inteligente-com-atualiza-o-em-tempo-real/",
+      "github": "https://github.com/Raphaeljdk/EnergyOS",
+      "featured": true,
+      "stats": { "views": 245, "likes": 18 },
+      "publishedDate": "2024-10-15"
+    },
+    {
+      "id": 2,
+      "title": "TMS Lite PRO",
+      "subtitle": "Sistema Inteligente de Gestão de Fretes",
+      "description": "Sistema inteligente de gestão de fretes e análise de CTEs, inspirado em soluções corporativas.",
+      "category": "Logística",
+      "technologies": ["React", "TypeScript", "Tailwind", "Chart.js"],
+      "difficulty": 90,
+      "highlights": ["Gestão de Fretes", "UX Corporativo", "CTEs"],
+      "link": "https://raphaeljdk.github.io/TMS-Lite-PRO---Sistema-Inteligente-de-Gest-o-de-Fretes../",
+      "github": "https://github.com/Raphaeljdk/TMS-Lite-PRO",
+      "featured": true,
+      "stats": { "views": 198, "likes": 14 },
+      "publishedDate": "2024-11-20"
+    },
+    {
+      "id": 3,
+      "title": "TradePro",
+      "subtitle": "Plataforma Profissional de Trading",
+      "description": "Plataforma profissional para trading com visualização de dados de mercado em tempo real.",
+      "category": "Fintech / Trading",
+      "technologies": ["React", "JavaScript", "Chart.js", "WebSockets"],
+      "difficulty": 88,
+      "highlights": ["Tempo Real", "Análise Técnica", "Múltiplos Ativos"],
+      "link": "https://raphaeljdk.github.io/-TradePro---Plataforma-Profissional-de-Trading/",
+      "github": "",
+      "featured": true,
+      "stats": { "views": 156, "likes": 11 },
+      "publishedDate": "2024-12-10"
+    },
+    {
+      "id": 4,
+      "title": "Herdeiros do Einstein",
+      "subtitle": "Mini SaaS Educacional Gamificado",
+      "description": "Mini SaaS educacional que transforma exercícios matemáticos em uma experiência envolvente.",
+      "category": "Educação / SaaS",
+      "technologies": ["JavaScript", "HTML", "CSS", "localStorage"],
+      "difficulty": 80,
+      "highlights": ["Sistema de Níveis", "Ranking Global", "Feedback"],
+      "link": "https://raphaeljdk.github.io/HERDEIROS-DO-EINSTEIN/",
+      "github": "https://github.com/Raphaeljdk/HERDEIROS-DO-EINSTEIN",
+      "featured": true,
+      "stats": { "views": 167, "likes": 13 },
+      "publishedDate": "2024-09-05"
+    },
+    {
+      "id": 5,
+      "title": "Nexus Retail",
+      "subtitle": "Executive Dashboard 2026",
+      "description": "Executive dashboard consolidado com indicadores estratégicos e análise de custos.",
+      "category": "Executive Dashboard",
+      "technologies": ["HTML", "CSS", "JavaScript", "Chart.js"],
+      "difficulty": 92,
+      "highlights": ["ROI 3.2x", "Análise de Custos", "Roadmap"],
+      "link": "https://raphaeljdk.github.io/dashboard/",
+      "github": "https://github.com/Raphaeljdk/dashboard",
+      "featured": true,
+      "stats": { "views": 289, "likes": 22 },
+      "publishedDate": "2025-01-15"
+    }
+  ]
+}

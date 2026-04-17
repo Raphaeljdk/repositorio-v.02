@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Raphael Freitas | Desenvolvedor Full Stack • SAP • TMS • JavaScript • Java • Node.js",
+  "short_name": "Raphael Freitas",
+  "description": "Portfólio profissional de Raphael Freitas - Desenvolvedor Full Stack e Estudante de Engenharia de Software | Especialista em SAP ABAP, TMS, JavaScript/TypeScript, Java, Node.js, React, Vue.js, Python e soluções corporativas integradas",
+  
+  "id": "portfolio-raphael-freitas-v2",
+  "start_url": "/?utm_source=pwa&utm_medium=homescreen",
+  "scope": "/",
+  
+  "lang": "pt-BR",
+  "dir": "ltr",
+  
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  
+  "theme_color": "#0a0c10",
+  "background_color": "#0a0c10",
+  
+  "orientation": "portrait-primary",
+  "categories": [
+    "portfolio", 
+    "development", 
+    "technology", 
+    "software", 
+    "business", 
+    "education",
+    "programming",
+    "web development",
+    "enterprise software"
+  ],
+  
+  "prefer_related_applications": false,
+  
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  
+  "handle_links": "preferred",
+  
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='100' fill='%230a0c10'/%3E%3Ccircle cx='256' cy='200' r='80' fill='url(%23grad)' opacity='0.9'/%3E%3Ctext x='256' y='360' font-size='200' text-anchor='middle' fill='url(%23grad)' font-family='Arial, sans-serif' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='100' fill='%230a0c10'/%3E%3Ccircle cx='256' cy='256' r='120' fill='none' stroke='url(%23grad)' stroke-width='8'/%3E%3Ctext x='256' y='340' font-size='180' text-anchor='middle' fill='url(%23grad)' font-family='Arial, sans-serif' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230a0c10'/%3E%3Ctext x='96' y='130' font-size='80' text-anchor='middle' fill='%233b82f6' font-family='Arial, sans-serif' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230a0c10'/%3E%3Ctext x='256' y='360' font-size='200' text-anchor='middle' fill='%233b82f6' font-family='Arial, sans-serif' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230a0c10'/%3E%3Cstop offset='100%25' stop-color='%231a1f2e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23bg)'/%3E%3Ctext x='960' y='400' text-anchor='middle' fill='%233b82f6' font-size='64' font-family='Arial, sans-serif' font-weight='bold'%3ERaphael Freitas%3C/text%3E%3Ctext x='960' y='480' text-anchor='middle' fill='%238b5cf6' font-size='32' font-family='Arial, sans-serif'%3EDesenvolvedor Full Stack • SAP • TMS%3C/text%3E%3Ctext x='960' y='540' text-anchor='middle' fill='%2394a3b8' font-size='24' font-family='Arial, sans-serif'%3EJavaScript • TypeScript • Java • Node.js • React • Vue.js • Python • ABAP%3C/text%3E%3C/svg%3E",
+      "sizes": "1920x1080",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Página inicial do portfólio - Raphael Freitas"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='750' height='1334'%3E%3Crect width='750' height='1334' fill='%230a0c10'/%3E%3Ctext x='375' y='500' text-anchor='middle' fill='%233b82f6' font-size='48' font-family='Arial, sans-serif' font-weight='bold'%3ERaphael Freitas%3C/text%3E%3Ctext x='375' y='560' text-anchor='middle' fill='%238b5cf6' font-size='24' font-family='Arial, sans-serif'%3EFull Stack Developer%3C/text%3E%3Ctext x='375' y='620' text-anchor='middle' fill='%2394a3b8' font-size='18' font-family='Arial, sans-serif'%3ESAP • TMS • JavaScript • Java%3C/text%3E%3Ctext x='375' y='660' text-anchor='middle' fill='%2394a3b8' font-size='18' font-family='Arial, sans-serif'%3ENode.js • React • Vue.js • Python%3C/text%3E%3C/svg%3E",
+      "sizes": "750x1334",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "Versão mobile - Raphael Freitas"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Projetos em Destaque",
+      "short_name": "Projetos",
+      "description": "Explorar projetos desenvolvidos com SAP, TMS, React, Node.js e mais",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%233b82f6'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E📁%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Stack Tecnológica",
+      "short_name": "Tech Stack",
+      "description": "JavaScript, TypeScript, Java, Python, SAP ABAP, Node.js, React, Vue.js, Express, PostgreSQL, MongoDB",
+      "url": "/#skills",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%238b5cf6'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E💻%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard de Evolução",
+      "short_name": "Métricas",
+      "description": "Acompanhar evolução em frontend, backend, SAP e TMS",
+      "url": "/#evolution",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%2310b981'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E📊%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Experiência Profissional",
+      "short_name": "Carreira",
+      "description": "Polyexcel • Eurofarma • Desenvolvimento SAP e TMS",
+      "url": "/#experience",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%23f59e0b'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E💼%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Certificações Técnicas",
+      "short_name": "Certificações",
+      "description": "SAP, Desenvolvimento Web, Java, JavaScript, Python",
+      "url": "/#certifications",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%2306b6d4'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E🎓%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Blog Dev Journey",
+      "short_name": "Blog",
+      "description": "Artigos sobre SAP, TMS, JavaScript, Java e carreira em tecnologia",
+      "url": "/#blog",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%23ec4899'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E✍️%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Roadmap de Estudos",
+      "short_name": "Roadmap",
+      "description": "Plano de aprendizado: SAP, Cloud, Arquitetura, DevOps",
+      "url": "/#roadmap",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%238b5cf6'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E🗺️%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "GitHub Portfolio",
+      "short_name": "GitHub",
+      "description": "Repositórios de projetos SAP, TMS, React, Node.js e mais",
+      "url": "/#github",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%231a1f2e'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E🐙%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Contato Profissional",
+      "short_name": "Contato",
+      "description": "LinkedIn • Email • GitHub • WhatsApp",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%233b82f6'/%3E%3Ctext x='48' y='65' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3E📧%3C/text%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  
+  "share_target": {
+    "action": "/#contact",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "subject",
+      "text": "message",
+      "url": "url"
+    }
+  },
+  
+  "related_applications": [],
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "update_via_cache": "none"
+  },
+  
+  "protocol_handlers": [
+    {
+      "protocol": "web+raphael",
+      "url": "/?q=%s"
+    }
+  ],
+  
+  "note_taking": {
+    "new_note_url": "/notes/new"
+  },
+  
+  "file_handlers": [
+    {
+      "action": "/editor",
+      "accept": {
+        "text/plain": [".txt"],
+        "application/json": [".json"],
+        "text/javascript": [".js"],
+        "text/typescript": [".ts"]
+      }
+    }
+  ]
+}

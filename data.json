@@ -1,0 +1,37 @@
+{
+  "personal": {
+    "name": "Raphael Freitas",
+    "fullName": "Raphael Freitas dos Santos",
+    "title": "Desenvolvedor Full Stack",
+    "age": 19,
+    "location": "São Paulo, Brasil",
+    "email": "raphaelfreitasdossantos651@gmail.com",
+    "phone": "+5511947374151",
+    "github": "https://github.com/Raphaeljdk",
+    "linkedin": "https://www.linkedin.com/in/raphael-freitas-22976828a/",
+    "website": "https://raphaeljdk.github.io/REPOSITORIO---RAPHAEL-FREITAS/",
+    "bio": "Estudante de Engenharia de Software na Universidade Presbiteriana Mackenzie, com experiência em SAP ABAP, TMS e desenvolvimento Full Stack.",
+    "languages": ["Português (Nativo)"]
+  },
+  "stats": {
+    "projects": 8,
+    "skills": 25,
+    "certifications": 12,
+    "experienceYears": 2,
+    "githubRepos": 15,
+    "githubStars": 45,
+    "learningHours": 4500
+  },
+  "social": {
+    "github": "Raphaeljdk",
+    "linkedin": "raphael-freitas",
+    "email": "raphaelfreitasdossantos651@gmail.com"
+  },
+  "seo": {
+    "title": "Raphael Freitas | Full Stack Developer • SAP • TMS • JavaScript • Java",
+    "description": "Portfólio profissional de Raphael Freitas - Desenvolvedor Full Stack e Estudante de Engenharia de Software. Especialista em SAP ABAP, TMS, JavaScript, TypeScript, Java, Node.js, React, Vue.js, Python e soluções corporativas.",
+    "keywords": "Raphael Freitas, Desenvolvedor Full Stack, SAP ABAP, TMS, JavaScript, TypeScript, Java, Node.js, React, Vue.js, Python, SQL, Portfolio, Engenharia de Software",
+    "ogImage": "assets/images/og-image.jpg",
+    "twitterHandle": "@raphael_dev"
+  }
+}
