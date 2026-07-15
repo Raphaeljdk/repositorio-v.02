@@ -35,36 +35,28 @@ export function Certifications() {
     <section id="certifications" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="06 / Certificações"
+          label="Certificações"
           title="Aprendizado contínuo."
           description="Formações que sustentam a stack — do freeCodeCamp ao SENAI, do SAP Learning Hub à AWS."
         />
 
-        {/* Summary stats */}
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <SummaryCard
-            icon={<Award className="h-5 w-5" />}
-            value={totals.completed.toString()}
+        {/* Summary strip — simple, no gradient icons */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <SummaryItem
             label="Concluídas"
-            accent="from-emerald-500 to-teal-500"
+            value={`${totals.completed}`}
           />
-          <SummaryCard
-            icon={<Clock className="h-5 w-5" />}
-            value={`${totals.totalHours}h`}
+          <SummaryItem
             label="Horas investidas"
-            accent="from-amber-500 to-orange-500"
+            value={`${totals.totalHours}h`}
           />
-          <SummaryCard
-            icon={<TrendingUp className="h-5 w-5" />}
-            value="65%"
+          <SummaryItem
             label="SAP ABAP em curso"
-            accent="from-violet-500 to-fuchsia-500"
+            value="65%"
           />
-          <SummaryCard
-            icon={<GraduationCap className="h-5 w-5" />}
-            value="2028"
+          <SummaryItem
             label="Eng. Software"
-            accent="from-cyan-500 to-sky-500"
+            value="2028"
           />
         </div>
 
@@ -76,61 +68,53 @@ export function Certifications() {
               type="button"
               onClick={() => setFilter(f.id)}
               className={cn(
-                "relative rounded-full px-4 py-1.5 text-sm font-medium transition-all",
+                "rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
                 filter === f.id
-                  ? "text-white"
-                  : "text-muted-foreground hover:text-foreground border border-border/60 bg-background/40 backdrop-blur-md"
+                  ? "bg-[var(--color-accent-copper)] text-white"
+                  : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
               )}
             >
-              {filter === f.id && (
-                <motion.span
-                  layoutId="cert-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-brand-gradient"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
               {f.label}
             </button>
           ))}
         </div>
 
         {/* Grid */}
-        <motion.div layout className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((c, i) => (
               <motion.div
                 key={c.name}
                 layout
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.3, delay: (i % 3) * 0.06 }}
-                className="group relative overflow-hidden rounded-2xl glass p-5 transition-shadow hover:shadow-premium"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.3, delay: (i % 3) * 0.05 }}
+                className="card-surface rounded-xl p-5"
               >
                 <div className="flex items-start justify-between">
                   <span
                     className={cn(
-                      "flex h-10 w-10 items-center justify-center rounded-xl",
+                      "flex h-9 w-9 items-center justify-center rounded-lg",
                       c.status === "completed"
-                        ? "bg-emerald-400/12 text-emerald-300"
+                        ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
                         : c.status === "in-progress"
-                          ? "bg-amber-400/12 text-amber-300"
-                          : "bg-violet-400/12 text-violet-300"
+                          ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
+                          : "bg-muted text-muted-foreground"
                     )}
                   >
-                    <Award className="h-5 w-5" />
+                    <Award className="h-4 w-4" />
                   </span>
                   <span
                     className={cn(
-                      "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                      "rounded-md px-2 py-0.5 font-code text-[10px] font-medium",
                       c.status === "completed"
-                        ? "bg-emerald-400/12 text-emerald-300"
+                        ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
                         : c.status === "in-progress"
-                          ? "bg-amber-400/12 text-amber-300"
-                          : "bg-violet-400/12 text-violet-300"
+                          ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
+                          : "bg-muted text-muted-foreground"
                     )}
                   >
-                    <CircleDot className="h-2.5 w-2.5" />
                     {c.status === "completed"
                       ? "Concluída"
                       : c.status === "in-progress"
@@ -139,52 +123,52 @@ export function Certifications() {
                   </span>
                 </div>
 
-                <h3 className="mt-3 font-display text-base font-bold leading-snug text-foreground">
+                <h3 className="mt-3 font-display text-sm font-bold leading-snug text-foreground">
                   {c.name}
                 </h3>
                 <p className="mt-1 text-xs text-muted-foreground">{c.institution}</p>
 
-                <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
+                <div className="mt-3 flex items-center gap-3 font-code text-[11px] text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
-                    <Clock className="h-3.5 w-3.5" /> {c.hours}
+                    <Clock className="h-3 w-3" /> {c.hours}
                   </span>
                   <span>·</span>
                   <span>{c.year}</span>
                   <span>·</span>
-                  <span className="rounded-md bg-muted/50 px-1.5 py-0.5 font-code text-[10px]">
+                  <span className="rounded-md bg-muted/50 px-1.5 py-0.5 text-[10px]">
                     {c.category}
                   </span>
                 </div>
 
-                {/* Progress for in-progress */}
+                {/* Progress bar — only for in-progress, gold color */}
                 {c.status === "in-progress" && typeof c.progress === "number" && (
                   <div className="mt-3">
-                    <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+                    <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
                       <span>Progresso</span>
-                      <span className="font-code text-amber-400">{c.progress}%</span>
+                      <span className="text-[var(--color-accent-gold)]">{c.progress}%</span>
                     </div>
-                    <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-muted/60">
+                    <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${c.progress}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-400"
+                        className="h-full bg-[var(--color-accent-gold)]"
                       />
                     </div>
                   </div>
                 )}
 
                 {c.credentialId && (
-                  <div className="mt-3 flex items-center justify-between border-t border-border/40 pt-3">
+                  <div className="mt-3 flex items-center justify-between border-t border-[var(--surface-border)] pt-3">
                     <span className="font-code text-[10px] text-muted-foreground">
                       ID: {c.credentialId}
                     </span>
                     <button
                       type="button"
-                      className="inline-flex items-center gap-1 text-[10px] text-emerald-400 hover:underline"
+                      className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline"
                     >
-                      Verificar <ExternalLink className="h-3 w-3" />
+                      Verificar <ExternalLink className="h-2.5 w-2.5" />
                     </button>
                   </div>
                 )}
@@ -197,31 +181,24 @@ export function Certifications() {
   );
 }
 
-function SummaryCard({
-  icon,
-  value,
+function SummaryItem({
   label,
-  accent,
+  value,
 }: {
-  icon: React.ReactNode;
-  value: string;
   label: string;
-  accent: string;
+  value: string;
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-2xl glass p-4"
+      transition={{ duration: 0.4 }}
+      className="card-surface rounded-xl p-4"
     >
-      <div className={cn("absolute -right-4 -top-4 h-16 w-16 rounded-full bg-gradient-to-br opacity-20 blur-xl", accent)} />
-      <span className={cn("flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br text-white", accent)}>
-        {icon}
-      </span>
-      <p className="mt-3 font-display text-2xl font-bold text-foreground">{value}</p>
-      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="font-display text-2xl font-bold text-foreground">{value}</p>
+      <p className="mt-1 text-xs text-muted-foreground">{label}</p>
+      <div className="mt-2 h-px w-8 bg-[var(--color-accent-copper)]" />
     </motion.div>
   );
 }

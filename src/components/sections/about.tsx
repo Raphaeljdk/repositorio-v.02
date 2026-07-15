@@ -8,8 +8,10 @@ import {
   Calendar,
   BookOpen,
   GitBranch,
-  Quote,
-  Sparkles,
+  MapPin,
+  GraduationCap,
+  Crosshair,
+  CircleCheck,
 } from "lucide-react";
 import { personal, stats } from "@/lib/data";
 import { useCountUp, useInView } from "@/hooks/use-count-up";
@@ -28,26 +30,26 @@ export function About() {
   const { ref, inView } = useInView<HTMLDivElement>();
 
   return (
-    <section id="about" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="about" className="relative scroll-mt-24 pt-28 pb-24 sm:pt-36 sm:pb-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="01 / Sobre"
+          label="Sobre"
           title="Engenharia com intenção."
           description="Mento entre o rigor corporativo e a velocidade do ecossistema web — entregando produtos que performam, escalam e encantam."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-[1.3fr_1fr]">
-          {/* Left: story + services */}
+          {/* Left: story + info cards */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-6"
           >
-            <div className="relative overflow-hidden rounded-3xl glass p-6 sm:p-8">
-              <Quote className="absolute -right-4 -top-4 h-24 w-24 text-emerald-400/10" />
-              <p className="relative text-lg leading-relaxed text-foreground/90">
+            {/* Bio card */}
+            <div className="card-surface border-t-2 border-t-[var(--color-accent-copper)] rounded-xl p-6 sm:p-8">
+              <p className="relative text-base leading-relaxed text-foreground/90 sm:text-lg">
                 {personal.bioLong}
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
@@ -55,9 +57,9 @@ export function About() {
                   (t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/40 px-3 py-1 text-xs text-muted-foreground"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-1 font-code text-xs text-muted-foreground"
                     >
-                      <Sparkles className="h-3 w-3 text-amber-400" />
+                      <span className="text-[var(--color-accent-copper)]">—</span>
                       {t}
                     </span>
                   )
@@ -65,26 +67,48 @@ export function About() {
               </div>
             </div>
 
-            {/* Personal card */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <InfoCard label="Localização" value={personal.location} accent="emerald" icon="pin" />
-              <InfoCard label="Universidade" value={personal.university} accent="violet" icon="cap" />
-              <InfoCard label="Foco atual" value="React · Next.js · Cloud" accent="amber" icon="spark" />
-              <InfoCard label="Status" value={personal.availability} accent="teal" icon="dot" />
+            {/* Info cards — with Lucide icons, no emojis */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <InfoCard
+                label="Localização"
+                value={personal.location}
+                icon={<MapPin className="h-4 w-4" />}
+              />
+              <InfoCard
+                label="Universidade"
+                value={personal.university}
+                icon={<GraduationCap className="h-4 w-4" />}
+              />
+              <InfoCard
+                label="Foco atual"
+                value="React · Next.js · Cloud"
+                icon={<Crosshair className="h-4 w-4" />}
+              />
+              <InfoCard
+                label="Status"
+                value={personal.availability}
+                icon={<CircleCheck className="h-4 w-4" />}
+              />
             </div>
           </motion.div>
 
-          {/* Right: stats grid */}
+          {/* Right: bento stats grid — first 2 cards are larger */}
           <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-2 gap-4 sm:grid-cols-2"
+            className="grid grid-cols-2 gap-3"
           >
             {stats.map((s, i) => (
-              <StatCard key={s.label} stat={s} start={inView} delay={i * 0.08} />
+              <StatCard
+                key={s.label}
+                stat={s}
+                start={inView}
+                delay={i * 0.06}
+                large={i < 2}
+              />
             ))}
           </motion.div>
         </div>
@@ -97,36 +121,39 @@ function StatCard({
   stat,
   start,
   delay,
+  large,
 }: {
   stat: (typeof stats)[number];
   start: boolean;
   delay: number;
+  large: boolean;
 }) {
   const Icon = ICONS[stat.icon] ?? Rocket;
   const value = useCountUp(stat.value, 1600, start);
-  const display = stat.value >= 1000 ? `${(value / 1000).toFixed(1)}k` : `${value}${stat.suffix ?? ""}`;
+  const display =
+    stat.value >= 1000 ? `${(value / 1000).toFixed(1)}k` : `${value}${stat.suffix ?? ""}`;
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
-      className="group relative overflow-hidden rounded-2xl glass p-4 sm:p-5"
+      className={cn(
+        "card-surface border-l-2 border-l-[var(--color-accent-copper)] rounded-xl p-4",
+        large && "col-span-2 sm:col-span-1"
+      )}
     >
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-emerald-400/0 to-violet-400/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:from-emerald-400/10 group-hover:to-violet-400/10" />
       <div className="flex items-center justify-between">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400/12 text-emerald-300">
-          <Icon className="h-[18px] w-[18px]" />
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]">
+          <Icon className="h-4 w-4" />
         </span>
-        <span className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">
-          {String(stat.value).padStart(2, "0")}
-        </span>
+        <span className="mono-label">{String(stat.value).padStart(2, "0")}</span>
       </div>
-      <p className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      <p className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
         {display}
       </p>
-      <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{stat.label}</p>
+      <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
     </motion.div>
   );
 }
@@ -134,62 +161,47 @@ function StatCard({
 function InfoCard({
   label,
   value,
-  accent,
   icon,
 }: {
   label: string;
   value: string;
-  accent: "emerald" | "violet" | "amber" | "teal";
-  icon: "pin" | "cap" | "spark" | "dot";
+  icon: React.ReactNode;
 }) {
-  const accentMap = {
-    emerald: "text-emerald-300 bg-emerald-400/12",
-    violet: "text-violet-300 bg-violet-400/12",
-    amber: "text-amber-300 bg-amber-400/12",
-    teal: "text-teal-300 bg-teal-400/12",
-  } as const;
-  const iconMap = {
-    pin: "📍",
-    cap: "🎓",
-    spark: "✨",
-    dot: "🟢",
-  } as const;
   return (
-    <div className="rounded-2xl glass p-4">
+    <div className="card-surface rounded-xl p-4 [transition:transform_0.3s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease] hover:[transform:scale(1.02)_translateY(-2px)] hover:border-[var(--color-accent-copper)]">
       <div className="flex items-center gap-2">
-        <span className={cn("flex h-7 w-7 items-center justify-center rounded-lg text-xs", accentMap[accent])}>
-          {iconMap[icon]}
+        <span className="flex h-6 w-6 items-center justify-center rounded-md text-[var(--color-accent-copper)]">
+          {icon}
         </span>
-        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
+        <span className="mono-label">{label}</span>
       </div>
       <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
     </div>
   );
 }
 
+/** Reusable section heading — no eyebrow numbering, just a monospace label */
 export function SectionHeading({
-  eyebrow,
+  label,
   title,
   description,
   align = "left",
 }: {
-  eyebrow: string;
+  label: string;
   title: string;
   description?: string;
   align?: "left" | "center";
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}
     >
-      <span className="font-code text-xs uppercase tracking-[0.3em] text-emerald-400">
-        {eyebrow}
-      </span>
-      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+      <span className="mono-label">{label}</span>
+      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {description && (

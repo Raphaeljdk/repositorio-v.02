@@ -1,172 +1,72 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 /**
- * Premium animated canvas background.
- * - Floating particle network with subtle connections
- * - Reacts softly to mouse position (parallax)
- * - Uses brand palette (emerald/teal/violet/amber)
- * - DPR-aware, RAF-throttled, pauses when tab hidden
+ * Subtle atmospheric background.
+ * - 2-3 very soft gradient orbs (blur 150px+, low opacity)
+ * - Dot grid pattern
+ * - Top vignette for navbar anchoring
+ * NO canvas particles. NO aurora blobs.
  */
 export function AnimatedBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    setMounted(true);
+  }, []);
 
-    let raf = 0;
-    let width = 0;
-    let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const mouse = { x: -9999, y: -9999 };
+  const isDark = resolvedTheme === "dark";
 
-    const palette =
-      resolvedTheme === "light"
-        ? ["#10b981", "#14b8a6", "#8b5cf6", "#f59e0b"]
-        : ["#34d399", "#2dd4bf", "#a78bfa", "#fbbf24"];
-
-    type P = { x: number; y: number; vx: number; vy: number; r: number; c: string };
-    let particles: P[] = [];
-
-    const build = () => {
-      const count = Math.min(70, Math.floor((window.innerWidth * window.innerHeight) / 22000));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.6,
-        c: palette[Math.floor(Math.random() * palette.length)],
-      }));
-    };
-
-    const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      build();
-    };
-
-    const tick = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Particles
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap
-        if (p.x < -20) p.x = width + 20;
-        if (p.x > width + 20) p.x = -20;
-        if (p.y < -20) p.y = height + 20;
-        if (p.y > height + 20) p.y = -20;
-
-        // Mouse repel (soft)
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist2 = dx * dx + dy * dy;
-        if (dist2 < 14000) {
-          const f = (14000 - dist2) / 14000;
-          p.x += (dx / Math.sqrt(dist2 + 1)) * f * 0.8;
-          p.y += (dy / Math.sqrt(dist2 + 1)) * f * 0.8;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.c;
-        ctx.globalAlpha = 0.55;
-        ctx.fill();
-      }
-
-      // Connections
-      ctx.globalAlpha = 1;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i];
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            const alpha = (1 - dist / 120) * 0.18;
-            ctx.strokeStyle = a.c;
-            ctx.globalAlpha = alpha;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.globalAlpha = 1;
-
-      raf = requestAnimationFrame(tick);
-    };
-
-    const onMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    const onLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
-    };
-    const onVisibility = () => {
-      if (document.hidden) {
-        cancelAnimationFrame(raf);
-      } else {
-        raf = requestAnimationFrame(tick);
-      }
-    };
-
-    resize();
-    raf = requestAnimationFrame(tick);
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", onMove, { passive: true });
-    window.addEventListener("mouseout", onLeave);
-    document.addEventListener("visibilitychange", onVisibility);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseout", onLeave);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [resolvedTheme]);
+  // Use CSS variables for opacity so server/client match is consistent
+  // The orbs use a fixed dark opacity, and we rely on the CSS custom properties
+  // to handle the theme difference via the dot-grid colors.
+  const orbs = mounted
+    ? [
+        {
+          className: "absolute -top-32 -left-32 h-[40rem] w-[40rem] rounded-full",
+          style: {
+            background: isDark
+              ? "radial-gradient(circle, rgba(212,119,92,0.10) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(212,119,92,0.06) 0%, transparent 70%)",
+            filter: "blur(80px)",
+          },
+        },
+        {
+          className: "absolute top-1/3 -right-24 h-[36rem] w-[36rem] rounded-full",
+          style: {
+            background: isDark
+              ? "radial-gradient(circle, rgba(91,184,154,0.08) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(91,184,154,0.05) 0%, transparent 70%)",
+            filter: "blur(100px)",
+          },
+        },
+        {
+          className: "absolute -bottom-20 left-1/4 h-[28rem] w-[28rem] rounded-full",
+          style: {
+            background: isDark
+              ? "radial-gradient(circle, rgba(232,180,77,0.06) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(232,180,77,0.04) 0%, transparent 70%)",
+            filter: "blur(120px)",
+          },
+        },
+      ]
+    : [];
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      {/* Aurora blobs */}
-      <div className="absolute inset-0 bg-grid bg-grid-fade opacity-70" />
-      <div
-        className="absolute -top-32 -left-24 h-[36rem] w-[36rem] rounded-full blur-[120px] opacity-50 animate-aurora"
-        style={{ background: "var(--bg-glow-1)" }}
-      />
-      <div
-        className="absolute top-1/3 -right-24 h-[34rem] w-[34rem] rounded-full blur-[120px] opacity-40 animate-aurora"
-        style={{ background: "var(--bg-glow-2)", animationDelay: "-6s" }}
-      />
-      <div
-        className="absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full blur-[120px] opacity-30 animate-aurora"
-        style={{ background: "var(--bg-glow-3)", animationDelay: "-12s" }}
-      />
-      {/* Canvas particles */}
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-60" />
-      {/* Top vignette to anchor navbar */}
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent" />
+      {/* Dot grid */}
+      <div className="absolute inset-0 dot-grid dot-grid-fade" />
+
+      {/* Gradient orbs — only render after mount to avoid hydration mismatch */}
+      {orbs.map((orb, i) => (
+        <div key={i} className={orb.className} style={orb.style} />
+      ))}
+
+      {/* Top vignette for navbar */}
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background to-transparent" />
     </div>
   );
 }

@@ -23,9 +23,9 @@ export function Skills() {
     <section id="skills" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="02 / Stack"
+          label="Stack"
           title="Ferramentas que dominou."
-          description="25+ tecnologias distribuídas em 6 categorias. Do SAP ao React, do banco de dados ao cloud — full stack de verdade."
+          description="25+ tecnologias distribuídas em 6 categorias. Do SAP ao React, do banco de dados ao cloud."
         />
 
         {/* Filters */}
@@ -37,19 +37,12 @@ export function Skills() {
                 type="button"
                 onClick={() => setFilter(cat.id as Filter)}
                 className={cn(
-                  "relative rounded-full px-4 py-1.5 text-sm font-medium transition-all",
+                  "relative rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
                   filter === cat.id
-                    ? "text-white"
-                    : "text-muted-foreground hover:text-foreground border border-border/60 bg-background/40 backdrop-blur-md"
+                    ? "bg-[var(--color-accent-copper)] text-white"
+                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
                 )}
               >
-                {filter === cat.id && (
-                  <motion.span
-                    layoutId="skill-pill"
-                    className={cn("absolute inset-0 -z-10 rounded-full bg-gradient-to-r", cat.color)}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
                 {cat.label}
               </button>
             ))}
@@ -62,62 +55,66 @@ export function Skills() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Buscar tecnologia..."
-              className="w-full rounded-full border border-border/60 bg-background/40 px-4 py-2 text-sm backdrop-blur-md outline-none transition-all placeholder:text-muted-foreground/60 focus:border-emerald-400/50 focus:shadow-glow-emerald lg:w-64"
+              className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] lg:w-64"
             />
-            <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-border/60 bg-muted/40 px-1.5 py-0.5 font-code text-[10px] text-muted-foreground lg:block">
+            <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-[var(--surface-border)] bg-muted px-1.5 py-0.5 font-code text-[10px] text-muted-foreground lg:block">
               /
             </kbd>
           </div>
         </div>
 
-        {/* Grid */}
+        {/* Bento grid */}
         <motion.div layout className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           <AnimatePresence mode="popLayout">
-            {filtered.map((skill) => (
+            {filtered.map((skill, i) => (
               <motion.div
                 key={skill.name}
                 layout
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.85 }}
+                exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.3 }}
-                whileHover={{ y: -6 }}
-                className="group relative overflow-hidden rounded-2xl glass p-4 transition-shadow hover:shadow-glow-emerald"
+                className={cn(
+                  "card-surface group rounded-xl p-4",
+                  i < 3 && "lg:col-span-2"
+                )}
               >
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-emerald-400/10 via-transparent to-violet-400/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
                   <img
                     src={skill.icon}
                     alt={skill.name}
                     className="h-8 w-8"
                     loading="lazy"
                   />
-                  <span className="font-code text-[10px] font-semibold text-muted-foreground">
-                    {skill.percent}%
-                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-sm font-semibold text-foreground truncate">
+                      {skill.name}
+                    </h3>
+                    <p className="font-code text-[10px] text-muted-foreground">
+                      {skill.level}
+                    </p>
+                  </div>
                 </div>
 
-                <h3 className="mt-3 text-sm font-semibold text-foreground">{skill.name}</h3>
-                <p className="text-[10px] text-muted-foreground">{skill.level}</p>
+                {/* Description — shown below name, no tooltip */}
+                <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+                  {skill.description}
+                </p>
 
                 {/* Progress bar */}
-                <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted/60">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.percent}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-                    className="h-full rounded-full bg-brand-gradient"
-                  />
-                </div>
-
-                {/* Tooltip on hover (bottom) */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full p-2 opacity-0 transition-all duration-300 group-hover:translate-y-[calc(100%-2px)] group-hover:opacity-100">
-                  <div className="rounded-lg glass-strong p-2 text-[10px] leading-snug text-muted-foreground">
-                    {skill.description}
-                    <span className="mt-1 block font-code text-emerald-400">{skill.experience}</span>
+                <div className="mt-3">
+                  <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
+                    <span>{skill.experience}</span>
+                    <span>{skill.percent}%</span>
+                  </div>
+                  <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.percent}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+                      className="h-full bg-[var(--color-accent-copper)]"
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -130,48 +127,7 @@ export function Skills() {
             Nenhuma tecnologia encontrada para &ldquo;{query}&rdquo;.
           </div>
         )}
-
-        {/* Tech marquee */}
-        <TechMarquee />
       </div>
     </section>
-  );
-}
-
-function TechMarquee() {
-  const items = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "SAP ABAP",
-    "TMS",
-    "Tailwind CSS",
-    "PostgreSQL",
-    "Java",
-    "Spring Boot",
-    "Python",
-    "AWS",
-    "Docker",
-    "Git",
-    "MongoDB",
-    "Prisma ORM",
-  ];
-  const doubled = [...items, ...items];
-
-  return (
-    <div className="relative mt-16 overflow-hidden mask-fade-x">
-      <div className="flex w-max animate-marquee gap-4">
-        {doubled.map((t, i) => (
-          <span
-            key={`${t}-${i}`}
-            className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/30 px-4 py-2 text-sm font-medium text-muted-foreground backdrop-blur-md"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            {t}
-          </span>
-        ))}
-      </div>
-    </div>
   );
 }

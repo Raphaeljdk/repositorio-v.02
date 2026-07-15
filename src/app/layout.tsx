@@ -29,7 +29,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Raphael Freitas · Full Stack Developer & SAP Specialist",
   description:
-    "Portfólio premium de Raphael Freitas — Desenvolvedor Full Stack e estudante de Engenharia de Software. SAP ABAP, TMS, React, Node, TypeScript e soluções corporativas que escalam.",
+    "Portfólio de Raphael Freitas — Desenvolvedor Full Stack. SAP ABAP, TMS, React, Node, TypeScript e soluções corporativas que escalam.",
   keywords: [
     "Raphael Freitas",
     "Desenvolvedor Full Stack",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Construindo experiências digitais que escalam — SAP, TMS, React, Node e cloud nativo.",
+      "Construindo experiências digitais que escalam.",
     url: "https://raphaeljdk.github.io",
     siteName: "Raphael Freitas Portfolio",
     locale: "pt_BR",
@@ -73,7 +73,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} ${jetbrains.variable} antialiased font-sans bg-background text-foreground selection:bg-emerald-400/30 selection:text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} ${jetbrains.variable} antialiased font-sans bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"

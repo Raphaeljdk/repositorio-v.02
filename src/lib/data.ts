@@ -91,10 +91,10 @@ export const personal = {
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
-  bio: "Estudante de Engenharia de Software na Universidade Presbiteriana Mackenzie e Desenvolvedor Full Stack com experiência prática em SAP ABAP, TMS e construção de aplicações web modernas. Apaixonado por arquiteturas escaláveis, DX impecável e interfaces que comunicam intenção.",
+  bio: "Estudante de Engenharia de Software na Estácio e Desenvolvedor Full Stack com experiência prática em SAP ABAP, TMS e construção de aplicações web modernas. Apaixonado por arquiteturas escaláveis, DX impecável e interfaces que comunicam intenção.",
   bioLong:
     "Caminho entre o mundo corporativo (SAP, TMS, processos de logística farmacêutica) e o ecossistema web moderno (React, Node, TypeScript). Acredito que código limpo, design system consistente e observabilidade são os três pilares de produtos que sobrevivem ao tempo. Atualmente aprofundando estudos em arquiteturas distribuídas, Next.js e cloud nativo.",
-  university: "Universidade Presbiteriana Mackenzie",
+  university: "Estácio",
   degree: "Bacharelado em Engenharia de Software",
   roles: [
     "Full Stack Developer",
