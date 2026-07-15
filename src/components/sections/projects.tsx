@@ -16,6 +16,8 @@ import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 import { MagneticButton } from "@/components/portfolio/magnetic-button";
 
+const BLUR_PLACEHOLDER = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0NCIgaGVpZ2h0PSI3NjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEzNDQiIGhlaWdodD0iNzY4IiBmaWxsPSIjMTRBMTQxNiIvPjwvc3ZnPg==";
+
 const FILTERS = [
   { id: "all", label: "Todos" },
   { id: "featured", label: "Destaques" },
@@ -175,6 +177,8 @@ function ProjectCard({
             src={project.image}
             alt={project.title}
             fill
+            placeholder="blur"
+            blurDataURL={BLUR_PLACEHOLDER}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />

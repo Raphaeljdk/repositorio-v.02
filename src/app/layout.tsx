@@ -27,6 +27,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://raphaeljdk.github.io"),
   title: "Raphael Freitas · Full Stack Developer & SAP Specialist",
   description:
     "Portfólio de Raphael Freitas — Desenvolvedor Full Stack. SAP ABAP, TMS, React, Node, TypeScript e soluções corporativas que escalam.",

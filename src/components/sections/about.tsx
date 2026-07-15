@@ -52,7 +52,13 @@ export function About() {
               <p className="relative text-base leading-relaxed text-foreground/90 sm:text-lg">
                 {personal.bioLong}
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="mt-6 flex flex-wrap gap-2"
+              >
                 {["Arquiteturas escaláveis", "DX impecável", "Design system", "Observabilidade"].map(
                   (t) => (
                     <span
@@ -64,31 +70,27 @@ export function About() {
                     </span>
                   )
                 )}
-              </div>
+              </motion.div>
             </div>
 
             {/* Info cards — with Lucide icons, no emojis */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <InfoCard
-                label="Localização"
-                value={personal.location}
-                icon={<MapPin className="h-4 w-4" />}
-              />
-              <InfoCard
-                label="Universidade"
-                value={personal.university}
-                icon={<GraduationCap className="h-4 w-4" />}
-              />
-              <InfoCard
-                label="Foco atual"
-                value="React · Next.js · Cloud"
-                icon={<Crosshair className="h-4 w-4" />}
-              />
-              <InfoCard
-                label="Status"
-                value={personal.availability}
-                icon={<CircleCheck className="h-4 w-4" />}
-              />
+              {[
+                { label: "Localização", value: personal.location, icon: <MapPin className="h-4 w-4" /> },
+                { label: "Universidade", value: personal.university, icon: <GraduationCap className="h-4 w-4" /> },
+                { label: "Foco atual", value: "React · Next.js · Cloud", icon: <Crosshair className="h-4 w-4" /> },
+                { label: "Status", value: personal.availability, icon: <CircleCheck className="h-4 w-4" /> },
+              ].map((card, i) => (
+                <motion.div
+                  key={card.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
+                >
+                  <InfoCard label={card.label} value={card.value} icon={card.icon} />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 

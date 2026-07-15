@@ -106,21 +106,31 @@ export function Experience() {
                     {/* Achievements */}
                     <div className="mt-4">
                       <p className="mono-label mb-2">Conquistas</p>
-                      <ul className="space-y-1.5">
-                        {exp.achievements.map((a) => (
-                          <li
+                      <ul className="mt-4 space-y-1.5">
+                        {exp.achievements.map((a, ai) => (
+                          <motion.li
                             key={a}
+                            initial={{ opacity: 0, x: -8 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: 0.3 + ai * 0.08 }}
                             className="flex items-start gap-2 text-sm text-muted-foreground"
                           >
                             <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent-sage)]" />
                             <span>{a}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
 
                     {/* Tech tags */}
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: 0.5 }}
+                      className="mt-4 flex flex-wrap gap-1.5"
+                    >
                       {exp.technologies.map((t) => (
                         <span
                           key={t}
@@ -129,7 +139,7 @@ export function Experience() {
                           {t}
                         </span>
                       ))}
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}

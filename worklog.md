@@ -331,3 +331,59 @@ Priority 2: Integrate useCardGlow hook into skill/certification cards for per-ca
 Priority 3: Project image lazy loading placeholder (blur-up or skeleton)
 Priority 4: Accessibility audit (screen reader testing, ARIA labels audit)
 Priority 5: Performance optimization (dynamic imports for below-fold sections)
+
+---
+Task ID: qa-round-6
+Agent: Z.ai Code (main)
+Task: Bug fixes + styling polish + staggered animations
+
+Work Log:
+- BUG: 2 project images (energyos.png, tradepro.png) were missing from /public/projects/ — regenerated via z-ai CLI
+- BUG: metadataBase warning in layout.tsx — added `metadataBase: new URL("https://raphaeljdk.github.io")`
+- BUG: Agent converted page.tsx to use `dynamic()` with `ssr: false` — this caused 500 error because Server Components can't use `ssr: false`. Reverted to static imports.
+- All 6 project images verified loading (422x241 optimized thumbnails)
+- VLM final rating: 8/10 — "Premium and senior-level, with a sleek, professional design"
+
+## Changes Made (2 bug fixes + 3 styling improvements):
+
+### Bug Fixes:
+1. **Missing project images**: Regenerated energyos.png and tradepro.png (first batch had 2 silent failures)
+2. **metadataBase warning**: Added `metadataBase: new URL("https://raphaeljdk.github.io")` to metadata export in layout.tsx
+3. **Server Component 500 error**: Reverted dynamic imports with `ssr: false` back to static imports in page.tsx (Next.js Server Components don't support ssr:false)
+
+### Styling Improvements:
+4. **Card glow on skill cards** (skills.tsx): Added `card-glow` class to skill card motion.divs, activating the radial-gradient glow effect (CSS fallback centers at 50%/50%)
+5. **Project image blur placeholder** (projects.tsx): Added `placeholder="blur"` + `blurDataURL` (dark SVG data URI) to Next.js Image for smooth blur-up loading
+6. **Staggered achievement animations** (experience.tsx): Each achievement `<li>` now slides from left (x:-8→0) with 80ms stagger. Tech tags container fades in at 0.5s delay.
+7. **About section staggered reveals** (about.tsx): Bio tags container fades in at 0.3s delay. 4 InfoCards use `.map()` with staggered slide-up (y:12→0, 80ms stagger starting at 0.15s)
+
+### Files Modified:
+- `public/projects/energyos.png` — regenerated
+- `public/projects/tradepro.png` — regenerated
+- `src/app/layout.tsx` — metadataBase
+- `src/app/page.tsx` — reverted dynamic imports
+- `src/components/sections/skills.tsx` — card-glow class
+- `src/components/sections/projects.tsx` — blur placeholder
+- `src/components/sections/experience.tsx` — staggered achievements + tags
+- `src/components/sections/about.tsx` — staggered bio tags + info cards
+
+Stage Summary:
+- VLM Score: 8/10 maintained
+- 3 bugs fixed (2 missing images, 1 500 error, 1 warning)
+- 0 lint errors, 0 console errors, 0 runtime errors
+- All 6 project images verified loading correctly
+- All previous features remain functional
+
+## Current Project Status
+- **Portfolio**: Fully functional Next.js 16 app, 7 sections + ticker + scroll-to-top
+- **Design**: "Raw Sophistication" — copper/sage/gold, grain, custom cursor, morphing bg
+- **VLM Score**: 8/10 (4→7→8→8)
+- **Quality**: 0 lint, 0 console, 0 runtime errors
+- **Components**: ~22, Images: 8 (2 hero/avatar + 6 project previews)
+
+## Unresolved / Next Phase
+Priority 1: Blog/case studies section (new content)
+Priority 2: Accessibility audit (screen reader + ARIA)
+Priority 3: Per-card mouse glow via useCardGlow hook integration
+Priority 4: Re-push to GitHub (latest 3 rounds of changes)
+Priority 5: Performance: Consider `loading="lazy"` on below-fold sections via client wrapper

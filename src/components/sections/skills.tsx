@@ -171,7 +171,7 @@ export function Skills() {
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.3 }}
                 className={cn(
-                  "card-surface group rounded-xl p-4",
+                  "card-surface card-glow group rounded-xl p-4",
                   i < 3 && "lg:col-span-2"
                 )}
               >
