@@ -10,6 +10,7 @@ import {
   CircleDot,
 } from "lucide-react";
 import { projects } from "@/lib/data";
+import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ type FilterId = (typeof FILTERS)[number]["id"];
 
 export function Projects() {
   const [filter, setFilter] = useState<FilterId>("all");
+  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
 
   const filtered = useMemo(() => {
     switch (filter) {
@@ -71,10 +73,17 @@ export function Projects() {
         <motion.div layout className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i} />
+              <ProjectCard key={p.id} project={p} index={i} onClick={() => setSelectedProject(p)} />
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Project Detail Modal */}
+        <ProjectModal
+          project={selectedProject}
+          open={!!selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
 
         {/* CTA */}
         <div className="mt-12 flex justify-center">
@@ -97,9 +106,11 @@ export function Projects() {
 function ProjectCard({
   project,
   index,
+  onClick,
 }: {
   project: (typeof projects)[number];
   index: number;
+  onClick: () => void;
 }) {
   const cardRef = useRef<HTMLElement>(null);
 
@@ -146,9 +157,13 @@ function ProjectCard({
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)]",
+        "group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
         project.featured && "md:col-span-2 lg:col-span-1"
       )}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
     >
       {/* Top accent line */}
       <div className="h-0.5 w-full" style={{ background: `linear-gradient(90deg, var(--color-accent-copper), var(--color-accent-gold))` }} />
@@ -224,6 +239,7 @@ function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Abrir ${project.title}`}
+                onClick={(e) => e.stopPropagation()}
                 className="flex h-7 w-7 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -235,6 +251,7 @@ function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Código de ${project.title}`}
+                onClick={(e) => e.stopPropagation()}
                 className="flex h-7 w-7 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
               >
                 <Github className="h-3.5 w-3.5" />

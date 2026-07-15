@@ -18,7 +18,13 @@ export function Experience() {
 
         <div className="mt-14">
           {/* Summary strip integrated into header */}
-          <div className="mb-10 flex flex-wrap items-center gap-4 font-code text-xs text-muted-foreground">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 flex flex-wrap items-center gap-4 font-code text-xs text-muted-foreground"
+          >
             <span className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-[var(--color-accent-copper)]" />
               <span>{experiences.length} experiências</span>
@@ -27,7 +33,7 @@ export function Experience() {
             <span>2+ anos no mercado</span>
             <span className="text-[var(--color-accent-copper)]">·</span>
             <span>Foco: SAP/TMS + Web moderno</span>
-          </div>
+          </motion.div>
 
           {/* Timeline */}
           <div className="relative">
@@ -48,15 +54,17 @@ export function Experience() {
                   }}
                   className="relative pl-12 sm:pl-16"
                 >
-                  {/* Timeline node — current gets pulse animation */}
+                  {/* Timeline node — current gets pulse animation, past gets subtle dot */}
                   <div
                     className={cn(
                       "absolute left-0 top-1 flex items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)] bg-background sm:left-2 h-8 w-8 sm:h-9 sm:w-9",
                       exp.current && "sm:h-[38px] sm:w-[38px]"
                     )}
                   >
-                    {exp.current && (
+                    {exp.current ? (
                       <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent-copper)] animate-[pulse_2s_ease-in-out_infinite]" />
+                    ) : (
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-copper)]/40" />
                     )}
                   </div>
 

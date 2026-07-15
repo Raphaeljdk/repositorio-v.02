@@ -141,8 +141,8 @@ export function Contact() {
 
           {/* Right — form */}
           <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 16, scale: 0.98 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="card-surface rounded-xl p-6 sm:p-8"
@@ -294,7 +294,7 @@ function ContactRow({
   href?: string;
 }) {
   const Inner = (
-    <div className="group flex items-center gap-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 transition-all hover:border-[var(--color-accent-copper)]">
+    <div className="group flex min-h-[52px] items-center gap-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 transition-all hover:border-[var(--color-accent-copper)]">
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]">
         {icon}
       </span>

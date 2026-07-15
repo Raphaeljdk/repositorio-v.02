@@ -41,7 +41,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] sm:h-8 sm:w-8"
             >
               <Github className="h-4 w-4" />
             </a>
@@ -50,14 +50,14 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] sm:h-8 sm:w-8"
             >
               <Linkedin className="h-4 w-4" />
             </a>
             <a
               href={`mailto:${personal.email}`}
               aria-label="Email"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] sm:h-8 sm:w-8"
             >
               <Mail className="h-4 w-4" />
             </a>
@@ -74,7 +74,7 @@ export function Footer() {
           <a
             href="#home"
             onClick={go("#home")}
-            className="group inline-flex items-center gap-2 rounded-lg border border-[var(--surface-border)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+            className="group inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[var(--surface-border)] px-4 py-2.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
           >
             <motion.span
               whileHover={{ rotate: -45 }}

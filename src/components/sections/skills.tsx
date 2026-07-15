@@ -8,6 +8,68 @@ import { cn } from "@/lib/utils";
 
 type Filter = SkillCategory | "all";
 
+const ACCENT_COLORS = ["#D4775C", "#5BB89A", "#E8B44D", "#7C8CF8", "#C47A5C", "#8B7355"] as const;
+
+function CategoryBar({ activeFilter, onSelect }: { activeFilter: Filter; onSelect: (f: Filter) => void }) {
+  const categoryCounts = useMemo(() => {
+    return (skillCategories.filter((c) => c.id !== "all") as { id: SkillCategory; label: string }[]).map((cat) => ({
+      ...cat,
+      count: skills.filter((s) => s.category === cat.id).length,
+      avgPercent: Math.round(skills.filter((s) => s.category === cat.id).reduce((a, b) => a + b.percent, 0) / Math.max(1, skills.filter((s) => s.category === cat.id).length)),
+    }));
+  }, []);
+
+  const total = categoryCounts.reduce((a, c) => a + c.count, 0);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.15 }}
+      className="mt-8"
+    >
+      <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted/40">
+        {categoryCounts.map((cat, i) => {
+          const width = (cat.count / total) * 100;
+          const isActive = activeFilter === cat.id || activeFilter === "all";
+          return (
+            <motion.button
+              key={cat.id}
+              type="button"
+              onClick={() => onSelect(activeFilter === cat.id ? "all" : cat.id)}
+              className={cn(
+                "relative h-full transition-opacity duration-300",
+                isActive ? "opacity-100" : "opacity-40"
+              )}
+              style={{ width: `${width}%`, backgroundColor: ACCENT_COLORS[i % ACCENT_COLORS.length] }}
+              whileHover={{ opacity: 1, scaleY: 1.5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              title={`${cat.label}: ${cat.count} tecnologias · ${cat.avgPercent}% avg`}
+            />
+          );
+        })}
+      </div>
+      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+        {categoryCounts.map((cat, i) => (
+          <button
+            key={cat.id}
+            type="button"
+            onClick={() => onSelect(activeFilter === cat.id ? "all" : cat.id)}
+            className={cn(
+              "inline-flex items-center gap-1.5 font-code text-[10px] transition-colors",
+              activeFilter === cat.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: ACCENT_COLORS[i % ACCENT_COLORS.length] }} />
+            {cat.label} <span className="text-muted-foreground/60">{cat.count}</span>
+          </button>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
@@ -29,7 +91,13 @@ export function Skills() {
         />
 
         {/* Filters */}
-        <div className="mt-10 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-10 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+        >
           <div className="flex flex-wrap gap-2">
             {skillCategories.map((cat) => (
               <button
@@ -49,7 +117,13 @@ export function Skills() {
           </div>
 
           {/* Search */}
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="relative"
+          >
             <input
               type="text"
               value={query}
@@ -60,8 +134,11 @@ export function Skills() {
             <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-[var(--surface-border)] bg-muted px-1.5 py-0.5 font-code text-[10px] text-muted-foreground lg:block">
               /
             </kbd>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Category overview bar — horizontal stacked bar showing distribution */}
+        <CategoryBar activeFilter={filter} onSelect={setFilter} />
 
         {/* Bento grid */}
         <motion.div layout className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">

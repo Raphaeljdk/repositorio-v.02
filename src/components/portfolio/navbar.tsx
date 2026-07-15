@@ -125,7 +125,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] sm:h-8 sm:w-8"
               >
                 <Github className="h-4 w-4" />
               </a>
@@ -134,7 +134,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] sm:h-8 sm:w-8"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
@@ -155,7 +155,7 @@ export function Navbar() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label="Abrir menu"
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--surface-border)] text-foreground lg:hidden"
+              className="flex h-12 w-12 items-center justify-center rounded-md border border-[var(--surface-border)] text-foreground lg:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -181,7 +181,7 @@ export function Navbar() {
                     go(item.href);
                   }}
                   className={cn(
-                    "block rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                    "block min-h-[44px] rounded-lg px-4 py-3 text-sm font-medium transition-colors",
                     active === item.href
                       ? "bg-[var(--color-accent-copper)]/10 text-foreground"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"

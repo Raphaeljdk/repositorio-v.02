@@ -10,6 +10,7 @@ import { Projects } from "@/components/sections/projects";
 import { Experience } from "@/components/sections/experience";
 import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
+import { EditorialTicker } from "@/components/portfolio/editorial-ticker";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
 
       <main className="relative flex-1">
         <Hero />
+        <EditorialTicker />
         <div className="section-divider my-0" />
         <About />
         <Skills />

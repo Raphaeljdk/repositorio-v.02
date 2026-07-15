@@ -41,24 +41,34 @@ export function Certifications() {
         />
 
         {/* Summary strip — simple, no gradient icons */}
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4"
+        >
           <SummaryItem
             label="Concluídas"
             value={`${totals.completed}`}
+            index={0}
           />
           <SummaryItem
             label="Horas investidas"
             value={`${totals.totalHours}h`}
+            index={1}
           />
           <SummaryItem
             label="SAP ABAP em curso"
             value="65%"
+            index={2}
           />
           <SummaryItem
             label="Eng. Software"
             value="2028"
+            index={3}
           />
-        </div>
+        </motion.div>
 
         {/* Filters */}
         <div className="mt-10 flex flex-wrap gap-2">
@@ -184,16 +194,18 @@ export function Certifications() {
 function SummaryItem({
   label,
   value,
+  index,
 }: {
   label: string;
   value: string;
+  index: number;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
       className="card-surface rounded-xl p-4"
     >
       <p className="font-display text-2xl font-bold text-foreground">{value}</p>
