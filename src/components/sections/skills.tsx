@@ -125,7 +125,7 @@ export function Skills() {
                 className={cn(
                   "relative rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
                   filter === cat.id
-                    ? "bg-[var(--color-accent-copper)] text-white"
+                    ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
                     : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
                 )}
               >

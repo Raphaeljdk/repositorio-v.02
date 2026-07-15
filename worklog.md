@@ -265,3 +265,69 @@ Priority 2: Blog section or case studies page
 Priority 3: Animated stats counter refinement (currently works but could be smoother)
 Priority 4: Dark/light theme preference persistence (localStorage)
 Priority 5: SEO meta tags (Open Graph, Twitter cards) for social sharing
+
+---
+Task ID: qa-round-5
+Agent: Z.ai Code (main)
+Task: QA round 5 — project screenshots, SEO, card glow, cert icons, filter glow
+
+Work Log:
+- QA: 0 console errors, 0 lint errors, clean compile
+- Generated 6 AI project preview images (1344x768 landscape) using z-ai image-gen CLI
+- VLM project images assessment: 9/10 improvement rating
+- VLM full-page assessment: **8/10** — "Premium, unique, and professional" (up from 4/10 initial, 7/10 round 4)
+- Verified all 6 project images load correctly (Next.js Image optimization active)
+- Theme persistence already working via next-themes (enableSystem=false, auto localStorage)
+- Certification icons now differentiated by category (Code2, Database, Cloud, Table2, Server, Award)
+
+## Changes Made (3 features + 3 styling improvements):
+
+### New Features:
+1. **Project screenshot previews** (data.ts + projects.tsx): Added `image?: string` to Project interface. All 6 projects have AI-generated preview images in `/public/projects/`. Cards now show 16:9 aspect-video image with object-cover, 1.05 scale on hover (500ms transition), gradient overlay blending into card surface. Next.js Image with responsive sizes.
+2. **SEO meta tags** (layout.tsx): Added `openGraph` (title, description, url, siteName, locale pt_BR, type website, avatar image), `twitter` (summary_large_image card), `robots` (index, follow).
+3. **Card glow effect** (globals.css + use-card-glow.ts — NEW): Replaced `.card-surface::after` linear-gradient with `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y))` that follows mouse cursor. New `useCardGlow<T>()` hook created for per-card mouse tracking (available for future integration). CSS fallback centers glow at 50%/50%.
+
+### Styling Improvements:
+4. **Certification category icons** (certifications.tsx): Added 6 category-specific icons — Code2 for JS/Web/Git, Database for Java/Banco, Cloud for Cloud/Nuvem, Table2 for Excel, Server for SAP/ABAP, Award for default. Removed unused imports.
+5. **Active filter pill glow** (skills.tsx + projects.tsx + certifications.tsx): Added `shadow-[0_0_12px_rgba(212,119,92,0.3)]` to active filter buttons across all 3 filterable sections.
+6. **Generated assets**: 6 project preview PNGs in `/public/projects/` (nexus-retail, tms-lite, energyos, tradepro, herdeiros, api-gateway).
+
+### Files Created:
+- `public/projects/nexus-retail.png`
+- `public/projects/tms-lite.png`
+- `public/projects/energyos.png`
+- `public/projects/tradepro.png`
+- `public/projects/herdeiros.png`
+- `public/projects/api-gateway.png`
+- `src/hooks/use-card-glow.ts` — NEW
+
+### Files Modified:
+- `src/lib/data.ts` — Project interface + image paths
+- `src/app/layout.tsx` — SEO meta tags
+- `src/app/globals.css` — card glow radial gradient
+- `src/components/sections/projects.tsx` — Image preview + filter glow
+- `src/components/sections/skills.tsx` — filter glow
+- `src/components/sections/certifications.tsx` — category icons + filter glow
+
+Stage Summary:
+- **VLM Score: 8/10** (up from 7/10, initial 4/10)
+- Project images rated 9/10 improvement by VLM
+- 0 lint errors, 0 console errors
+- 7 new files (6 images + 1 hook), 6 files modified
+- All previous features remain functional
+
+## Current Project Status
+- **Portfolio site**: Fully functional Next.js 16 application with 7 sections + editorial ticker + floating scroll-to-top
+- **Design system**: "Raw Sophistication" — warm dark-first, copper/sage/gold, grain texture, custom cursor, morphing background
+- **Interactive features**: Skills filter/search + category bar + "/" shortcut, projects filter + modal + screenshot previews, theme toggle (persisted), contact form, scroll progress, magnetic buttons, 3D card tilt, card glow effect, keyboard navigation
+- **VLM Score**: 8/10 (up from initial 4/10 → 7/10 → 8/10)
+- **Code quality**: 0 lint errors, clean compile, 0 console errors
+- **Total components**: ~22 components, 6 generated project images, 2 avatar/hero images
+- **GitHub**: Pushed to Raphaeljdk/repositorio-v.02 (needs re-push for latest changes)
+
+## Unresolved / Next Phase Recommendations
+Priority 1: Blog section or case studies (new content section)
+Priority 2: Integrate useCardGlow hook into skill/certification cards for per-card mouse tracking
+Priority 3: Project image lazy loading placeholder (blur-up or skeleton)
+Priority 4: Accessibility audit (screen reader testing, ARIA labels audit)
+Priority 5: Performance optimization (dynamic imports for below-fold sections)

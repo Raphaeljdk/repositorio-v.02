@@ -48,17 +48,30 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Construindo experiências digitais que escalam.",
+      "Portfólio de Raphael Freitas — Full Stack Developer especializado em React, Next.js, TypeScript e SAP. São Paulo, Brasil.",
     url: "https://raphaeljdk.github.io",
-    siteName: "Raphael Freitas Portfolio",
+    siteName: "Raphael Freitas",
     locale: "pt_BR",
     type: "website",
+    images: [
+      {
+        url: "/avatar.png",
+        width: 400,
+        height: 400,
+        alt: "Raphael Freitas",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Construindo experiências digitais que escalam — SAP, TMS, React, Node e cloud nativo.",
+      "Portfólio de Raphael Freitas — Full Stack Developer especializado em React, Next.js, TypeScript e SAP.",
+    images: ["/avatar.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   icons: {
     icon: "/avatar.png",

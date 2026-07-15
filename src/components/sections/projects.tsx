@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useSpring } from "framer-motion";
 import {
   Github,
@@ -60,7 +61,7 @@ export function Projects() {
                 className={cn(
                   "rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
                   filter === f.id
-                    ? "bg-[var(--color-accent-copper)] text-white"
+                    ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
                     : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
                 )}
               >
@@ -167,6 +168,20 @@ function ProjectCard({
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
     >
+      {/* Screenshot preview */}
+      {project.image && (
+        <div className="relative aspect-video overflow-hidden">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+        </div>
+      )}
+
       {/* Top accent line */}
       <div className="h-0.5 w-full" style={{ background: `linear-gradient(90deg, var(--color-accent-copper), var(--color-accent-gold))` }} />
 

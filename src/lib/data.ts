@@ -40,6 +40,7 @@ export interface Project {
   stats: { views: number; likes: number };
   role: string;
   accent: string;
+  image?: string;
 }
 
 export interface Experience {
@@ -174,6 +175,7 @@ export const projects: Project[] = [
     stats: { views: 289, likes: 22 },
     role: "Frontend Lead",
     accent: "from-emerald-500 via-teal-500 to-cyan-500",
+    image: "/projects/nexus-retail.png",
   },
   {
     id: 2,
@@ -192,6 +194,7 @@ export const projects: Project[] = [
     stats: { views: 198, likes: 14 },
     role: "Full Stack Developer",
     accent: "from-amber-500 via-orange-500 to-rose-500",
+    image: "/projects/tms-lite.png",
   },
   {
     id: 3,
@@ -210,6 +213,7 @@ export const projects: Project[] = [
     stats: { views: 245, likes: 18 },
     role: "Full Stack Developer",
     accent: "from-violet-500 via-fuchsia-500 to-pink-500",
+    image: "/projects/energyos.png",
   },
   {
     id: 4,
@@ -228,6 +232,7 @@ export const projects: Project[] = [
     stats: { views: 156, likes: 11 },
     role: "Frontend Developer",
     accent: "from-cyan-500 via-sky-500 to-blue-500",
+    image: "/projects/tradepro.png",
   },
   {
     id: 5,
@@ -246,6 +251,7 @@ export const projects: Project[] = [
     stats: { views: 167, likes: 13 },
     role: "Full Stack Developer",
     accent: "from-teal-500 via-emerald-500 to-green-500",
+    image: "/projects/herdeiros.png",
   },
   {
     id: 6,
@@ -264,6 +270,7 @@ export const projects: Project[] = [
     stats: { views: 45, likes: 5 },
     role: "Backend Developer",
     accent: "from-rose-500 via-pink-500 to-fuchsia-500",
+    image: "/projects/api-gateway.png",
   },
 ];
 

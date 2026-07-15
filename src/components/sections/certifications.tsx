@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, Clock, GraduationCap, TrendingUp, CircleDot, ExternalLink } from "lucide-react";
+import { Award, Clock, Code2, Database, Cloud, Table2, Server, ExternalLink } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { certifications } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
@@ -80,7 +81,7 @@ export function Certifications() {
               className={cn(
                 "rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
                 filter === f.id
-                  ? "bg-[var(--color-accent-copper)] text-white"
+                  ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
                   : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
               )}
             >
@@ -113,7 +114,7 @@ export function Certifications() {
                           : "bg-muted text-muted-foreground"
                     )}
                   >
-                    <Award className="h-4 w-4" />
+                    {(() => { const I = getCertIconClass(c.category, c.name); return <I className="h-4 w-4" />; })()}
                   </span>
                   <span
                     className={cn(
@@ -189,6 +190,22 @@ export function Certifications() {
       </div>
     </section>
   );
+}
+
+const CERT_ICON_MAP: Array<{ test: RegExp; Icon: LucideIcon }> = [
+  { test: /JavaScript|Web|Git/i, Icon: Code2 },
+  { test: /Java|Banco/i, Icon: Database },
+  { test: /Cloud|Nuvem/i, Icon: Cloud },
+  { test: /Excel/i, Icon: Table2 },
+  { test: /SAP|ABAP/i, Icon: Server },
+];
+
+function getCertIconClass(category: string, name: string): LucideIcon {
+  const combined = `${name} ${category}`;
+  for (const { test, Icon } of CERT_ICON_MAP) {
+    if (test.test(combined)) return Icon;
+  }
+  return Award;
 }
 
 function SummaryItem({
