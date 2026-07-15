@@ -24,6 +24,7 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
+      data-theme-toggle
       aria-label={`Ativar tema ${nextTheme}`}
       onClick={() => setTheme(nextTheme)}
       className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"

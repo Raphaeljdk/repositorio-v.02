@@ -13,6 +13,8 @@ import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { EditorialTicker } from "@/components/portfolio/editorial-ticker";
 import { Footer } from "@/components/portfolio/footer";
+import { ScrollIndicator } from "@/components/portfolio/scroll-indicator";
+import { KeyboardShortcuts } from "@/components/portfolio/keyboard-shortcuts";
 import { Services } from "@/components/sections/services";
 
 export default function Home() {
@@ -22,6 +24,8 @@ export default function Home() {
       <NoiseOverlay />
       <CustomCursor />
       <Navbar />
+      <ScrollIndicator />
+      <KeyboardShortcuts />
 
       <main className="relative flex-1">
         <Hero />

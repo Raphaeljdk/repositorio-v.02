@@ -182,6 +182,8 @@ export function Skills() {
 function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: boolean }) {
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
 
+  const catColor = ACCENT_COLORS[skillCategories.findIndex((c) => c.id === skill.category) % ACCENT_COLORS.length] ?? ACCENT_COLORS[0];
+
   return (
     <motion.div
       layout
@@ -193,9 +195,10 @@ function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: bool
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "card-surface group rounded-xl p-4",
+        "card-surface group rounded-xl p-4 border-l-2",
         wide && "lg:col-span-2"
       )}
+      style={{ borderLeftColor: catColor }}
     >
       <div className="flex items-center gap-3">
         <img

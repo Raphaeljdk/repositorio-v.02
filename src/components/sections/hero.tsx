@@ -85,7 +85,10 @@ export function Hero() {
       id="home"
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20"
     >
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+      {/* Dot grid background */}
+      <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade" style={{ opacity: 0.6 }} />
+
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
         {/* Left — copy */}
         <motion.div
           variants={container}

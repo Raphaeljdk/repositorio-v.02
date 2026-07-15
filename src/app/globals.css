@@ -95,7 +95,7 @@
   --gradient-accent: linear-gradient(135deg, #D4775C 0%, #E8B44D 100%);
 
   /* Dot grid */
-  --dot-color: rgba(26, 25, 23, 0.06);
+  --dot-color: rgba(26, 25, 23, 0.08);
 
   /* Noise overlay */
   --noise-opacity: 0.035;
@@ -145,7 +145,7 @@
   --gradient-accent: linear-gradient(135deg, #D4775C 0%, #E8B44D 100%);
 
   /* Dot grid */
-  --dot-color: rgba(237, 236, 232, 0.035);
+  --dot-color: rgba(237, 236, 232, 0.05);
 
   /* Noise overlay */
   --noise-opacity: 0.04;

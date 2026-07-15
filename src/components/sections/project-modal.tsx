@@ -85,6 +85,18 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 <X className="h-4 w-4" />
               </button>
 
+              {/* Screenshot image */}
+              {project.image && (
+                <div className="relative -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 mb-5 aspect-video overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+                </div>
+              )}
+
               {/* Category & Year */}
               <div className="flex items-center gap-2">
                 <span className="mono-label font-code text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -146,15 +158,25 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 </div>
               </div>
 
-              {/* Stats row */}
-              <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-[var(--surface-border)] pt-4 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1.5">
+              {/* Stats + Difficulty row */}
+              <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-[var(--surface-border)] pt-4">
+                <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Eye className="h-3.5 w-3.5" />
-                  {project.stats.views} visualizações
+                  {project.stats.views} views
                 </span>
-                <span className="inline-flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <User className="h-3.5 w-3.5" />
                   {project.role}
+                </span>
+                <span className="ml-auto inline-flex items-center gap-2 text-xs text-muted-foreground">
+                  <span>Dificuldade</span>
+                  <span className="inline-block h-1 w-16 overflow-hidden rounded-full bg-muted/60">
+                    <span
+                      className="block h-full bg-[var(--color-accent-copper)] transition-all"
+                      style={{ width: `${project.difficulty}%` }}
+                    />
+                  </span>
+                  <span className="font-code text-[10px] tabular-nums text-foreground/70">{project.difficulty}%</span>
                 </span>
               </div>
 

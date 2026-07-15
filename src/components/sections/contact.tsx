@@ -72,7 +72,10 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative scroll-mt-24 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      {/* Dot grid texture */}
+      <div className="pointer-events-none absolute inset-0 dot-grid opacity-30" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Contato"
           title="Vamos construir algo grande."

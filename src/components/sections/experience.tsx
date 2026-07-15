@@ -9,7 +9,10 @@ import { cn } from "@/lib/utils";
 export function Experience() {
   return (
     <section id="experience" className="relative scroll-mt-24 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      {/* Subtle warm gradient overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-[var(--gradient-brand-soft)]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Experiência"
           title="Onde tenho construído."

@@ -618,3 +618,109 @@ Stage Summary:
 6. **Accessibility audit** — Run axe-core or similar to verify WCAG compliance
 7. **Blog/Case Studies section** — Long-term feature for demonstrating depth of knowledge
 8. **GitHub Activity widget** — Show contribution graph or pinned repos via GitHub API
+
+---
+Task ID: QA-ROUND-7
+Agent: Z.ai Code (main)
+Task: QA Round 7 — Bug fixes, new features, styling improvements
+
+Work Log:
+- Read worklog.md to understand project state and previous rounds' recommendations
+- agent-browser QA: opened site, took desktop (1280×800) + mobile (390×844) screenshots
+- Verified all 6 project card images exist in /public/projects/ (nexus-retail.png, tms-lite.png, energyos.png, tradepro.png, herdeiros.png, api-gateway.png)
+- Light mode QA: clicked theme toggle, took screenshot, VLM rated 8/10 for light mode
+- Dark mode hero VLM rated 8/10, skills section VLM rated 8/10 with colored borders
+- Full-page VLM rated 7/10, noting section monotony and need for visual variety
+
+**New Features Implemented:**
+
+1. **Scroll Section Indicator** (`scroll-indicator.tsx`) — Fixed right-edge vertical dot navigation
+   - Shows after scrolling 300px (AnimatePresence fade)
+   - Active section highlighted with copper dot + glow shadow (h-3 vs h-1.5)
+   - Hover reveals section label with AnimatePresence slide-in
+   - Synced with navbar scroll spy (same intersection observer logic)
+   - Desktop only (hidden on mobile via `hidden lg:flex`)
+
+2. **Keyboard Shortcuts Overlay** (`keyboard-shortcuts.tsx`) — Press `?` to toggle
+   - 7 shortcuts: `?` (open panel), `/` (search skills), `Esc` (close), `t` (theme), `h` (home), `p` (projects), `c` (contact)
+   - Backdrop blur + centered modal with spring animation
+   - Staggered list entrance (40ms per item)
+   - Keyboard-styled `kbd` elements for each shortcut
+   - Smart: disabled in INPUT/TEXTAREA, disabled when body scroll-locked (except Esc)
+   - Added `data-theme-toggle` attribute to theme-toggle button for `t` shortcut
+
+3. **Enhanced Project Modal** (`project-modal.tsx`)
+   - Added full-width screenshot image at top of modal (negative margin bleed)
+   - Gradient fade from image into content area
+   - Added difficulty progress bar in stats row (copper fill, percentage label)
+
+**Styling Improvements:**
+
+4. **Hero Dot Grid** — Added `dot-grid dot-grid-fade` background to hero section for visual depth
+   - Increased base dot-color opacity in both themes (0.06→0.08 light, 0.035→0.05 dark)
+   - Applied 60% opacity to hero dot grid
+
+5. **Skill Cards Colored Borders** — Each skill card now has a 2px left border colored by category
+   - Uses ACCENT_COLORS array indexed by category for visual variety
+   - 6 distinct colors across 6 categories (copper, sage, gold, purple, terracotta, brown)
+
+6. **Editorial Ticker Enhancement**
+   - Added edge fade gradients (16px) for smooth content entry/exit
+   - Increased tracking to 0.15em for wider editorial feel
+   - Added hover color transition on text items
+   - Slowly increased scroll duration from 40s to 45s
+
+7. **Footer Enhancement**
+   - Added "Feito com" tech strip (5 badges: Next.js 16, TypeScript, Tailwind CSS 4, Framer Motion, Lucide Icons)
+   - Each badge has a colored dot matching the brand accent palette
+   - Added keyboard shortcut hint (`?` kbd + "atalhos") in footer row 2
+   - Horizontally scrollable on mobile
+
+8. **Section Background Variety** — To reduce monotony (VLM feedback)
+   - Experience section: subtle warm gradient overlay (`bg-[var(--gradient-brand-soft)]`)
+   - Contact section: dot-grid texture overlay at 30% opacity
+
+**Verification:**
+- `bun run lint` — 0 errors
+- agent-browser console — 0 runtime errors
+- VLM ratings: Hero 8/10, Skills 8/10, Light mode 8/10, Full page 7/10
+
+Stage Summary:
+- 3 new interactive features (scroll indicator, keyboard shortcuts, enhanced modal)
+- 5 styling improvements across 8 files
+- 0 lint errors, 0 runtime errors
+- All sections now have differentiated visual treatments (dot grid, gradient overlay, texture)
+
+---
+## CURRENT PROJECT STATUS ASSESSMENT (post QA-7)
+
+### Overall Status: STABLE — Feature-rich portfolio, production-ready
+- 11 sections: Hero, Ticker, About, Services, Skills, Projects, Experience, Testimonials, Certifications, Contact, Footer
+- 3 global components: ScrollIndicator, KeyboardShortcuts, ScrollToTop, CustomCursor, AnimatedBackground, NoiseOverlay
+- 0 compilation errors, 0 lint errors, 0 runtime errors
+
+### New in This Round
+1. Scroll section indicator (right-edge dot nav)
+2. Keyboard shortcuts overlay (? to toggle, 7 shortcuts)
+3. Project modal now shows screenshot + difficulty bar
+4. Skill cards have category-colored left borders
+5. Hero has dot-grid background texture
+6. Footer has "Feito com" tech strip + keyboard hint
+7. Section backgrounds differentiated (gradients, dot grids, textures)
+
+### VLM Ratings This Round
+- Hero: 8/10 (live clock confirmed, dot grid still faint)
+- Skills: 8/10 (colored borders confirmed)
+- Services: 8/10 (from previous round)
+- Light mode: 8/10
+- Full page: 7/10 (main feedback: needs even more visual variety)
+- Mobile: 7/10
+
+### Recommended Next Steps (Priority Order)
+1. **Custom illustrations/graphics** — Replace generic tech icons with custom SVG art for hero or about section
+2. **Animated counter section** — Standalone "numbers that matter" section with IntersectionObserver
+3. **GitHub API integration** — Fetch and display real GitHub stats/contribution data
+4. **OG Image** — Generate proper 1200×630 Open Graph image for social sharing
+5. **Performance optimization** — Run Lighthouse audit, optimize LCP/CLS
+6. **Accessibility audit** — Run axe-core for WCAG compliance
+7. **Push to GitHub** — All QA 3-7 changes still need to be pushed
