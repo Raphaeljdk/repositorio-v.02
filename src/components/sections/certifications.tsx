@@ -35,6 +35,8 @@ export function Certifications() {
 
   return (
     <section id="certifications" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Subtle sage glow */}
+      <div className="pointer-events-none absolute left-1/3 top-0 h-[400px] w-[400px] rounded-full bg-[var(--color-accent-sage)]/[0.03] blur-3xl" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Certificações"

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Sparkles } from "lucide-react";
 import { personal } from "@/lib/data";
 import Image from "next/image";
 import { MagneticButton } from "@/components/portfolio/magnetic-button";
@@ -88,6 +88,26 @@ export function Hero() {
       {/* Dot grid background */}
       <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade" style={{ opacity: 0.6 }} />
 
+      {/* Decorative geometric shapes */}
+      <motion.div
+        className="pointer-events-none absolute top-1/4 -right-20 h-80 w-80 rounded-full border border-[var(--color-accent-copper)]/[0.06]"
+        animate={reduce ? {} : { rotate: 360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        aria-hidden
+      />
+      <motion.div
+        className="pointer-events-none absolute bottom-1/3 -left-16 h-48 w-48 rounded-full border border-[var(--color-accent-sage)]/[0.05]"
+        animate={reduce ? {} : { rotate: -360 }}
+        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        aria-hidden
+      />
+      <motion.div
+        className="pointer-events-none absolute top-16 right-1/4 h-3 w-3 rounded-full bg-[var(--color-accent-gold)]/20"
+        animate={reduce ? {} : { y: [0, -12, 0], opacity: [0.2, 0.5, 0.2] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        aria-hidden
+      />
+
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
         {/* Left — copy */}
         <motion.div
@@ -96,11 +116,12 @@ export function Hero() {
           animate="show"
           className="relative z-10"
         >
-          {/* Monospace label */}
+          {/* Monospace label with copper dot */}
           <motion.p
             variants={item}
-            className="font-code text-xs uppercase tracking-[-0.02em] text-muted-foreground"
+            className="flex items-center gap-2 font-code text-xs uppercase tracking-[-0.02em] text-muted-foreground"
           >
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-copper)]" />
             Raphael Freitas
           </motion.p>
 
@@ -137,10 +158,10 @@ export function Hero() {
             <span className="inline-block h-4 w-[2px] animate-pulse bg-[var(--color-accent-copper)] align-middle" />
           </motion.div>
 
-          {/* Short bio */}
+          {/* Short bio — slightly bolder */}
           <motion.p
             variants={item}
-            className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="mt-6 max-w-lg text-base leading-relaxed text-foreground/80 sm:text-lg sm:leading-relaxed"
           >
             {personal.bio}
           </motion.p>
@@ -155,8 +176,9 @@ export function Hero() {
             <span>{personal.degree}</span>
           </motion.div>
 
-          {/* CTAs */}
+          {/* CTAs — improved hierarchy */}
           <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+            {/* Primary CTA — larger, more prominent */}
             <MagneticButton
               as="a"
               href="#projects"
@@ -164,11 +186,13 @@ export function Hero() {
                 e.preventDefault();
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent-copper)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#E8886D] active:scale-[0.98]"
+              className="group relative inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(212,119,92,0.3)] transition-all hover:shadow-[0_6px_28px_rgba(212,119,92,0.4)] hover:bg-[#E8886D] active:scale-[0.97]"
             >
+              <Sparkles className="h-4 w-4" />
               Ver projetos
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </MagneticButton>
+            {/* Secondary CTA — ghost, clearly subordinate */}
             <MagneticButton
               as="a"
               href="#contact"
@@ -176,9 +200,10 @@ export function Hero() {
                 e.preventDefault();
                 document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--surface-border)] px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-[var(--color-accent-copper)]"
+              className="group inline-flex items-center gap-2 rounded-xl border border-[var(--surface-border)] px-5 py-3.5 text-sm font-medium text-muted-foreground transition-all hover:border-[var(--color-accent-copper)]/50 hover:text-foreground"
             >
               Vamos conversar
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </MagneticButton>
           </motion.div>
         </motion.div>
@@ -194,15 +219,24 @@ export function Hero() {
             style={reduce ? {} : { y: avatarY, opacity: avatarOpacity }}
             className="relative aspect-square"
           >
-            {/* Rotating gradient border */}
+            {/* Rotating gradient border — thicker, more visible */}
             <div
-              className="absolute inset-0 rounded-full animate-spin-slow opacity-50"
+              className="absolute inset-0 rounded-full animate-spin-slow opacity-60"
               style={{
                 background:
                   "conic-gradient(from 0deg, #D4775C, #E8B44D, #5BB89A, #D4775C)",
-                mask: "radial-gradient(farthest-side, transparent calc(100% - 1px), black calc(100% - 1px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
                 WebkitMask:
-                  "radial-gradient(farthest-side, transparent calc(100% - 1px), black calc(100% - 1px))",
+                  "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
+              }}
+              aria-hidden
+            />
+            {/* Outer ring glow */}
+            <div
+              className="absolute -inset-3 rounded-full opacity-20 blur-xl"
+              style={{
+                background:
+                  "conic-gradient(from 0deg, #D4775C, #E8B44D, #5BB89A, #D4775C)",
               }}
               aria-hidden
             />
@@ -217,6 +251,16 @@ export function Hero() {
                 priority
               />
             </div>
+            {/* Bottom-left floating badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute -bottom-2 left-4 z-10 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm px-3 py-2 shadow-lg"
+            >
+              <p className="font-code text-[10px] text-muted-foreground">São Paulo, BR</p>
+              <p className="mt-0.5 text-xs font-semibold text-foreground">Estácio · 2028</p>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

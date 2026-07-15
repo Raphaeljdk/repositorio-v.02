@@ -718,9 +718,135 @@ Stage Summary:
 
 ### Recommended Next Steps (Priority Order)
 1. **Custom illustrations/graphics** — Replace generic tech icons with custom SVG art for hero or about section
-2. **Animated counter section** — Standalone "numbers that matter" section with IntersectionObserver
-3. **GitHub API integration** — Fetch and display real GitHub stats/contribution data
-4. **OG Image** — Generate proper 1200×630 Open Graph image for social sharing
-5. **Performance optimization** — Run Lighthouse audit, optimize LCP/CLS
-6. **Accessibility audit** — Run axe-core for WCAG compliance
-7. **Push to GitHub** — All QA 3-7 changes still need to be pushed
+2. **GitHub API integration** — Fetch and display real GitHub stats/contribution data (heatmap currently uses simulated data)
+3. **Performance optimization** — Run Lighthouse audit, optimize LCP/CLS
+4. **Accessibility audit** — Run axe-core for WCAG compliance
+5. **Push to GitHub** — All QA 3-8 changes still need to be pushed
+
+---
+Task ID: QA-ROUND-8
+Agent: Z.ai Code (main)
+Task: QA Round 8 — Assess project, fix bugs, add new features, improve styling, create OG image
+
+Work Log:
+- Read full worklog.md (727 lines) to understand project history across 7 previous QA rounds
+- Ran `bun run lint` — 0 errors initially
+- agent-browser QA: opened http://localhost:3000, checked console errors (0), took 5 screenshots (dark hero, mid-page, lower page, light hero, light full, mobile, mobile menu)
+- VLM analysis of screenshots:
+  - Full page dark: 6/10 (sections blend, need variety)
+  - Hero dark: 7/10 (CTAs compete, background effects weak)
+  - Mobile: 7/10 (truncated text, 1 Issue badge — dev tools)
+- Identified key issues: CTA hierarchy, section monotony, lack of visual variety, no animated counters
+
+**New Features Implemented:**
+
+1. **Stats Marquee Strip** (`stats-marquee.tsx`) — Horizontal infinite-scrolling stats bar
+   - Placed between Editorial Ticker and About section
+   - 6 stats (8+ Projects, 25+ Technologies, 2+ Years, 9 Certifications, 4.5k+ Study Hours, 15 Repositories)
+   - Each stat in its brand accent color
+   - Edge fade gradients for smooth entry/exit
+   - 30s infinite loop animation
+
+2. **Animated Stats Counter Section** (`stats-marquee.tsx` — StatsCounter)
+   - Standalone "Números que importam" section between Process and Skills
+   - 4 big animated counters: Projects, Technologies, Years, Study Hours
+   - useCountUp hook with easeOutExpo, triggered by IntersectionObserver
+   - Copper accent bar that expands on hover
+   - Subtle gradient background overlay
+
+3. **"How I Work" Process Section** (`process.tsx`)
+   - 4 steps: Entendimento, Design & Arquitetura, Desenvolvimento, Entrega & Evolução
+   - Desktop: horizontal layout with colored icon circles, step number badges, dashed connector lines with arrows
+   - Mobile: vertical card layout with left-aligned icons
+   - Each step has unique accent color (copper, gold, sage, purple)
+   - Staggered entrance animations
+
+4. **GitHub Contribution Heatmap** (`github-heatmap.tsx`)
+   - 52×7 grid (364 cells) with 5-level copper color scale
+   - Simulated contribution data with realistic patterns (weekday activity, burst weeks, quiet weeks)
+   - Mini stats: total contributions, active days, current streak
+   - Cell-by-cell entrance animation (staggered 0.002s per cell)
+   - Theme-aware via CSS custom properties (--heatmap-0 through --heatmap-4)
+   - Integrated into About section (replaces 6-stat bento grid, now shows heatmap + 3 compact stats)
+
+5. **OG Image** (`public/og-image.png`)
+   - Generated 1344×768 image via AI image generation
+   - Dark background, RF monogram, name, subtitle, tech icons
+   - Updated layout.tsx metadata: openGraph.images and twitter.images now use /og-image.png
+
+**Hero Enhancements:**
+- CTA hierarchy improved: primary button is now larger (rounded-xl, py-3.5, bold, shadow glow), secondary is ghost style (text-muted-foreground, font-medium)
+- Primary CTA now has Sparkles icon and elevated shadow
+- Added decorative geometric shapes: rotating circles (copper + sage), floating gold dot
+- Copper dot added before "Raphael Freitas" monospace label
+- Bio text changed from text-muted-foreground to text-foreground/80 for better readability
+- Avatar border made thicker (1px → 2px), more visible (opacity 50% → 60%)
+- Added outer ring glow behind avatar (blur-xl, opacity 20%)
+- Floating badge "São Paulo, BR / Estácio · 2028" at bottom-left of avatar
+
+**Section Visual Variety (7 sections enhanced):**
+- Services: diagonal line pattern overlay (repeating-linear-gradient 45deg, 3% opacity)
+- Skills: radial copper glow behind grid (600px, 3% opacity, blur-3xl)
+- Projects: top-left radial gradient accent corner (copper, 20% opacity)
+- Testimonials: right-side warm gold glow (500px, 3% opacity)
+- Certifications: left-third sage glow (400px, 3% opacity)
+- Experience: already had gradient-brand-soft from previous round
+- Contact: already had dot-grid texture from previous round
+
+**Footer Enhancement:**
+- Added "Vamos trabalhar juntos?" CTA with hover shadow
+- Added "Feito com ❤️ em São Paulo" text
+- Social icons now have hover shadow effect
+- Brand area now shows "Full Stack Developer" subtitle
+- Improved spacing and layout
+
+**Navigation Update:**
+- Added "Processo" (#process) to navItems array in data.ts
+- ScrollIndicator auto-picks up the new section
+
+**Verification:**
+- `bun run lint` — 0 errors (fixed ArrowUpRight import issue, LEVEL_COLORS_DARK/LIGHT unused variables, MONTHS unused import)
+- agent-browser console — 0 runtime errors
+- VLM ratings: Hero 7-8/10, Process + Stats 7-8/10, Footer 8/10
+
+Stage Summary:
+- 5 new features/components (StatsMarquee, StatsCounter, Process, GitHubHeatmap, OG Image)
+- 2 new files created (stats-marquee.tsx, process.tsx, github-heatmap.tsx)
+- 7 existing files modified (hero.tsx, about.tsx, services.tsx, skills.tsx, projects.tsx, testimonials.tsx, certifications.tsx, footer.tsx, page.tsx, layout.tsx, data.ts)
+- 0 lint errors, 0 runtime errors
+- Design system consistency maintained (copper/sage/gold accents, card-surface, mono-label, font-code)
+- Total sections: 12 (Hero, Ticker, StatsMarquee, About, Services, Process, StatsCounter, Skills, Projects, Experience, Testimonials, Certifications, Contact)
+
+---
+## CURRENT PROJECT STATUS ASSESSMENT (post QA-8)
+
+### Overall Status: STABLE — Feature-rich, visually diverse portfolio
+- 12+ sections rendering correctly with differentiated visual treatments
+- 0 compilation errors, 0 lint errors, 0 runtime errors
+- Design system consistent (Raw Sophistication: warm dark, copper/sage/gold accents, editorial typography)
+- VLM ratings: Hero 7-8/10, Process 7-8/10, Mobile 7/10, Full Page 6-7/10
+
+### New in This Round
+1. Stats Marquee (infinite scrolling horizontal strip)
+2. Animated Stats Counter section (big numbers with countUp)
+3. "How I Work" Process section (4-step horizontal/vertical)
+4. GitHub Contribution Heatmap (52×7 grid with copper color scale)
+5. OG Image (1344×768, updated in metadata)
+6. Hero enhancements (CTA hierarchy, geometric shapes, avatar glow, floating badge)
+7. Section visual variety (7 sections with unique background treatments)
+8. Footer enhancement (CTA, Heart emoji, social hover effects)
+
+### VLM Ratings This Round
+- Hero: 7-8/10 (CTA hierarchy clear, avatar glow visible, floating badge adds dynamism)
+- Process + Stats: 7-8/10 (clean concept, could use more visual polish)
+- Mobile: 7/10
+- Full page: 6-7/10 (section variety improved but still room for more)
+
+### Recommended Next Steps (Priority Order)
+1. **GitHub API integration** — Fetch real contribution data from GitHub API instead of simulated
+2. **Performance optimization** — Run Lighthouse audit, optimize LCP/CLS, lazy load below-fold sections
+3. **Accessibility audit** — Run axe-core for WCAG compliance
+4. **Push to GitHub** — All QA 3-8 changes still need to be pushed to github.com/Raphaeljdk/repositorio-v.02
+5. **Blog/Case Studies section** — Long-term feature for demonstrating depth of knowledge
+6. **Real-time GitHub Activity widget** — Pinned repos via GitHub API
+7. **Theme preference persistence** — Save dark/light preference to localStorage

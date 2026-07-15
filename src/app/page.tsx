@@ -16,6 +16,8 @@ import { Footer } from "@/components/portfolio/footer";
 import { ScrollIndicator } from "@/components/portfolio/scroll-indicator";
 import { KeyboardShortcuts } from "@/components/portfolio/keyboard-shortcuts";
 import { Services } from "@/components/sections/services";
+import { StatsMarquee, StatsCounter } from "@/components/sections/stats-marquee";
+import { Process } from "@/components/sections/process";
 
 export default function Home() {
   return (
@@ -30,9 +32,12 @@ export default function Home() {
       <main className="relative flex-1">
         <Hero />
         <EditorialTicker />
-        <div className="section-divider my-0" />
+        <StatsMarquee />
         <About />
         <Services />
+        <Process />
+        <StatsCounter />
+        <div className="section-divider my-0" />
         <Skills />
         <Projects />
         <div className="section-divider my-0" />

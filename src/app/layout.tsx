@@ -56,10 +56,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/avatar.png",
-        width: 400,
-        height: 400,
-        alt: "Raphael Freitas",
+        url: "/og-image.png",
+        width: 1344,
+        height: 768,
+        alt: "Raphael Freitas · Full Stack Developer & SAP Specialist",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Raphael Freitas · Full Stack Developer",
     description:
       "Portfólio de Raphael Freitas — Full Stack Developer especializado em React, Next.js, TypeScript e SAP.",
-    images: ["/avatar.png"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

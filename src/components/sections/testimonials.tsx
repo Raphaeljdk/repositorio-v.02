@@ -111,6 +111,8 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Subtle warm glow */}
+      <div className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-[var(--color-accent-gold)]/[0.03] blur-3xl" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Depoimentos"

@@ -102,6 +102,8 @@ export function Skills() {
 
   return (
     <section id="skills" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Subtle radial glow behind the grid */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[var(--color-accent-copper)]/[0.03] blur-3xl" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Stack"

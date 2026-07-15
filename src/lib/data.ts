@@ -408,6 +408,7 @@ export const navItems = [
   { label: "Início", href: "#home" },
   { label: "Sobre", href: "#about" },
   { label: "Serviços", href: "#services" },
+  { label: "Processo", href: "#process" },
   { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
   { label: "Experiência", href: "#experience" },

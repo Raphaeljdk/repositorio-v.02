@@ -16,6 +16,7 @@ import {
 import { personal, stats } from "@/lib/data";
 import { useCountUp, useInView } from "@/hooks/use-count-up";
 import { cn } from "@/lib/utils";
+import { GitHubHeatmap } from "./github-heatmap";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   rocket: Rocket,
@@ -132,25 +133,29 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Right: bento stats grid — first 2 cards are larger */}
-          <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-2 gap-3"
-          >
-            {stats.map((s, i) => (
-              <StatCard
-                key={s.label}
-                stat={s}
-                start={inView}
-                delay={i * 0.06}
-                large={i < 2}
-              />
-            ))}
-          </motion.div>
+          {/* Right: GitHub heatmap + compact stats */}
+          <div className="space-y-4">
+            <GitHubHeatmap />
+
+            {/* Compact stats row — 3 cards */}
+            <motion.div
+              ref={ref}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-3 gap-3"
+            >
+              {stats.slice(0, 3).map((s, i) => (
+                <StatCard
+                  key={s.label}
+                  stat={s}
+                  start={inView}
+                  delay={i * 0.08}
+                />
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -161,12 +166,10 @@ function StatCard({
   stat,
   start,
   delay,
-  large,
 }: {
   stat: (typeof stats)[number];
   start: boolean;
   delay: number;
-  large: boolean;
 }) {
   const Icon = ICONS[stat.icon] ?? Rocket;
   const value = useCountUp(stat.value, 1600, start);
@@ -179,21 +182,17 @@ function StatCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
-      className={cn(
-        "card-surface border-l-2 border-l-[var(--color-accent-copper)] rounded-xl p-4",
-        large && "col-span-2 sm:col-span-1"
-      )}
+      className="card-surface border-l-2 border-l-[var(--color-accent-copper)] rounded-xl p-4"
     >
       <div className="flex items-center justify-between">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]">
-          <Icon className="h-4 w-4" />
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]">
+          <Icon className="h-3.5 w-3.5" />
         </span>
-        <span className="mono-label">{String(stat.value).padStart(2, "0")}</span>
       </div>
-      <p className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      <p className="mt-2 font-display text-xl font-bold tracking-tight text-foreground sm:text-2xl">
         {display}
       </p>
-      <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
+      <p className="mt-0.5 text-[11px] text-muted-foreground">{stat.label}</p>
     </motion.div>
   );
 }

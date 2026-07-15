@@ -46,6 +46,10 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Subtle top-left accent corner */}
+      <div className="pointer-events-none absolute top-0 left-0 h-40 w-40 opacity-20" style={{
+        background: "radial-gradient(circle at 0% 0%, var(--color-accent-copper), transparent 70%)",
+      }} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

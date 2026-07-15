@@ -23,6 +23,16 @@ const SERVICE_ACCENTS = [
 export function Services() {
   return (
     <section id="services" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Subtle diagonal line pattern */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `repeating-linear-gradient(
+          45deg,
+          var(--color-accent-copper) 0px,
+          var(--color-accent-copper) 1px,
+          transparent 1px,
+          transparent 20px
+        )`,
+      }} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Serviços"
