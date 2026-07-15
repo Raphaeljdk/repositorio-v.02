@@ -17,6 +17,7 @@ import { personal, stats } from "@/lib/data";
 import { useCountUp, useInView } from "@/hooks/use-count-up";
 import { cn } from "@/lib/utils";
 import { GitHubHeatmap } from "./github-heatmap";
+import { CurrentlyWidget } from "./currently-widget";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   rocket: Rocket,
@@ -133,9 +134,12 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Right: GitHub heatmap + compact stats */}
+          {/* Right: GitHub heatmap + compact stats + currently */}
           <div className="space-y-4">
             <GitHubHeatmap />
+
+            {/* Currently widget */}
+            <CurrentlyWidget />
 
             {/* Compact stats row — 3 cards */}
             <motion.div

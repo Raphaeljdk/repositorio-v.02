@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
 import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
+import { GitHubActivity } from "@/components/sections/github-activity";
 import { Experience } from "@/components/sections/experience";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Certifications } from "@/components/sections/certifications";
@@ -40,6 +41,8 @@ export default function Home() {
         <div className="section-divider my-0" />
         <Skills />
         <Projects />
+        <div className="section-divider my-0" />
+        <GitHubActivity />
         <div className="section-divider my-0" />
         <Experience />
         <div className="section-divider my-0" />

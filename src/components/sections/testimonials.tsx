@@ -111,8 +111,9 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative scroll-mt-24 py-24 sm:py-32">
-      {/* Subtle warm glow */}
+      {/* Subtle warm glow + diagonal pattern */}
       <div className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-[var(--color-accent-gold)]/[0.03] blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 35px, var(--color-accent-copper) 35px, var(--color-accent-copper) 36px)" }} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Depoimentos"
@@ -283,26 +284,47 @@ function TestimonialCard({
       {/* Copper gradient divider */}
       <div className="mt-6 h-px w-full bg-gradient-to-r from-[var(--color-accent-copper)]/30 via-[var(--color-accent-copper)]/8 to-transparent" />
 
-      {/* Author */}
-      <div className="mt-5 flex items-center gap-3.5">
-        {/* Initials avatar */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)]/30 bg-[var(--color-accent-copper)]/[0.06]">
-          <span className="font-display text-xs font-semibold tracking-wide text-[var(--color-accent-copper)]">
-            {initials}
-          </span>
+      {/* Author + Star Rating */}
+      <div className="mt-5 flex items-center justify-between">
+        <div className="flex items-center gap-3.5">
+          {/* Initials avatar */}
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)]/30 bg-[var(--color-accent-copper)]/[0.06]">
+            <span className="font-display text-xs font-semibold tracking-wide text-[var(--color-accent-copper)]">
+              {initials}
+            </span>
+          </div>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-foreground">
+              {testimonial.name}
+            </p>
+            <p className="mt-0.5 truncate text-xs text-muted-foreground/70">
+              {testimonial.role}
+            </p>
+            <p className="mt-px truncate font-code text-[0.688rem] tracking-tight text-[var(--color-accent-copper)]/50">
+              {testimonial.company}
+            </p>
+          </div>
         </div>
 
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-foreground">
-            {testimonial.name}
-          </p>
-          <p className="mt-0.5 truncate text-xs text-muted-foreground/70">
-            {testimonial.role}
-          </p>
-          <p className="mt-px truncate font-code text-[0.688rem] tracking-tight text-[var(--color-accent-copper)]/50">
-            {testimonial.company}
-          </p>
-        </div>
+        {/* Star rating */}
+        {testimonial.rating && (
+          <div className="hidden sm:flex items-center gap-0.5" aria-label={`Avaliação: ${testimonial.rating} de 5 estrelas`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg
+                key={i}
+                className="h-3.5 w-3.5"
+                viewBox="0 0 20 20"
+                fill={i < testimonial.rating! ? "var(--color-accent-gold)" : "none"}
+                stroke="var(--color-accent-gold)"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27l-4.94 2.43.94-5.49-4-3.9 5.53-.8L10 1.5z" />
+              </svg>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

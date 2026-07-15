@@ -73,6 +73,7 @@ export interface Testimonial {
   company: string;
   quote: string;
   avatar?: string;
+  rating?: number;
 }
 
 export interface Stat {
@@ -383,24 +384,28 @@ export const testimonials: Testimonial[] = [
     role: "Gerente de Operações",
     company: "Polyexcel",
     quote: "Raphael se destacou rapidamente no domínio do SAP e do TMS. Em poucos meses já operava módulos MM/SD com autonomia e propunha melhorias nos fluxos de integração. Raro ver alguém tão jovem com essa capacidade de absorver processos corporativos complexos.",
+    rating: 5,
   },
   {
     name: "Juliana Mendes",
     role: "Analista de Logística",
     company: "Eurofarma",
     quote: "Trabalhei lado a lado com o Raphael no centro de distribuição. Ele trouxe uma visão analítica que nos ajudou a reduzir retrabalho em lotes farmacêuticos. Sua disciplina em seguir protocolos de qualidade BPF foi exemplar para toda a equipe.",
+    rating: 5,
   },
   {
     name: "Lucas Ferreira",
     role: "Desenvolvedor Frontend",
     company: "freeCodeCamp Community",
     quote: "Nos projetos colaborativos do freeCodeCamp, o Raphael sempre entregava código limpo e bem documentado. Suas soluções para os desafios de JavaScript e algoritmos demonstram uma base sólida que muitos devs com o dobro do tempo de carreira não têm.",
+    rating: 5,
   },
   {
     name: "Prof. Ricardo Nascimento",
     role: "Professor — Eng. de Software",
     company: "Estácio",
     quote: "Raphael é um dos alunos mais engajados que já tive. Ele não se limita ao conteúdo das aulas — busca entender o porquê por trás de cada padrão de projeto e arquitetura. Tem potencial claro para se tornar um engenheiro de software referência.",
+    rating: 5,
   },
 ];
 
@@ -411,6 +416,7 @@ export const navItems = [
   { label: "Processo", href: "#process" },
   { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
+  { label: "GitHub", href: "#github" },
   { label: "Experiência", href: "#experience" },
   { label: "Depoimentos", href: "#testimonials" },
   { label: "Certificações", href: "#certifications" },

@@ -1,12 +1,237 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { MapPin, Calendar, CheckCircle2, Building2 } from "lucide-react";
+import { useSyncExternalStore, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Calendar, Building2, ChevronDown } from "lucide-react";
 import { experiences } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 
+/* ------------------------------------------------------------------ */
+/*  Hook: responsive desktop detection via useSyncExternalStore       */
+/* ------------------------------------------------------------------ */
+function useIsDesktop() {
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      const mql = window.matchMedia("(min-width: 768px)");
+      mql.addEventListener("change", onStoreChange);
+      return () => mql.removeEventListener("change", onStoreChange);
+    },
+    []
+  );
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia("(min-width: 768px)").matches,
+    () => false
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Constants                                                          */
+/* ------------------------------------------------------------------ */
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const summaryCards = [
+  { label: `${experiences.length} experiências`, icon: Building2 },
+  { label: "SAP + TMS", icon: Building2 },
+  { label: "São Paulo", icon: MapPin },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Sub-component: Single Experience Entry                             */
+/* ------------------------------------------------------------------ */
+function ExperienceEntry({
+  exp,
+  index,
+  isDesktop,
+}: {
+  exp: (typeof experiences)[number];
+  index: number;
+  isDesktop: boolean;
+}) {
+  const isLeft = isDesktop && index % 2 === 0;
+  const [showResponsibilities, setShowResponsibilities] = useState(
+    isDesktop
+  );
+
+  const slideX = isDesktop ? (isLeft ? -24 : 24) : -24;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: slideX }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.12,
+        ease: EASE,
+      }}
+      className={cn(
+        /* Desktop: alternating sides with a centered column */
+        "relative md:w-[calc(50%-24px)]",
+        isLeft ? "md:mr-auto md:pr-0" : "md:ml-auto md:pl-0"
+      )}
+    >
+      {/* Card */}
+      <div
+        className={cn(
+          "card-surface rounded-xl p-5 sm:p-6",
+          exp.current && "border-l-[3px] border-l-[var(--color-accent-copper)]",
+          isDesktop && isLeft && "md:text-right",
+          isDesktop && !isLeft && "md:text-left"
+        )}
+      >
+        {/* Header row */}
+        <div
+          className={cn(
+            "flex flex-wrap items-start gap-3",
+            isDesktop && isLeft && "md:flex-row-reverse md:text-right"
+          )}
+        >
+          <div className="flex-1 min-w-0">
+            <div
+              className={cn(
+                "flex items-center gap-2",
+                isDesktop && isLeft && "md:justify-end"
+              )}
+            >
+              <Building2 className="h-5 w-5 shrink-0 text-[var(--color-accent-copper)]" />
+              <h3 className="font-display text-xl font-extrabold text-foreground leading-tight">
+                {exp.company}
+              </h3>
+              {exp.current && (
+                <span className="relative inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent-copper)]/15 px-2.5 py-0.5 font-code text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent-copper)]">
+                  <span className="absolute inset-0 rounded-md bg-[var(--color-accent-copper)]/15 animate-[pulse_2.5s_ease-in-out_infinite]" />
+                  <span className="relative">Atual</span>
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-sm font-semibold text-[var(--color-accent-copper)]">
+              {exp.role}
+            </p>
+          </div>
+
+          <div
+            className={cn(
+              "flex flex-col gap-1 font-code text-xs text-muted-foreground",
+              isDesktop && isLeft && "md:items-start"
+            )}
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" /> {exp.period}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5" />
+              {exp.location} · {exp.type}
+            </span>
+          </div>
+        </div>
+
+        {/* Summary */}
+        <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+          {exp.summary}
+        </p>
+
+        {/* Achievements */}
+        {exp.achievements.length > 0 && (
+          <div className="mt-5">
+            <p className="mono-label mb-2.5">Conquistas</p>
+            <ul className="space-y-2">
+              {exp.achievements.map((a, ai) => (
+                <motion.li
+                  key={a}
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.3 + ai * 0.08 }}
+                  className="flex items-start gap-2.5 text-sm text-foreground/90"
+                >
+                  <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[var(--color-accent-copper)]" />
+                  <span>{a}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Collapsible Responsibilities */}
+        {exp.responsibilities.length > 0 && (
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={() => setShowResponsibilities((v) => !v)}
+              className={cn(
+                "group inline-flex items-center gap-1.5 font-code text-[10px] uppercase tracking-wider text-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]/80 transition-colors",
+                isDesktop && isLeft && "md:ml-auto"
+              )}
+            >
+              <span>
+                {showResponsibilities
+                  ? "Ocultar responsabilidades"
+                  : "Ver responsabilidades"}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-300",
+                  showResponsibilities && "rotate-180"
+                )}
+              />
+            </button>
+            <AnimatePresence initial={false}>
+              {showResponsibilities && (
+                <motion.ul
+                  key="responsibilities"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-3 space-y-2">
+                    {exp.responsibilities.map((r, ri) => (
+                      <li
+                        key={ri}
+                        className="flex items-start gap-2.5 text-sm text-foreground/90"
+                      >
+                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[var(--color-accent-copper)]/60" />
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </div>
+                </motion.ul>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+
+        {/* Tech tags */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="mt-5 flex flex-wrap gap-1.5"
+        >
+          {exp.technologies.map((t) => (
+            <span
+              key={t}
+              className="rounded-md bg-muted/50 px-2.5 py-1 font-code text-[11px] text-foreground/80"
+            >
+              {t}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Main: Experience Section                                           */
+/* ------------------------------------------------------------------ */
 export function Experience() {
+  const isDesktop = useIsDesktop();
+
   return (
     <section id="experience" className="relative scroll-mt-24 py-24 sm:py-32">
       {/* Subtle warm gradient overlay */}
@@ -20,132 +245,66 @@ export function Experience() {
         />
 
         <div className="mt-14">
-          {/* Summary strip integrated into header */}
+          {/* Summary strip — 3 mini stat cards */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10 flex flex-wrap items-center gap-4 font-code text-xs text-muted-foreground"
+            transition={{ duration: 0.5, ease: EASE }}
+            className="mb-12 grid grid-cols-3 gap-3 sm:gap-4"
           >
-            <span className="flex items-center gap-2">
-              <Building2 className="h-4 w-4 text-[var(--color-accent-copper)]" />
-              <span>{experiences.length} experiências</span>
-            </span>
-            <span className="text-[var(--color-accent-copper)]">·</span>
-            <span>2+ anos no mercado</span>
-            <span className="text-[var(--color-accent-copper)]">·</span>
-            <span>Foco: SAP/TMS + Web moderno</span>
+            {summaryCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.label}
+                  className="card-surface rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center gap-1.5 text-center"
+                >
+                  <Icon className="h-4 w-4 text-[var(--color-accent-copper)]" />
+                  <span className="font-code text-[11px] sm:text-xs font-medium text-foreground/90">
+                    {card.label}
+                  </span>
+                  <span className="mx-auto h-[2px] w-6 rounded-full bg-[var(--color-accent-copper)]/60" />
+                </div>
+              );
+            })}
           </motion.div>
 
-          {/* Timeline */}
+          {/* Timeline container */}
           <div className="relative">
-            {/* Vertical line — 1px solid, not gradient */}
-            <div className="absolute left-4 top-2 bottom-2 w-px bg-[var(--surface-border)] sm:left-6" />
+            {/* Centered vertical line (desktop) / left line (mobile) */}
+            <div className="absolute top-2 bottom-2 w-px bg-[var(--surface-border)] left-4 sm:left-6 md:left-1/2 md:-translate-x-px" />
 
-            <div className="space-y-8">
-              {experiences.map((exp, idx) => (
-                <motion.div
-                  key={exp.company}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{
-                    duration: 0.6,
-                    delay: idx * 0.1,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative pl-12 sm:pl-16"
-                >
-                  {/* Timeline node — current gets pulse animation, past gets subtle dot */}
-                  <div
-                    className={cn(
-                      "absolute left-0 top-1 flex items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)] bg-background sm:left-2 h-8 w-8 sm:h-9 sm:w-9",
-                      exp.current && "sm:h-[38px] sm:w-[38px]"
-                    )}
-                  >
-                    {exp.current ? (
-                      <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent-copper)] animate-[pulse_2s_ease-in-out_infinite]" />
-                    ) : (
-                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-copper)]/40" />
-                    )}
-                  </div>
+            <div className="space-y-10">
+              {experiences.map((exp, idx) => {
+                const isLeft = isDesktop && idx % 2 === 0;
 
-                  {/* Card — current job gets left accent bar */}
-                  <div className={cn(
-                    "card-surface rounded-xl p-5 sm:p-6",
-                    exp.current && "border-l-[3px] border-l-[var(--color-accent-copper)]"
-                  )}>
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-display text-lg font-bold text-foreground">
-                            {exp.company}
-                          </h3>
-                          {exp.current && (
-                            <span className="rounded-md bg-[var(--color-accent-sage)]/10 px-2 py-0.5 font-code text-[10px] font-medium uppercase text-[var(--color-accent-sage)]">
-                              Atual
-                            </span>
-                          )}
-                        </div>
-                        <p className="mt-0.5 text-sm font-medium text-[var(--color-accent-copper)]">
-                          {exp.role}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-end gap-1 font-code text-[11px] text-muted-foreground">
-                        <span className="inline-flex items-center gap-1">
-                          <Calendar className="h-3.5 w-3.5" /> {exp.period}
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <MapPin className="h-3.5 w-3.5" /> {exp.location} · {exp.type}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      {exp.summary}
-                    </p>
-
-                    {/* Achievements */}
-                    <div className="mt-4">
-                      <p className="mono-label mb-2">Conquistas</p>
-                      <ul className="mt-4 space-y-1.5">
-                        {exp.achievements.map((a, ai) => (
-                          <motion.li
-                            key={a}
-                            initial={{ opacity: 0, x: -8 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.3, delay: 0.3 + ai * 0.08 }}
-                            className="flex items-start gap-2 text-sm text-muted-foreground"
-                          >
-                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent-sage)]" />
-                            <span>{a}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Tech tags */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: 0.5 }}
-                      className="mt-4 flex flex-wrap gap-1.5"
+                return (
+                  <div key={exp.company} className="relative">
+                    {/* Timeline dot — positioned on the center line (desktop) or left (mobile) */}
+                    <div
+                      className={cn(
+                        "absolute top-6 z-10 flex items-center justify-center",
+                        "left-4 sm:left-6 md:left-1/2",
+                        "-translate-x-1/2"
+                      )}
                     >
-                      {exp.technologies.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md border border-[var(--surface-border)] px-2 py-0.5 font-code text-[10px] text-muted-foreground"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </motion.div>
+                      <span
+                        className={cn(
+                          "block h-2.5 w-2.5 rounded-full border-[3px] border-[var(--surface)] bg-[var(--color-accent-copper)]",
+                          exp.current && "animate-[pulse_2.5s_ease-in-out_infinite]"
+                        )}
+                      />
+                    </div>
+
+                    <ExperienceEntry
+                      exp={exp}
+                      index={idx}
+                      isDesktop={isDesktop}
+                    />
                   </div>
-                </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

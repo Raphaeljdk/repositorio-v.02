@@ -280,16 +280,34 @@
     opacity: 0.3;
   }
 
-  /* Section divider — full-width accent line with max-w-7xl */
+  /* Section divider — editorial style with centered label slot */
   .section-divider {
-    height: 1px;
-    background: var(--color-accent-copper);
-    opacity: 0.15;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
-    max-width: 80rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    height: 1px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to var(--dir, right),
+      transparent,
+      color-mix(in srgb, var(--color-accent-copper) 18%, transparent)
+    );
+  }
+  .section-divider::before {
+    --dir: right;
+  }
+  .section-divider::after {
+    --dir: left;
   }
   @media (min-width: 640px) {
     .section-divider {
