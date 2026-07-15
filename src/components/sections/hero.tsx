@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { personal } from "@/lib/data";
@@ -9,8 +9,31 @@ import { MagneticButton } from "@/components/portfolio/magnetic-button";
 
 const ROLES = personal.roles;
 
+function useLocalTime() {
+  const getTime = useCallback(() => {
+    const now = new Date();
+    return new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "America/Sao_Paulo",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }).format(now);
+  }, []);
+
+  return useSyncExternalStore(
+    (cb) => {
+      const id = setInterval(cb, 1000);
+      return () => clearInterval(id);
+    },
+    getTime,
+    getTime
+  );
+}
+
 export function Hero() {
   const reduce = useReducedMotion();
+  const time = useLocalTime();
   const [roleIdx, setRoleIdx] = useState(0);
   const [typed, setTyped] = useState("");
   const [deleting, setDeleting] = useState(false);
@@ -195,17 +218,28 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Terminal line at bottom */}
+      {/* Terminal line at bottom — live clock + status */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.8 }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:block"
       >
-        <div className="flex items-center gap-2 rounded-md border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 font-code text-xs text-muted-foreground">
-          <span className="text-[var(--color-accent-copper)]">→</span>
-          <span>currently building</span>
-          <span className="text-foreground">→</span>
+        <div className="flex items-center gap-3 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/90 backdrop-blur-sm px-5 py-2.5 font-code text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] opacity-40 animate-[ping_1.5s_ease-in-out_infinite]" />
+              <span className="relative block h-1.5 w-1.5 rounded-full bg-[var(--color-accent-sage)]" />
+            </span>
+            <span>online</span>
+          </span>
+          <span className="text-[var(--surface-border)]">|</span>
+          <span>
+            <span className="text-muted-foreground/60">BRT </span>
+            <span className="text-foreground tabular-nums tracking-wider">{time}</span>
+          </span>
+          <span className="text-[var(--surface-border)]">|</span>
+          <span>building</span>
           <span className="text-[var(--color-accent-sage)]">something cool</span>
           <span className="inline-block h-3.5 w-[1.5px] animate-pulse bg-[var(--color-accent-copper)]" />
         </div>

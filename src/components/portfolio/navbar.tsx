@@ -120,8 +120,11 @@ export function Navbar() {
           {/* Right cluster */}
           <div className="flex items-center gap-2">
             <span className="hidden items-center gap-1.5 md:flex">
-              <span className="h-2 w-2 rounded-full bg-[var(--color-accent-sage)] animate-[pulse_2s_ease-in-out_infinite]" />
-              <span className="font-code text-[10px] text-muted-foreground">Disponível</span>
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] opacity-40 animate-[ping_1.5s_ease-in-out_infinite]" />
+                <span className="relative block h-2.5 w-2.5 rounded-full bg-[var(--color-accent-sage)]" />
+              </span>
+              <span className="font-code text-[11px] text-foreground/70">Disponível para oportunidades</span>
             </span>
             <div className="hidden items-center gap-1 md:flex">
               <a
@@ -226,6 +229,19 @@ export function Navbar() {
                     className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
                   >
                     <Mail className="h-4 w-4" /> Email
+                  </a>
+                </div>
+                <div className="mt-2 px-2">
+                  <a
+                    href="#contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go("#contact");
+                    }}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-copper)] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#E8886D]"
+                  >
+                    Contato
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
               </motion.div>

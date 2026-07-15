@@ -407,6 +407,7 @@ export const testimonials: Testimonial[] = [
 export const navItems = [
   { label: "Início", href: "#home" },
   { label: "Sobre", href: "#about" },
+  { label: "Serviços", href: "#services" },
   { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
   { label: "Experiência", href: "#experience" },

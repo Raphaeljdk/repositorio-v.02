@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   Loader2,
   ArrowUpRight,
-  Calendar,
+  Copy,
+  Check,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 import { SectionHeading } from "./about";
@@ -118,25 +119,47 @@ export function Contact() {
             />
 
             {/* Availability card — solid accent color */}
-            <div className="mt-4 rounded-xl bg-[var(--color-accent-copper)] p-6 text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-4 rounded-xl bg-[var(--color-accent-copper)] p-6 text-white"
+            >
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-white/80" />
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inset-0 rounded-full bg-white/80 animate-[ping_1.5s_ease-in-out_infinite]" />
+                  <span className="relative block h-2.5 w-2.5 rounded-full bg-white" />
+                </span>
                 <p className="text-sm font-semibold">{personal.availability}</p>
               </div>
-              <p className="mt-2 text-xs text-white/80">
+              <p className="mt-2 text-xs text-white/80 leading-relaxed">
                 São Paulo · disponível para remoto ou híbrido.
               </p>
-              <a
-                href="https://cal.com"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2 text-xs font-semibold transition-colors hover:bg-white/25"
-              >
-                <Calendar className="h-3.5 w-3.5" />
-                Agendar uma conversa
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <CopyEmailButton />
+                <a
+                  href={personal.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2 text-xs font-semibold transition-colors hover:bg-white/25"
+                >
+                  <Github className="h-3.5 w-3.5" />
+                  GitHub
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+                <a
+                  href={personal.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2 text-xs font-semibold transition-colors hover:bg-white/25"
+                >
+                  <Linkedin className="h-3.5 w-3.5" />
+                  LinkedIn
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right — form */}
@@ -313,5 +336,41 @@ function ContactRow({
     </a>
   ) : (
     Inner
+  );
+}
+
+function CopyEmailButton() {
+  const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(personal.email);
+      setCopied(true);
+      toast({ title: "E-mail copiado!", description: personal.email });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({ title: "Erro ao copiar", variant: "destructive" });
+    }
+  }, [toast]);
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2 text-xs font-semibold transition-colors hover:bg-white/25"
+    >
+      {copied ? (
+        <>
+          <Check className="h-3.5 w-3.5" />
+          Copiado!
+        </>
+      ) : (
+        <>
+          <Copy className="h-3.5 w-3.5" />
+          Copiar e-mail
+        </>
+      )}
+    </button>
   );
 }

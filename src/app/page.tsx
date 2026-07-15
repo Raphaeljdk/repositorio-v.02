@@ -13,6 +13,7 @@ import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { EditorialTicker } from "@/components/portfolio/editorial-ticker";
 import { Footer } from "@/components/portfolio/footer";
+import { Services } from "@/components/sections/services";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
         <EditorialTicker />
         <div className="section-divider my-0" />
         <About />
+        <Services />
         <Skills />
         <Projects />
         <div className="section-divider my-0" />

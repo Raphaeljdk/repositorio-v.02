@@ -25,7 +25,7 @@ function useMediaQuery(query: string): boolean {
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
-const AUTO_PLAY_INTERVAL = 5000;
+const AUTO_PLAY_INTERVAL = 6000;
 const DESKTOP_BREAKPOINT = "(min-width: 1024px)";
 
 function getInitials(name: string): string {
@@ -39,13 +39,45 @@ function getInitials(name: string): string {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Per-slot animation variants (directional slide + fade)             */
+/* ------------------------------------------------------------------ */
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+const EASE_IN = [0.55, 0, 1, 0.45] as const;
+
+function slotVariants(direction: number) {
+  return {
+    enter: {
+      opacity: 0,
+      x: direction > 0 ? 48 : -48,
+    },
+    center: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.45,
+        ease: EASE_OUT,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: direction > 0 ? -32 : 32,
+      transition: {
+        duration: 0.25,
+        ease: EASE_IN,
+      },
+    },
+  };
+}
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 export function Testimonials() {
   const isDesktop = useMediaQuery(DESKTOP_BREAKPOINT);
-  const visibleCount = isDesktop ? 3 : 1;
+  const visibleCount = isDesktop ? 2 : 1;
 
   const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
 
   const maxPage = Math.max(0, testimonials.length - visibleCount);
@@ -53,8 +85,9 @@ export function Testimonials() {
   const goTo = useCallback(
     (target: number) => {
       setPage((p) => {
-        const clamped = Math.max(0, Math.min(target, maxPage));
-        return clamped;
+        const next = Math.max(0, Math.min(target, maxPage));
+        setDirection(next > p ? 1 : -1);
+        return next;
       });
     },
     [maxPage]
@@ -63,14 +96,15 @@ export function Testimonials() {
   const prev = useCallback(() => goTo(page - 1), [goTo, page]);
   const next = useCallback(() => goTo(page + 1), [goTo, page]);
 
-  /* Auto-play: start on mount, pause on hover */
+  /* Auto-play on desktop only, pause on hover */
   useEffect(() => {
-    if (paused) return;
+    if (!isDesktop || paused) return;
     const id = setInterval(() => {
+      setDirection(1);
       setPage((p) => (p >= maxPage ? 0 : p + 1));
     }, AUTO_PLAY_INTERVAL);
     return () => clearInterval(id);
-  }, [paused, maxPage]);
+  }, [paused, maxPage, isDesktop]);
 
   /* Visible slice */
   const visible = testimonials.slice(page, page + visibleCount);
@@ -94,9 +128,9 @@ export function Testimonials() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Navigation arrows */}
+          {/* Desktop nav arrows */}
           <div className="relative">
-            <div className="absolute -left-4 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
+            <div className="absolute -left-5 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
               <button
                 type="button"
                 onClick={prev}
@@ -105,7 +139,7 @@ export function Testimonials() {
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full border bg-[var(--surface)] transition-all duration-200",
                   page === 0
-                    ? "border-[var(--surface-border)] text-muted-foreground/40 cursor-not-allowed"
+                    ? "border-[var(--surface-border)] text-muted-foreground/30 cursor-not-allowed"
                     : "border-[var(--surface-border)] text-foreground hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)] hover:scale-110 active:scale-95"
                 )}
               >
@@ -113,7 +147,7 @@ export function Testimonials() {
               </button>
             </div>
 
-            <div className="absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
+            <div className="absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
               <button
                 type="button"
                 onClick={next}
@@ -122,7 +156,7 @@ export function Testimonials() {
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full border bg-[var(--surface)] transition-all duration-200",
                   page >= maxPage
-                    ? "border-[var(--surface-border)] text-muted-foreground/40 cursor-not-allowed"
+                    ? "border-[var(--surface-border)] text-muted-foreground/30 cursor-not-allowed"
                     : "border-[var(--surface-border)] text-foreground hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)] hover:scale-110 active:scale-95"
                 )}
               >
@@ -130,18 +164,27 @@ export function Testimonials() {
               </button>
             </div>
 
-            {/* Cards grid */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <AnimatePresence mode="popLayout">
-                {visible.map((t) => (
-                  <TestimonialCard key={t.name} testimonial={t} />
-                ))}
-              </AnimatePresence>
+            {/* Cards grid — each slot has its own AnimatePresence */}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {visible.map((t, idx) => (
+                <AnimatePresence mode="wait" key={idx} custom={direction}>
+                  <motion.div
+                    key={t.name}
+                    custom={direction}
+                    variants={slotVariants(direction)}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                  >
+                    <TestimonialCard testimonial={t} />
+                  </motion.div>
+                </AnimatePresence>
+              ))}
             </div>
           </div>
 
           {/* Dot indicators */}
-          <div className="mt-8 flex items-center justify-center gap-2">
+          <div className="mt-10 flex items-center justify-center gap-2.5">
             {Array.from({ length: maxPage + 1 }).map((_, i) => (
               <button
                 key={i}
@@ -151,15 +194,15 @@ export function Testimonials() {
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-300",
                   i === page
-                    ? "w-6 bg-[var(--color-accent-copper)] shadow-[0_0_8px_rgba(212,119,92,0.4)]"
-                    : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                    ? "w-8 bg-[var(--color-accent-copper)] shadow-[0_0_10px_rgba(212,119,92,0.35)]"
+                    : "w-1.5 bg-muted-foreground/25 hover:bg-muted-foreground/50"
                 )}
               />
             ))}
           </div>
 
           {/* Mobile nav arrows */}
-          <div className="mt-4 flex items-center justify-center gap-3 lg:hidden">
+          <div className="mt-5 flex items-center justify-center gap-4 lg:hidden">
             <button
               type="button"
               onClick={prev}
@@ -168,14 +211,16 @@ export function Testimonials() {
               className={cn(
                 "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
                 page === 0
-                  ? "border-[var(--surface-border)] text-muted-foreground/40 cursor-not-allowed"
+                  ? "border-[var(--surface-border)] text-muted-foreground/30 cursor-not-allowed"
                   : "border-[var(--surface-border)] text-foreground hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]"
               )}
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <span className="font-code text-xs text-muted-foreground">
-              {page + 1} / {maxPage + 1}
+            <span className="font-code text-xs tabular-nums text-muted-foreground/60">
+              {String(page + 1).padStart(2, "0")}{" "}
+              <span className="text-muted-foreground/30">/</span>{" "}
+              {String(maxPage + 1).padStart(2, "0")}
             </span>
             <button
               type="button"
@@ -185,7 +230,7 @@ export function Testimonials() {
               className={cn(
                 "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
                 page >= maxPage
-                  ? "border-[var(--surface-border)] text-muted-foreground/40 cursor-not-allowed"
+                  ? "border-[var(--surface-border)] text-muted-foreground/30 cursor-not-allowed"
                   : "border-[var(--surface-border)] text-foreground hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]"
               )}
             >
@@ -199,38 +244,48 @@ export function Testimonials() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Card                                                               */
+/*  Individual Card                                                    */
 /* ------------------------------------------------------------------ */
-function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[number] }) {
+function TestimonialCard({
+  testimonial,
+}: {
+  testimonial: (typeof testimonials)[number];
+}) {
   const initials = getInitials(testimonial.name);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="card-surface card-glow group flex flex-col rounded-xl p-6 sm:p-8 transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)]/30"
-    >
-      {/* Copper accent line */}
-      <div className="h-0.5 w-8 bg-[var(--color-accent-copper)] transition-all duration-300 group-hover:w-12" />
+    <div className="card-surface card-glow group flex flex-col rounded-xl p-7 sm:p-8 transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)]/30">
+      {/* Decorative opening quote — large, subtle, top-left */}
+      <div className="relative">
+        <span
+          aria-hidden="true"
+          className="absolute -top-3 -left-1 font-display text-[5.5rem] leading-none text-[var(--color-accent-copper)]/[0.07] select-none pointer-events-none"
+        >
+          &ldquo;
+        </span>
 
-      {/* Decorative quote mark */}
-      <span className="mt-5 block font-display text-4xl leading-none text-[var(--color-accent-copper)]/20 select-none">
-        &ldquo;
-      </span>
+        {/* Quote text */}
+        <blockquote className="relative z-10 flex-1 text-[0.938rem] leading-[1.8] text-foreground/80 sm:text-[0.975rem]">
+          {testimonial.quote}
+        </blockquote>
 
-      {/* Quote */}
-      <blockquote className="mt-2 flex-1 text-sm leading-relaxed text-foreground/85 sm:text-base">
-        {testimonial.quote}
-      </blockquote>
+        {/* Decorative closing quote — right-aligned, subtle */}
+        <span
+          aria-hidden="true"
+          className="relative z-10 mt-2 block text-right font-display text-3xl leading-none text-[var(--color-accent-copper)]/[0.12] select-none"
+        >
+          &rdquo;
+        </span>
+      </div>
+
+      {/* Copper gradient divider */}
+      <div className="mt-6 h-px w-full bg-gradient-to-r from-[var(--color-accent-copper)]/30 via-[var(--color-accent-copper)]/8 to-transparent" />
 
       {/* Author */}
-      <div className="mt-6 flex items-center gap-3 border-t border-[var(--surface-border)] pt-4">
+      <div className="mt-5 flex items-center gap-3.5">
         {/* Initials avatar */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)]/40 bg-[var(--color-accent-copper)]/10">
-          <span className="font-display text-xs font-bold text-[var(--color-accent-copper)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-accent-copper)]/30 bg-[var(--color-accent-copper)]/[0.06]">
+          <span className="font-display text-xs font-semibold tracking-wide text-[var(--color-accent-copper)]">
             {initials}
           </span>
         </div>
@@ -239,12 +294,14 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[n
           <p className="truncate text-sm font-medium text-foreground">
             {testimonial.name}
           </p>
-          <p className="truncate text-xs text-muted-foreground">
-            {testimonial.role}{" "}
-            <span className="font-code text-[var(--color-accent-copper)]/70">@ {testimonial.company}</span>
+          <p className="mt-0.5 truncate text-xs text-muted-foreground/70">
+            {testimonial.role}
+          </p>
+          <p className="mt-px truncate font-code text-[0.688rem] tracking-tight text-[var(--color-accent-copper)]/50">
+            {testimonial.company}
           </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
