@@ -204,3 +204,64 @@ Stage Summary:
 - 13 files modified total
 - All features maintain dark/light theme + mobile responsiveness
 - GitHub push completed in prior round (Raphaeljdk/repositorio-v.02)
+
+---
+Task ID: qa-round-4
+Agent: Z.ai Code (main)
+Task: QA round 4 — accessibility fixes, styling polish, new features
+
+Work Log:
+- QA: Opened page, 0 console errors, all sections render
+- QA: Project modal opens (Nexus Retail), closes with Escape — verified
+- QA: Skills filter works (24 total, 7 frontend) — verified
+- QA: Category bar clickable segments — verified
+- QA: Keyboard shortcut "/" focuses skill search — verified
+- QA: Mobile menu backdrop renders — verified
+- QA: Floating scroll-to-top button appears after scroll > 600px — verified
+- VLM analysis: identified contrast issues (muted-foreground too low on dark), heading/description size too similar, "Ver todos os repositórios" button not prominent enough
+- VLM final rating: 7/10 — "text is readable, section headings clearly differentiated, polished modern look"
+
+## Changes Made (3 fixes + 4 features):
+
+### Accessibility/Styling Fixes:
+1. **Text contrast improvement** (globals.css): Dark theme `--muted-foreground` raised from `#7A7A7A` → `#9A9A9A` (WCAG AA compliant on #0A0A0B). Light theme `--muted-foreground` changed from `#8A8680` → `#6B6560` (better on #F7F5F2).
+2. **Section heading hierarchy** (about.tsx SectionHeading): Description text downsized from `text-base sm:text-lg` → `text-sm sm:text-base leading-relaxed`. Added 12px copper accent line (`w-12 h-px bg-copper`) between `<h2>` and description. New flow: MONO LABEL → TITLE → COPPER LINE → MUTED DESCRIPTION.
+3. **"Ver todos os repositórios" button** (projects.tsx): Wrapped in `MagneticButton` component for magnetic hover effect, making it clearly interactive.
+
+### New Features:
+4. **Keyboard shortcut "/"** (skills.tsx): Global keydown listener — pressing "/" when no input/textarea is focused and no modal is open smooth-scrolls to #skills section and focuses the search input after 400ms delay.
+5. **Floating scroll-to-top button** (scroll-to-top.tsx — NEW): Fixed button at bottom-right (z-40), appears when scrollY > 600, uses `useSyncExternalStore` for scroll position (lint-safe), AnimatePresence fade/scale enter/exit, copper hover accent, `aria-label="Voltar ao topo"`.
+6. **Mobile menu backdrop** (navbar.tsx): Semi-transparent `bg-black/40` overlay now appears behind the mobile menu, clickable to close. Menu panel animation enhanced with `scale: 0.98 → 1` for a subtle zoom effect.
+
+### Files Modified:
+- `src/app/globals.css` — contrast fix
+- `src/app/page.tsx` — ScrollToTop import
+- `src/components/portfolio/scroll-to-top.tsx` — NEW
+- `src/components/portfolio/navbar.tsx` — mobile backdrop
+- `src/components/sections/about.tsx` — SectionHeading hierarchy
+- `src/components/sections/skills.tsx` — keyboard shortcut, input ID
+- `src/components/sections/projects.tsx` — MagneticButton on CTA
+
+Stage Summary:
+- VLM rating maintained at 7/10 with improved readability and hierarchy
+- 0 lint errors, 0 console errors
+- 1 new file (scroll-to-top.tsx), 6 files modified
+- All 3 VLM-identified issues (contrast, heading hierarchy, button visibility) resolved
+- All new features verified working via agent-browser
+- Transient dev log module-not-found for editorial-ticker is a Turbopack hot-reload race condition, not a real bug (resolves on next compile)
+
+## Current Project Status
+- **Portfolio site**: Fully functional Next.js 16 application with 7 sections + editorial ticker
+- **Design system**: "Raw Sophistication" — warm dark-first, copper/sage/gold, grain texture, custom cursor
+- **Interactive features**: Skills filter + search, projects filter + modal, theme toggle, contact form, scroll progress, magnetic buttons, 3D card tilt, morphing background, keyboard shortcuts
+- **VLM Score**: 7/10 (up from initial 4/10)
+- **Code quality**: 0 lint errors, clean compile, 0 console errors
+- **Total files**: ~20 components across portfolio/ and sections/ directories
+- **GitHub**: Pushed to Raphaeljdk/repositorio-v.02
+
+## Unresolved / Next Phase Recommendations
+Priority 1: Project screenshots/previews in cards (VLM's top suggestion for 8+ score)
+Priority 2: Blog section or case studies page
+Priority 3: Animated stats counter refinement (currently works but could be smoother)
+Priority 4: Dark/light theme preference persistence (localStorage)
+Priority 5: SEO meta tags (Open Graph, Twitter cards) for social sharing

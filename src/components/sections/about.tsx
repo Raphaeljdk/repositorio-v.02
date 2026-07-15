@@ -205,7 +205,10 @@ export function SectionHeading({
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-base text-muted-foreground sm:text-lg">{description}</p>
+        <>
+          <div className="mt-3 h-px w-12 bg-[var(--color-accent-copper)]" />
+          <p className="mt-3 text-sm text-muted-foreground sm:text-base leading-relaxed">{description}</p>
+        </>
       )}
     </motion.div>
   );

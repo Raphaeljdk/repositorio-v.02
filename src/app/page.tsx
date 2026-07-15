@@ -11,6 +11,7 @@ import { Experience } from "@/components/sections/experience";
 import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { EditorialTicker } from "@/components/portfolio/editorial-ticker";
+import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

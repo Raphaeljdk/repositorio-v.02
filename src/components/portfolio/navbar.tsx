@@ -165,56 +165,67 @@ export function Navbar() {
         {/* Mobile menu */}
         <AnimatePresence>
           {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -8, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: "auto" }}
-              exit={{ opacity: 0, y: -8, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="mt-2 overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 lg:hidden"
-            >
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    go(item.href);
-                  }}
-                  className={cn(
-                    "block min-h-[44px] rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-                    active === item.href
-                      ? "bg-[var(--color-accent-copper)]/10 text-foreground"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="mt-1 flex items-center gap-2 border-t border-[var(--surface-border)] px-2 pt-3">
-                <a
-                  href={personal.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
-                >
-                  <Github className="h-4 w-4" /> GitHub
-                </a>
-                <a
-                  href={personal.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
-                >
-                  <Linkedin className="h-4 w-4" /> LinkedIn
-                </a>
-                <a
-                  href={`mailto:${personal.email}`}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
-                >
-                  <Mail className="h-4 w-4" /> Email
-                </a>
-              </div>
-            </motion.div>
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setOpen(false)}
+                className="fixed inset-0 top-16 z-40 bg-black/40 lg:hidden"
+              />
+              {/* Menu panel */}
+              <motion.div
+                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+                className="relative z-50 mt-2 overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 lg:hidden"
+              >
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go(item.href);
+                    }}
+                    className={cn(
+                      "block min-h-[44px] rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                      active === item.href
+                        ? "bg-[var(--color-accent-copper)]/10 text-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                <div className="mt-1 flex items-center gap-2 border-t border-[var(--surface-border)] px-2 pt-3">
+                  <a
+                    href={personal.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
+                  >
+                    <Github className="h-4 w-4" /> GitHub
+                  </a>
+                  <a
+                    href={personal.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
+                  >
+                    <Linkedin className="h-4 w-4" /> LinkedIn
+                  </a>
+                  <a
+                    href={`mailto:${personal.email}`}
+                    className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
+                  >
+                    <Mail className="h-4 w-4" /> Email
+                  </a>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>

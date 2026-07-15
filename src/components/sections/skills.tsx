@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { skillCategories, skills, type SkillCategory } from "@/lib/data";
 import { SectionHeading } from "./about";
@@ -74,6 +74,24 @@ export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (
+        e.key === "/" &&
+        !["INPUT", "TEXTAREA"].includes((e.target as HTMLElement)?.tagName) &&
+        document.body.style.overflow !== "hidden"
+      ) {
+        e.preventDefault();
+        document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          document.getElementById("skill-search")?.focus();
+        }, 400);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
+
   const filtered = useMemo(() => {
     return skills
       .filter((s) => (filter === "all" ? true : s.category === filter))
@@ -125,6 +143,7 @@ export function Skills() {
             className="relative"
           >
             <input
+              id="skill-search"
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}

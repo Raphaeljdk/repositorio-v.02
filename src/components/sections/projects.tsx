@@ -13,6 +13,7 @@ import { projects } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
+import { MagneticButton } from "@/components/portfolio/magnetic-button";
 
 const FILTERS = [
   { id: "all", label: "Todos" },
@@ -87,7 +88,8 @@ export function Projects() {
 
         {/* CTA */}
         <div className="mt-12 flex justify-center">
-          <a
+          <MagneticButton
+            as="a"
             href="https://github.com/Raphaeljdk"
             target="_blank"
             rel="noreferrer"
@@ -96,7 +98,7 @@ export function Projects() {
             <Github className="h-4 w-4" />
             Ver todos os repositórios
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          </MagneticButton>
         </div>
       </div>
     </section>
