@@ -61,10 +61,10 @@ export function Projects() {
                 type="button"
                 onClick={() => setFilter(f.id)}
                 className={cn(
-                  "rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
+                  "rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
                   filter === f.id
                     ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
-                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
+                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
                 )}
               >
                 {f.label}
@@ -183,6 +183,13 @@ function ProjectCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+          {/* Hover overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+            <span className="text-sm font-medium text-white">
+              Ver detalhes{" "}
+              <span className="text-[var(--color-accent-copper)]">→</span>
+            </span>
+          </div>
         </div>
       )}
 

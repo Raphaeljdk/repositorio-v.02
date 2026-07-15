@@ -119,6 +119,10 @@ export function Navbar() {
 
           {/* Right cluster */}
           <div className="flex items-center gap-2">
+            <span className="hidden items-center gap-1.5 md:flex">
+              <span className="h-2 w-2 rounded-full bg-[var(--color-accent-sage)] animate-[pulse_2s_ease-in-out_infinite]" />
+              <span className="font-code text-[10px] text-muted-foreground">Disponível</span>
+            </span>
             <div className="hidden items-center gap-1 md:flex">
               <a
                 href={personal.github}

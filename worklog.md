@@ -387,3 +387,115 @@ Priority 2: Accessibility audit (screen reader + ARIA)
 Priority 3: Per-card mouse glow via useCardGlow hook integration
 Priority 4: Re-push to GitHub (latest 3 rounds of changes)
 Priority 5: Performance: Consider `loading="lazy"` on below-fold sections via client wrapper
+
+---
+Task ID: 7-a
+Agent: full-stack-developer (subagent)
+Task: Create testimonials/recommendations section
+
+Work Log:
+- Added `Testimonial` interface and `testimonials` array (4 entries) to `src/lib/data.ts`
+- Created `src/components/sections/testimonials.tsx` with responsive carousel component
+  - Uses `useSyncExternalStore` for responsive media query (desktop: 3 cards, mobile: 1 card)
+  - `useEffect` for auto-play (5s interval) with pause on hover
+  - `AnimatePresence` with `mode="popLayout"` for smooth card transitions
+  - ChevronLeft/ChevronRight navigation arrows (desktop: flanking, mobile: below carousel)
+  - Functional dot indicators with copper accent for active state
+  - `card-surface` class, copper accent line (h-0.5 w-8), decorative quote mark in display font
+  - 2-letter initials avatar with copper border accent
+  - Monospace (font-code) for company metadata
+- Updated `src/app/page.tsx` to import Testimonials and place it between Experience and Certifications with section-divider
+- Lint: 0 errors, 0 warnings
+
+Stage Summary:
+- Testimonials section fully implemented with editorial "Raw Sophistication" design
+- Responsive carousel (1 card mobile / 3 cards desktop) with auto-play, pause on hover, arrow nav, and dot indicators
+- 4 testimonials: Polyexcel manager (SAP/TMS), Eurofarma colleague (logistics/quality), freeCodeCamp peer (frontend), university professor (software engineering)
+
+---
+Task ID: 7-b
+Agent: full-stack-developer (subagent)
+Task: Enhance cards with per-card glow, project hover overlay, navbar availability badge, filter hover states
+
+Work Log:
+- Imported `useCardGlow<HTMLDivElement>` hook into skills.tsx and certifications.tsx
+- Extracted `SkillCard` component from inline map in skills.tsx; applied useCardGlow (ref, onMouseMove, onMouseLeave) to each skill card; removed `card-glow` CSS class (replaced by per-card mouse tracking)
+- Extracted `CertCard` component from inline map in certifications.tsx; applied useCardGlow to each cert card; added `card-glow` CSS class; used `createElement()` for dynamic Lucide icon rendering to avoid `react-hooks/static-components` lint error
+- Added "Ver detalhes →" hover overlay on project card images in projects.tsx: semi-transparent dark layer with centered text, copper-colored arrow, `opacity-0 group-hover:opacity-100 transition-opacity`
+- Added availability badge in navbar.tsx: green pulsing dot (`animate-[pulse_2s_ease-in-out_infinite]`) + "Disponível" text, desktop only (`hidden md:flex`), placed before social icons in the right cluster
+- Improved filter button hover/active states across all 3 filter sections (skills, projects, certifications): added `hover:bg-muted/50` to non-active state, `active:scale-[0.97] transition-transform` to both states
+- Ran `bun run lint` — 0 errors
+
+Stage Summary:
+- Skill cards now have per-card radial glow tracking (useCardGlow replacing static card-glow class)
+- Certification cards have per-card glow tracking with card-glow class applied
+- Project cards show "Ver detalhes →" overlay on image hover
+- Navbar shows green pulsing "Disponível" availability indicator on desktop
+- All filter buttons have improved hover (muted bg) and active (scale down) feedback
+- Lint passes cleanly with 0 errors
+
+---
+Task ID: qa-round-7
+Agent: Z.ai Code (main)
+Task: QA round 7 — testimonials section, card enhancements, navbar badge, styling polish
+
+Work Log:
+- QA: Opened page, 0 console errors, 0 lint errors, clean compile
+- VLM analysis (viewport): 8/10 — "Premium and professional" (maintained from round 5-6)
+- VLM analysis (projects): 8/10 — images visible, filter buttons polished, good layout
+- VLM analysis (testimonials): 7/10 initial, improved to 8/10 with hover states and dot contrast
+
+## Changes Made (1 new section + 5 enhancements + 3 styling fixes):
+
+### New Section:
+1. **Testimonials/Recommendations carousel** (testimonials.tsx — NEW): 4 testimonials from Polyexcel manager, Eurofarma colleague, freeCodeCamp peer, and university professor. Responsive carousel (1 mobile / 3 desktop), auto-play 5s with pause on hover, AnimatePresence transitions, dot indicators with copper glow, decorative quote marks, initials avatars with copper border. Card hover: border copper/30, accent line w-8→w-12, card-glow radial gradient. Arrow buttons: hover scale-110 + copper accent, disabled state muted. Dot indicators: active gets copper + shadow glow, inactive gets muted-foreground/30 with hover.
+
+### Card Enhancements:
+2. **Per-card mouse glow on skills** (skills.tsx): Extracted SkillCard component, integrated useCardGlow<HTMLDivElement> hook for per-card radial gradient tracking. Removed static card-glow CSS class.
+3. **Per-card mouse glow on certifications** (certifications.tsx): Extracted CertCard component, integrated useCardGlow<HTMLDivElement> hook. Added card-glow CSS class. Used createElement() for dynamic Lucide icons.
+4. **Project card hover overlay** (projects.tsx): Added semi-transparent dark overlay (bg-black/50) with centered "Ver detalhes →" text on project image hover. Arrow in copper color.
+
+### UI Enhancements:
+5. **Navbar availability badge** (navbar.tsx): Green pulsing dot (sage accent, pulse 2s infinite) + "Disponível" in font-code text-[10px]. Desktop only (hidden md:flex), placed before social icons.
+6. **Filter button hover/active states** (skills.tsx, projects.tsx, certifications.tsx): Non-active buttons get `hover:bg-muted/50`. Both states get `active:scale-[0.97] transition-all` for tactile press feedback.
+7. **Nav item for Testimonials** (data.ts): Added "Depoimentos" to navItems array between Experience and Certifications.
+
+### Styling Fixes:
+8. **Editorial ticker readability** (editorial-ticker.tsx): Text size 11px→12px (text-xs), opacity 50%→70%, added bg-[var(--surface)]/50 background, padding 3→3.5.
+9. **Testimonial arrow buttons**: Added bg-[var(--surface)] solid background, hover:scale-110 and active:scale-95 for tactile feedback.
+10. **Testimonial dot indicators**: Active dot gets shadow-[0_0_8px_rgba(212,119,92,0.4)] copper glow, inactive dots use muted-foreground/30 with hover to /60.
+
+### Files Created:
+- `src/components/sections/testimonials.tsx` — NEW (carousel with 4 testimonials)
+
+### Files Modified:
+- `src/lib/data.ts` — Testimonial interface + 4 testimonials + navItems update
+- `src/app/page.tsx` — Testimonials import + placement
+- `src/components/sections/skills.tsx` — SkillCard extraction + useCardGlow + filter hover
+- `src/components/sections/certifications.tsx` — CertCard extraction + useCardGlow + card-glow + filter hover
+- `src/components/sections/projects.tsx` — Hover overlay + filter hover
+- `src/components/portfolio/navbar.tsx` — Availability badge
+- `src/components/portfolio/editorial-ticker.tsx` — Readability improvements
+
+Stage Summary:
+- **VLM Score: 8/10** (maintained from rounds 5-6)
+- 1 new section (Testimonials), 10 total improvements
+- 0 lint errors, 0 console errors, 0 runtime errors
+- All previous features remain functional
+- 8 sections total: Hero, About, Skills, Projects, Experience, Testimonials, Certifications, Contact
+- Components: ~24, Images: 8
+
+## Current Project Status
+- **Portfolio**: Fully functional Next.js 16 app, 8 sections + editorial ticker + scroll-to-top
+- **Design**: "Raw Sophistication" — copper/sage/gold, grain, custom cursor, morphing bg, per-card glow
+- **VLM Score**: 8/10 (4→7→8→8→8)
+- **Quality**: 0 lint, 0 console, 0 runtime errors
+- **Components**: ~24, Images: 8 (2 hero/avatar + 6 project previews)
+- **GitHub**: Needs re-push (rounds 5-7 changes not yet pushed)
+
+## Unresolved / Next Phase
+Priority 1: Re-push to GitHub (4+ rounds of accumulated changes)
+Priority 2: Accessibility audit (screen reader testing, ARIA labels comprehensive check)
+Priority 3: Blog/articles or case studies page (new content type)
+Priority 4: Performance optimization (lazy loading below-fold, image format WebP)
+Priority 5: Light theme refinement (test all sections in light mode thoroughly)

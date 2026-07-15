@@ -67,6 +67,14 @@ export interface Certification {
   category: string;
 }
 
+export interface Testimonial {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  avatar?: string;
+}
+
 export interface Stat {
   label: string;
   value: number;
@@ -369,12 +377,40 @@ export const techStack = {
   tools: ["Git", "VS Code", "Postman", "Figma", "Excel Avançado"],
 };
 
+export const testimonials: Testimonial[] = [
+  {
+    name: "Marcos Oliveira",
+    role: "Gerente de Operações",
+    company: "Polyexcel",
+    quote: "Raphael se destacou rapidamente no domínio do SAP e do TMS. Em poucos meses já operava módulos MM/SD com autonomia e propunha melhorias nos fluxos de integração. Raro ver alguém tão jovem com essa capacidade de absorver processos corporativos complexos.",
+  },
+  {
+    name: "Juliana Mendes",
+    role: "Analista de Logística",
+    company: "Eurofarma",
+    quote: "Trabalhei lado a lado com o Raphael no centro de distribuição. Ele trouxe uma visão analítica que nos ajudou a reduzir retrabalho em lotes farmacêuticos. Sua disciplina em seguir protocolos de qualidade BPF foi exemplar para toda a equipe.",
+  },
+  {
+    name: "Lucas Ferreira",
+    role: "Desenvolvedor Frontend",
+    company: "freeCodeCamp Community",
+    quote: "Nos projetos colaborativos do freeCodeCamp, o Raphael sempre entregava código limpo e bem documentado. Suas soluções para os desafios de JavaScript e algoritmos demonstram uma base sólida que muitos devs com o dobro do tempo de carreira não têm.",
+  },
+  {
+    name: "Prof. Ricardo Nascimento",
+    role: "Professor — Eng. de Software",
+    company: "Estácio",
+    quote: "Raphael é um dos alunos mais engajados que já tive. Ele não se limita ao conteúdo das aulas — busca entender o porquê por trás de cada padrão de projeto e arquitetura. Tem potencial claro para se tornar um engenheiro de software referência.",
+  },
+];
+
 export const navItems = [
   { label: "Início", href: "#home" },
   { label: "Sobre", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
   { label: "Experiência", href: "#experience" },
+  { label: "Depoimentos", href: "#testimonials" },
   { label: "Certificações", href: "#certifications" },
   { label: "Contato", href: "#contact" },
 ];

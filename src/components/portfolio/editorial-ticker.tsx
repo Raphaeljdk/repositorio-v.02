@@ -25,7 +25,7 @@ export function EditorialTicker() {
 
   return (
     <div
-      className="relative overflow-hidden border-y border-[var(--surface-border)] py-3 select-none"
+      className="relative overflow-hidden border-y border-[var(--surface-border)] py-3.5 select-none bg-[var(--surface)]/50"
       aria-hidden
     >
       <motion.div
@@ -42,7 +42,7 @@ export function EditorialTicker() {
         {items.map((item, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-8 font-code text-[11px] uppercase tracking-widest text-muted-foreground/50"
+            className="inline-flex items-center gap-8 font-code text-xs uppercase tracking-widest text-muted-foreground/70"
           >
             {item}
             <span className="inline-block h-1 w-1 rounded-full bg-[var(--color-accent-copper)]/40" />

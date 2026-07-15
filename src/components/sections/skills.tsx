@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { skillCategories, skills, type SkillCategory } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
+import { useCardGlow } from "@/hooks/use-card-glow";
 
 type Filter = SkillCategory | "all";
 
@@ -123,10 +124,10 @@ export function Skills() {
                 type="button"
                 onClick={() => setFilter(cat.id as Filter)}
                 className={cn(
-                  "relative rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
+                  "relative rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
                   filter === cat.id
                     ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
-                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
+                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
                 )}
               >
                 {cat.label}
@@ -163,57 +164,7 @@ export function Skills() {
         <motion.div layout className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((skill, i) => (
-              <motion.div
-                key={skill.name}
-                layout
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.3 }}
-                className={cn(
-                  "card-surface card-glow group rounded-xl p-4",
-                  i < 3 && "lg:col-span-2"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <img
-                    src={skill.icon}
-                    alt={skill.name}
-                    className="h-8 w-8"
-                    loading="lazy"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-semibold text-foreground truncate">
-                      {skill.name}
-                    </h3>
-                    <p className="font-code text-[10px] text-muted-foreground">
-                      {skill.level}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Description — shown below name, no tooltip */}
-                <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-                  {skill.description}
-                </p>
-
-                {/* Progress bar */}
-                <div className="mt-3">
-                  <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
-                    <span>{skill.experience}</span>
-                    <span>{skill.percent}%</span>
-                  </div>
-                  <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.percent}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-                      className="h-full bg-[var(--color-accent-copper)]"
-                    />
-                  </div>
-                </div>
-              </motion.div>
+              <SkillCard key={skill.name} skill={skill} wide={i < 3} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -225,5 +176,65 @@ export function Skills() {
         )}
       </div>
     </section>
+  );
+}
+
+function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: boolean }) {
+  const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.92 }}
+      transition={{ duration: 0.3 }}
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className={cn(
+        "card-surface group rounded-xl p-4",
+        wide && "lg:col-span-2"
+      )}
+    >
+      <div className="flex items-center gap-3">
+        <img
+          src={skill.icon}
+          alt={skill.name}
+          className="h-8 w-8"
+          loading="lazy"
+        />
+        <div className="min-w-0 flex-1">
+          <h3 className="text-sm font-semibold text-foreground truncate">
+            {skill.name}
+          </h3>
+          <p className="font-code text-[10px] text-muted-foreground">
+            {skill.level}
+          </p>
+        </div>
+      </div>
+
+      {/* Description — shown below name, no tooltip */}
+      <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+        {skill.description}
+      </p>
+
+      {/* Progress bar */}
+      <div className="mt-3">
+        <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
+          <span>{skill.experience}</span>
+          <span>{skill.percent}%</span>
+        </div>
+        <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.percent}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+            className="h-full bg-[var(--color-accent-copper)]"
+          />
+        </div>
+      </div>
+    </motion.div>
   );
 }

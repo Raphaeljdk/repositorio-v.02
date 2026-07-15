@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, createElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, Clock, Code2, Database, Cloud, Table2, Server, ExternalLink } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { certifications } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
+import { useCardGlow } from "@/hooks/use-card-glow";
 
 const FILTERS = [
   { id: "all", label: "Todas" },
@@ -79,10 +80,10 @@ export function Certifications() {
               type="button"
               onClick={() => setFilter(f.id)}
               className={cn(
-                "rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
+                "rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
                 filter === f.id
                   ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
-                  : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)]"
+                  : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
               )}
             >
               {f.label}
@@ -94,96 +95,7 @@ export function Certifications() {
         <motion.div layout className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((c, i) => (
-              <motion.div
-                key={c.name}
-                layout
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.3, delay: (i % 3) * 0.05 }}
-                className="card-surface rounded-xl p-5"
-              >
-                <div className="flex items-start justify-between">
-                  <span
-                    className={cn(
-                      "flex h-9 w-9 items-center justify-center rounded-lg",
-                      c.status === "completed"
-                        ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
-                        : c.status === "in-progress"
-                          ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
-                          : "bg-muted text-muted-foreground"
-                    )}
-                  >
-                    {(() => { const I = getCertIconClass(c.category, c.name); return <I className="h-4 w-4" />; })()}
-                  </span>
-                  <span
-                    className={cn(
-                      "rounded-md px-2 py-0.5 font-code text-[10px] font-medium",
-                      c.status === "completed"
-                        ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
-                        : c.status === "in-progress"
-                          ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
-                          : "bg-muted text-muted-foreground"
-                    )}
-                  >
-                    {c.status === "completed"
-                      ? "Concluída"
-                      : c.status === "in-progress"
-                        ? "Em curso"
-                        : "Planejada"}
-                  </span>
-                </div>
-
-                <h3 className="mt-3 font-display text-sm font-bold leading-snug text-foreground">
-                  {c.name}
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">{c.institution}</p>
-
-                <div className="mt-3 flex items-center gap-3 font-code text-[11px] text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="h-3 w-3" /> {c.hours}
-                  </span>
-                  <span>·</span>
-                  <span>{c.year}</span>
-                  <span>·</span>
-                  <span className="rounded-md bg-muted/50 px-1.5 py-0.5 text-[10px]">
-                    {c.category}
-                  </span>
-                </div>
-
-                {/* Progress bar — only for in-progress, gold color */}
-                {c.status === "in-progress" && typeof c.progress === "number" && (
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
-                      <span>Progresso</span>
-                      <span className="text-[var(--color-accent-gold)]">{c.progress}%</span>
-                    </div>
-                    <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${c.progress}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="h-full bg-[var(--color-accent-gold)]"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {c.credentialId && (
-                  <div className="mt-3 flex items-center justify-between border-t border-[var(--surface-border)] pt-3">
-                    <span className="font-code text-[10px] text-muted-foreground">
-                      ID: {c.credentialId}
-                    </span>
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline"
-                    >
-                      Verificar <ExternalLink className="h-2.5 w-2.5" />
-                    </button>
-                  </div>
-                )}
-              </motion.div>
+              <CertCard key={c.name} cert={c} delay={(i % 3) * 0.05} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -206,6 +118,105 @@ function getCertIconClass(category: string, name: string): LucideIcon {
     if (test.test(combined)) return Icon;
   }
   return Award;
+}
+
+function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; delay: number }) {
+  const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 12 }}
+      transition={{ duration: 0.3, delay }}
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="card-surface card-glow rounded-xl p-5"
+    >
+      <div className="flex items-start justify-between">
+        <span
+          className={cn(
+            "flex h-9 w-9 items-center justify-center rounded-lg",
+            cert.status === "completed"
+              ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
+              : cert.status === "in-progress"
+                ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
+                : "bg-muted text-muted-foreground"
+          )}
+        >
+          {createElement(getCertIconClass(cert.category, cert.name), { className: "h-4 w-4" })}
+        </span>
+        <span
+          className={cn(
+            "rounded-md px-2 py-0.5 font-code text-[10px] font-medium",
+            cert.status === "completed"
+              ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
+              : cert.status === "in-progress"
+                ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
+                : "bg-muted text-muted-foreground"
+          )}
+        >
+          {cert.status === "completed"
+            ? "Concluída"
+            : cert.status === "in-progress"
+              ? "Em curso"
+              : "Planejada"}
+        </span>
+      </div>
+
+      <h3 className="mt-3 font-display text-sm font-bold leading-snug text-foreground">
+        {cert.name}
+      </h3>
+      <p className="mt-1 text-xs text-muted-foreground">{cert.institution}</p>
+
+      <div className="mt-3 flex items-center gap-3 font-code text-[11px] text-muted-foreground">
+        <span className="inline-flex items-center gap-1">
+          <Clock className="h-3 w-3" /> {cert.hours}
+        </span>
+        <span>·</span>
+        <span>{cert.year}</span>
+        <span>·</span>
+        <span className="rounded-md bg-muted/50 px-1.5 py-0.5 text-[10px]">
+          {cert.category}
+        </span>
+      </div>
+
+      {/* Progress bar — only for in-progress, gold color */}
+      {cert.status === "in-progress" && typeof cert.progress === "number" && (
+        <div className="mt-3">
+          <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
+            <span>Progresso</span>
+            <span className="text-[var(--color-accent-gold)]">{cert.progress}%</span>
+          </div>
+          <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${cert.progress}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="h-full bg-[var(--color-accent-gold)]"
+            />
+          </div>
+        </div>
+      )}
+
+      {cert.credentialId && (
+        <div className="mt-3 flex items-center justify-between border-t border-[var(--surface-border)] pt-3">
+          <span className="font-code text-[10px] text-muted-foreground">
+            ID: {cert.credentialId}
+          </span>
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline"
+          >
+            Verificar <ExternalLink className="h-2.5 w-2.5" />
+          </button>
+        </div>
+      )}
+    </motion.div>
+  );
 }
 
 function SummaryItem({
