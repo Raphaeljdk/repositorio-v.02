@@ -103,7 +103,7 @@ export const personal = {
   phone: "+55 11 94737-4151",
   github: "https://github.com/Raphaeljdk",
   githubHandle: "Raphaeljdk",
-  linkedin: "https://www.linkedin.com/in/raphael-freitas-22976828a/",
+  linkedin: "https://www.linkedin.com/in/raphael-freitas-dos-santos-a42704260/",
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
