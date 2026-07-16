@@ -13,7 +13,7 @@ interface GitHubRepo {
 }
 
 const cache = new Map<string, { data: GitHubRepo[]; timestamp: number }>();
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 export async function GET() {
   const cacheKey = "github-repos-Raphaeljdk";
@@ -26,7 +26,7 @@ export async function GET() {
 
   try {
     const res = await fetch(
-      "https://api.github.com/users/Raphaeljdk/repos?sort=stars&per_page=6&type=owner",
+      "https://api.github.com/users/Raphaeljdk/repos?sort=updated&per_page=12&type=owner",
       {
         headers: {
           Accept: "application/vnd.github.v3+json",

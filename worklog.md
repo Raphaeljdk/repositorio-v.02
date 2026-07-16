@@ -1118,3 +1118,40 @@ Work Log:
 
 Stage Summary:
 - Professional CV ready for download
+
+---
+Task ID: ATS-CV
+Agent: full-stack-developer
+Task: Regenerate ATS-compliant professional CV
+
+Work Log:
+- Regenerated CV with ATS-optimized format using ReportLab
+- Used Carlito font (metric-compatible Calibri clone) for professional sans-serif look
+- Single column layout, white background, no graphics/decorations
+- All section headers in ALL CAPS with thin horizontal rule separators
+- Keyword-rich content: Full Stack, React, Next.js, TypeScript, Node.js, SAP B1, TMS, JavaScript, Tailwind CSS, PostgreSQL, Docker, Git
+- Tuned spacing to fit all content on single A4 page (1.2cm margins, 10pt body, 14pt name, 11.5pt section headers)
+- Clean text extraction verified — all content readable by ATS parsers
+- PDF QA: All 10 checks passed (metadata, fonts embedded, no overflow, symmetric margins)
+- Saved to /home/z/my-project/public/curriculo-raphael-freitas.pdf
+
+Stage Summary:
+- Professional ATS-ready CV (1 page, 38.4 KB)
+
+---
+Task ID: GITHUB-LIVE + ATS-CV
+Agent: Z.ai Code (main)
+Task: GitHub repos ao vivo + Currículo ATS profissional
+
+Work Log:
+- GitHub API: alterado sort de stars → updated (mais recente primeiro), per_page 6→12, cache 10→5 min
+- GitHub frontend: reescrito componente limpo, adicionado botão "Atualizar" com timestamp da última atualização
+- Grid: 3→4 colunas (xl:grid-cols-4) para acomodar 12 repositórios
+- Cache buster no fetch (`?_t=Date.now()`) para evitar cache stale
+- Currículo ATS: regenerado com formato profissional single-column, fonte Calibri, fundo branco, keywords ricas
+- Verificação: 10 repos ao vivo (repositorio-v.02, MINI-BANK.V02, minibank-pro, etc.), botão atualizar visível
+
+Stage Summary:
+- GitHub sempre mostra os repositórios mais recentes automaticamente
+- Currículo pronto para passar por ATS (sistemas de rastreamento de empresas)
+- Lint: 0 erros

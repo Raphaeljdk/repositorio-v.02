@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Star, GitFork, ArrowUpRight } from "lucide-react";
+import { Star, GitFork, ArrowUpRight, RefreshCw } from "lucide-react";
 import { SectionHeading } from "./about";
 import { MagneticButton } from "@/components/portfolio/magnetic-button";
 import { cn } from "@/lib/utils";
@@ -69,8 +69,8 @@ function timeAgo(dateStr: string): string {
 
 function SkeletonGrid() {
   return (
-    <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Carregando repositórios">
-      {Array.from({ length: 3 }).map((_, i) => (
+    <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-busy="true" aria-label="Carregando repositórios">
+      {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
           className="card-surface card-glow animate-pulse rounded-xl p-5"
@@ -188,28 +188,29 @@ function RepoCard({
 export function GitHubActivity() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState("");
+
+  const fetchRepos = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/github?_t=${Date.now()}`);
+      const data: GitHubRepo[] = await res.json();
+      setRepos(data);
+      setLastUpdated(
+        new Date().toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      );
+    } catch {
+      // silently fail
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    let cancelled = false;
-
-    async function fetchRepos() {
-      try {
-        const res = await fetch("/api/github");
-        if (!cancelled) {
-          const data: GitHubRepo[] = await res.json();
-          setRepos(data);
-        }
-      } catch {
-        // Silently fail — keep empty state
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
     fetchRepos();
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   return (
@@ -218,13 +219,30 @@ export function GitHubActivity() {
         <SectionHeading
           label="GitHub"
           title="Código aberto."
-          description="Repositórios mais relevantes — ordenados por estrelas."
+          description="Repositórios atualizados em tempo real do GitHub."
         />
+
+        {lastUpdated && (
+          <div className="mt-4 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={fetchRepos}
+              disabled={loading}
+              className="inline-flex items-center gap-1.5 rounded-md border border-[var(--surface-border)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[var(--color-accent-copper)] hover:text-foreground disabled:opacity-50"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+              Atualizar
+            </button>
+            <span className="font-code text-[10px] text-muted-foreground/60">
+              Atualizado as {lastUpdated}
+            </span>
+          </div>
+        )}
 
         {loading ? (
           <SkeletonGrid />
         ) : repos.length > 0 ? (
-          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {repos.map((repo, i) => (
               <RepoCard key={repo.name} repo={repo} index={i} />
             ))}
