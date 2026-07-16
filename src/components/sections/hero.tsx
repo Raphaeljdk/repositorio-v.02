@@ -21,13 +21,15 @@ function useLocalTime() {
     }).format(now);
   }, []);
 
+  const SERVER_SNAPSHOT = "--:--:--";
+
   return useSyncExternalStore(
     (cb) => {
       const id = setInterval(cb, 1000);
       return () => clearInterval(id);
     },
     getTime,
-    getTime
+    () => SERVER_SNAPSHOT
   );
 }
 
