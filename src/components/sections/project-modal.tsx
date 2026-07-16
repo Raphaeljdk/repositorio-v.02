@@ -58,7 +58,7 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-0 z-50 bg-black/60"
+            className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
@@ -74,9 +74,11 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
               stiffness: 350,
               damping: 30,
             }}
-            className="fixed bottom-0 left-0 right-0 z-50 max-h-[90vh] w-full overflow-y-auto rounded-t-2xl sm:inset-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-2xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-xl sm:max-h-[85vh]"
+            className="fixed bottom-0 left-0 right-0 z-[71] max-h-[90vh] w-full overflow-y-auto overscroll-contain rounded-t-2xl sm:inset-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-2xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-xl sm:max-h-[85vh]"
           >
             <div className="relative rounded-t-2xl bg-[var(--surface)] border border-[var(--surface-border)] p-6 sm:rounded-xl sm:p-8">
+              {/* Mobile drag handle */}
+              <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-muted-foreground/30 sm:hidden" />
               {/* Top gradient line */}
               <div
                 className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl sm:rounded-t-xl"
@@ -86,12 +88,12 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 }}
               />
 
-              {/* Close button */}
+              {/* Close button — always visible, high contrast */}
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar"
-                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
+                className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/80 backdrop-blur-sm text-muted-foreground shadow-lg transition-colors hover:text-foreground hover:border-foreground hover:bg-[var(--surface)]"
               >
                 <X className="h-4 w-4" />
               </button>

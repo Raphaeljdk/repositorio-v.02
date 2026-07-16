@@ -42,6 +42,28 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  // Escape key to close mobile menu
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
   const go = (href: string) => {
     setOpen(false);
     const el = document.querySelector(href);
@@ -173,21 +195,22 @@ export function Navbar() {
         <AnimatePresence>
           {open && (
             <>
-              {/* Backdrop */}
+              {/* Backdrop — full screen, blurred */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
                 onClick={() => setOpen(false)}
-                className="fixed inset-0 top-16 z-40 bg-black/40 lg:hidden"
+                className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md lg:hidden"
               />
-              {/* Menu panel */}
+              {/* Menu panel — above backdrop and navbar */}
               <motion.div
                 initial={{ opacity: 0, y: -8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.98 }}
                 transition={{ duration: 0.2 }}
-                className="relative z-50 mt-2 overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 lg:hidden"
+                className="fixed left-4 right-4 top-[72px] z-[61] max-h-[calc(100vh-88px)] overflow-y-auto overflow-x-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 shadow-2xl lg:hidden"
               >
                 {navItems.map((item) => (
                   <a
