@@ -1016,3 +1016,24 @@ Stage Summary:
 4. **Blog/Case Studies section** — Long-term feature for demonstrating depth of knowledge
 5. **Light theme refinement** — Thorough testing of all sections in light mode
 6. **Mobile device testing** — Test on real mobile viewport (agent-browser device emulation timed out)
+
+---
+Task ID: MINIBANK-ADD
+Agent: Z.ai Code (main)
+Task: Adicionar projeto MiniBank (https://mini-bank-v02.vercel.app) ao portfólio
+
+Work Log:
+- Usado web-reader para extrair conteúdo do site MiniBank (identificado: banco digital com login, dashboard, glassmorphism UI)
+- Acessado o site via agent-browser, feito login com credenciais de demonstração (joao.silva@email.com)
+- Capturado screenshot do dashboard MiniBank em /home/z/my-project/public/projects/mini-bank.png
+- Adicionado projeto MiniBank (id: 7) em src/lib/data.ts com dados completos
+- Atualizado stat de projetos de 8+ para 9+
+- Verificado com VLM: card renderiza corretamente com imagem, tecnologias, badge "Concluído"
+- Verificado modal: abre corretamente mostrando screenshot do dashboard MiniBank
+
+Stage Summary:
+- MiniBank adicionado como projeto featured (Fintech / Banking, 2025, completed)
+- Screenshot real do dashboard do app usado como imagem do card
+- Link funcional para https://mini-bank-v02.vercel.app
+- Lint passou sem erros
+- Tudo verificado via agent-browser + VLM

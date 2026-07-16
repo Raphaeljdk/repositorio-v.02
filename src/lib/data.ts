@@ -115,7 +115,7 @@ export const personal = {
 };
 
 export const stats: Stat[] = [
-  { label: "Projetos entregues", value: 8, suffix: "+", icon: "rocket" },
+  { label: "Projetos entregues", value: 9, suffix: "+", icon: "rocket" },
   { label: "Tecnologias dominadas", value: 25, suffix: "+", icon: "layers" },
   { label: "Certificações", value: 9, suffix: "", icon: "award" },
   { label: "Anos de experiência", value: 2, suffix: "+", icon: "calendar" },
@@ -261,6 +261,25 @@ export const projects: Project[] = [
     role: "Full Stack Developer",
     accent: "from-teal-500 via-emerald-500 to-green-500",
     image: "/projects/herdeiros.png",
+  },
+  {
+    id: 7,
+    title: "MiniBank",
+    subtitle: "Banco Digital Inteligente",
+    description: "Aplicação bancária digital completa com autenticação segura, dashboard interativo, gestão de transações e UI glassmorphism moderna. Deploy em produção na Vercel.",
+    category: "Fintech / Banking",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Prisma"],
+    difficulty: 82,
+    highlights: ["Auth Segura", "Dashboard Interativo", "Glassmorphism UI", "Deploy Vercel"],
+    link: "https://mini-bank-v02.vercel.app",
+    github: "",
+    featured: true,
+    status: "completed",
+    year: "2025",
+    stats: { views: 120, likes: 8 },
+    role: "Full Stack Developer",
+    accent: "from-emerald-500 via-cyan-500 to-teal-500",
+    image: "/projects/mini-bank.png",
   },
   {
     id: 6,
