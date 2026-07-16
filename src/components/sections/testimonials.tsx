@@ -197,7 +197,7 @@ export function Testimonials() {
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-300",
                   i === page
-                    ? "w-8 bg-[var(--color-accent-copper)] shadow-[0_0_10px_rgba(212,119,92,0.35)]"
+                    ? "w-8 bg-[var(--color-accent-copper)] shadow-[0_0_10px_rgba(220,38,38,0.35)]"
                     : "w-1.5 bg-muted-foreground/25 hover:bg-muted-foreground/50"
                 )}
               />

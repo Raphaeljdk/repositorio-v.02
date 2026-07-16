@@ -31,8 +31,8 @@ export function AnimatedBackground() {
           className: "absolute -top-32 -left-32 h-[40rem] w-[40rem] rounded-full",
           style: {
             background: isDark
-              ? "radial-gradient(circle, rgba(212,119,92,0.10) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(212,119,92,0.06) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(220,38,38,0.10) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(220,38,38,0.06) 0%, transparent 70%)",
             filter: "blur(80px)",
           },
           // Diagonal drift — slow, subtle meander
@@ -51,8 +51,8 @@ export function AnimatedBackground() {
           className: "absolute top-1/3 -right-24 h-[36rem] w-[36rem] rounded-full",
           style: {
             background: isDark
-              ? "radial-gradient(circle, rgba(91,184,154,0.08) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(91,184,154,0.05) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)",
             filter: "blur(100px)",
           },
           // Vertical float — gentle rise and fall
@@ -71,8 +71,8 @@ export function AnimatedBackground() {
           className: "absolute -bottom-20 left-1/4 h-[28rem] w-[28rem] rounded-full",
           style: {
             background: isDark
-              ? "radial-gradient(circle, rgba(232,180,77,0.06) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(232,180,77,0.04) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(249,115,22,0.04) 0%, transparent 70%)",
             filter: "blur(120px)",
           },
           // Figure-8 like wandering path

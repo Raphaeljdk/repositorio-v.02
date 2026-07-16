@@ -188,7 +188,7 @@ export function Hero() {
                 e.preventDefault();
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group relative inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(212,119,92,0.3)] transition-all hover:shadow-[0_6px_28px_rgba(212,119,92,0.4)] hover:bg-[#E8886D] active:scale-[0.97]"
+              className="group relative inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(220,38,38,0.3)] transition-all hover:shadow-[0_6px_28px_rgba(220,38,38,0.4)] hover:bg-[#EF4444] active:scale-[0.97]"
             >
               <Sparkles className="h-4 w-4" />
               Ver projetos
@@ -226,7 +226,7 @@ export function Hero() {
               className="absolute inset-0 rounded-full animate-spin-slow opacity-60"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #D4775C, #E8B44D, #5BB89A, #D4775C)",
+                  "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
                 mask: "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
                 WebkitMask:
                   "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
@@ -238,19 +238,20 @@ export function Hero() {
               className="absolute -inset-3 rounded-full opacity-20 blur-xl"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #D4775C, #E8B44D, #5BB89A, #D4775C)",
+                  "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
               }}
               aria-hidden
             />
             {/* Avatar image */}
             <div className="absolute inset-1.5 overflow-hidden rounded-full border border-[var(--surface-border)]">
               <Image
-                src="/avatar.png"
+                src="https://github.com/Raphaeljdk.png"
                 alt="Raphael Freitas"
                 className="h-full w-full object-cover"
                 width={400}
                 height={400}
                 priority
+                unoptimized
               />
             </div>
             {/* Bottom-left floating badge */}
@@ -261,7 +262,7 @@ export function Hero() {
               className="absolute -bottom-2 left-4 z-10 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm px-3 py-2 shadow-lg"
             >
               <p className="font-code text-[10px] text-muted-foreground">São Paulo, BR</p>
-              <p className="mt-0.5 text-xs font-semibold text-foreground">Estácio · 2028</p>
+              <p className="mt-0.5 text-xs font-semibold text-foreground">Estácio · 2029</p>
             </motion.div>
           </motion.div>
         </motion.div>

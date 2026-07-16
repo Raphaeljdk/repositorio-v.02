@@ -33,7 +33,7 @@ const CURRENTLY: CurrentlyItem[] = [
     icon: <Globe className="h-3.5 w-3.5" />,
     label: "Foco",
     value: "Cloud Nativo & Next.js",
-    color: "#C47A5C",
+    color: "#B91C1C",
   },
   {
     icon: <Coffee className="h-3.5 w-3.5" />,

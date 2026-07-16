@@ -101,14 +101,14 @@ export const personal = {
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
-  bio: "Estudante de Engenharia de Software na Estácio e Desenvolvedor Full Stack com experiência prática em SAP ABAP, TMS e construção de aplicações web modernas. Apaixonado por arquiteturas escaláveis, DX impecável e interfaces que comunicam intenção.",
+  bio: "Estudante de Engenharia de Software na Estácio e Desenvolvedor Full Stack com entendimento em SAP B1 e experiência prática em TMS e construção de aplicações web modernas. Apaixonado por arquiteturas escaláveis, DX impecável e interfaces que comunicam intenção.",
   bioLong:
-    "Caminho entre o mundo corporativo (SAP, TMS, processos de logística farmacêutica) e o ecossistema web moderno (React, Node, TypeScript). Acredito que código limpo, design system consistente e observabilidade são os três pilares de produtos que sobrevivem ao tempo. Atualmente aprofundando estudos em arquiteturas distribuídas, Next.js e cloud nativo.",
+    "Caminho entre o mundo corporativo (SAP B1, TMS, processos de logística farmacêutica) e o ecossistema web moderno (React, Node, TypeScript). Acredito que código limpo, design system consistente e observabilidade são os três pilares de produtos que sobrevivem ao tempo. Atualmente aprofundando estudos em arquiteturas distribuídas, Next.js e cloud nativo.",
   university: "Estácio",
   degree: "Bacharelado em Engenharia de Software",
   roles: [
     "Full Stack Developer",
-    "SAP ABAP Specialist",
+    "SAP B1 Specialist",
     "TMS & Logistics Engineer",
     "React & Node Builder",
   ],
@@ -147,8 +147,7 @@ export const skills: Skill[] = [
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", percent: 35, category: "tools", level: "Intermediário", description: "Containers, compose, imagens", experience: "6 meses" },
   { name: "Excel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftoffice/microsoftoffice-original.svg", percent: 75, category: "tools", level: "Avançado", description: "Power Query, dashboards, VBA", experience: "2+ anos" },
   // Corporate
-  { name: "SAP ABAP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 68, category: "corporate", level: "Intermediário-Avançado", description: "Reports, ALV, Module Pool, OData", experience: "1+ ano" },
-  { name: "SAP MM/SD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 58, category: "corporate", level: "Intermediário", description: "Módulos MM, SD, pedidos, faturamento", experience: "1+ ano" },
+  { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano" },
   { name: "TMS", icon: "https://cdn-icons-png.flaticon.com/512/2942/2942271.png", percent: 62, category: "corporate", level: "Intermediário-Avançado", description: "CTEs, fretes, logística, transportadoras", experience: "1+ ano" },
   // Cloud
   { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", percent: 38, category: "cloud", level: "Intermediário", description: "EC2, S3, Lambda, IAM", experience: "8 meses" },
@@ -311,9 +310,9 @@ export const experiences: Experience[] = [
     type: "Presencial",
     current: true,
     summary:
-      "Atuação direta com SAP (MM/SD) e TMS em ambiente corporativo industrial, automatizando relatórios e apoiando integração entre sistemas.",
+      "Atuação direta com SAP B1 e TMS em ambiente corporativo industrial, automatizando relatórios e apoiando integração entre sistemas.",
     responsibilities: [
-      "Operação do sistema SAP (módulos MM/SD) para criação e gestão de pedidos",
+      "Operação do sistema SAP B1 para criação e gestão de pedidos e estoque",
       "Apoio em processos de faturamento e controle de dados mestre",
       "Cadastro e manutenção de itens e fornecedores no ERP",
       "Suporte em auditorias internas e controle de CTEs (TMS)",
@@ -321,9 +320,9 @@ export const experiences: Experience[] = [
     ],
     achievements: [
       "Automatização de relatórios reduzindo 30% do tempo operacional",
-      "Participação em projeto de integração SAP ↔ TMS",
+      "Participação em projeto de integração SAP B1 ↔ TMS",
     ],
-    technologies: ["SAP ABAP", "SAP MM", "SAP SD", "TMS", "Excel Avançado"],
+    technologies: ["SAP B1", "TMS", "Excel Avançado"],
   },
   {
     company: "Eurofarma",
@@ -345,7 +344,7 @@ export const experiences: Experience[] = [
       "Redução de 15% em retrabalho de lotes",
       "Auditoria aprovada sem não-conformidades",
     ],
-    technologies: ["Logística Farmacêutica", "BPF", "Qualidade", "SAP", "Controle de Processos"],
+    technologies: ["Logística Farmacêutica", "BPF", "Qualidade", "SAP B1", "Controle de Processos"],
   },
 ];
 
@@ -357,7 +356,7 @@ export const certifications: Certification[] = [
   { name: "Node.js Completo", hours: "60h", institution: "Udemy", year: 2025, status: "completed", category: "Backend" },
   { name: "Git & GitHub", hours: "20h", institution: "Udemy", year: 2025, status: "completed", category: "DevOps" },
   { name: "Excel Avançado", hours: "40h", institution: "Fundação Bradesco", year: 2025, status: "completed", credentialId: "FB-EXCEL-2025", category: "Tools" },
-  { name: "SAP ABAP Fundamentals", hours: "80h", institution: "SAP Learning Hub", year: 2025, status: "in-progress", progress: 65, category: "Corporativo" },
+  { name: "SAP Business One", hours: "80h", institution: "SAP Learning Hub", year: 2025, status: "in-progress", progress: 65, category: "Corporativo" },
   { name: "AWS Cloud Practitioner", hours: "40h", institution: "AWS Training", year: 2026, status: "planned", category: "Cloud" },
 ];
 
@@ -370,9 +369,9 @@ export const services = [
   },
   {
     title: "Enterprise & SAP",
-    description: "Integrações SAP, ABAP, módulos MM/SD e camadas OData/RFC conectando legado a moderno.",
+    description: "SAP B1, automação de processos e integrações conectando legado a moderno.",
     icon: "building",
-    items: ["ABAP Reports & ALV", "SAP MM / SD", "OData & RFC", "TMS & Logística"],
+    items: ["SAP B1", "Módulos Financeiro & Estoque", "Automação", "TMS & Logística"],
   },
   {
     title: "UI/UX & Dashboards",
@@ -392,41 +391,12 @@ export const techStack = {
   frontend: ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "JavaScript ES6+"],
   backend: ["Node.js", "Express", "Java", "Spring Boot", "Python", "Flask"],
   database: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Prisma ORM"],
-  corporate: ["SAP ABAP", "SAP MM/SD", "TMS", "Processos Corporativos"],
+  corporate: ["SAP B1", "TMS", "Processos Corporativos"],
   cloud: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions"],
   tools: ["Git", "VS Code", "Postman", "Figma", "Excel Avançado"],
 };
 
-export const testimonials: Testimonial[] = [
-  {
-    name: "Marcos Oliveira",
-    role: "Gerente de Operações",
-    company: "Polyexcel",
-    quote: "Raphael se destacou rapidamente no domínio do SAP e do TMS. Em poucos meses já operava módulos MM/SD com autonomia e propunha melhorias nos fluxos de integração. Raro ver alguém tão jovem com essa capacidade de absorver processos corporativos complexos.",
-    rating: 5,
-  },
-  {
-    name: "Juliana Mendes",
-    role: "Analista de Logística",
-    company: "Eurofarma",
-    quote: "Trabalhei lado a lado com o Raphael no centro de distribuição. Ele trouxe uma visão analítica que nos ajudou a reduzir retrabalho em lotes farmacêuticos. Sua disciplina em seguir protocolos de qualidade BPF foi exemplar para toda a equipe.",
-    rating: 5,
-  },
-  {
-    name: "Lucas Ferreira",
-    role: "Desenvolvedor Frontend",
-    company: "freeCodeCamp Community",
-    quote: "Nos projetos colaborativos do freeCodeCamp, o Raphael sempre entregava código limpo e bem documentado. Suas soluções para os desafios de JavaScript e algoritmos demonstram uma base sólida que muitos devs com o dobro do tempo de carreira não têm.",
-    rating: 5,
-  },
-  {
-    name: "Prof. Ricardo Nascimento",
-    role: "Professor — Eng. de Software",
-    company: "Estácio",
-    quote: "Raphael é um dos alunos mais engajados que já tive. Ele não se limita ao conteúdo das aulas — busca entender o porquê por trás de cada padrão de projeto e arquitetura. Tem potencial claro para se tornar um engenheiro de software referência.",
-    rating: 5,
-  },
-];
+export const testimonials: Testimonial[] = [];
 
 export const navItems = [
   { label: "Início", href: "#home" },
@@ -437,7 +407,6 @@ export const navItems = [
   { label: "Projetos", href: "#projects" },
   { label: "GitHub", href: "#github" },
   { label: "Experiência", href: "#experience" },
-  { label: "Depoimentos", href: "#testimonials" },
   { label: "Certificações", href: "#certifications" },
   { label: "Contato", href: "#contact" },
 ];

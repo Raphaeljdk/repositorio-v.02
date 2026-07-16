@@ -153,7 +153,7 @@ export function Navbar() {
                 e.preventDefault();
                 go("#contact");
               }}
-              className="hidden items-center gap-1.5 rounded-lg bg-[var(--color-accent-copper)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#E8886D] sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-lg bg-[var(--color-accent-copper)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#EF4444] sm:inline-flex"
             >
               Contato
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -238,7 +238,7 @@ export function Navbar() {
                       e.preventDefault();
                       go("#contact");
                     }}
-                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-copper)] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#E8886D]"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-copper)] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#EF4444]"
                   >
                     Contato
                     <ArrowUpRight className="h-3.5 w-3.5" />

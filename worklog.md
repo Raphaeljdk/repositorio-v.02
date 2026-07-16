@@ -1037,3 +1037,50 @@ Stage Summary:
 - Link funcional para https://mini-bank-v02.vercel.app
 - Lint passou sem erros
 - Tudo verificado via agent-browser + VLM
+
+---
+Task ID: RED-PALETTE
+Agent: full-stack-developer
+Task: Migrate color palette from copper/gold/sage to red-based
+
+Work Log:
+- Updated src/app/globals.css: All CSS custom properties in @theme, :root, and .dark (accent-copper, accent-sage, accent-gold, primary, ring, chart-1 through chart-5, sidebar-primary, sidebar-ring, gradient-brand, gradient-brand-soft, gradient-accent), scrollbar hover color, selection color, card glow rgba
+- Updated src/components/portfolio/animated-background.tsx: All 3 orb gradient rgba values (copper → red, sage → emerald, gold → orange)
+- Updated src/components/portfolio/footer.tsx: CTA button shadow rgba, hover bg, social link hover shadows, decorative dot color array
+- Updated src/components/portfolio/navbar.tsx: Two hover:bg instances (not in original list, found during verification)
+- Updated src/components/portfolio/scroll-indicator.tsx: Active dot shadow rgba
+- Updated src/components/sections/hero.tsx: CTA button shadow rgba, hover bg, both conic-gradient color stops
+- Updated src/components/sections/github-heatmap.tsx: Dark theme heatmap CSS variable rgba values and --heatmap-4 hex
+- Updated src/components/sections/contact.tsx: Form gradient overlay rgba, input focus shadow, submit button shadow and hover bg
+- Updated src/components/sections/skills.tsx: ACCENT_COLORS array (all 6 colors), active filter shadow rgba
+- Updated src/components/sections/certifications.tsx: Active filter shadow rgba
+- Updated src/components/sections/process.tsx: Step 1 color (#DC2626), Step 2 color (#F97316), Step 3 color (#10B981); kept Step 4 #7C8CF8 unchanged
+- Updated src/components/sections/projects.tsx: Active filter shadow rgba
+- Updated src/components/sections/stats-marquee.tsx: All 6 stat colors (kept #7C8CF8 unchanged)
+- Updated src/components/sections/testimonials.tsx: Active dot shadow rgba
+- Updated src/components/sections/currently-widget.tsx: One #C47A5C → #B91C1C (not in original list, found during verification)
+- Verified zero remaining old palette references in src/ (excluding shadcn/ui components)
+- Verified #7C8CF8 (purple) preserved across all files
+
+Stage Summary:
+- All hex and rgba color values migrated from copper/gold/sage to red/orange/emerald
+- Lint status: PASSED (zero errors, zero warnings)
+- Additional cleanup: Found and fixed 3 extra instances in navbar.tsx and currently-widget.tsx not in original task list
+
+---
+Task ID: CONTENT-OVERHAUL
+Agent: Z.ai Code (main)
+Task: 5 mudanças de conteúdo solicitadas pelo usuário
+
+Work Log:
+- **Ano formatura**: 2028 → 2029 em hero.tsx, certifications.tsx
+- **Avatar GitHub dinâmico**: Substituído /avatar.png por https://github.com/Raphaeljdk.png no hero e layout.tsx (favicon). Adicionado remotePatterns no next.config.ts. Nota: GitHub do usuário usa identicon padrão (sem foto) — quando ele subir uma foto lá, atualiza automaticamente.
+- **SAP B1 only**: Removido SAP ABAP, SAP MM/SD. Substituído por SAP B1 em: skills (1 skill em vez de 2), roles, bio, bioLong, experience (Polyexcel + Eurofarma), services, techStack, certificação SAP ABAP Fundamentals → SAP Business One
+- **Depoimentos removidos**: Removido import e componente Testimonials do page.tsx, esvaziado array testimonials em data.ts, removido "Depoimentos" do navItems
+- **Paleta vermelha**: Delegado a subagent full-stack-developer que migrou 15 arquivos (#D4775C→#DC2626, #E8B44D→#F97316, #5BB89A→#10B981 e todos os rgba)
+
+Stage Summary:
+- Lint: 0 erros
+- VLM confirmou: cor principal é vermelho, sem seção depoimentos, sem SAP MM/SD/ABAP, ano 2029
+- Dev log: zero erros de runtime/hidratação
+- GitHub avatar puxa dinamicamente (atualmente identicon até usuário subir foto)

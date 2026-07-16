@@ -47,7 +47,7 @@ export function Footer() {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(212,119,92,0.25)] transition-all hover:shadow-[0_6px_28px_rgba(212,119,92,0.35)] hover:bg-[#E8886D]"
+              className="group inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(220,38,38,0.25)] transition-all hover:shadow-[0_6px_28px_rgba(220,38,38,0.35)] hover:bg-[#EF4444]"
             >
               <Send className="h-4 w-4" />
               Entrar em contato
@@ -91,7 +91,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(212,119,92,0.1)]"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(220,38,38,0.1)]"
               >
                 <Github className="h-4 w-4" />
               </a>
@@ -100,14 +100,14 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(212,119,92,0.1)]"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(220,38,38,0.1)]"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href={`mailto:${personal.email}`}
                 aria-label="Email"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(212,119,92,0.1)]"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(220,38,38,0.1)]"
               >
                 <Mail className="h-4 w-4" />
               </a>
@@ -146,7 +146,7 @@ export function Footer() {
                   <span
                     className="h-1.5 w-1.5 rounded-full"
                     style={{
-                      backgroundColor: ["#D4775C", "#5BB89A", "#E8B44D", "#7C8CF8", "#C47A5C"][i],
+                      backgroundColor: ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C"][i],
                     }}
                   />
                   {tech}

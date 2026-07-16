@@ -88,7 +88,7 @@ export function ScrollIndicator() {
                   className={cn(
                     "flex items-center justify-center rounded-full transition-all duration-300",
                     isActive
-                      ? "h-3 w-3 bg-[var(--color-accent-copper)] shadow-[0_0_8px_rgba(212,119,92,0.4)]"
+                      ? "h-3 w-3 bg-[var(--color-accent-copper)] shadow-[0_0_8px_rgba(220,38,38,0.4)]"
                       : "h-1.5 w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
                   )}
                 />

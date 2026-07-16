@@ -9,7 +9,6 @@ import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { GitHubActivity } from "@/components/sections/github-activity";
 import { Experience } from "@/components/sections/experience";
-import { Testimonials } from "@/components/sections/testimonials";
 import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { EditorialTicker } from "@/components/portfolio/editorial-ticker";
@@ -46,7 +45,6 @@ export default function Home() {
         <div className="section-divider my-0" />
         <Experience />
         <div className="section-divider my-0" />
-        <Testimonials />
         <Certifications />
         <div className="section-divider my-0" />
         <Contact />

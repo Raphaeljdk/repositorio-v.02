@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The image contains abstract shapes (specifically purple rectangular blocks on a white background with a black area), not a real person. Thus, the answer is abstract shapes.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1784207592,
+  "id": "20260716211310992cfdd1b1d54f7b",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260716211310992cfdd1b1d54f7b",
+  "usage": {
+    "completion_tokens": 37,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 991,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 1028
+  }
+}

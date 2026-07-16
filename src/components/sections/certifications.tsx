@@ -69,7 +69,7 @@ export function Certifications() {
           />
           <SummaryItem
             label="Eng. Software"
-            value="2028"
+            value="2029"
             index={3}
           />
         </motion.div>
@@ -84,7 +84,7 @@ export function Certifications() {
               className={cn(
                 "rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
                 filter === f.id
-                  ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(212,119,92,0.3)]"
+                  ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
                   : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
               )}
             >

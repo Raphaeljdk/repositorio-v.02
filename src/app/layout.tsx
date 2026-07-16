@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/avatar.png",
+    icon: "https://github.com/Raphaeljdk.png",
   },
 };
 

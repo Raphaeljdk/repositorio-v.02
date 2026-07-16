@@ -220,7 +220,7 @@ export function Contact() {
             <div
               className="pointer-events-none absolute inset-x-0 top-0 h-32 rounded-t-xl"
               style={{
-                background: "linear-gradient(180deg, rgba(212,119,92,0.04) 0%, transparent 100%)",
+                background: "linear-gradient(180deg, rgba(220,38,38,0.04) 0%, transparent 100%)",
               }}
             />
 
@@ -284,7 +284,7 @@ export function Contact() {
                     value={form.message}
                     onChange={update("message")}
                     placeholder="Conte um pouco sobre o projeto, prazos e objetivos..."
-                    className="w-full resize-none rounded-lg border border-[var(--surface-border)] bg-[var(--background)] px-4 py-3 text-sm outline-none transition-all placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] focus:shadow-[0_0_0_2px_rgba(212,119,92,0.15)]"
+                    className="w-full resize-none rounded-lg border border-[var(--surface-border)] bg-[var(--background)] px-4 py-3 text-sm outline-none transition-all placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] focus:shadow-[0_0_0_2px_rgba(220,38,38,0.15)]"
                   />
                   <p className="mt-1 text-right font-code text-[10px] text-muted-foreground/50">
                     {form.message.length}/2000
@@ -310,7 +310,7 @@ export function Contact() {
                     "group inline-flex w-full items-center justify-center gap-2 rounded-lg px-6 py-4 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed",
                     status === "loading"
                       ? "bg-[var(--color-accent-copper)] opacity-80"
-                      : "bg-[var(--color-accent-copper)] hover:bg-[#E8886D] hover:shadow-[0_4px_24px_rgba(212,119,92,0.35)] active:scale-[0.99]"
+                      : "bg-[var(--color-accent-copper)] hover:bg-[#EF4444] hover:shadow-[0_4px_24px_rgba(220,38,38,0.35)] active:scale-[0.99]"
                   )}
                 >
                   {status === "loading" && (
@@ -371,7 +371,7 @@ function Field({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--background)] px-4 py-3 text-sm outline-none transition-all placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] focus:shadow-[0_0_0_2px_rgba(212,119,92,0.15)]"
+        className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--background)] px-4 py-3 text-sm outline-none transition-all placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] focus:shadow-[0_0_0_2px_rgba(220,38,38,0.15)]"
       />
     </div>
   );

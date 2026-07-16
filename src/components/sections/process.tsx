@@ -9,21 +9,21 @@ const STEPS = [
     title: "Entendimento",
     description: "Entendo o problema de negócio, os objetivos e o público-alvo. Defino escopo, tecnologias e roadmap.",
     icon: MessageSquare,
-    color: "#D4775C",
+    color: "#DC2626",
   },
   {
     step: "02",
     title: "Design & Arquitetura",
     description: "Crio wireframes, design system e defino a arquitetura técnica — escalabilidade desde o início.",
     icon: Palette,
-    color: "#E8B44D",
+    color: "#F97316",
   },
   {
     step: "03",
     title: "Desenvolvimento",
     description: "Código limpo, testável e documentado. Commits semânticos, CI/CD e code review contínuo.",
     icon: Code2,
-    color: "#5BB89A",
+    color: "#10B981"
   },
   {
     step: "04",
