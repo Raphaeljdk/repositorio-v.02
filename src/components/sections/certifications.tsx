@@ -2,12 +2,13 @@
 
 import { useMemo, useState, createElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, Clock, Code2, Database, Cloud, Table2, Server, ExternalLink } from "lucide-react";
+import { Award, Clock, Code2, Database, Cloud, Table2, Server, Copy, Check } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { certifications } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 import { useCardGlow } from "@/hooks/use-card-glow";
+import { useToast } from "@/hooks/use-toast";
 
 const FILTERS = [
   { id: "all", label: "Todas" },
@@ -124,6 +125,20 @@ function getCertIconClass(category: string, name: string): LucideIcon {
 
 function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; delay: number }) {
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  const handleVerify = async () => {
+    if (!cert.credentialId) return;
+    try {
+      await navigator.clipboard.writeText(cert.credentialId);
+      setCopied(true);
+      toast({ title: "ID copiado!", description: `${cert.credentialId}` });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({ title: "Erro ao copiar", variant: "destructive" });
+    }
+  };
 
   return (
     <motion.div
@@ -211,9 +226,20 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
           </span>
           <button
             type="button"
-            className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline"
+            onClick={handleVerify}
+            className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline cursor-pointer"
           >
-            Verificar <ExternalLink className="h-2.5 w-2.5" />
+            {copied ? (
+              <>
+                <Check className="h-2.5 w-2.5" />
+                Copiado!
+              </>
+            ) : (
+              <>
+                <Copy className="h-2.5 w-2.5" />
+                Copiar ID
+              </>
+            )}
           </button>
         </div>
       )}

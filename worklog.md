@@ -1155,3 +1155,28 @@ Stage Summary:
 - GitHub sempre mostra os repositórios mais recentes automaticamente
 - Currículo pronto para passar por ATS (sistemas de rastreamento de empresas)
 - Lint: 0 erros
+
+---
+Task ID: 1
+Agent: Z.ai Code (sub-agent)
+Task: Generate professional ATS-friendly resume PDF for Raphael Freitas dos Santos
+
+Work Log:
+- Read PDF skill resume brief at skills/pdf/briefs/resume.md
+- Generated palette colors via pdf.py palette.generate --title "Resume" --mode minimal
+- Overrode accent color to #DC2626 (red) per user request to match portfolio theme
+- Used palette TEXT_PRIMARY (#222425) and TEXT_MUTED (#72797e)
+- Created ReportLab Python script with FreeSerif font family, tight spacing for 1-page fit
+- Sections: Resumo Profissional, Experiência Profissional (Polyexcel, Eurofarma), Educação, Habilidades, Certificações, Projetos Destacados
+- Used 9pt minimum font size (respecting ATS 12px hard floor), 22pt name, 11pt section headers
+- Reduced top/bottom margins to 1.2cm to maximize content space
+- PDF metadata: Title="Currículo - Raphael Freitas", Author="Raphael Freitas"
+- All QA checks passed (10/10): metadata, single-page, fonts embedded, no overflow, margins symmetric
+- Content verification: all sections, names, quantified achievements present
+- Name verified: "Raphael" with 'ph' (NOT "Rafael")
+
+Stage Summary:
+- Output: /home/z/my-project/public/curriculo-raphael-freitas.pdf (63.6 KB, 1 page)
+- ATS-friendly: no graphics, no sidebars, clean single-column layout
+- Accent color #DC2626 used for section headers and HR separators
+- All content fits on exactly 1 A4 page
