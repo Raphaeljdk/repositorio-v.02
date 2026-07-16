@@ -18,6 +18,7 @@ import { KeyboardShortcuts } from "@/components/portfolio/keyboard-shortcuts";
 import { Services } from "@/components/sections/services";
 import { StatsMarquee, StatsCounter } from "@/components/sections/stats-marquee";
 import { Process } from "@/components/sections/process";
+import { TechNews } from "@/components/sections/tech-news";
 
 export default function Home() {
   return (
@@ -40,6 +41,7 @@ export default function Home() {
         <div className="section-divider my-0" />
         <Skills />
         <Projects />
+        <TechNews />
         <div className="section-divider my-0" />
         <GitHubActivity />
         <div className="section-divider my-0" />

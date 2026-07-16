@@ -2,7 +2,18 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, Calendar, User, Eye } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  Github,
+  Calendar,
+  User,
+  Eye,
+  Target,
+  Lightbulb,
+  Zap,
+  TrendingUp,
+} from "lucide-react";
 import type { Project } from "@/lib/data";
 
 interface ProjectModalProps {
@@ -63,10 +74,10 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
               stiffness: 350,
               damping: 30,
             }}
-            className="fixed bottom-0 left-0 right-0 z-50 max-h-[85vh] w-full overflow-y-auto rounded-t-2xl sm:inset-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-2xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-xl"
+            className="fixed bottom-0 left-0 right-0 z-50 max-h-[90vh] w-full overflow-y-auto rounded-t-2xl sm:inset-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-2xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-xl sm:max-h-[85vh]"
           >
             <div className="relative rounded-t-2xl bg-[var(--surface)] border border-[var(--surface-border)] p-6 sm:rounded-xl sm:p-8">
-              {/* Copper gradient top line */}
+              {/* Top gradient line */}
               <div
                 className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl sm:rounded-t-xl"
                 style={{
@@ -99,11 +110,11 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
 
               {/* Category & Year */}
               <div className="flex items-center gap-2">
-                <span className="mono-label font-code text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">
                   {project.category}
                 </span>
                 <span className="text-muted-foreground/40">·</span>
-                <span className="mono-label font-code text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-1">
+                <span className="font-code text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-1">
                   <Calendar className="h-3 w-3" />
                   {project.year}
                 </span>
@@ -119,14 +130,76 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 {project.subtitle}
               </p>
 
-              {/* Full description */}
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                {project.description}
-              </p>
+              {/* Metrics Grid — shows quantified impact */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="mt-5">
+                  <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
+                    <TrendingUp className="h-3.5 w-3.5" />
+                    Métricas de Impacto
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {project.metrics.map((m) => (
+                      <div
+                        key={m.label}
+                        className="rounded-lg border border-[var(--surface-border)] bg-background/50 p-3 text-center"
+                      >
+                        <p className="font-display text-lg font-bold text-foreground tabular-nums">
+                          {m.value}
+                        </p>
+                        <p className="mt-0.5 font-code text-[9px] uppercase tracking-wider text-muted-foreground">
+                          {m.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Case Study — Problem / Solution / Lessons */}
+              {project.caseStudy && (
+                <div className="mt-5 space-y-3">
+                  <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+                    <Target className="h-3.5 w-3.5" />
+                    Case Study
+                  </p>
+
+                  {/* Problem */}
+                  <div className="rounded-lg border border-[var(--surface-border)] p-4">
+                    <p className="font-code text-[9px] uppercase tracking-widest text-[var(--color-accent-copper)] mb-1.5">
+                      Problema
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {project.caseStudy.problem}
+                    </p>
+                  </div>
+
+                  {/* Solution */}
+                  <div className="rounded-lg border border-[var(--surface-border)] p-4">
+                    <p className="font-code text-[9px] uppercase tracking-widest text-[#F97316] mb-1.5">
+                      Solução
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {project.caseStudy.solution}
+                    </p>
+                  </div>
+
+                  {/* Lessons */}
+                  <div className="rounded-lg border border-[#10B981]/30 bg-[#10B981]/5 p-4">
+                    <p className="font-code text-[9px] uppercase tracking-widest text-[#10B981] mb-1.5 flex items-center gap-1">
+                      <Lightbulb className="h-3 w-3" />
+                      Lições Aprendidas
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {project.caseStudy.lessons}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Highlights */}
               <div className="mt-5">
-                <p className="mono-label font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
+                <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-1.5">
+                  <Zap className="h-3.5 w-3.5" />
                   Destaques
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -143,7 +216,7 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
 
               {/* Technologies */}
               <div className="mt-5">
-                <p className="mono-label font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
+                <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2">
                   Tecnologias
                 </p>
                 <div className="flex flex-wrap gap-1.5">

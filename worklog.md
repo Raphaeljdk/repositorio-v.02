@@ -1084,3 +1084,37 @@ Stage Summary:
 - VLM confirmou: cor principal é vermelho, sem seção depoimentos, sem SAP MM/SD/ABAP, ano 2029
 - Dev log: zero erros de runtime/hidratação
 - GitHub avatar puxa dinamicamente (atualmente identicon até usuário subir foto)
+---
+Task ID: TECH-NEWS
+Agent: full-stack-developer
+Task: Build tech news section with live API
+
+Work Log:
+- Created /src/app/api/news/route.ts with web search via z-ai-web-dev-sdk
+- Created /src/components/sections/tech-news.tsx with editorial card layout
+- Integrated into page.tsx
+- 30-min server-side cache
+- Lint: PASSED
+
+Stage Summary:
+- Tech news section fetches real-time news
+- Responsive 3-col grid, loading/error states
+- Red accent, Framer Motion animations
+
+---
+Task ID: CV-PDF
+Agent: full-stack-developer
+Task: Generate professional CV PDF
+
+Work Log:
+- Generated professional dark-themed CV PDF using pdf skill (creative pipeline, raw HTML bypass)
+- Designed single-page A4 layout with dark background (#0A0A0B), red accent (#DC2626), green achievement highlights (#10B981)
+- Two-column layout: left sidebar (skills, certifications, education) + right main (summary, experience, projects)
+- Validated HTML with poster_validate.py (passed, no errors)
+- Generated PDF via html2pdf-next.js (Playwright + Paged.js) — 1 page, 174.8 KB
+- Passed pdf_qa.py quality checks (full-bleed, symmetric margins, fonts embedded, no overflow)
+- Set PDF metadata (author, title, subject)
+- Saved to /home/z/my-project/public/curriculo-raphael-freitas.pdf
+
+Stage Summary:
+- Professional CV ready for download

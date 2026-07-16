@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Sparkles, Download } from "lucide-react";
 import { personal } from "@/lib/data";
 import Image from "next/image";
 import { MagneticButton } from "@/components/portfolio/magnetic-button";
@@ -193,6 +193,16 @@ export function Hero() {
               <Sparkles className="h-4 w-4" />
               Ver projetos
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </MagneticButton>
+            {/* Secondary CTA — ghost, clearly subordinate */}
+            <MagneticButton
+              as="a"
+              href="/curriculo-raphael-freitas.pdf"
+              download
+              className="group inline-flex items-center gap-2 rounded-xl border border-[var(--surface-border)] px-5 py-3.5 text-sm font-medium text-muted-foreground transition-all hover:border-[var(--color-accent-copper)]/50 hover:text-foreground"
+            >
+              <Download className="h-4 w-4" />
+              Baixar Currículo
             </MagneticButton>
             {/* Secondary CTA — ghost, clearly subordinate */}
             <MagneticButton

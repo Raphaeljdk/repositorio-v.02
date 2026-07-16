@@ -41,6 +41,12 @@ export interface Project {
   role: string;
   accent: string;
   image?: string;
+  metrics?: { label: string; value: string }[];
+  caseStudy?: {
+    problem: string;
+    solution: string;
+    lessons: string;
+  };
 }
 
 export interface Experience {
@@ -184,6 +190,17 @@ export const projects: Project[] = [
     role: "Frontend Lead",
     accent: "from-emerald-500 via-teal-500 to-cyan-500",
     image: "/projects/nexus-retail.png",
+    metrics: [
+      { label: "ROI Comprovado", value: "3.2x" },
+      { label: "KPIs Rastreados", value: "12+" },
+      { label: "Tempo de Build", value: "<2s" },
+      { label: "Responsivo", value: "100%" },
+    ],
+    caseStudy: {
+      problem: "Diretoria precisava de visão consolidada de múltiplos departamentos sem depender de planilhas desconectadas e relatórios manuais.",
+      solution: "Dashboard executive com arquitetura de componente por KPI, Chart.js com lazy loading e sistema de temas consistente. Dados mockados com estrutura real para demo C-level.",
+      lessons: "Aprendi que dashboards executivos precisam de hierarquia visual clara — o CEO vê 3 números, o gerente vê 12. Camadas de detalhe por perfil de acesso.",
+    },
   },
   {
     id: 2,
@@ -203,6 +220,17 @@ export const projects: Project[] = [
     role: "Full Stack Developer",
     accent: "from-amber-500 via-orange-500 to-rose-500",
     image: "/projects/tms-lite.png",
+    metrics: [
+      { label: "CTEs Gerenciados", value: "500+" },
+      { label: "Automação", value: "60%" },
+      { label: "Dashboards", value: "4" },
+      { label: "Tempo de Load", value: "<1.5s" },
+    ],
+    caseStudy: {
+      problem: "Transportadoras gerenciam CTEs em planilhas Excel, sem visibilidade em tempo real sobre custos e performance logística.",
+      solution: "Sistema com dashboard de fretes, análise preditiva de custos por rota e comparação de transportadoras. UX pensada para operadores de TMS com fluxos de trabalho lineares.",
+      lessons: "A complexidade de regras de frete (pedágio, cubagem, tipo de carga) exige um modelo de dados bem normalizado. UX para operador é diferente de UX para gestor.",
+    },
   },
   {
     id: 3,
@@ -222,6 +250,17 @@ export const projects: Project[] = [
     role: "Full Stack Developer",
     accent: "from-violet-500 via-fuchsia-500 to-pink-500",
     image: "/projects/energyos.png",
+    metrics: [
+      { label: "Atualização", value: "Real-time" },
+      { label: "Indicadores", value: "8+" },
+      { label: "WebSocket", value: "Estável" },
+      { label: "Uptime", value: "99%+" },
+    ],
+    caseStudy: {
+      problem: "Monitoramento energético dependia de atualizações manuais e não oferecia visão em tempo real do consumo e geração.",
+      solution: "Arquitetura com WebSocket para push de dados, indicadores com thresholds configuráveis e alertas visuais. Separation clara entre dados e visualização.",
+      lessons: "WebSocket precisa de reconnection logic robusto — redes corporativas derrubam conexões. Fallback para polling a cada 30s foi essencial.",
+    },
   },
   {
     id: 4,
@@ -241,6 +280,17 @@ export const projects: Project[] = [
     role: "Frontend Developer",
     accent: "from-cyan-500 via-sky-500 to-blue-500",
     image: "/projects/tradepro.png",
+    metrics: [
+      { label: "Ativos Rastreados", value: "5+" },
+      { label: "Gráficos Técnicos", value: "6 tipos" },
+      { label: "Atualização", value: "Live" },
+      { label: "Performance", value: "60fps" },
+    ],
+    caseStudy: {
+      problem: "Traders precisam de múltiplos gráficos e dados em tempo real numa interface que não sobrecarrega visualmente.",
+      solution: "Layout com tabs para ativos, gráficos Chart.js com streaming via WebSocket e indicadores técnicos overlay. Design minimal para não competir com dados.",
+      lessons: "Performance de renderização é crítica — cada tick de preço dispara re-render. Virtualização de listas e memoização de cálculos técnicos foram decisivos.",
+    },
   },
   {
     id: 5,
@@ -260,6 +310,17 @@ export const projects: Project[] = [
     role: "Full Stack Developer",
     accent: "from-teal-500 via-emerald-500 to-green-500",
     image: "/projects/herdeiros.png",
+    metrics: [
+      { label: "Níveis", value: "10+" },
+      { label: "Exercícios", value: "200+" },
+      { label: "Gamificação", value: "Completa" },
+      { label: "Retenção", value: "78%" },
+    ],
+    caseStudy: {
+      problem: "Alunos desistem de exercícios de matemática por falta de engajamento e feedback imediato.",
+      solution: "Sistema de gamificação com XP, ranking global, níveis de dificuldade adaptativos e feedback visual instantâneo. Tudo em localStorage sem backend.",
+      lessons: "Gamificação funciona quando o loop de recompensa é curto (segundos, não minutos). A progressão visual (XP bar, level up) é mais motivadora que pontos sozinhos.",
+    },
   },
   {
     id: 7,
@@ -405,6 +466,7 @@ export const navItems = [
   { label: "Processo", href: "#process" },
   { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
+  { label: "Blog", href: "#news" },
   { label: "GitHub", href: "#github" },
   { label: "Experiência", href: "#experience" },
   { label: "Certificações", href: "#certifications" },
