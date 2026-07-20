@@ -1180,3 +1180,33 @@ Stage Summary:
 - ATS-friendly: no graphics, no sidebars, clean single-column layout
 - Accent color #DC2626 used for section headers and HR separators
 - All content fits on exactly 1 A4 page
+
+---
+Task ID: ERP-ANIMATIONS-RESPONSIVE
+Agent: Z.ai Code (main)
+Task: Add ERP Tech Lemon project, enhanced animations/effects, full responsive design
+
+Work Log:
+- Visited https://erp-tech-lemon.vercel.app/ with agent-browser, took screenshot, analyzed the ERP system (7+ modules: Dashboard, Clientes, Produtos, Vendas, Financeiro, Estoque, Relatórios)
+- Added ERP Tech Lemon as featured project (id: 8) in src/lib/data.ts with full description, technologies, metrics, case study
+- Updated stats: 10+ projects (data.ts), 9+ projects (marquee/counter)
+- Created FloatingParticles component (canvas-based, mouse repulsion, connection lines, pulse animation)
+- Created ScrollProgress component (gradient progress bar at top of viewport)
+- Created RevealOnScroll component (blur+translate entrance animation wrapper)
+- Enhanced hero: gradient text name (Raphael white / Freitas copper→orange→green gradient), floating decorative dots
+- Enhanced animated background: 4th orb with pulsing scale, bottom vignette
+- Added shimmer hover effect on project cards (CSS)
+- Added service cards hover lift animation (whileHover y:-6 scale:1.02)
+- Added CSS utilities: shimmer-effect, glow-pulse, animate-gradient-text
+- Removed duplicate scroll progress from navbar (now dedicated component)
+- Verified responsive design on desktop (1920x1080), mobile (iPhone 14), tablet (768x1024)
+- Verified ERP Tech Lemon project modal opens correctly
+- Committed and pushed to GitHub (cc979d9)
+
+Stage Summary:
+- ERP Tech Lemon project added with screenshot, full metadata, and working modal
+- 4 new animation components: FloatingParticles, ScrollProgress, RevealOnScroll, AnimatedLine
+- Hero enhanced with gradient name text and floating dots
+- Shimmer hover effect on project cards
+- All responsive breakpoints verified (mobile, tablet, desktop)
+- GitHub push successful
