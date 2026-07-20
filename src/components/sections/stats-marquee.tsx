@@ -5,7 +5,7 @@ import { useInView } from "@/hooks/use-count-up";
 import { useCountUp } from "@/hooks/use-count-up";
 
 const MARQUEE_STATS = [
-  { value: 8, suffix: "+", label: "Projetos", color: "#DC2626" },
+  { value: 9, suffix: "+", label: "Projetos", color: "#DC2626" },
   { value: 25, suffix: "+", label: "Tecnologias", color: "#10B981" },
   { value: 2, suffix: "+", label: "Anos Exp.", color: "#F97316" },
   { value: 9, suffix: "", label: "Certificações", color: "#7C8CF8" },
@@ -62,7 +62,7 @@ function MarqueeItem({ stat }: { stat: (typeof MARQUEE_STATS)[number] }) {
 /*  Animated Counter Strip — full-width section with big counters       */
 /* ------------------------------------------------------------------ */
 const COUNTER_DATA = [
-  { value: 8, suffix: "+", label: "Projetos entregues", description: "SaaS, dashboards, APIs, apps web" },
+  { value: 9, suffix: "+", label: "Projetos entregues", description: "SaaS, ERP, dashboards, APIs, apps web" },
   { value: 25, suffix: "+", label: "Tecnologias dominadas", description: "Frontend, backend, cloud, corporativo" },
   { value: 2, suffix: "+", label: "Anos de experiência", description: "SAP corporativo + ecossistema web" },
   { value: 4500, suffix: "+", label: "Horas de estudo", description: "Cursos, certificações, projetos práticos" },

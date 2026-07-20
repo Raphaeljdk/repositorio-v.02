@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import { navItems, personal } from "@/lib/data";
 import { ThemeToggle } from "./theme-toggle";
@@ -11,13 +11,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
-  // Scroll progress bar
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "100%"]), {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
 
   useEffect(() => {
     const onScroll = () => {
@@ -77,11 +70,6 @@ export function Navbar() {
         scrolled ? "py-2" : "py-4"
       )}
     >
-      {/* Scroll progress bar */}
-      <motion.div
-        className="absolute top-0 left-0 right-0 h-[2px] origin-left bg-[var(--color-accent-copper)]"
-        style={{ scaleX }}
-      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <nav
           className={cn(

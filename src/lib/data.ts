@@ -121,7 +121,7 @@ export const personal = {
 };
 
 export const stats: Stat[] = [
-  { label: "Projetos entregues", value: 9, suffix: "+", icon: "rocket" },
+  { label: "Projetos entregues", value: 10, suffix: "+", icon: "rocket" },
   { label: "Tecnologias dominadas", value: 25, suffix: "+", icon: "layers" },
   { label: "Certificações", value: 9, suffix: "", icon: "award" },
   { label: "Anos de experiência", value: 2, suffix: "+", icon: "calendar" },
@@ -340,6 +340,36 @@ export const projects: Project[] = [
     role: "Full Stack Developer",
     accent: "from-emerald-500 via-cyan-500 to-teal-500",
     image: "/projects/mini-bank.png",
+  },
+  {
+    id: 8,
+    title: "ERP Tech Lemon",
+    subtitle: "Sistema ERP Completo de Gestão Empresarial",
+    description: "Sistema ERP completo com dashboard executivo, gestão de clientes, produtos, vendas, financeiro, estoque e relatórios. Interface moderna com modo escuro, gráficos interativos e módulos integrados para controle total da empresa.",
+    category: "ERP / SaaS",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Recharts", "localStorage"],
+    difficulty: 88,
+    highlights: ["Dashboard Executivo", "Gestão Completa", "Gráficos Interativos", "Modo Escuro", "Múltiplos Módulos"],
+    link: "https://erp-tech-lemon.vercel.app/",
+    github: "",
+    featured: true,
+    status: "completed",
+    year: "2025",
+    stats: { views: 180, likes: 15 },
+    role: "Full Stack Developer",
+    accent: "from-red-500 via-orange-500 to-amber-500",
+    image: "/projects/erp-tech-lemon.png",
+    metrics: [
+      { label: "Módulos", value: "7+" },
+      { label: "Gráficos", value: "4+" },
+      { label: "CRUD Completo", value: "100%" },
+      { label: "Responsivo", value: "100%" },
+    ],
+    caseStudy: {
+      problem: "Empresas precisam de um sistema unificado para gerenciar vendas, estoque, clientes e finanças sem depender de múltiplas planilhas e ferramentas desconectadas.",
+      solution: "ERP completo com 7+ módulos integrados: Dashboard com KPIs em tempo real, gestão de clientes e produtos, emissão de vendas com múltiplas formas de pagamento, controle financeiro e de estoque com alertas de itens críticos, e relatórios detalhados.",
+      lessons: "Um ERP precisa ter fluxos de trabalho lineares e intuitivos — cada tela deve ter um objetivo claro. A arquitetura de módulos permite evolução independente e testabilidade por área.",
+    },
   },
   {
     id: 6,

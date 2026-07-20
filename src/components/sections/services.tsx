@@ -49,6 +49,7 @@ export function Services() {
                 key={s.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -6, scale: 1.02 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{
                   duration: 0.55,

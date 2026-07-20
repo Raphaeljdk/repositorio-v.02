@@ -130,23 +130,27 @@ export function Hero() {
           {/* Name — huge display with split character reveal */}
           <motion.h1
             variants={item}
-            className="mt-4 font-display text-6xl font-extrabold leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-8xl"
+            className="mt-4 font-display text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl"
           >
-            <span className="flex overflow-hidden">
-              {"Freitas".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.3 + i * 0.06,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {char}
-                </motion.span>
-              ))}
+            <span className="text-foreground">Raphael</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#DC2626] via-[#F97316] to-[#10B981] bg-clip-text text-transparent">
+              <span className="inline-flex overflow-hidden">
+                {"Freitas".split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.3 + i * 0.06,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
             </span>
           </motion.h1>
 
@@ -277,6 +281,32 @@ export function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Floating decorative dots */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="pointer-events-none absolute rounded-full"
+          style={{
+            width: 3 + (i % 3) * 2,
+            height: 3 + (i % 3) * 2,
+            background: ["#DC2626", "#F97316", "#10B981"][i % 3],
+            left: `${15 + i * 15}%`,
+            top: `${20 + (i % 2) * 50}%`,
+          }}
+          animate={reduce ? {} : {
+            y: [0, -15 - i * 3, 0],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 3 + i * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.4,
+          }}
+          aria-hidden
+        />
+      ))}
 
       {/* Terminal line at bottom — live clock + status */}
       <motion.div

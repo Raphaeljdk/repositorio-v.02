@@ -19,11 +19,15 @@ import { Services } from "@/components/sections/services";
 import { StatsMarquee, StatsCounter } from "@/components/sections/stats-marquee";
 import { Process } from "@/components/sections/process";
 import { TechNews } from "@/components/sections/tech-news";
+import { FloatingParticles } from "@/components/portfolio/particles";
+import { ScrollProgress } from "@/components/portfolio/scroll-progress";
 
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col">
+      <ScrollProgress />
       <AnimatedBackground />
+      <FloatingParticles />
       <NoiseOverlay />
       <CustomCursor />
       <Navbar />
