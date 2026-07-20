@@ -30,3 +30,32 @@ Stage Summary:
 - Senior-level animations added: morphing blobs, neon borders, 3D tilt, glowing progress bars, staggered entrances, magnetic hover effects
 - Project verified working via agent-browser with zero errors
 - Successfully pushed to GitHub: https://github.com/Raphaeljdk/repositorio-v.02
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Fix blog not showing on Vercel + improve layout & design
+
+Work Log:
+- Investigated: tech-news.tsx was calling /api/news which uses z-ai-web-dev-sdk (only available in sandbox)
+- On Vercel, ZAI.create() fails -> API returns error -> blog shows error state
+- Solution: Rewrote tech-news.tsx to use static curated articles from data.ts (no API call)
+- Added 6 tech articles to data.ts (techArticles): React 19, Next.js 15, TypeScript 5.7, IA Generativa, SAP B1 2025, Node.js 22
+- Each article has: title, url, snippet, source, date, tag
+- Blog now has tag filter buttons (Todos, React, Next.js, TypeScript, IA, SAP B1, Node.js)
+- Each tag has unique color styling with icon (Code2, Globe, Cpu, Zap)
+- Updated stats-marquee.tsx: MARQUEE_STATS and COUNTER_DATA now show 30+ techs and 4 AIs
+- Updated editorial-ticker.tsx: replaced SAP ABAP with SAP B1, added IA Generativa, ChatGPT, DeepSeek, Python
+- Updated services.tsx: better icon hover with animated glow ring, gradient top line, added AI integration note
+- Updated footer.tsx: subtitle "SAP B1 Specialist", 8 tech badges (added ChatGPT, Python, SAP B1), 8 color dots
+- Added responsive CSS: section padding on mobile, 44px min tap targets
+- Enhanced section divider gradient (18% -> 25%)
+- Verified via agent-browser: blog renders with all 6 articles, tag filters work, no console errors
+- Pushed to GitHub (commit 02e173d)
+
+Stage Summary:
+- Blog section now works on Vercel (static data, no SDK dependency)
+- 6 curated articles with tag filtering by technology
+- Layout improvements: stats synced, ticker updated, services enhanced, footer expanded
+- Responsive improvements: mobile section padding, proper tap targets
+- All verified working with zero errors
