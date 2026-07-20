@@ -9,7 +9,7 @@ import { useCardGlow } from "@/hooks/use-card-glow";
 
 type Filter = SkillCategory | "all";
 
-const ACCENT_COLORS = ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C", "#9A3412"] as const;
+const ACCENT_COLORS = ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C", "#9A3412", "#EF4444"] as const;
 
 function CategoryBar({ activeFilter, onSelect }: { activeFilter: Filter; onSelect: (f: Filter) => void }) {
   const categoryCounts = useMemo(() => {
@@ -224,19 +224,23 @@ function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: bool
         {skill.description}
       </p>
 
-      {/* Progress bar */}
-      <div className="mt-3">
+      {/* Progress bar with glow */}
+      <div className="mt-3 relative progress-glow">
         <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
           <span>{skill.experience}</span>
           <span>{skill.percent}%</span>
         </div>
-        <div className="mt-1 h-px w-full overflow-hidden rounded-full bg-muted/60">
+        <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: `${skill.percent}%` }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-            className="h-full bg-[var(--color-accent-copper)]"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="h-full rounded-full"
+            style={{
+              background: `linear-gradient(90deg, ${catColor}, ${catColor}88)`,
+              boxShadow: `0 0 8px ${catColor}40`,
+            }}
           />
         </div>
       </div>

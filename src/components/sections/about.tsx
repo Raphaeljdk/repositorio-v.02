@@ -12,6 +12,7 @@ import {
   GraduationCap,
   Crosshair,
   CircleCheck,
+  Sparkles,
 } from "lucide-react";
 import { personal, stats } from "@/lib/data";
 import { useCountUp, useInView } from "@/hooks/use-count-up";
@@ -26,6 +27,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   calendar: Calendar,
   book: BookOpen,
   gitBranch: GitBranch,
+  sparkles: Sparkles,
 };
 
 export function About() {
@@ -37,7 +39,7 @@ export function About() {
         <SectionHeading
           label="Sobre"
           title="Engenharia com intenção."
-          description="Mento entre o rigor corporativo e a velocidade do ecossistema web — entregando produtos que performam, escalam e encantam."
+          description="Ponte entre o rigor corporativo regulado e a velocidade do ecossistema web — entregando produtos que performam, escalam e resolvem problemas reais do negócio."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-[1.3fr_1fr]">
@@ -61,7 +63,7 @@ export function About() {
                 transition={{ duration: 0.4, delay: 0.3 }}
                 className="mt-6 flex flex-wrap gap-2"
               >
-                {["Arquiteturas escaláveis", "DX impecável", "Design system", "Observabilidade"].map(
+                {["Arquiteturas escaláveis", "IA Generativa & Produtividade", "SAP B1 + Automação", "Observabilidade", "React · Next.js · TypeScript"].map(
                   (t) => (
                     <span
                       key={t}
@@ -90,10 +92,12 @@ export function About() {
                   { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
                   { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
                   { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+                  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
                   { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
                   { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-                  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
                   { name: "SAP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg" },
+                  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg" },
+                  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
                 ].map((tech) => (
                   <div
                     key={tech.name}
@@ -118,7 +122,7 @@ export function About() {
               {[
                 { label: "Localização", value: personal.location, icon: <MapPin className="h-4 w-4" /> },
                 { label: "Universidade", value: personal.university, icon: <GraduationCap className="h-4 w-4" /> },
-                { label: "Foco atual", value: "React · Next.js · Cloud", icon: <Crosshair className="h-4 w-4" /> },
+                { label: "Foco atual", value: "React · Next.js · IA Generativa", icon: <Crosshair className="h-4 w-4" /> },
                 { label: "Status", value: personal.availability, icon: <CircleCheck className="h-4 w-4" /> },
               ].map((card, i) => (
                 <motion.div

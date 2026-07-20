@@ -11,7 +11,8 @@ export type SkillCategory =
   | "database"
   | "tools"
   | "corporate"
-  | "cloud";
+  | "cloud"
+  | "ai";
 
 export interface Skill {
   name: string;
@@ -95,36 +96,36 @@ export const personal = {
   firstName: "Raphael",
   lastName: "Freitas",
   initials: "RF",
-  title: "Full Stack Developer",
+  title: "Desenvolvedor Full Stack | Arquitetura de Software | SAP B1",
   tagline: "Construindo experiências digitais que escalam",
   age: 19,
-  location: "São Paulo, Brasil",
+  location: "São Paulo, SP",
   email: "raphaelfreitasdossantos651@gmail.com",
-  phone: "+55 11 94737-4151",
+  phone: "(11) 94737-4151",
   github: "https://github.com/Raphaeljdk",
   githubHandle: "Raphaeljdk",
   linkedin: "https://www.linkedin.com/in/raphael-freitas-dos-santos-a42704260/",
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
-  bio: "Estudante de Engenharia de Software na Estácio e Desenvolvedor Full Stack com entendimento em SAP B1 e experiência prática em TMS e construção de aplicações web modernas. Apaixonado por arquiteturas escaláveis, DX impecável e interfaces que comunicam intenção.",
+  bio: "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.",
   bioLong:
-    "Caminho entre o mundo corporativo (SAP B1, TMS, processos de logística farmacêutica) e o ecossistema web moderno (React, Node, TypeScript). Acredito que código limpo, design system consistente e observabilidade são os três pilares de produtos que sobrevivem ao tempo. Atualmente aprofundando estudos em arquiteturas distribuídas, Next.js e cloud nativo.",
+    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
   university: "Estácio",
-  degree: "Bacharelado em Engenharia de Software",
+  degree: "Bacharelado em Engenharia de Software (Cursando)",
   roles: [
     "Full Stack Developer",
+    "Arquitetura de Software",
     "SAP B1 Specialist",
-    "TMS & Logistics Engineer",
-    "React & Node Builder",
+    "IA Generativa & Produtividade",
   ],
 };
 
 export const stats: Stat[] = [
   { label: "Projetos entregues", value: 10, suffix: "+", icon: "rocket" },
-  { label: "Tecnologias dominadas", value: 25, suffix: "+", icon: "layers" },
+  { label: "Tecnologias dominadas", value: 30, suffix: "+", icon: "layers" },
   { label: "Certificações", value: 9, suffix: "", icon: "award" },
-  { label: "Anos de experiência", value: 2, suffix: "+", icon: "calendar" },
+  { label: "IAs utilizadas", value: 4, suffix: "", icon: "sparkles" },
   { label: "Horas de estudo", value: 4500, suffix: "+", icon: "book" },
   { label: "Repositórios GitHub", value: 15, suffix: "", icon: "gitBranch" },
 ];
@@ -159,6 +160,11 @@ export const skills: Skill[] = [
   { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", percent: 38, category: "cloud", level: "Intermediário", description: "EC2, S3, Lambda, IAM", experience: "8 meses" },
   { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original-wordmark.svg", percent: 30, category: "cloud", level: "Intermediário", description: "VMs, Blob, Functions, AD", experience: "4 meses" },
   { name: "Cloud Computing", icon: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png", percent: 45, category: "cloud", level: "Intermediário", description: "IaaS, PaaS, SaaS, serverless", experience: "8 meses" },
+  // AI & Productivity
+  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg", percent: 90, category: "ai", level: "Avançado", description: "Geração de código, revisão, pair programming, arquitetura de soluções", experience: "2+ anos" },
+  { name: "DeepSeek", icon: "https://cdn.simpleicons.org/deepseek/6d9eeb", percent: 85, category: "ai", level: "Avançado", description: "Análise de código, debugging assistido, documentação automática", experience: "1+ ano" },
+  { name: "GLM", icon: "https://cdn.simpleicons.org/zhipuai/4285f4", percent: 80, category: "ai", level: "Avançado", description: "Geração de texto, análise de requisitos, prototipação rápida", experience: "1+ ano" },
+  { name: "Gemini", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", percent: 82, category: "ai", level: "Avançado", description: "Multimodal IA, visão computacional, análise de documentos", experience: "1+ ano" },
 ];
 
 export const skillCategories: { id: SkillCategory | "all"; label: string; color: string }[] = [
@@ -169,6 +175,7 @@ export const skillCategories: { id: SkillCategory | "all"; label: string; color:
   { id: "corporate", label: "Corporativo", color: "from-teal-400 to-emerald-400" },
   { id: "cloud", label: "Cloud", color: "from-sky-400 to-cyan-400" },
   { id: "tools", label: "Tools & DevOps", color: "from-rose-400 to-pink-400" },
+  { id: "ai", label: "IA Generativa", color: "from-red-400 to-orange-400" },
 ];
 
 export const projects: Project[] = [
@@ -395,47 +402,48 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     company: "Polyexcel",
-    role: "Aprendiz Administrativo — Operações & Sistemas",
-    period: "Set 2025 — Atual",
+    role: "Aprendiz de Suprimentos / Compras & Desenvolvedor de Automação",
+    period: "Jul 2025 — Atual",
     location: "São Paulo, SP",
     type: "Presencial",
     current: true,
     summary:
-      "Atuação direta com SAP B1 e TMS em ambiente corporativo industrial, automatizando relatórios e apoiando integração entre sistemas.",
+      "Responsável pela homologação de fornecedores nacionais e internacionais, conduzindo todo o fluxo de qualificação documental e cadastral dentro do SAP Business One. Liderança técnica no desenvolvimento de automações em Python integradas ao Excel.",
     responsibilities: [
-      "Operação do sistema SAP B1 para criação e gestão de pedidos e estoque",
-      "Apoio em processos de faturamento e controle de dados mestre",
-      "Cadastro e manutenção de itens e fornecedores no ERP",
-      "Suporte em auditorias internas e controle de CTEs (TMS)",
-      "Desenvolvimento de relatórios e dashboards para tomada de decisão",
+      "Homologação de fornecedores nacionais e internacionais com qualificação documental completa no SAP B1",
+      "Cobrança ativa de documentação ISO e regulatória junto a fornecedores, garantindo conformidade contínua",
+      "Criação de pedidos de compra no SAP B1 (grupos MPG/MPD) e pedidos de amostra para avaliação de matéria-prima",
+      "Liderança técnica no desenvolvimento de automação em Python integrada ao Excel, reduzindo 60%+ do tempo em CT-es",
+      "Gestão do fluxo de transporte e logística: conferência documental de CT-es e interface com sistemas TMS",
     ],
     achievements: [
-      "Automatização de relatórios reduzindo 30% do tempo operacional",
-      "Participação em projeto de integração SAP B1 ↔ TMS",
+      "Automação em Python reduziu 60%+ do tempo gasto no controle e envio de CT-es, eliminando falhas manuais",
+      "Gestão completa do fluxo documental de fornecedores com conformidade ISO contínua",
+      "Integração entre SAP B1 e TMS para acurácia fiscal e conformidade logística",
     ],
-    technologies: ["SAP B1", "TMS", "Excel Avançado"],
+    technologies: ["SAP Business One", "TMS", "Python", "Excel Avançado"],
   },
   {
     company: "Eurofarma",
-    role: "Aprendiz — Operações & Logística Farmacêutica",
-    period: "Mai 2024 — Ago 2025",
+    role: "Aprendiz de Serviços a Terceiros",
+    period: "Mai 2024 — Set 2025",
     location: "São Paulo, SP",
     type: "Presencial",
     current: false,
     summary:
-      "Experiência em logística farmacêutica regulada (BPF), controle de estoque, COA de lotes e auditorias de qualidade sem não-conformidades.",
+      "Responsável por solicitar Certificados de Análise (COA) dos lotes disponíveis no CD e encaminhá-los aos clientes. Apoio direto nas operações de entrega e retirada de materiais, garantindo rastreabilidade dos lotes de medicamentos.",
     responsibilities: [
-      "Controle e acompanhamento de entregas de medicamentos",
-      "Organização e gestão de estoque no Centro de Distribuição",
-      "Envio e análise de COA (Certificados de Análise) de lotes farmacêuticos",
-      "Apoio em processos logísticos e controle de qualidade",
-      "Participação em auditorias internas de qualidade",
+      "Solicitação de COAs (Certificados de Análise) à área de Qualidade e encaminhamento aos clientes",
+      "Apoio direto nas operações de entrega e retirada de materiais no Centro de Distribuição",
+      "Garantia de rastreabilidade dos lotes de medicamentos e integridade das informações no sistema de gestão",
+      "Atuação colaborativa na otimização de fluxos internos de movimentação, identificando gargalos operacionais",
+      "Análise de dados para propor melhorias baseadas em evidências",
     ],
     achievements: [
-      "Redução de 15% em retrabalho de lotes",
-      "Auditoria aprovada sem não-conformidades",
+      "Otimização de fluxos internos de movimentação com análise de gargalos operacionais",
+      "Garantia de rastreabilidade completa de lotes de medicamentos regulados",
     ],
-    technologies: ["Logística Farmacêutica", "BPF", "Qualidade", "SAP B1", "Controle de Processos"],
+    technologies: ["Logística Farmacêutica", "BPF", "Qualidade", "Controle de Processos"],
   },
 ];
 
@@ -479,12 +487,13 @@ export const services = [
 ];
 
 export const techStack = {
-  frontend: ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "JavaScript ES6+"],
-  backend: ["Node.js", "Express", "Java", "Spring Boot", "Python", "Flask"],
-  database: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Prisma ORM"],
-  corporate: ["SAP B1", "TMS", "Processos Corporativos"],
-  cloud: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions"],
-  tools: ["Git", "VS Code", "Postman", "Figma", "Excel Avançado"],
+  frontend: ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "JavaScript ES6+", "HTML5", "CSS3", "Bootstrap", "Vite"],
+  backend: ["Node.js", "Express", "Java", "Spring Boot", "Python", "REST APIs"],
+  database: ["PostgreSQL", "MySQL", "MongoDB", "SQLite", "SQL Server"],
+  corporate: ["SAP B1", "TMS", "Homologação de Fornecedores"],
+  cloud: ["Vercel", "Docker", "AWS", "Azure", "CI/CD"],
+  tools: ["Git", "GitHub", "VS Code", "PyCharm", "IntelliJ IDEA", "Postman", "Figma", "Excel Avançado"],
+  ai: ["ChatGPT", "DeepSeek", "GLM", "Gemini"],
 };
 
 export const testimonials: Testimonial[] = [];

@@ -241,9 +241,27 @@ export function Hero() {
               style={{
                 background:
                   "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
-                mask: "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px))",
                 WebkitMask:
-                  "radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))",
+                  "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px))",
+              }}
+              aria-hidden
+            />
+            {/* Morphing background blob */}
+            <motion.div
+              className="absolute -inset-8 opacity-30 blur-2xl"
+              animate={reduce ? {} : {
+                borderRadius: [
+                  "60% 40% 30% 70% / 60% 30% 70% 40%",
+                  "30% 60% 70% 40% / 50% 60% 30% 60%",
+                  "50% 60% 30% 60% / 30% 60% 70% 40%",
+                  "60% 40% 60% 30% / 60% 40% 30% 70%",
+                ],
+              }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                background:
+                  "conic-gradient(from 90deg, #DC2626, #F97316, #10B981, #DC2626)",
               }}
               aria-hidden
             />
