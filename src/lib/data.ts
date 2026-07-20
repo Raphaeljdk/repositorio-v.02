@@ -496,6 +496,57 @@ export const techStack = {
   ai: ["ChatGPT", "DeepSeek", "GLM", "Gemini"],
 };
 
+export const techArticles = [
+  {
+    title: "React 19: O que muda para desenvolvedores Full Stack",
+    url: "https://react.dev/blog/2024/12/05/react-19",
+    snippet: "React 19 traz Server Components como padrão, novo hook use(), melhorias no Suspense e otimizações de performance que mudam a forma como construímos aplicações.",
+    source: "React Blog",
+    date: "2025",
+    tag: "React",
+  },
+  {
+    title: "Next.js 15: Turbopack estável e novas features",
+    url: "https://nextjs.org/blog",
+    snippet: "Next.js 15 estabiliza o Turbopack, melhora o caching comPartial Prerendering e traz melhorias significativas na DX com layouts aninhados.",
+    source: "Next.js Blog",
+    date: "2025",
+    tag: "Next.js",
+  },
+  {
+    title: "TypeScript 5.7: Tipos mais inteligentes e performance",
+    url: "https://devblogs.microsoft.com/typescript/",
+    snippet: "Nova versão do TypeScript traz inferência aprimorada, tipos condicionais mais expressivos e ganhos de até 30% na velocidade do compilador.",
+    source: "Microsoft",
+    date: "2025",
+    tag: "TypeScript",
+  },
+  {
+    title: "IA Generativa no Desenvolvimento: Como usar ChatGPT e DeepSeek na prática",
+    url: "https://openai.com/blog",
+    snippet: "Como integrar IAs generativas como ChatGPT, DeepSeek, GLM e Gemini no fluxo de desenvolvimento para code review, documentação e prototipação rápida.",
+    source: "OpenAI Blog",
+    date: "2025",
+    tag: "IA",
+  },
+  {
+    title: "SAP Business One 2025: Novidades para desenvolvedores",
+    url: "https://community.sap.com/",
+    snippet: "SAP B1 continua evoluindo com novas APIs REST, integração com Azure e melhorias no módulo de compras e logística para indústria regulada.",
+    source: "SAP Community",
+    date: "2025",
+    tag: "SAP B1",
+  },
+  {
+    title: "Node.js 22: Performance e novas APIs nativas",
+    url: "https://nodejs.org/en/blog",
+    snippet: "Node.js 22 traz melhorias de performance no V8, suporte a WebSocket nativo, require() ESM e novas APIs para streams e testes.",
+    source: "Node.js Blog",
+    date: "2025",
+    tag: "Node.js",
+  },
+];
+
 export const testimonials: Testimonial[] = [];
 
 export const navItems = [

@@ -10,6 +10,9 @@ const TECH_BADGES = [
   "Tailwind CSS 4",
   "Framer Motion",
   "Lucide Icons",
+  "ChatGPT",
+  "Python",
+  "SAP B1",
 ];
 
 export function Footer() {
@@ -77,7 +80,7 @@ export function Footer() {
                   {personal.lastName}
                 </span>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  Full Stack Developer &amp; SAP Specialist
+                  Full Stack Developer &amp; SAP B1 Specialist
                 </p>
               </div>
             </a>
@@ -146,7 +149,7 @@ export function Footer() {
                   <span
                     className="h-1.5 w-1.5 rounded-full"
                     style={{
-                      backgroundColor: ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C"][i],
+                      backgroundColor: ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C", "#EF4444", "#059669", "#D97706"][i],
                     }}
                   />
                   {tech}

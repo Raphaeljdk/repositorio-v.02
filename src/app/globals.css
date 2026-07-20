@@ -300,7 +300,7 @@
     background: linear-gradient(
       to var(--dir, right),
       transparent,
-      color-mix(in srgb, var(--color-accent-copper) 18%, transparent)
+      color-mix(in srgb, var(--color-accent-copper) 25%, transparent)
     );
   }
   .section-divider::before {
@@ -313,6 +313,22 @@
     .section-divider {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
+    }
+  }
+
+  /* Responsive section padding — mobile gets more breathing room */
+  @media (max-width: 639px) {
+    section[id] {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  /* Better tap targets on mobile */
+  @media (max-width: 639px) {
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
     }
   }
 

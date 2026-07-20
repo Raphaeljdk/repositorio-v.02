@@ -1,43 +1,43 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Building2, Palette, Cloud, ArrowUpRight } from "lucide-react";
+import { Code2, Building2, Sparkles, Cloud, ArrowUpRight, BrainCircuit } from "lucide-react";
 import { services } from "@/lib/data";
 import { SectionHeading } from "./about";
-import { cn } from "@/lib/utils";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code2,
   building: Building2,
-  sparkles: Palette,
+  sparkles: Sparkles,
   cloud: Cloud,
 };
 
 const SERVICE_ACCENTS = [
-  "var(--color-accent-copper)",
-  "var(--color-accent-sage)",
-  "var(--color-accent-gold)",
+  "#DC2626",
+  "#10B981",
+  "#F97316",
   "#7C8CF8",
 ] as const;
 
 export function Services() {
   return (
     <section id="services" className="relative scroll-mt-24 py-24 sm:py-32">
-      {/* Subtle diagonal line pattern */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{
+      {/* Subtle diagonal pattern */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.02]" style={{
         backgroundImage: `repeating-linear-gradient(
           45deg,
           var(--color-accent-copper) 0px,
           var(--color-accent-copper) 1px,
           transparent 1px,
-          transparent 20px
+          transparent 24px
         )`,
       }} />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Serviços"
           title="Como posso ajudar."
-          description="Atuação full stack que conecta estratégia corporativa, engenharia moderna e design premium."
+          description="Atuação full stack que conecta estratégia corporativa, engenharia moderna, IA generativa e design premium."
         />
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -47,8 +47,8 @@ export function Services() {
             return (
               <motion.div
                 key={s.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 28, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 whileHover={{ y: -6, scale: 1.02 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{
@@ -56,36 +56,53 @@ export function Services() {
                   delay: i * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="card-surface group relative rounded-xl p-6"
+                className="card-surface group relative rounded-xl p-6 lg:p-7"
               >
-                {/* Top accent line */}
+                {/* Top gradient line */}
                 <div
                   className="absolute top-0 left-0 right-0 h-0.5 rounded-t-xl"
-                  style={{ background: accent }}
+                  style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }}
                 />
 
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-lg"
-                  style={{ backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)` }}
-                >
-                  <Icon className="h-5 w-5" style={{ color: accent }} />
-                </span>
+                {/* Icon container with animated ring */}
+                <div className="relative">
+                  <motion.div
+                    whileHover={{ rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--surface-border)] transition-all duration-300 group-hover:border-transparent"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${accent} 10%, transparent)`,
+                      boxShadow: `0 0 0 0 ${accent}00`,
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${accent}20`;
+                      (e.currentTarget as HTMLElement).style.borderColor = `${accent}40`;
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accent}00`;
+                      (e.currentTarget as HTMLElement).style.borderColor = "";
+                    }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: accent }} />
+                  </motion.div>
+                </div>
 
-                <h3 className="mt-5 font-display text-base font-bold tracking-tight text-foreground">
+                <h3 className="mt-5 font-display text-base font-bold tracking-tight text-foreground group-hover:text-foreground transition-colors">
                   {s.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {s.description}
                 </p>
 
+                {/* Items list with dot accents */}
                 <ul className="mt-4 space-y-2">
                   {s.items.map((item, j) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2.5 text-xs text-foreground/70"
+                      className="flex items-center gap-2.5 text-xs text-foreground/70 transition-colors group-hover:text-foreground/90"
                     >
                       <span
-                        className="h-1 w-1 rounded-full shrink-0"
+                        className="h-1.5 w-1.5 rounded-full shrink-0 transition-transform duration-300 group-hover:scale-125"
                         style={{ backgroundColor: accent }}
                       />
                       {item}
@@ -93,14 +110,27 @@ export function Services() {
                   ))}
                 </ul>
 
-                {/* Hover arrow */}
-                <div className="mt-4 flex items-center gap-1 text-xs font-medium opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" style={{ color: accent }}>
-                  Saiba mais <ArrowUpRight className="h-3 w-3" />
+                {/* Hover CTA */}
+                <div className="mt-5 flex items-center gap-1.5 text-xs font-medium opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" style={{ color: accent }}>
+                  Saiba mais
+                  <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Bottom accent strip */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-16 flex items-center justify-center gap-3 text-xs text-muted-foreground"
+        >
+          <BrainCircuit className="h-4 w-4 text-[var(--color-accent-copper)]" />
+          <span>Integro <span className="font-semibold text-foreground">ChatGPT, DeepSeek, GLM e Gemini</span> no fluxo de desenvolvimento</span>
+        </motion.div>
       </div>
     </section>
   );

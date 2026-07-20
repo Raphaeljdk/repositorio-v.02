@@ -5,9 +5,9 @@ import { useInView } from "@/hooks/use-count-up";
 import { useCountUp } from "@/hooks/use-count-up";
 
 const MARQUEE_STATS = [
-  { value: 9, suffix: "+", label: "Projetos", color: "#DC2626" },
-  { value: 25, suffix: "+", label: "Tecnologias", color: "#10B981" },
-  { value: 2, suffix: "+", label: "Anos Exp.", color: "#F97316" },
+  { value: 10, suffix: "+", label: "Projetos", color: "#DC2626" },
+  { value: 30, suffix: "+", label: "Tecnologias", color: "#10B981" },
+  { value: 4, suffix: "", label: "IAs Utilizadas", color: "#F97316" },
   { value: 9, suffix: "", label: "Certificações", color: "#7C8CF8" },
   { value: 4500, suffix: "+", label: "Horas Estudo", color: "#B91C1C" },
   { value: 15, suffix: "", label: "Repositórios", color: "#9A3412" },
@@ -62,9 +62,9 @@ function MarqueeItem({ stat }: { stat: (typeof MARQUEE_STATS)[number] }) {
 /*  Animated Counter Strip — full-width section with big counters       */
 /* ------------------------------------------------------------------ */
 const COUNTER_DATA = [
-  { value: 9, suffix: "+", label: "Projetos entregues", description: "SaaS, ERP, dashboards, APIs, apps web" },
-  { value: 25, suffix: "+", label: "Tecnologias dominadas", description: "Frontend, backend, cloud, corporativo" },
-  { value: 2, suffix: "+", label: "Anos de experiência", description: "SAP corporativo + ecossistema web" },
+  { value: 10, suffix: "+", label: "Projetos entregues", description: "SaaS, ERP, dashboards, APIs, apps web" },
+  { value: 30, suffix: "+", label: "Tecnologias dominadas", description: "Frontend, backend, cloud, IA, corporativo" },
+  { value: 4, suffix: "", label: "IAs Generativas", description: "ChatGPT, DeepSeek, GLM, Gemini" },
   { value: 4500, suffix: "+", label: "Horas de estudo", description: "Cursos, certificações, projetos práticos" },
 ];
 
