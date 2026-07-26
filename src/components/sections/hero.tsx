@@ -110,18 +110,18 @@ export function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 sm:gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
         {/* Left — copy */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="relative z-10"
+          className="relative z-10 text-center lg:text-left"
         >
           {/* Monospace label with copper dot */}
           <motion.p
             variants={item}
-            className="flex items-center gap-2 font-code text-xs uppercase tracking-[-0.02em] text-muted-foreground"
+            className="flex items-center justify-center gap-2 font-code text-xs uppercase tracking-[-0.02em] text-muted-foreground lg:justify-start"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-copper)]" />
             Raphael Freitas
@@ -130,7 +130,7 @@ export function Hero() {
           {/* Name — huge display with split character reveal */}
           <motion.h1
             variants={item}
-            className="mt-4 font-display text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl"
+            className="mt-4 font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
           >
             <span className="text-foreground">Raphael</span>
             <br />
@@ -157,7 +157,7 @@ export function Hero() {
           {/* Typewriter role */}
           <motion.div
             variants={item}
-            className="mt-5 flex items-center gap-2 font-code text-sm sm:text-base text-muted-foreground"
+            className="mt-5 flex items-center justify-center gap-2 font-code text-sm sm:text-base text-muted-foreground lg:justify-start"
           >
             <span className="text-[var(--color-accent-copper)]">$</span>
             <span>{typed}</span>
@@ -167,7 +167,7 @@ export function Hero() {
           {/* Short bio — slightly bolder */}
           <motion.p
             variants={item}
-            className="mt-6 max-w-lg text-base leading-relaxed text-foreground/80 sm:text-lg sm:leading-relaxed"
+            className="mt-6 mx-auto max-w-lg text-base leading-relaxed text-foreground/80 sm:text-lg sm:leading-relaxed lg:mx-0"
           >
             {personal.bio}
           </motion.p>
@@ -175,7 +175,7 @@ export function Hero() {
           {/* Meta — location + degree, no icons */}
           <motion.div
             variants={item}
-            className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 font-code text-xs text-muted-foreground"
+            className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 font-code text-xs text-muted-foreground lg:justify-start"
           >
             <span>{personal.location}</span>
             <span className="text-[var(--color-accent-copper)]">·</span>
@@ -183,7 +183,7 @@ export function Hero() {
           </motion.div>
 
           {/* CTAs — improved hierarchy */}
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             {/* Primary CTA — larger, more prominent */}
             <MagneticButton
               as="a"
@@ -224,12 +224,12 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right — avatar with rotating border */}
+        {/* Right — logo with rotating border */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-sm lg:max-w-md"
+          className="relative mx-auto w-full max-w-[280px] sm:max-w-sm lg:max-w-md"
         >
           <motion.div
             style={reduce ? {} : { y: avatarY, opacity: avatarOpacity }}
@@ -237,13 +237,14 @@ export function Hero() {
           >
             {/* Rotating gradient border — thicker, more visible */}
             <div
-              className="absolute inset-0 rounded-full animate-spin-slow opacity-60"
+              className="absolute -inset-1 rounded-[2rem] animate-spin-slow opacity-70"
               style={{
                 background:
                   "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
-                mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px))",
                 WebkitMask:
-                  "radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 3px))",
+                  "radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px))",
+                borderRadius: "2rem",
               }}
               aria-hidden
             />
@@ -267,23 +268,31 @@ export function Hero() {
             />
             {/* Outer ring glow */}
             <div
-              className="absolute -inset-3 rounded-full opacity-20 blur-xl"
+              className="absolute -inset-3 rounded-[2rem] opacity-25 blur-xl"
               style={{
                 background:
                   "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
               }}
               aria-hidden
             />
-            {/* Avatar image */}
-            <div className="absolute inset-1.5 overflow-hidden rounded-full border border-[var(--surface-border)]">
+            {/* Logo image — rounded square to showcase full artwork */}
+            <div className="absolute inset-1.5 overflow-hidden rounded-[1.75rem] border border-[var(--surface-border)] bg-[var(--surface)] shadow-2xl">
               <Image
-                src="https://github.com/Raphaeljdk.png"
-                alt="Raphael Freitas"
+                src="/raphael-logo.png"
+                alt="Raphael Freitas — Logo pessoal com dragão, bonsai e cerejeira"
                 className="h-full w-full object-cover"
-                width={400}
-                height={400}
+                width={500}
+                height={500}
                 priority
                 unoptimized
+              />
+              {/* Subtle inner vignette for depth */}
+              <div
+                className="pointer-events-none absolute inset-0 rounded-[1.75rem]"
+                style={{
+                  boxShadow: "inset 0 0 60px rgba(0,0,0,0.15)",
+                }}
+                aria-hidden
               />
             </div>
             {/* Bottom-left floating badge */}
@@ -291,10 +300,23 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -bottom-2 left-4 z-10 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm px-3 py-2 shadow-lg"
+              className="absolute -bottom-3 left-3 z-10 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm px-3 py-2 shadow-lg sm:-bottom-4 sm:left-4"
             >
               <p className="font-code text-[10px] text-muted-foreground">São Paulo, BR</p>
-              <p className="mt-0.5 text-xs font-semibold text-foreground">Estácio · 2029</p>
+              <p className="mt-0.5 text-xs font-semibold text-foreground">学びの道 · 2026</p>
+            </motion.div>
+            {/* Top-right floating badge — status */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.6, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute -top-3 right-3 z-10 flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm px-3 py-1.5 shadow-lg sm:-top-4 sm:right-4"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] opacity-40 animate-[ping_1.5s_ease-in-out_infinite]" />
+                <span className="relative block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
+              </span>
+              <span className="font-code text-[10px] text-foreground/80">online</span>
             </motion.div>
           </motion.div>
         </motion.div>

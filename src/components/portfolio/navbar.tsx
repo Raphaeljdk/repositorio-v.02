@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { navItems, personal } from "@/lib/data";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -79,7 +80,7 @@ export function Navbar() {
               : "bg-transparent border border-transparent"
           )}
         >
-          {/* Logo — RF box + name */}
+          {/* Logo — brand image + name */}
           <a
             href="#home"
             onClick={(e) => {
@@ -88,10 +89,18 @@ export function Navbar() {
             }}
             className="group flex items-center gap-2.5"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-accent-copper)] bg-[var(--color-accent-copper)]/10 font-display text-xs font-bold text-[var(--color-accent-copper)] transition-colors group-hover:bg-[var(--color-accent-copper)] group-hover:text-white">
-              RF
+            <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg ring-1 ring-[var(--color-accent-copper)]/30 transition-all group-hover:ring-[var(--color-accent-copper)] group-hover:shadow-[0_0_12px_rgba(220,38,38,0.35)] sm:h-10 sm:w-10">
+              <Image
+                src="/raphael-logo.png"
+                alt="Raphael Freitas — Logo"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                width={40}
+                height={40}
+                priority
+                unoptimized
+              />
             </span>
-            <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground sm:block">
+            <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground xs:block sm:block">
               {personal.firstName}
               <span className="text-[var(--color-accent-copper)]">.</span>
               {personal.lastName}

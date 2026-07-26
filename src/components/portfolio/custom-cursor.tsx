@@ -12,13 +12,25 @@ function useIsTouch() {
   );
 }
 
+function useMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
 /**
  * Custom cursor — small dot (8px) that follows mouse with spring delay.
  * Grows to 40px when hovering over interactive elements.
  * Hidden on touch devices.
+ *
+ * Renders null on server and during initial hydration to avoid
+ * hydration mismatches caused by framer-motion motion values in style.
  */
 export function CustomCursor() {
   const isTouch = useIsTouch();
+  const mounted = useMounted();
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -70,7 +82,9 @@ export function CustomCursor() {
     };
   }, [updatePosition, isTouch]);
 
-  if (isTouch) return null;
+  // Render nothing on server, during hydration, or on touch devices.
+  // This eliminates all hydration mismatch risks from motion values in style.
+  if (!mounted || isTouch) return null;
 
   return (
     <motion.div

@@ -59,3 +59,31 @@ Stage Summary:
 - Layout improvements: stats synced, ticker updated, services enhanced, footer expanded
 - Responsive improvements: mobile section padding, proper tap targets
 - All verified working with zero errors
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Add personal logo, fix hydration error, make fully responsive for all devices
+
+Work Log:
+- Copied user-uploaded logo (ChatGPT Image 26 de jul. de 2026, 13_00_30.png) to public/raphael-logo.png
+- Analyzed logo via VLM: black ink dragon coiled in circle, bonsai tree, cherry blossoms, "Raphael Freitas" text, Japanese "学びの道" (Path of Learning), Portuguese taglines
+- Updated navbar.tsx: replaced "RF" text box with logo Image (40x40, rounded-lg, copper ring, hover scale + glow), added Image import
+- Updated hero.tsx: replaced GitHub avatar with logo Image in rounded-square frame (rounded-[1.75rem]), adapted rotating gradient border to rounded-square shape, added inner vignette for depth, added top-right "online" status badge, updated bottom-left badge to show "学びの道 · 2026"
+- Updated footer.tsx: replaced "RF" text box with logo Image (56x56, rounded-xl), added Image import
+- Updated layout.tsx: favicon now uses /raphael-logo.png (icon, apple, shortcut) instead of GitHub avatar URL
+- Fixed hydration error in custom-cursor.tsx: added useMounted() hook using useSyncExternalStore, component now returns null until mounted (was rendering motion.div with motion values in style on SSR causing hydration mismatch)
+- Fixed potential hydration issue in footer.tsx: year now uses stable "2026" during SSR/hydration, updates to real year after mount via useMounted()
+- Improved hero responsiveness: text-center on mobile (lg:text-left), justify-center on mobile (lg:justify-start), mx-auto for bio on mobile (lg:mx-0), responsive name sizing text-5xl → sm:text-6xl → md:text-7xl → lg:text-8xl, responsive logo max-width (280px mobile → sm → lg)
+- Ran lint (passed, zero errors)
+- Verified via agent-browser at desktop (1440x900), tablet (768x1024), mobile (375x812) viewports
+- VLM confirmed: logo visible in navbar + hero, no hydration errors, no visual bugs, design rated 8.5/10 mobile, professional/polished on desktop
+- Checked dev.log: no hydration warnings, only expected EADDRINUSE from earlier duplicate start
+
+Stage Summary:
+- Personal brand logo (dragon + bonsai + cherry blossom artwork) now integrated across navbar, hero, footer, and favicon
+- Hydration error fixed: CustomCursor renders null until mounted (eliminates framer-motion motion value style mismatch)
+- Footer year hydration-safe via useMounted() pattern
+- Fully responsive: mobile (375px) → tablet (768px) → desktop (1440px+) all verified
+- Hero adapts: centered single-column on mobile/tablet, 2-column split on desktop
+- Logo frame: rounded-square with rotating gradient border, morphing blob, glow ring, floating badges

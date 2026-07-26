@@ -75,7 +75,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "https://github.com/Raphaeljdk.png",
+    icon: "/raphael-logo.png",
+    apple: "/raphael-logo.png",
+    shortcut: "/raphael-logo.png",
   },
 };
 

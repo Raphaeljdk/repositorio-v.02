@@ -1,8 +1,15 @@
 "use client";
 
 import { Github, Linkedin, Mail, ArrowUp, ArrowUpRight, Send } from "lucide-react";
+import Image from "next/image";
 import { personal, navItems } from "@/lib/data";
 import { motion } from "framer-motion";
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
+function useMounted() {
+  return useSyncExternalStore(emptySubscribe, () => true, () => false);
+}
 
 const TECH_BADGES = [
   "Next.js 16",
@@ -16,7 +23,10 @@ const TECH_BADGES = [
 ];
 
 export function Footer() {
-  const year = new Date().getFullYear();
+  const mounted = useMounted();
+  // Use a stable year during SSR and initial hydration to avoid mismatches.
+  // 2026 is the portfolio's base year; updates to real current year after mount.
+  const year = mounted ? new Date().getFullYear() : 2026;
 
   const go = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -70,8 +80,15 @@ export function Footer() {
               onClick={go("#home")}
               className="inline-flex items-center gap-3"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-[var(--color-accent-copper)] bg-[var(--color-accent-copper)]/10 font-display text-sm font-bold text-[var(--color-accent-copper)]">
-                RF
+              <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl ring-1 ring-[var(--color-accent-copper)]/30 transition-all hover:ring-[var(--color-accent-copper)] hover:shadow-[0_0_12px_rgba(220,38,38,0.3)] sm:h-14 sm:w-14">
+                <Image
+                  src="/raphael-logo.png"
+                  alt="Raphael Freitas — Logo"
+                  className="h-full w-full object-cover"
+                  width={56}
+                  height={56}
+                  unoptimized
+                />
               </span>
               <div>
                 <span className="font-display text-base font-bold text-foreground">
