@@ -87,3 +87,34 @@ Stage Summary:
 - Fully responsive: mobile (375px) → tablet (768px) → desktop (1440px+) all verified
 - Hero adapts: centered single-column on mobile/tablet, 2-column split on desktop
 - Logo frame: rounded-square with rotating gradient border, morphing blob, glow ring, floating badges
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Apply SHOGUN DIGITAL design system — washi paper theme, sumi shadows, circular logo, calligraphy differentiator
+
+Work Log:
+- Analyzed full design brief: Zen Japanese + Sumi-ink aesthetic, washi paper #F8F6F0, 4-color palette (Cinnabar Red #D93838, Ochre Gold #F2C14E, Deep Blue #2B5B84, Deep Black #1A1A1A), Noto Serif JP headings, Inter body, NO dark mode, NO pure white
+- Overhauled globals.css @theme inline: accent palette remapped (copper→#D93838, gold→#F2C14E, sage→#2B5B84, added ink→#1A1A1A), added sumi-ink shadow variables (--shadow-sumi-card/modal/hover)
+- Rewrote :root light theme: background #F8F6F0 (washi), foreground #1A1A1A (sumi black), card/surface #FBFAF4 (warm off-white, NEVER pure white), borders rgba(0,0,0,0.06) per brief, noise 2.5%
+- Made .dark theme mirror :root (washi light) so theme toggle is no-op — guarantees warm paper aesthetic persists, complying with "avoid dark mode"
+- Updated card-surface:hover to use sumi-ink shadow (sharp, precise, deep black) instead of soft blurred shadow
+- Added base body styles: Inter font, line-height 1.8 (max legibility), h1/h2/h3 use Noto Serif JP with tight tracking (-0.027em for H1)
+- Added utilities: .shadow-sumi, .shadow-sumi-lg, .shadow-sumi-hover, .kanji-watermark (oversized kanji behind headings, 5% opacity, mix-blend multiply)
+- Updated noise-overlay with mix-blend-mode: multiply for authentic washi paper grain
+- Updated layout.tsx: replaced Geist/Sora fonts with Inter (body) + Noto_Serif_JP (display headings), set defaultTheme="light"
+- Made logo circular (rounded-full) in navbar (40px), hero (full circle with rotating sumi gradient border), footer (56px)
+- Hero H1: switched to Noto Serif JP, font-bold (was extrabold), tracking-[-0.027em], lg:text-[5.5rem] (88px, exceeds 3.5rem/56px min)
+- Hero gradient text: updated to SHOGUN palette (red→gold→red, was red→orange→green)
+- Added asymmetric differentiator (Option D): oversized 道 kanji calligraphy watermark, 300px, 4% opacity, positioned upper-right, hidden on mobile to prevent text obstruction, mix-blend multiply
+- Hero logo frame: all rounded-[2rem] → rounded-full, conic gradients updated to #D93838/#F2C14E/#2B5B84, shadow-sumi-lg applied
+- Ran lint (passed, zero errors)
+- Verified via agent-browser desktop (1440x900) + mobile (375x812) + scrolled sections
+- VLM confirmed: washi background ✓, circular logo ✓, serif headings ✓, kanji watermark ✓, SHOGUN palette ✓, sumi shadows ✓, mobile readable ✓, no hydration errors ✓
+
+Stage Summary:
+- SHOGUN DIGITAL design system fully applied: washi paper light theme (no dark mode), sumi-ink shadows, 4-color palette
+- Typography: Noto Serif JP headings (tight tracking, 88px H1) + Inter body (line-height 1.8)
+- Logo now circular across navbar/hero/footer with rotating sumi gradient border
+- Asymmetric differentiator: 道 (Way/Path) calligraphy watermark, ties to logo's 学びの道 (Path of Learning)
+- Fully responsive: watermark hidden on mobile to preserve readability, all viewports verified

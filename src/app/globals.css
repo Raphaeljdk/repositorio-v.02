@@ -44,111 +44,119 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Brand accent palette */
-  --color-accent-copper: #DC2626;
-  --color-accent-sage: #10B981;
-  --color-accent-gold: #F97316;
+  /* Brand accent palette — SHOGUN DIGITAL */
+  --color-accent-copper: #D93838;   /* Vermelho Cinábrio — CTAs primários */
+  --color-accent-gold: #F2C14E;    /* Dourado Ocre — ícones e badges */
+  --color-accent-sage: #2B5B84;    /* Azul Profundo — links secundários */
+  --color-accent-ink: #1A1A1A;     /* Preto Profundo Sumi — textos */
+
+  /* Sumi-ink shadows — sharp, precise, deep black tones */
+  --shadow-sumi-card: 0 8px 24px -6px rgba(20, 20, 20, 0.25);
+  --shadow-sumi-modal: 0 20px 48px -12px rgba(0, 0, 0, 0.35);
+  --shadow-sumi-hover: 0 12px 32px -8px rgba(20, 20, 20, 0.28);
+
+  /* Typographic rhythm — 8px base unit */
+  --space-rhythm: 8px;
 }
 
 :root {
   --radius: 0.75rem;
-  /* Light theme — warm cream editorial */
-  --background: #F7F5F2;
-  --foreground: #1A1917;
-  --card: #FFFFFF;
-  --card-foreground: #1A1917;
-  --popover: #FFFFFF;
-  --popover-foreground: #1A1917;
-  --primary: #DC2626;
+  /* SHOGUN DIGITAL — Washi paper, warm off-white. NEVER pure white. */
+  --background: #F8F6F0;
+  --foreground: #1A1A1A;
+  --card: #FBFAF4;
+  --card-foreground: #1A1A1A;
+  --popover: #FBFAF4;
+  --popover-foreground: #1A1A1A;
+  --primary: #D93838;
   --primary-foreground: #FFFFFF;
-  --secondary: #F0EDE8;
-  --secondary-foreground: #1A1917;
-  --muted: #F0EDE8;
-  --muted-foreground: #6B6560;
-  --accent: #F0EDE8;
-  --accent-foreground: #1A1917;
-  --destructive: #E85D4A;
-  --border: #E5E0DA;
-  --input: #E5E0DA;
-  --ring: #DC2626;
-  --chart-1: #DC2626;
-  --chart-2: #10B981;
-  --chart-3: #F97316;
+  --secondary: #F0EEE6;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F0EEE6;
+  --muted-foreground: #5C5751;
+  --accent: #F0EEE6;
+  --accent-foreground: #1A1A1A;
+  --destructive: #D93838;
+  --border: rgba(0, 0, 0, 0.06);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #D93838;
+  --chart-1: #D93838;
+  --chart-2: #2B5B84;
+  --chart-3: #F2C14E;
   --chart-4: #B91C1C;
   --chart-5: #9A3412;
-  --sidebar: #F7F5F2;
-  --sidebar-foreground: #1A1917;
-  --sidebar-primary: #DC2626;
+  --sidebar: #F8F6F0;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #D93838;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F0EDE8;
-  --sidebar-accent-foreground: #1A1917;
-  --sidebar-border: #E5E0DA;
-  --sidebar-ring: #DC2626;
+  --sidebar-accent: #F0EEE6;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(0, 0, 0, 0.06);
+  --sidebar-ring: #D93838;
 
-  /* Surfaces */
-  --surface: #FFFFFF;
-  --surface-border: #E5E0DA;
+  /* Surfaces — warm off-white, sumi borders */
+  --surface: #FBFAF4;
+  --surface-border: rgba(0, 0, 0, 0.06);
 
-  /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #DC2626 0%, #F97316 50%, #10B981 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(220,38,38,0.08) 0%, rgba(16,185,129,0.08) 100%);
-  --gradient-accent: linear-gradient(135deg, #DC2626 0%, #F97316 100%);
+  /* Gradients — restrained, in-palette */
+  --gradient-brand: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(217,56,56,0.06) 0%, rgba(242,193,78,0.06) 100%);
+  --gradient-accent: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
 
-  /* Dot grid */
-  --dot-color: rgba(26, 25, 23, 0.08);
+  /* Dot grid — very subtle on washi */
+  --dot-color: rgba(26, 26, 26, 0.05);
 
-  /* Noise overlay */
-  --noise-opacity: 0.035;
+  /* Noise overlay — washi paper grain, 2.5% */
+  --noise-opacity: 0.025;
 }
 
+/*
+ * SHOGUN DIGITAL — dark mode disabled per design brief.
+ * .dark mirrors :root (washi light) so the theme toggle is a no-op,
+ * guaranteeing the warm paper aesthetic persists regardless of class.
+ */
 .dark {
-  /* Dark theme — near-black warm */
-  --background: #0A0A0B;
-  --foreground: #EDECE8;
-  --card: #141416;
-  --card-foreground: #EDECE8;
-  --popover: #141416;
-  --popover-foreground: #EDECE8;
-  --primary: #DC2626;
+  --background: #F8F6F0;
+  --foreground: #1A1A1A;
+  --card: #FBFAF4;
+  --card-foreground: #1A1A1A;
+  --popover: #FBFAF4;
+  --popover-foreground: #1A1A1A;
+  --primary: #D93838;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E1E21;
-  --secondary-foreground: #EDECE8;
-  --muted: #1A1A1D;
-  --muted-foreground: #9A9A9A;
-  --accent: #1E1E21;
-  --accent-foreground: #EDECE8;
-  --destructive: #E85D4A;
-  --border: #232326;
-  --input: #1A1A1D;
-  --ring: #DC2626;
-  --chart-1: #DC2626;
-  --chart-2: #10B981;
-  --chart-3: #F97316;
+  --secondary: #F0EEE6;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F0EEE6;
+  --muted-foreground: #5C5751;
+  --accent: #F0EEE6;
+  --accent-foreground: #1A1A1A;
+  --destructive: #D93838;
+  --border: rgba(0, 0, 0, 0.06);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #D93838;
+  --chart-1: #D93838;
+  --chart-2: #2B5B84;
+  --chart-3: #F2C14E;
   --chart-4: #B91C1C;
   --chart-5: #9A3412;
-  --sidebar: #141416;
-  --sidebar-foreground: #EDECE8;
-  --sidebar-primary: #DC2626;
+  --sidebar: #F8F6F0;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #D93838;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1E1E21;
-  --sidebar-accent-foreground: #EDECE8;
-  --sidebar-border: #232326;
-  --sidebar-ring: #DC2626;
+  --sidebar-accent: #F0EEE6;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(0, 0, 0, 0.06);
+  --sidebar-ring: #D93838;
 
-  /* Surfaces */
-  --surface: #141416;
-  --surface-border: #232326;
+  --surface: #FBFAF4;
+  --surface-border: rgba(0, 0, 0, 0.06);
 
-  /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #DC2626 0%, #F97316 50%, #10B981 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(220,38,38,0.06) 0%, rgba(16,185,129,0.06) 100%);
-  --gradient-accent: linear-gradient(135deg, #DC2626 0%, #F97316 100%);
+  --gradient-brand: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(217,56,56,0.06) 0%, rgba(242,193,78,0.06) 100%);
+  --gradient-accent: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
 
-  /* Dot grid */
-  --dot-color: rgba(237, 236, 232, 0.05);
-
-  /* Noise overlay */
-  --noise-opacity: 0.04;
+  --dot-color: rgba(26, 26, 26, 0.05);
+  --noise-opacity: 0.025;
 }
 
 @layer base {
@@ -168,11 +176,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
     font-feature-settings: "cv11", "ss01", "ss03";
+    line-height: 1.8; /* Máxima legibilidade per SHOGUN brief */
     overflow-x: hidden;
     /* Hide default cursor on desktop — custom cursor takes over */
     cursor: none;
   }
+  /* Display headings — Noto Serif JP, tight tracking, sumi weight */
+  h1, h2, h3 {
+    font-family: var(--font-display), 'Noto Serif JP', serif;
+    letter-spacing: -0.015em;
+  }
+  h1 { letter-spacing: -0.027em; font-weight: 700; }
   @media (pointer: coarse) {
     body {
       cursor: auto;
@@ -233,17 +249,13 @@
     z-index: 1;
   }
   .card-surface:hover {
-    border-color: var(--color-accent-copper);
-    transform: translateY(-3px) scale(1.005);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(220, 38, 38, 0.1);
+    border-color: rgba(217, 56, 56, 0.25);
+    transform: translateY(-2px) scale(1.005);
+    /* Sumi-ink shadow — sharp, precise, deep black */
+    box-shadow: var(--shadow-sumi-hover);
   }
   .card-surface:hover::after {
     opacity: 1;
-  }
-  @media (prefers-color-scheme: light) {
-    .card-surface:hover {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(220, 38, 38, 0.08);
-    }
   }
 
   /* Theme transition utility — apply to any element that should animate on theme switch */
@@ -251,7 +263,7 @@
     transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Noise/grain texture overlay */
+  /* Washi paper grain texture — subtle noise simulating handmade paper */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -261,6 +273,32 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 256px 256px;
+    mix-blend-mode: multiply;
+  }
+
+  /* Sumi-ink shadow utilities */
+  .shadow-sumi {
+    box-shadow: var(--shadow-sumi-card);
+  }
+  .shadow-sumi-lg {
+    box-shadow: var(--shadow-sumi-modal);
+  }
+  .shadow-sumi-hover {
+    box-shadow: var(--shadow-sumi-hover);
+  }
+
+  /* Calligraphy differentiator — oversized kanji behind headings */
+  .kanji-watermark {
+    position: absolute;
+    font-family: var(--font-display), 'Noto Serif JP', serif;
+    font-weight: 700;
+    pointer-events: none;
+    user-select: none;
+    color: var(--color-accent-ink);
+    opacity: 0.05;
+    line-height: 1;
+    z-index: 0;
+    mix-blend-mode: multiply;
   }
 
   /* Dot grid pattern */
@@ -356,10 +394,8 @@
 
   /* Navbar lifted shadow on scroll */
   .nav-scrolled-shadow {
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
-  }
-  .dark .nav-scrolled-shadow {
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+    /* Sumi-ink shadow for floating navbar */
+    box-shadow: 0 4px 20px -8px rgba(20, 20, 20, 0.15);
   }
 
   /* Scroll reveal helper */

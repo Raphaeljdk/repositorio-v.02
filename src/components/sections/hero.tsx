@@ -88,24 +88,39 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20"
     >
       {/* Dot grid background */}
-      <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade" style={{ opacity: 0.6 }} />
+      <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade" style={{ opacity: 0.4 }} />
 
-      {/* Decorative geometric shapes */}
+      {/* SHOGUN DIGITAL differentiator — Option D: oversized kanji calligraphy watermark (道 = "The Way")
+          Positioned upper-right, behind content (z-0), very low opacity so it never obstructs text. */}
+      <span
+        className="kanji-watermark select-none hidden sm:block"
+        style={{
+          fontSize: "min(40vw, 300px)",
+          top: "4%",
+          right: "-4%",
+          opacity: 0.04,
+        }}
+        aria-hidden
+      >
+        道
+      </span>
+
+      {/* Decorative geometric shapes — sumi-ink thin rings */}
       <motion.div
-        className="pointer-events-none absolute top-1/4 -right-20 h-80 w-80 rounded-full border border-[var(--color-accent-copper)]/[0.06]"
+        className="pointer-events-none absolute top-1/4 -right-20 h-80 w-80 rounded-full border border-[var(--color-accent-copper)]/[0.10]"
         animate={reduce ? {} : { rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         aria-hidden
       />
       <motion.div
-        className="pointer-events-none absolute bottom-1/3 -left-16 h-48 w-48 rounded-full border border-[var(--color-accent-sage)]/[0.05]"
+        className="pointer-events-none absolute bottom-1/3 -left-16 h-48 w-48 rounded-full border border-[var(--color-accent-sage)]/[0.08]"
         animate={reduce ? {} : { rotate: -360 }}
         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
         aria-hidden
       />
       <motion.div
-        className="pointer-events-none absolute top-16 right-1/4 h-3 w-3 rounded-full bg-[var(--color-accent-gold)]/20"
-        animate={reduce ? {} : { y: [0, -12, 0], opacity: [0.2, 0.5, 0.2] }}
+        className="pointer-events-none absolute top-16 right-1/4 h-2.5 w-2.5 rounded-full bg-[var(--color-accent-gold)]/40"
+        animate={reduce ? {} : { y: [0, -12, 0], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden
       />
@@ -127,14 +142,14 @@ export function Hero() {
             Raphael Freitas
           </motion.p>
 
-          {/* Name — huge display with split character reveal */}
+          {/* Name — Noto Serif JP, min 3.5rem (56px) desktop, tight tracking */}
           <motion.h1
             variants={item}
-            className="mt-4 font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+            className="relative mt-4 font-display text-5xl font-bold leading-[0.95] tracking-[-0.027em] sm:text-6xl md:text-7xl lg:text-[5.5rem]"
           >
             <span className="text-foreground">Raphael</span>
             <br />
-            <span className="bg-gradient-to-r from-[#DC2626] via-[#F97316] to-[#10B981] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#D93838] via-[#F2C14E] to-[#D93838] bg-clip-text text-transparent">
               <span className="inline-flex overflow-hidden">
                 {"Freitas".split("").map((char, i) => (
                   <motion.span
@@ -224,33 +239,33 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right — logo with rotating border */}
+        {/* Right — circular logo with rotating sumi border */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-[280px] sm:max-w-sm lg:max-w-md"
+          className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px] lg:max-w-md"
         >
           <motion.div
             style={reduce ? {} : { y: avatarY, opacity: avatarOpacity }}
             className="relative aspect-square"
           >
-            {/* Rotating gradient border — thicker, more visible */}
+            {/* Rotating gradient border — circular, SHOGUN palette */}
             <div
-              className="absolute -inset-1 rounded-[2rem] animate-spin-slow opacity-70"
+              className="absolute -inset-1 rounded-full animate-spin-slow opacity-70"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
+                  "conic-gradient(from 0deg, #D93838, #F2C14E, #2B5B84, #D93838)",
                 mask: "radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px))",
                 WebkitMask:
                   "radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px))",
-                borderRadius: "2rem",
+                borderRadius: "9999px",
               }}
               aria-hidden
             />
             {/* Morphing background blob */}
             <motion.div
-              className="absolute -inset-8 opacity-30 blur-2xl"
+              className="absolute -inset-8 opacity-25 blur-2xl"
               animate={reduce ? {} : {
                 borderRadius: [
                   "60% 40% 30% 70% / 60% 30% 70% 40%",
@@ -262,21 +277,21 @@ export function Hero() {
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 background:
-                  "conic-gradient(from 90deg, #DC2626, #F97316, #10B981, #DC2626)",
+                  "conic-gradient(from 90deg, #D93838, #F2C14E, #2B5B84, #D93838)",
               }}
               aria-hidden
             />
             {/* Outer ring glow */}
             <div
-              className="absolute -inset-3 rounded-[2rem] opacity-25 blur-xl"
+              className="absolute -inset-3 rounded-full opacity-20 blur-xl"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #DC2626, #F97316, #10B981, #DC2626)",
+                  "conic-gradient(from 0deg, #D93838, #F2C14E, #2B5B84, #D93838)",
               }}
               aria-hidden
             />
-            {/* Logo image — rounded square to showcase full artwork */}
-            <div className="absolute inset-1.5 overflow-hidden rounded-[1.75rem] border border-[var(--surface-border)] bg-[var(--surface)] shadow-2xl">
+            {/* Logo image — circular frame, sumi shadow */}
+            <div className="absolute inset-1.5 overflow-hidden rounded-full border border-[var(--surface-border)] bg-[var(--surface)] shadow-sumi-lg">
               <Image
                 src="/raphael-logo.png"
                 alt="Raphael Freitas — Logo pessoal com dragão, bonsai e cerejeira"
@@ -288,7 +303,7 @@ export function Hero() {
               />
               {/* Subtle inner vignette for depth */}
               <div
-                className="pointer-events-none absolute inset-0 rounded-[1.75rem]"
+                className="pointer-events-none absolute inset-0 rounded-full"
                 style={{
                   boxShadow: "inset 0 0 60px rgba(0,0,0,0.15)",
                 }}

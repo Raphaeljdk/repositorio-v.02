@@ -89,7 +89,7 @@ export function Navbar() {
             }}
             className="group flex items-center gap-2.5"
           >
-            <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg ring-1 ring-[var(--color-accent-copper)]/30 transition-all group-hover:ring-[var(--color-accent-copper)] group-hover:shadow-[0_0_12px_rgba(220,38,38,0.35)] sm:h-10 sm:w-10">
+            <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full ring-1 ring-[var(--color-accent-copper)]/30 transition-all group-hover:ring-[var(--color-accent-copper)] group-hover:shadow-[0_0_12px_rgba(217,56,56,0.35)] sm:h-10 sm:w-10">
               <Image
                 src="/raphael-logo.png"
                 alt="Raphael Freitas — Logo"

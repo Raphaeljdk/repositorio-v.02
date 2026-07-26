@@ -80,7 +80,7 @@ export function Footer() {
               onClick={go("#home")}
               className="inline-flex items-center gap-3"
             >
-              <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl ring-1 ring-[var(--color-accent-copper)]/30 transition-all hover:ring-[var(--color-accent-copper)] hover:shadow-[0_0_12px_rgba(220,38,38,0.3)] sm:h-14 sm:w-14">
+              <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full ring-1 ring-[var(--color-accent-copper)]/30 transition-all hover:ring-[var(--color-accent-copper)] hover:shadow-[0_0_12px_rgba(217,56,56,0.3)] sm:h-14 sm:w-14">
                 <Image
                   src="/raphael-logo.png"
                   alt="Raphael Freitas — Logo"
