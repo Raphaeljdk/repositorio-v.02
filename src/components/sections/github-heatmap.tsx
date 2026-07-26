@@ -136,10 +136,10 @@ export function GitHubHeatmap() {
         }
         .dark {
           --heatmap-0: rgba(255,255,255,0.04);
-          --heatmap-1: rgba(220,38,38,0.25);
-          --heatmap-2: rgba(220,38,38,0.5);
-          --heatmap-3: rgba(220,38,38,0.75);
-          --heatmap-4: #DC2626;
+          --heatmap-1: rgba(229,80,80,0.25);
+          --heatmap-2: rgba(229,80,80,0.5);
+          --heatmap-3: rgba(229,80,80,0.75);
+          --heatmap-4: #E55050;
         }
       `}</style>
     </motion.div>

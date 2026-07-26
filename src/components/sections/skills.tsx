@@ -9,7 +9,7 @@ import { useCardGlow } from "@/hooks/use-card-glow";
 
 type Filter = SkillCategory | "all";
 
-const ACCENT_COLORS = ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C", "#9A3412", "#EF4444"] as const;
+const ACCENT_COLORS = ["#D93838", "#F2C14E", "#2B5B84", "#B91C1C", "#9A3412", "#7C2D12", "#E55050"] as const;
 
 function CategoryBar({ activeFilter, onSelect }: { activeFilter: Filter; onSelect: (f: Filter) => void }) {
   const categoryCounts = useMemo(() => {

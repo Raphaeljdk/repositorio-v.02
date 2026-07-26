@@ -13,10 +13,10 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const SERVICE_ACCENTS = [
-  "#DC2626",
-  "#10B981",
-  "#F97316",
-  "#7C8CF8",
+  "#D93838",
+  "#2B5B84",
+  "#F2C14E",
+  "#B91C1C",
 ] as const;
 
 export function Services() {

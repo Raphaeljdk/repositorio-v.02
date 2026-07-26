@@ -5,10 +5,10 @@ import { useInView } from "@/hooks/use-count-up";
 import { useCountUp } from "@/hooks/use-count-up";
 
 const MARQUEE_STATS = [
-  { value: 10, suffix: "+", label: "Projetos", color: "#DC2626" },
-  { value: 30, suffix: "+", label: "Tecnologias", color: "#10B981" },
-  { value: 4, suffix: "", label: "IAs Utilizadas", color: "#F97316" },
-  { value: 9, suffix: "", label: "Certificações", color: "#7C8CF8" },
+  { value: 10, suffix: "+", label: "Projetos", color: "#D93838" },
+  { value: 30, suffix: "+", label: "Tecnologias", color: "#2B5B84" },
+  { value: 4, suffix: "", label: "IAs Utilizadas", color: "#F2C14E" },
+  { value: 9, suffix: "", label: "Certificações", color: "#B91C1C" },
   { value: 4500, suffix: "+", label: "Horas Estudo", color: "#B91C1C" },
   { value: 15, suffix: "", label: "Repositórios", color: "#9A3412" },
 ];

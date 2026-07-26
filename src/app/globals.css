@@ -111,52 +111,68 @@
 }
 
 /*
- * SHOGUN DIGITAL — dark mode disabled per design brief.
- * .dark mirrors :root (washi light) so the theme toggle is a no-op,
- * guaranteeing the warm paper aesthetic persists regardless of class.
+ * SHOGUN DIGITAL — SUMI INK DARK MODE
+ * A dark counterpart to the washi-paper light theme. Maintains the Japanese
+ * sumi-ink aesthetic: warm dark surfaces (never pure black), brightened
+ * cinnabar/gold/blue accents for contrast, and deeper shadows that evoke
+ * ink bleeding into wet paper. The calligraphy differentiator and palette
+ * rules carry over — only the surface values shift.
  */
 .dark {
-  --background: #F8F6F0;
-  --foreground: #1A1A1A;
-  --card: #FBFAF4;
-  --card-foreground: #1A1A1A;
-  --popover: #FBFAF4;
-  --popover-foreground: #1A1A1A;
-  --primary: #D93838;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F0EEE6;
-  --secondary-foreground: #1A1A1A;
-  --muted: #F0EEE6;
-  --muted-foreground: #5C5751;
-  --accent: #F0EEE6;
-  --accent-foreground: #1A1A1A;
-  --destructive: #D93838;
-  --border: rgba(0, 0, 0, 0.06);
-  --input: rgba(0, 0, 0, 0.06);
-  --ring: #D93838;
-  --chart-1: #D93838;
-  --chart-2: #2B5B84;
+  /* Surfaces — warm sumi ink, layered elevation. NEVER pure black. */
+  --background: #0E0E0C;
+  --foreground: #F2EFE5;
+  --card: #161614;
+  --card-foreground: #F2EFE5;
+  --popover: #161614;
+  --popover-foreground: #F2EFE5;
+  /* Primary cinnabar brightened for dark-bg legibility */
+  --primary: #E55050;
+  --primary-foreground: #1A1A1A;
+  --secondary: #1F1F1C;
+  --secondary-foreground: #F2EFE5;
+  --muted: #1F1F1C;
+  --muted-foreground: #9A9388;
+  --accent: #1F1F1C;
+  --accent-foreground: #F2EFE5;
+  --destructive: #E55050;
+  /* Borders — faint warm white hairlines */
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.10);
+  --ring: #E55050;
+  --chart-1: #E55050;
+  --chart-2: #6BA3CC;
   --chart-3: #F2C14E;
-  --chart-4: #B91C1C;
-  --chart-5: #9A3412;
-  --sidebar: #F8F6F0;
-  --sidebar-foreground: #1A1A1A;
-  --sidebar-primary: #D93838;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F0EEE6;
-  --sidebar-accent-foreground: #1A1A1A;
-  --sidebar-border: rgba(0, 0, 0, 0.06);
-  --sidebar-ring: #D93838;
+  --chart-4: #F87171;
+  --chart-5: #FB923C;
+  --sidebar: #0E0E0C;
+  --sidebar-foreground: #F2EFE5;
+  --sidebar-primary: #E55050;
+  --sidebar-primary-foreground: #1A1A1A;
+  --sidebar-accent: #1F1F1C;
+  --sidebar-accent-foreground: #F2EFE5;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #E55050;
 
-  --surface: #FBFAF4;
-  --surface-border: rgba(0, 0, 0, 0.06);
+  /* Surfaces — elevated warm dark */
+  --surface: #161614;
+  --surface-border: rgba(255, 255, 255, 0.08);
 
-  --gradient-brand: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(217,56,56,0.06) 0%, rgba(242,193,78,0.06) 100%);
-  --gradient-accent: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
+  /* Gradients — brightened accents for dark contrast */
+  --gradient-brand: linear-gradient(135deg, #E55050 0%, #F2C14E 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(229,80,80,0.12) 0%, rgba(242,193,78,0.10) 100%);
+  --gradient-accent: linear-gradient(135deg, #E55050 0%, #F2C14E 100%);
 
-  --dot-color: rgba(26, 26, 26, 0.05);
-  --noise-opacity: 0.025;
+  /* Dot grid — warm white, slightly stronger for visibility */
+  --dot-color: rgba(242, 239, 229, 0.06);
+
+  /* Noise — slightly stronger, will use screen blend in dark via override */
+  --noise-opacity: 0.04;
+
+  /* Sumi-ink shadows — deeper, more spread for dark surfaces */
+  --shadow-sumi-card: 0 8px 28px -6px rgba(0, 0, 0, 0.55);
+  --shadow-sumi-modal: 0 24px 56px -12px rgba(0, 0, 0, 0.70);
+  --shadow-sumi-hover: 0 14px 38px -8px rgba(0, 0, 0, 0.60);
 }
 
 @layer base {
@@ -211,11 +227,21 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #EF4444;
   }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #E55050;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #F87171;
+  }
 
   /* Selection */
   ::selection {
     background: rgba(220, 38, 38, 0.25);
     color: inherit;
+  }
+  .dark ::selection {
+    background: rgba(229, 80, 80, 0.35);
+    color: #F2EFE5;
   }
 }
 
@@ -254,6 +280,16 @@
     /* Sumi-ink shadow — sharp, precise, deep black */
     box-shadow: var(--shadow-sumi-hover);
   }
+  .dark .card-surface:hover {
+    border-color: rgba(229, 80, 80, 0.35);
+  }
+  .dark .card-surface::after {
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(229, 80, 80, 0.10),
+      transparent 40%
+    );
+  }
   .card-surface:hover::after {
     opacity: 1;
   }
@@ -263,7 +299,8 @@
     transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Washi paper grain texture — subtle noise simulating handmade paper */
+  /* Washi paper grain texture — subtle noise simulating handmade paper.
+   * Multiply on light (darkens paper), screen on dark (lifts ink). */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -274,6 +311,10 @@
     background-repeat: repeat;
     background-size: 256px 256px;
     mix-blend-mode: multiply;
+  }
+  .dark .noise-overlay {
+    mix-blend-mode: screen;
+    opacity: calc(var(--noise-opacity) * 0.7);
   }
 
   /* Sumi-ink shadow utilities */
@@ -299,6 +340,11 @@
     line-height: 1;
     z-index: 0;
     mix-blend-mode: multiply;
+  }
+  .dark .kanji-watermark {
+    color: #F2EFE5;
+    opacity: 0.04;
+    mix-blend-mode: screen;
   }
 
   /* Dot grid pattern */
@@ -396,6 +442,9 @@
   .nav-scrolled-shadow {
     /* Sumi-ink shadow for floating navbar */
     box-shadow: 0 4px 20px -8px rgba(20, 20, 20, 0.15);
+  }
+  .dark .nav-scrolled-shadow {
+    box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.55);
   }
 
   /* Scroll reveal helper */
@@ -646,6 +695,9 @@
   .text-glow-orange {
     text-shadow: 0 0 10px rgba(249, 115, 22, 0.3), 0 0 20px rgba(249, 115, 22, 0.1);
   }
+  .dark .text-glow-red {
+    text-shadow: 0 0 12px rgba(229, 80, 80, 0.5), 0 0 24px rgba(229, 80, 80, 0.2);
+  }
 }
 
 /* Focus ring — accent copper */
@@ -653,6 +705,9 @@
   outline: 2px solid var(--color-accent-copper);
   outline-offset: 2px;
   border-radius: 4px;
+}
+.dark :focus-visible {
+  outline-color: #E55050;
 }
 
 /* Interactive elements get pointer cursor (for custom cursor) */

@@ -15,10 +15,13 @@ function useMounted() {
 }
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const mounted = useMounted();
 
-  const isDark = mounted ? theme === "dark" : true;
+  // Default to light (matches defaultTheme="light" in layout.tsx) during SSR
+  // to avoid hydration mismatch. After mount, read resolvedTheme which works
+  // correctly even when enableSystem=true.
+  const isDark = mounted ? resolvedTheme === "dark" : false;
   const nextTheme = isDark ? "light" : "dark";
 
   return (
@@ -26,8 +29,9 @@ export function ThemeToggle() {
       type="button"
       data-theme-toggle
       aria-label={`Ativar tema ${nextTheme}`}
+      title={`Alternar para tema ${nextTheme === "dark" ? "escuro" : "claro"}`}
       onClick={() => setTheme(nextTheme)}
-      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]"
+      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
     >
       <span className="sr-only">Alternar tema</span>
       {mounted ? (
@@ -55,7 +59,7 @@ export function ThemeToggle() {
           )}
         </AnimatePresence>
       ) : (
-        <Moon className="h-4 w-4" strokeWidth={2} />
+        <Sun className="h-4 w-4" strokeWidth={2} />
       )}
     </button>
   );

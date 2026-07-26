@@ -166,7 +166,7 @@ export function Footer() {
                   <span
                     className="h-1.5 w-1.5 rounded-full"
                     style={{
-                      backgroundColor: ["#DC2626", "#10B981", "#F97316", "#7C8CF8", "#B91C1C", "#EF4444", "#059669", "#D97706"][i],
+                      backgroundColor: ["#D93838", "#2B5B84", "#F2C14E", "#B91C1C", "#9A3412", "#E55050", "#7C2D12", "#F87171"][i],
                     }}
                   />
                   {tech}

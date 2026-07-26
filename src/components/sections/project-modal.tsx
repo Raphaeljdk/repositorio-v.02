@@ -177,7 +177,7 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
 
                   {/* Solution */}
                   <div className="rounded-lg border border-[var(--surface-border)] p-4">
-                    <p className="font-code text-[9px] uppercase tracking-widest text-[#F97316] mb-1.5">
+                    <p className="font-code text-[9px] uppercase tracking-widest text-[#F2C14E] mb-1.5">
                       Solução
                     </p>
                     <p className="text-sm leading-relaxed text-muted-foreground">
@@ -186,8 +186,8 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                   </div>
 
                   {/* Lessons */}
-                  <div className="rounded-lg border border-[#10B981]/30 bg-[#10B981]/5 p-4">
-                    <p className="font-code text-[9px] uppercase tracking-widest text-[#10B981] mb-1.5 flex items-center gap-1">
+                  <div className="rounded-lg border border-[#2B5B84]/30 bg-[#2B5B84]/5 p-4">
+                    <p className="font-code text-[9px] uppercase tracking-widest text-[#2B5B84] mb-1.5 flex items-center gap-1">
                       <Lightbulb className="h-3 w-3" />
                       Lições Aprendidas
                     </p>

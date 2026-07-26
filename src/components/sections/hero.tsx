@@ -149,7 +149,7 @@ export function Hero() {
           >
             <span className="text-foreground">Raphael</span>
             <br />
-            <span className="bg-gradient-to-r from-[#D93838] via-[#F2C14E] to-[#D93838] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--color-accent-copper)] via-[var(--color-accent-gold)] to-[var(--color-accent-copper)] bg-clip-text text-transparent">
               <span className="inline-flex overflow-hidden">
                 {"Freitas".split("").map((char, i) => (
                   <motion.span
@@ -337,7 +337,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Floating decorative dots */}
+      {/* Floating decorative dots — SHOGUN palette */}
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
@@ -345,7 +345,7 @@ export function Hero() {
           style={{
             width: 3 + (i % 3) * 2,
             height: 3 + (i % 3) * 2,
-            background: ["#DC2626", "#F97316", "#10B981"][i % 3],
+            background: ["var(--color-accent-copper)", "var(--color-accent-gold)", "var(--color-accent-sage)"][i % 3],
             left: `${15 + i * 15}%`,
             top: `${20 + (i % 2) * 50}%`,
           }}

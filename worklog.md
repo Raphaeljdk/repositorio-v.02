@@ -118,3 +118,51 @@ Stage Summary:
 - Logo now circular across navbar/hero/footer with rotating sumi gradient border
 - Asymmetric differentiator: 道 (Way/Path) calligraphy watermark, ties to logo's 学びの道 (Path of Learning)
 - Fully responsive: watermark hidden on mobile to preserve readability, all viewports verified
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Add a dark theme to the SHOGUN DIGITAL portfolio (user: "coloque tema escuro tambem")
+
+Work Log:
+- Previous state: SHOGUN DIGITAL light theme (washi paper) was applied in Task 4, but dark mode was explicitly DISABLED — the .dark block mirrored :root so the theme toggle was a no-op.
+- Designed "Sumi Ink" dark variant that preserves the Japanese aesthetic: warm dark surfaces (never pure black), brightened cinnabar/gold/blue accents for contrast, deeper shadows evoking ink bleeding into wet paper.
+- Rewrote .dark block in globals.css with full SHOGUN-consistent dark palette:
+  * Background #0E0E0C (warm sumi ink, NOT pure black)
+  * Foreground #F2EFE5 (warm washi off-white, NOT pure white)
+  * Card/surface #161614, secondary/muted #1F1F1C (layered elevation)
+  * Primary cinnabar brightened to #E55050 (was #D93838) for dark-bg legibility
+  * Deep blue brightened to #6BA3CC (was #2B5B84)
+  * Gold #F2C14E unchanged
+  * Borders rgba(255,255,255,0.08) (warm white hairlines)
+  * Sumi shadows deepened: 0.55-0.70 alpha (was 0.25-0.35)
+  * Noise opacity 0.04 with screen blend (was multiply on light)
+- Added dark-mode CSS overrides: .dark .noise-overlay (screen blend), .dark .kanji-watermark (screen blend, warm white), .dark ::selection, .dark ::-webkit-scrollbar-thumb, .dark .card-surface:hover/::after, .dark .nav-scrolled-shadow, .dark .text-glow-red, .dark :focus-visible
+- Updated layout.tsx: enableSystem changed from false → true (allows system preference + manual toggle, still defaults to light)
+- Fixed theme-toggle.tsx: switched from `theme` to `resolvedTheme` (correct with enableSystem), SSR default changed from isDark=true → isDark=false (matches defaultTheme="light", eliminates hydration mismatch), added hover bg + title tooltip, placeholder icon now Sun (was Moon)
+- Updated animated-background.tsx: dark-mode orbs migrated from legacy green/orange (#10B981/#F97316) to SHOGUN palette — Orb2 now deep blue #6BA3CC, Orb3 now ochre gold #F2C14E, Orb4 red+gold blend. Light-mode orbs also refined to SHOGUN hex values.
+- Migrated ALL legacy decorative color arrays to SHOGUN palette across 7 files:
+  * skills.tsx ACCENT_COLORS: removed #DC2626/#10B981/#F97316/#7C8CF8 → #D93838/#F2C14E/#2B5B84/#B91C1C/#9A3412/#7C2D12/#E55050
+  * process.tsx STEPS: 4 step colors → cinnabar/gold/blue/deep-red
+  * stats-marquee.tsx MARQUEE_STATS: 4 stat colors → SHOGUN palette
+  * services.tsx SERVICE_ACCENTS: 4 accents → SHOGUN palette
+  * scroll-progress.tsx: gradient #DC2626→#F97316→#10B981 → #D93838→#F2C14E→#2B5B84
+  * footer.tsx tech badge dots: 8 colors → SHOGUN palette
+  * hero.tsx: floating decorative dots legacy palette → CSS vars (copper/gold/sage); H1 gradient text hardcoded hex → CSS vars (theme-aware)
+  * project-modal.tsx: Solution label orange→gold, Lessons label green→deep-blue (semantic colors preserved with SHOGUN hues)
+  * github-heatmap.tsx: dark-mode heatmap scale rgba(220,38,38)→rgba(229,80,80), peak #DC2626→#E55050
+- Ran lint: passed, zero errors
+- Verified via agent-browser (desktop 1440x900 + mobile 390x844):
+  * Light theme: className="light", no console errors, renders correctly
+  * Theme toggle click: className switches light↔dark instantly
+  * Dark theme: className="dark", no console errors, VLM confirmed warm dark bg (not pure black), excellent text contrast, accent colors pop, circular logo + gradient border visible
+  * Theme persistence: toggle→dark→toggle→light→reload → localStorage="light" preserved, className="light" on reload ✓
+  * Mobile dark (390px): VLM confirmed responsive (no overflow), navbar readable, WCAG AA contrast, no text cutoff
+
+Stage Summary:
+- SHOGUN DIGITAL now supports BOTH light (washi paper) and dark (sumi ink) themes with a working toggle + localStorage persistence + system preference detection
+- Dark theme maintains the Japanese aesthetic: warm dark surfaces (#0E0E0C), brightened cinnabar/gold/blue accents, deeper sumi shadows, screen-blend noise grain
+- All decorative color arrays migrated from legacy red/orange/green to the cohesive SHOGUN 4-color palette in both themes
+- Theme toggle is hydration-safe (SSR defaults to light to match defaultTheme), uses resolvedTheme for correct system-preference behavior
+- Verified on desktop + mobile in both themes with VLM — no contrast issues, no layout bugs, no console errors
+

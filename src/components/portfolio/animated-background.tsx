@@ -23,9 +23,10 @@ export function AnimatedBackground() {
         {
           className: "absolute -top-32 -left-32 h-[40rem] w-[40rem] rounded-full",
           style: {
+            // Orb 1 — Cinnabar Red (primary brand accent)
             background: isDark
-              ? "radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(220,38,38,0.07) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(229,80,80,0.18) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(217,56,56,0.07) 0%, transparent 70%)",
             filter: "blur(80px)",
           },
           animate: {
@@ -44,9 +45,10 @@ export function AnimatedBackground() {
         {
           className: "absolute top-1/3 -right-24 h-[36rem] w-[36rem] rounded-full",
           style: {
+            // Orb 2 — Deep Blue (sage/azul profundo)
             background: isDark
-              ? "radial-gradient(circle, rgba(16,185,129,0.10) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(107,163,204,0.14) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(43,91,132,0.06) 0%, transparent 70%)",
             filter: "blur(100px)",
           },
           animate: {
@@ -65,9 +67,10 @@ export function AnimatedBackground() {
         {
           className: "absolute -bottom-20 left-1/4 h-[28rem] w-[28rem] rounded-full",
           style: {
+            // Orb 3 — Ochre Gold
             background: isDark
-              ? "radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(242,193,78,0.12) 0%, transparent 70%)"
+              : "radial-gradient(circle, rgba(242,193,78,0.08) 0%, transparent 70%)",
             filter: "blur(120px)",
           },
           animate: {
@@ -83,13 +86,13 @@ export function AnimatedBackground() {
             scale: { duration: 20, repeat: Infinity, ease: "easeInOut" as const },
           },
         },
-        // New 4th orb - subtle violet/magenta for depth
+        // Orb 4 — subtle red+gold blend for atmospheric depth
         {
           className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[32rem] w-[32rem] rounded-full",
           style: {
             background: isDark
-              ? "radial-gradient(circle, rgba(220,38,38,0.04) 0%, rgba(249,115,22,0.03) 40%, transparent 70%)"
-              : "radial-gradient(circle, rgba(220,38,38,0.03) 0%, rgba(249,115,22,0.02) 40%, transparent 70%)",
+              ? "radial-gradient(circle, rgba(229,80,80,0.06) 0%, rgba(242,193,78,0.04) 40%, transparent 70%)"
+              : "radial-gradient(circle, rgba(217,56,56,0.03) 0%, rgba(242,193,78,0.02) 40%, transparent 70%)",
             filter: "blur(140px)",
           },
           animate: {
