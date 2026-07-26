@@ -113,7 +113,7 @@ function ArticleCard({
         delay: (index % 3) * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group card-surface shimmer-effect overflow-hidden"
+      className="group card-surface overflow-hidden"
     >
       {/* Top accent gradient line */}
       <div

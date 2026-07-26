@@ -139,10 +139,7 @@ export function Navbar() {
           {/* Right cluster */}
           <div className="flex items-center gap-2">
             <span className="hidden items-center gap-1.5 md:flex">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] opacity-40 animate-[ping_1.5s_ease-in-out_infinite]" />
-                <span className="relative block h-2.5 w-2.5 rounded-full bg-[var(--color-accent-sage)]" />
-              </span>
+              <span className="block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
               <span className="font-code text-[11px] text-foreground/70">Disponível para oportunidades</span>
             </span>
             <div className="hidden items-center gap-1 md:flex">

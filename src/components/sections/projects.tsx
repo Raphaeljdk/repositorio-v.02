@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Github,
   ExternalLink,
@@ -14,7 +14,6 @@ import { projects } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
-import { MagneticButton } from "@/components/portfolio/magnetic-button";
 
 const BLUR_PLACEHOLDER = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0NCIgaGVpZ2h0PSI3NjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEzNDQiIGhlaWdodD0iNzY4IiBmaWxsPSIjMTRBMTQxNiIvPjwvc3ZnPg==";
 
@@ -95,8 +94,7 @@ export function Projects() {
 
         {/* CTA */}
         <div className="mt-12 flex justify-center">
-          <MagneticButton
-            as="a"
+          <a
             href="https://github.com/Raphaeljdk"
             target="_blank"
             rel="noreferrer"
@@ -105,7 +103,7 @@ export function Projects() {
             <Github className="h-4 w-4" />
             Ver todos os repositórios
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </MagneticButton>
+          </a>
         </div>
       </div>
     </section>
@@ -121,28 +119,6 @@ function ProjectCard({
   index: number;
   onClick: () => void;
 }) {
-  const cardRef = useRef<HTMLElement>(null);
-
-  const rotateX = useSpring(0, { stiffness: 200, damping: 25 });
-  const rotateY = useSpring(0, { stiffness: 200, damping: 25 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const maxDeg = 5;
-    const rotY = ((e.clientX - centerX) / (rect.width / 2)) * maxDeg;
-    const rotX = ((centerY - e.clientY) / (rect.height / 2)) * maxDeg;
-    rotateX.set(rotX);
-    rotateY.set(rotY);
-  }, [rotateX, rotateY]);
-
-  const handleMouseLeave = useCallback(() => {
-    rotateX.set(0);
-    rotateY.set(0);
-  }, [rotateX, rotateY]);
-
   const statusMap = {
     completed: "Concluído",
     "in-progress": "Em progresso",
@@ -151,7 +127,6 @@ function ProjectCard({
 
   return (
     <motion.article
-      ref={cardRef as React.RefObject<HTMLElement>}
       layout
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -162,11 +137,8 @@ function ProjectCard({
         delay: (index % 3) * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer shimmer-effect",
+        "group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
         project.featured && "md:col-span-2 lg:col-span-1"
       )}
       onClick={onClick}

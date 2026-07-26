@@ -97,7 +97,7 @@ export const personal = {
   lastName: "Freitas",
   initials: "RF",
   title: "Desenvolvedor Full Stack | Arquitetura de Software | SAP B1",
-  tagline: "Construindo experiências digitais que escalam",
+  tagline: "Full Stack · SAP B1 · automações com Python",
   age: 19,
   location: "São Paulo, SP",
   email: "raphaelfreitasdossantos651@gmail.com",

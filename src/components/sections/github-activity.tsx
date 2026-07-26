@@ -115,8 +115,8 @@ function RepoCard({
         ease: [0.22, 1, 0.36, 1],
       }}
       className={cn(
-        "group card-surface card-glow flex flex-col rounded-xl p-5 transition-[border-color,transform] duration-300",
-        "hover:border-[var(--color-accent-copper)]/30 hover:-translate-y-[1px]",
+        "group card-surface flex flex-col rounded-xl p-5 transition-[border-color] duration-300",
+        "hover:border-[var(--color-accent-copper)]/30",
       )}
       aria-label={`Repositório ${repo.name} no GitHub`}
     >

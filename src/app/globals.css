@@ -196,8 +196,6 @@
     font-feature-settings: "cv11", "ss01", "ss03";
     line-height: 1.8; /* Máxima legibilidade per SHOGUN brief */
     overflow-x: hidden;
-    /* Hide default cursor on desktop — custom cursor takes over */
-    cursor: none;
   }
   /* Display headings — Noto Serif JP, tight tracking, sumi weight */
   h1, h2, h3 {
@@ -207,7 +205,7 @@
   h1 { letter-spacing: -0.027em; font-weight: 700; }
   @media (pointer: coarse) {
     body {
-      cursor: auto;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 
@@ -249,49 +247,17 @@
   /* Card surface — solid bg + border, no blur */
   .card-surface {
     position: relative;
-    overflow: hidden;
     background: var(--surface);
     border: 1px solid var(--surface-border);
     border-radius: var(--radius);
-    transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  .card-glow {
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-  }
-  .card-surface::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0;
-    background: radial-gradient(
-      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(220, 38, 38, 0.06),
-      transparent 40%
-    );
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
   .card-surface:hover {
-    border-color: rgba(217, 56, 56, 0.25);
-    transform: translateY(-2px) scale(1.005);
-    /* Sumi-ink shadow — sharp, precise, deep black */
+    border-color: rgba(217, 56, 56, 0.22);
     box-shadow: var(--shadow-sumi-hover);
   }
   .dark .card-surface:hover {
-    border-color: rgba(229, 80, 80, 0.35);
-  }
-  .dark .card-surface::after {
-    background: radial-gradient(
-      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(229, 80, 80, 0.10),
-      transparent 40%
-    );
-  }
-  .card-surface:hover::after {
-    opacity: 1;
+    border-color: rgba(229, 80, 80, 0.30);
   }
 
   /* Theme transition utility — apply to any element that should animate on theme switch */
