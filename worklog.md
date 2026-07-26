@@ -207,3 +207,42 @@ Stage Summary:
 - Native cursor restored (custom cursor removed entirely)
 - The Japanese aesthetic (washi/sumi, 道 watermark, logo, Noto Serif JP) is preserved — that IS his brand, not an AI tell
 - Committed 0f816c0, pushed to GitHub
+
+---
+Task ID: 7
+Agent: Main Agent
+Task: Add StudyAI project (https://study-ai-nine-xi.vercel.app) to the portfolio projects
+
+Work Log:
+- Read worklog.md (Tasks 1-6) to understand prior state: SHOGUN DIGITAL design applied, dark theme added, AI-template chrome removed, portfolio is clean/editorial
+- Inspected src/lib/data.ts projects array: 8 existing projects (ids 1,2,3,4,5,7,8 featured/completed; id 6 in-progress)
+- Verified projects.tsx + project-modal.tsx use `project.link` for the "Abrir" button (href) — link will work out of the box
+- Confirmed `accent` gradient field is legacy (not rendered — components use SHOGUN CSS vars); kept a SHOGUN-aligned gradient anyway for consistency
+- Used agent-browser to navigate to https://study-ai-nine-xi.vercel.app and read the page:
+  * Title: "StudyAI — A beleza de aprender na imperfeição"
+  * Concept: study platform with wabi-sabi Japanese aesthetic, AI tutor "Sensei", spaced-repetition flashcards, smart notebooks, AI summaries, Zen Pomodoro, Wabi-Sabi community
+  * 5 themes: Washi / Sumi / Koke / Momiji / Sakura
+  * Stats shown on site: 10.800 estudantes, 98% satisfação, 40+ universidades
+- Captured screenshot via `agent-browser screenshot public/projects/study-ai.png` (201KB, hero section of the live site)
+- Added new project entry (id 9) to data.ts between ERP Tech Lemon (id 8) and API Gateway (id 6):
+  * title: "StudyAI", subtitle: "Plataforma de Estudos Wabi-Sabi"
+  * category: "Educação / IA"
+  * technologies: Next.js, TypeScript, Tailwind CSS, IA Generativa, Vercel
+  * difficulty: 90, featured: true, status: completed, year: 2026
+  * highlights: Tutor IA Sensei, Flashcards Espaçados, 5 Temas Japoneses, Pomodoro Zen
+  * metrics: Sensei (Tutor IA), 5 (Wabi-Sabi) Temas, Vercel Deploy, 10.800+ Estudantes
+  * case study: problem (plataformas tradicionais forçam ritmo padronizado), solution (wabi-sabi + Sensei IA adaptativo + 5 temas), lessons (IA em educação = respeitar tempo do aprendiz; wabi-sabi cria conexão emocional que templates perfeitos não alcançam)
+- Ran `bun run lint` — passed, zero errors
+- Verified via agent-browser:
+  * Portfolio loaded (GET / 200), scrolled to projects section
+  * StudyAI card appears in the grid: "EDUCAÇÃO / IA · 2026", "Concluído", full description, highlights, tech stack, 312 views
+  * Clicked "Ver detalhes" → modal opened: title, status, description, highlights, technologies, metrics (Métricas de Impacto), Solução section, Lições Aprendidas section, Destaques — all rendering correctly
+  * "Abrir StudyAI" link href = https://study-ai-nine-xi.vercel.app (verified in source)
+- dev.log clean (no errors, only GET / 200 and /api/github 200)
+- Committed a750738, pushed to GitHub (main: 0f816c0 → a750738)
+
+Stage Summary:
+- StudyAI project added as id 9, featured, with full case study, metrics, highlights, screenshot, and live Vercel link
+- Screenshot captured from the live deployed site (public/projects/study-ai.png)
+- Verified end-to-end: card renders, modal opens with all sections, link points to correct URL
+- Lint clean, dev.log clean, pushed to GitHub
