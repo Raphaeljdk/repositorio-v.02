@@ -246,3 +246,48 @@ Stage Summary:
 - Screenshot captured from the live deployed site (public/projects/study-ai.png)
 - Verified end-to-end: card renders, modal opens with all sections, link points to correct URL
 - Lint clean, dev.log clean, pushed to GitHub
+
+---
+Task ID: 8
+Agent: Main Agent
+Task: Add unique signature effects to make the portfolio non-copyable ("colocar efeitos unicos que seriam minha caracteristica para evitar copias")
+
+Work Log:
+- Read worklog.md (Tasks 1-7) to understand prior state: SHOGUN DIGITAL design applied, dark theme added, AI-template chrome removed, StudyAI project added
+- Designed a cohesive SIGNATURE SYSTEM — 6 hand-crafted effects tied to the personal brand (logo dragon/bonsai/sakura, 学びの道 mark, sumi-ink aesthetic):
+  1. HANKO SEAL (判子) — personal red signature stamp with "RF" + 学びの道, hand-carved feel (SVG feTurbulence + feDisplacementMap rough edges), slightly rotated -5deg, ink-coverage texture filter. Two variants: default (RF + divider + 学びの道) and compact (道 only). Animated entrance on hero (scale 0.6 → 1, rotate -12deg → -5deg, spring ease).
+  2. SUMI BRUSH DIVIDER (墨筆) — hand-painted ink brush stroke between sections. Filled lens/leaf shape (not a stroked line) for tapered-thick-tapered profile. feTurbulence displacement for fibrous edge. Variable opacity gradient (0 → 0.85 → 0.9 → 0) = ink saturation. Darker "wet ink" core path. Ink droplet ellipse + 3 tiny splatter circles. Replaces the old .section-divider CSS lines in page.tsx (5 dividers).
+  3. KANJI SECTION NUMBER (漢数字) — calligraphic ordinal 一二三四五六七八九 in small red bordered badges, slightly rotated -3deg, replacing the generic "01/02/03" eyebrow. Added `kanji` prop to SectionHeading; wired to all 9 sections (About=一, Services=二, Skills=三, Projects=四, Blog=五, GitHub=六, Experience=七, Certifications=八, Contact=九).
+  4. INK-BLEED HOVER — CSS-only (.ink-bleed-host) pseudo-element that bleeds a soft radial cinnabar gradient outward on hover, like sumi soaking into wet washi paper. mix-blend-mode multiply (light) / screen (dark). Applied to hero CTAs (Ver projetos + Currículo).
+  5. SAKURA PETAL DRIFT (桜花) — a SINGLE petal that drifts diagonally across the viewport every ~28s (16s drift duration), randomized path/rotation/hue per drift. NOT a particle system — one petal, rare, quiet. Ties to the cherry blossom in the personal logo. Hydration-safe (renders null on SSR). prefers-reduced-motion respected. 3 hue variants (gold/copper/cinnabar-tinted).
+  6. BREATHING LOGO — 6s breath cycle on the hero logo image (scale 1 → 1.018 → 1, ease-in-out). The logo is a living bonsai, not a static asset. prefers-reduced-motion disables it.
+- Created new file: src/components/portfolio/signature.tsx (HankoSeal, SumiBrushDivider, KanjiNumber, SakuraPetalDrift, InkBleed wrapper)
+- Added CSS to globals.css: .ink-bleed-host (radial ink-bleed pseudo-element with light/dark blend modes), .breathing-logo (6s breath keyframe), .hanko-stamp-enter (press animation), .sumi-divider-reveal (scroll reveal). All respect prefers-reduced-motion.
+- Integrated across the site:
+  * page.tsx: imported SakuraPetalDrift (top-level) + SumiBrushDivider (replaced 5 .section-divider divs)
+  * hero.tsx: HankoSeal (animated, 64px) absolute-positioned next to the name (desktop only via hidden md:block); breathing-logo class on the logo Image; ink-bleed-host on both CTAs
+  * footer.tsx: HankoSeal compact variant (44px, 道) with "Assinado à mão / Raphael · 学びの道 · 2026" label
+  * about.tsx SectionHeading: added kanji prop + KanjiNumber import; all 9 sections wired with kanji={1..9}
+- Iterated on the SumiBrushDivider visibility: first version was a thin stroked path (2.4px, peak opacity 0.7) — VLM couldn't distinguish it from a CSS border. Redesigned as a FILLED lens shape (tapered ends, thick middle), increased to 56px tall viewBox, peak opacity 0.9, added darker "wet ink" core path, ink droplet + 3 splatter circles, displacement scale 6.5. After scrollIntoView, VLM confirmed: "a dark gray/black line that mimics a Japanese ink brush stroke (sumi-e), textured irregular edge, thicker in the middle, tapering at both ends."
+- Ran `bun run lint` — passed, zero errors
+- Verified via agent-browser + VLM:
+  * HERO (light desktop): VLM confirmed red square hanko stamp next to "Raphael Freitas", circular dragon/bonsai logo, 学びの道 mark, paper texture, hand-crafted aesthetic
+  * SECTION HEADINGS: VLM confirmed "a small square box with a thin red/orange border. Inside this box is a Japanese character (specifically the kanji 一)". DOM read confirmed all 9 kanji ordinals: 一Sobre 二Serviços 三Stack 四Projetos 五Blog 六GitHub 七Experiência 八Certificações 九Contato
+  * BRUSH DIVIDER: VLM confirmed "a single prominent horizontal element... dark gray/black... mimics a Japanese ink brush stroke (sumi-e)... textured, slightly irregular edge... thicker in the middle while tapering toward both ends"
+  * DARK MODE HERO: VLM confirmed red hanko visible, warm dark background (not pure black), dragon/bonsai logo visible, 学びの道 badge visible
+  * FOOTER (dark): VLM confirmed "red square stamp containing the white kanji character 道" + text "Assinado à mão / Raphael · 学びの道 · 2026" — described as "a signature block"
+  * MOBILE (390px): VLM confirmed layout responsive, hanko correctly hidden (hidden md:block), logo visible
+  * dev.log clean (only GET / 200 and /api/github 200)
+- Committed and pushed to GitHub
+
+Stage Summary:
+- 6 unique signature effects implemented, all tied to the personal brand identity (not generic AI-template chrome):
+  - Hanko seal stamp (判子) on hero + footer — the primary "signature" marking the site as hand-signed
+  - Sumi brush stroke dividers between all major sections — hand-painted ink aesthetic
+  - Calligraphic kanji section numbers (一二三四五六七八九) — replaces generic 01/02/03
+  - Ink-bleed hover on CTAs — sumi soaking into wet paper
+  - Single sakura petal drift (rare, ~28s interval) — ties to logo's cherry blossom
+  - Breathing logo (6s cycle) — living bonsai
+- All effects respect prefers-reduced-motion and are hydration-safe
+- Verified end-to-end via VLM in light/dark/mobile — every effect confirmed visually present
+- These effects are deeply tied to Raphael's specific brand (logo, 学びの道, Japanese aesthetic) — they cannot be copy-pasted into another portfolio without losing their meaning, making the site authentically non-copyable

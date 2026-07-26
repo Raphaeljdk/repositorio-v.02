@@ -14,12 +14,16 @@ import { Footer } from "@/components/portfolio/footer";
 import { Services } from "@/components/sections/services";
 import { Process } from "@/components/sections/process";
 import { TechNews } from "@/components/sections/tech-news";
+import { SakuraPetalDrift, SumiBrushDivider } from "@/components/portfolio/signature";
 
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col">
       <AnimatedBackground />
       <NoiseOverlay />
+      {/* Signature: a single sakura petal drifts across rarely.
+          Ties to the cherry blossom in the personal logo. */}
+      <SakuraPetalDrift />
       <Navbar />
 
       <main className="relative flex-1">
@@ -27,17 +31,17 @@ export default function Home() {
         <About />
         <Services />
         <Process />
-        <div className="section-divider my-0" />
+        <SumiBrushDivider className="my-0" />
         <Skills />
         <Projects />
         <TechNews />
-        <div className="section-divider my-0" />
+        <SumiBrushDivider className="my-0" />
         <GitHubActivity />
-        <div className="section-divider my-0" />
+        <SumiBrushDivider className="my-0" />
         <Experience />
-        <div className="section-divider my-0" />
+        <SumiBrushDivider className="my-0" />
         <Certifications />
-        <div className="section-divider my-0" />
+        <SumiBrushDivider className="my-0" />
         <Contact />
       </main>
 

@@ -80,6 +80,7 @@ export function Contact() {
         <SectionHeading
           label="Contato"
           title="Vamos construir algo grande."
+          kanji={9}
           description="Aberto a oportunidades, freelance e colaborações."
         />
 

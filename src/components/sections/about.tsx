@@ -19,6 +19,7 @@ import { useCountUp, useInView } from "@/hooks/use-count-up";
 import { cn } from "@/lib/utils";
 import { GitHubHeatmap } from "./github-heatmap";
 import { CurrentlyWidget } from "./currently-widget";
+import { KanjiNumber } from "@/components/portfolio/signature";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   rocket: Rocket,
@@ -39,6 +40,7 @@ export function About() {
         <SectionHeading
           label="Sobre"
           title="Engenharia com intenção."
+          kanji={1}
           description="Ponte entre o rigor corporativo regulado e a velocidade do ecossistema web — entregando produtos que performam, escalam e resolvem problemas reais do negócio."
         />
 
@@ -227,17 +229,21 @@ function InfoCard({
   );
 }
 
-/** Reusable section heading — no eyebrow numbering, just a monospace label */
+/** Reusable section heading — no eyebrow numbering, just a monospace label.
+ *  Now with an optional calligraphic kanji ordinal (一二三...) that
+ *  replaces the generic "01/02/03" eyebrow — a signature touch. */
 export function SectionHeading({
   label,
   title,
   description,
   align = "left",
+  kanji,
 }: {
   label: string;
   title: string;
   description?: string;
   align?: "left" | "center";
+  kanji?: number;
 }) {
   return (
     <motion.div
@@ -247,7 +253,10 @@ export function SectionHeading({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}
     >
-      <span className="mono-label">{label}</span>
+      <div className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
+        {kanji && <KanjiNumber n={kanji} />}
+        <span className="mono-label">{label}</span>
+      </div>
       <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         {title}
       </h2>

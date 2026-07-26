@@ -54,6 +54,7 @@ export function Projects() {
           <SectionHeading
             label="Projetos"
             title="Coisas que construí."
+            kanji={4}
             description="Cada projeto é um caso de uso real — do SaaS em tempo real ao executive dashboard."
           />
           {/* Filters */}

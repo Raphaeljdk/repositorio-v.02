@@ -108,6 +108,7 @@ export function Skills() {
         <SectionHeading
           label="Stack"
           title="Ferramentas que dominou."
+          kanji={3}
           description="25+ tecnologias distribuídas em 6 categorias. Do SAP ao React, do banco de dados ao cloud."
         />
 

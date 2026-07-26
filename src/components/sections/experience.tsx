@@ -241,6 +241,7 @@ export function Experience() {
         <SectionHeading
           label="Experiência"
           title="Onde tenho construído."
+          kanji={7}
           description="Uma ponte entre o mundo corporativo regulado e o ecossistema web moderno."
         />
 

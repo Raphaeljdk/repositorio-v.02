@@ -37,6 +37,7 @@ export function Services() {
         <SectionHeading
           label="Serviços"
           title="Como posso ajudar."
+          kanji={2}
           description="Atuação full stack que conecta estratégia corporativa, engenharia moderna, IA generativa e design premium."
         />
 

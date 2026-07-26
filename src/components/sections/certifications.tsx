@@ -42,6 +42,7 @@ export function Certifications() {
         <SectionHeading
           label="Certificações"
           title="Aprendizado contínuo."
+          kanji={8}
           description="Formações que sustentam a stack — do freeCodeCamp ao SENAI, do SAP Learning Hub à AWS."
         />
 

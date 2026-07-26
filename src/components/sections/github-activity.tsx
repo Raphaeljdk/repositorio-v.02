@@ -219,6 +219,7 @@ export function GitHubActivity() {
         <SectionHeading
           label="GitHub"
           title="Código aberto."
+          kanji={6}
           description="Repositórios atualizados em tempo real do GitHub."
         />
 

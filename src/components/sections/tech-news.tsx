@@ -34,6 +34,7 @@ export function TechNews() {
         <SectionHeading
           label="Blog"
           title="Artigos & Tendências"
+          kanji={5}
           description="Conteúdo curado sobre as tecnologias que uso no dia a dia — React, Next.js, IA, SAP B1 e mais."
         />
 

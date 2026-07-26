@@ -5,6 +5,7 @@ import Image from "next/image";
 import { personal, navItems } from "@/lib/data";
 import { motion } from "framer-motion";
 import { useSyncExternalStore } from "react";
+import { HankoSeal } from "@/components/portfolio/signature";
 
 const emptySubscribe = () => () => {};
 function useMounted() {
@@ -131,6 +132,17 @@ export function Footer() {
               >
                 <Mail className="h-4 w-4" />
               </a>
+            </div>
+
+            {/* Personal hanko seal — compact variant (道).
+                Marks the footer as a signed document, like a
+                Japanese craftsman signing their work. */}
+            <div className="mt-6 flex items-center gap-3">
+              <HankoSeal size={44} variant="compact" />
+              <p className="font-display text-[11px] leading-tight text-muted-foreground/70">
+                <span className="block font-medium text-foreground/80">Assinado à mão</span>
+                <span>Raphael · 学びの道 · 2026</span>
+              </p>
             </div>
           </div>
 

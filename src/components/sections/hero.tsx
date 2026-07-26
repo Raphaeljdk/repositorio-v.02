@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ArrowDown, Download } from "lucide-react";
 import { personal } from "@/lib/data";
 import Image from "next/image";
+import { HankoSeal } from "@/components/portfolio/signature";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -58,13 +59,23 @@ export function Hero() {
             {personal.location} · Portfólio 2026
           </motion.p>
 
-          {/* Name — solid foreground, serif, no gradient */}
-          <motion.h1
-            variants={fadeUp}
-            className="relative mt-5 font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.027em] sm:text-6xl md:text-7xl lg:text-[5rem]"
-          >
-            Raphael Freitas
-          </motion.h1>
+          {/* Name — solid foreground, serif, no gradient.
+              Signed with a personal hanko stamp (判子) — the
+              hand-pressed red seal that marks this as his work. */}
+          <motion.div variants={fadeUp} className="relative mt-5">
+            <motion.h1
+              className="relative font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.027em] sm:text-6xl md:text-7xl lg:text-[5rem]"
+            >
+              Raphael Freitas
+            </motion.h1>
+            {/* Personal hanko seal — rotated, ink-roughened, hand-pressed feel.
+                Appears only on desktop to avoid crowding mobile. */}
+            <HankoSeal
+              size={64}
+              animated
+              className="absolute -right-2 top-2 hidden md:block lg:-right-6 lg:top-4"
+            />
+          </motion.div>
 
           {/* Role — static, concrete, no typewriter */}
           <motion.p
@@ -97,7 +108,7 @@ export function Hero() {
                 e.preventDefault();
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent-copper)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#C12B2B] active:scale-[0.98]"
+              className="ink-bleed-host inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent-copper)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#C12B2B] active:scale-[0.98]"
             >
               Ver projetos
               <ArrowUpRight className="h-4 w-4" />
@@ -105,7 +116,7 @@ export function Hero() {
             <a
               href="/curriculo-raphael-freitas.pdf"
               download
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--surface-border)] px-5 py-3 text-sm font-medium text-foreground/80 transition-colors hover:border-[var(--color-accent-copper)] hover:text-foreground"
+              className="ink-bleed-host inline-flex items-center gap-2 rounded-lg border border-[var(--surface-border)] px-5 py-3 text-sm font-medium text-foreground/80 transition-colors hover:border-[var(--color-accent-copper)] hover:text-foreground"
             >
               <Download className="h-4 w-4" />
               Currículo
@@ -123,12 +134,13 @@ export function Hero() {
           <div className="relative aspect-square">
             {/* Single static ring — sumi border, no rotation, no gradient */}
             <div className="absolute -inset-2 rounded-full border border-[var(--color-accent-copper)]/15" />
-            {/* Logo image — circular, clean */}
+            {/* Logo image — circular, clean, with a 6s breath cycle.
+                The logo is a living bonsai, not a static asset. */}
             <div className="absolute inset-0 overflow-hidden rounded-full border border-[var(--surface-border)] bg-[var(--surface)] shadow-sumi-lg">
               <Image
                 src="/raphael-logo.png"
                 alt="Raphael Freitas — logo pessoal com dragão, bonsai e cerejeira"
-                className="h-full w-full object-cover"
+                className="breathing-logo h-full w-full object-cover"
                 width={500}
                 height={500}
                 priority
