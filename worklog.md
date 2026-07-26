@@ -166,3 +166,44 @@ Stage Summary:
 - Theme toggle is hydration-safe (SSR defaults to light to match defaultTheme), uses resolvedTheme for correct system-preference behavior
 - Verified on desktop + mobile in both themes with VLM — no contrast issues, no layout bugs, no console errors
 
+
+---
+Task ID: 6
+Agent: Main Agent
+Task: Remove the "AI-generated look" from the site — make it feel personally authored ("a minha cara")
+
+Work Log:
+- Diagnosed the AI-template tells across the site: custom cursor (cursor:none), floating particles, animated gradient orbs, typewriter with "$" prompt, gradient text on the name, morphing blob + rotating conic-gradient border on logo, 6 floating decorative dots, "online" pinging badge, terminal clock ("building something cool"), stats marquee + count-up, editorial ticker, scroll progress bar, scroll indicator, keyboard shortcuts overlay, 3D tilt on project cards, shimmer sweep + radial spotlight glow on card hover, magnetic buttons, pinging availability dot.
+- globals.css: removed `cursor: none` from body and interactive elements (restored native pointer); simplified .card-surface:hover to border-color + sumi shadow only (removed translateY scale + radial spotlight ::after glow + .card-glow mouse-tracking); simplified touch device rule.
+- page.tsx: removed imports + usage of CustomCursor, FloatingParticles, EditorialTicker, ScrollProgress, ScrollIndicator, KeyboardShortcuts, StatsMarquee, StatsCounter. Kept AnimatedBackground (now simplified), NoiseOverlay, Navbar, Hero, ScrollToTop, all content sections, Footer.
+- animated-background.tsx: rewrote — removed all 4 animated gradient orbs (framer-motion + blur blobs), kept only the faint dot-grid + top/bottom vignettes. Now a quiet document backdrop.
+- hero.tsx: full rewrite —
+  * Removed typewriter (useLocalTime, typed/deleting state, "$" prompt, blinking cursor)
+  * Removed gradient text on "Freitas" → solid foreground "Raphael Freitas" in Noto Serif JP
+  * Removed rotating conic-gradient border + morphing blob + outer glow ring around logo → single static faint copper ring + clean circular image with sumi shadow
+  * Removed 6 floating decorative animated dots
+  * Removed "online" pinging status badge (top-right of logo)
+  * Removed terminal clock line at bottom ("online | BRT 12:34:56 | building something cool")
+  * Removed parallax (useScroll/useTransform on avatar)
+  * Removed MagneticButton wrappers → plain <a> CTAs
+  * Kept: 道 kanji watermark (ties to logo's 学びの道), location/year editorial label (static dot, no ping), static role descriptor ("Desenvolvedor Full Stack · SAP B1 · Automação com Python"), genuine bio, 学びの道 mark badge under logo, quiet scroll cue to #about
+  * Reduced min-height to 92svh, tightened typography scale
+- navbar.tsx: removed ping animation on availability dot → static 2px sage dot + text
+- projects.tsx: removed 3D tilt (useRef, useSpring, rotateX/rotateY, handleMouseMove/Leave, preserve-3d style) → static card with border-color hover; removed MagneticButton import + usage → plain <a>
+- tech-news.tsx, github-activity.tsx: removed shimmer-effect + card-glow classes from card surfaces
+- data.ts: tagline "Construindo experiências digitais que escalam" (buzzwordy) → "Full Stack · SAP B1 · automações com Python" (concrete)
+- Ran lint: passed, zero errors. Dev log showed a transient 500 during editing (stale useRef reference) that self-resolved on recompile; final state clean (GET / 200).
+- Verified via agent-browser + VLM:
+  * Light desktop hero: VLM confirmed solid name color (no gradient), static role line (no typewriter), clean logo (no rotating border/blob), no particles/badges, "editorial and handcrafted rather than AI-templated"
+  * Scrolled sections (about/skills/projects): VLM confirmed "no gradient text, shimmer, glow, 3D tilt, particles, or neon... cards look static and clean... refreshingly understated"
+  * Dark theme hero: solid name, clean logo, no AI cliches
+  * Mobile 390px: fully responsive, no overflow, readable, no AI cliches
+
+Stage Summary:
+- Removed ~530 lines of performative AI-template chrome across 9 files
+- Hero is now quiet and editorial: solid serif name, static role, clean circular logo in a sumi ring, 学びの道 personal mark, no animations except a subtle entrance fade + scroll cue
+- Cards across the site are static (border + shadow hover only) — no shimmer, no spotlight, no 3D tilt
+- Background is a faint dot grid + vignettes — no animated orbs
+- Native cursor restored (custom cursor removed entirely)
+- The Japanese aesthetic (washi/sumi, 道 watermark, logo, Noto Serif JP) is preserved — that IS his brand, not an AI tell
+- Committed 0f816c0, pushed to GitHub
