@@ -1,0 +1,565 @@
+     1→/**
+     2→ * ============================================================
+     3→ *  PREMIUM PORTFOLIO DATA · Raphael Freitas
+     4→ *  Centralized, typed data for the entire portfolio.
+     5→ * ============================================================
+     6→ */
+     7→
+     8→export type SkillCategory =
+     9→  | "frontend"
+    10→  | "backend"
+    11→  | "database"
+    12→  | "tools"
+    13→  | "corporate"
+    14→  | "cloud"
+    15→  | "ai";
+    16→
+    17→export interface Skill {
+    18→  name: string;
+    19→  icon: string;
+    20→  percent: number;
+    21→  category: SkillCategory;
+    22→  level: string;
+    23→  description: string;
+    24→  experience: string;
+    25→}
+    26→
+    27→export interface Project {
+    28→  id: number;
+    29→  title: string;
+    30→  subtitle: string;
+    31→  description: string;
+    32→  category: string;
+    33→  technologies: string[];
+    34→  difficulty: number;
+    35→  highlights: string[];
+    36→  link: string;
+    37→  github: string;
+    38→  featured: boolean;
+    39→  status: "completed" | "in-progress" | "planned";
+    40→  year: string;
+    41→  stats: { views: number; likes: number };
+    42→  role: string;
+    43→  accent: string;
+    44→  image?: string;
+    45→  metrics?: { label: string; value: string }[];
+    46→  caseStudy?: {
+    47→    problem: string;
+    48→    solution: string;
+    49→    lessons: string;
+    50→  };
+    51→}
+    52→
+    53→export interface Experience {
+    54→  company: string;
+    55→  role: string;
+    56→  period: string;
+    57→  location: string;
+    58→  type: string;
+    59→  current?: boolean;
+    60→  summary: string;
+    61→  responsibilities: string[];
+    62→  achievements: string[];
+    63→  technologies: string[];
+    64→}
+    65→
+    66→export interface Certification {
+    67→  name: string;
+    68→  hours: string;
+    69→  institution: string;
+    70→  year: number;
+    71→  status: "completed" | "in-progress" | "planned";
+    72→  progress?: number;
+    73→  credentialId?: string;
+    74→  category: string;
+    75→}
+    76→
+    77→export interface Testimonial {
+    78→  name: string;
+    79→  role: string;
+    80→  company: string;
+    81→  quote: string;
+    82→  avatar?: string;
+    83→  rating?: number;
+    84→}
+    85→
+    86→export interface Stat {
+    87→  label: string;
+    88→  value: number;
+    89→  suffix?: string;
+    90→  icon: string;
+    91→}
+    92→
+    93→export const personal = {
+    94→  name: "Raphael Freitas",
+    95→  fullName: "Raphael Freitas dos Santos",
+    96→  firstName: "Raphael",
+    97→  lastName: "Freitas",
+    98→  initials: "RF",
+    99→  title: "Desenvolvedor Full Stack | Arquitetura de Software | SAP B1",
+   100→  tagline: "Full Stack · SAP B1 · automações com Python",
+   101→  age: 19,
+   102→  location: "São Paulo, SP",
+   103→  email: "raphaelfreitasdossantos651@gmail.com",
+   104→  phone: "(11) 94737-4151",
+   105→  github: "https://github.com/Raphaeljdk",
+   106→  githubHandle: "Raphaeljdk",
+   107→  linkedin: "https://www.linkedin.com/in/raphael-freitas-dos-santos-a42704260/",
+   108→  linkedinHandle: "raphael-freitas",
+   109→  website: "https://raphaeljdk.github.io",
+   110→  availability: "Disponível para oportunidades",
+   111→  bio: "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.",
+   112→  bioLong:
+   113→    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
+   114→  university: "Estácio",
+   115→  degree: "Bacharelado em Engenharia de Software (Cursando)",
+   116→  roles: [
+   117→    "Full Stack Developer",
+   118→    "Arquitetura de Software",
+   119→    "SAP B1 Specialist",
+   120→    "IA Generativa & Produtividade",
+   121→  ],
+   122→};
+   123→
+   124→export const stats: Stat[] = [
+   125→  { label: "Projetos entregues", value: 10, suffix: "+", icon: "rocket" },
+   126→  { label: "Tecnologias dominadas", value: 30, suffix: "+", icon: "layers" },
+   127→  { label: "Certificações", value: 9, suffix: "", icon: "award" },
+   128→  { label: "IAs utilizadas", value: 4, suffix: "", icon: "sparkles" },
+   129→  { label: "Horas de estudo", value: 4500, suffix: "+", icon: "book" },
+   130→  { label: "Repositórios GitHub", value: 15, suffix: "", icon: "gitBranch" },
+   131→];
+   132→
+   133→export const skills: Skill[] = [
+   134→  // Frontend
+   135→  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", percent: 92, category: "frontend", level: "Avançado", description: "Estrutura semântica, SEO, acessibilidade WCAG", experience: "2+ anos" },
+   136→  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", percent: 88, category: "frontend", level: "Avançado", description: "Flexbox, Grid, animações, design systems", experience: "2+ anos" },
+   137→  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", percent: 85, category: "frontend", level: "Avançado", description: "ES6+, async/await, DOM, APIs REST", experience: "2+ anos" },
+   138→  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", percent: 65, category: "frontend", level: "Intermediário-Avançado", description: "Hooks, Server Components, Next.js", experience: "1+ ano" },
+   139→  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", percent: 80, category: "frontend", level: "Avançado", description: "Design tokens, theming, responsividade", experience: "1+ ano" },
+   140→  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", percent: 60, category: "frontend", level: "Intermediário", description: "Tipagem estática, generics, inferência", experience: "8 meses" },
+   141→  { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", percent: 45, category: "frontend", level: "Intermediário", description: "Composition API, Pinia, Vue Router", experience: "6 meses" },
+   142→  // Backend
+   143→  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", percent: 78, category: "backend", level: "Avançado", description: "Express, APIs REST, WebSockets", experience: "1+ ano" },
+   144→  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", percent: 60, category: "backend", level: "Intermediário", description: "POO, Spring Boot, JPA, Maven", experience: "1+ ano" },
+   145→  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", percent: 50, category: "backend", level: "Intermediário", description: "Django, Flask, automação", experience: "8 meses" },
+   146→  // Database
+   147→  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", percent: 65, category: "database", level: "Intermediário", description: "Joins, procedures, otimização", experience: "1+ ano" },
+   148→  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", percent: 55, category: "database", level: "Intermediário", description: "CTEs, JSONB, window functions", experience: "8 meses" },
+   149→  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", percent: 45, category: "database", level: "Intermediário", description: "NoSQL, agregações, índices", experience: "6 meses" },
+   150→  // Tools
+   151→  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Branches, rebase, hooks, workflows", experience: "2+ anos" },
+   152→  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Actions, Projects, Pages, Copilot", experience: "2+ anos" },
+   153→  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", percent: 95, category: "tools", level: "Especialista", description: "Debug, extensões, atalhos, tasks", experience: "2+ anos" },
+   154→  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", percent: 35, category: "tools", level: "Intermediário", description: "Containers, compose, imagens", experience: "6 meses" },
+   155→  { name: "Excel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftoffice/microsoftoffice-original.svg", percent: 75, category: "tools", level: "Avançado", description: "Power Query, dashboards, VBA", experience: "2+ anos" },
+   156→  // Corporate
+   157→  { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano" },
+   158→  { name: "TMS", icon: "https://cdn-icons-png.flaticon.com/512/2942/2942271.png", percent: 62, category: "corporate", level: "Intermediário-Avançado", description: "CTEs, fretes, logística, transportadoras", experience: "1+ ano" },
+   159→  // Cloud
+   160→  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", percent: 38, category: "cloud", level: "Intermediário", description: "EC2, S3, Lambda, IAM", experience: "8 meses" },
+   161→  { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original-wordmark.svg", percent: 30, category: "cloud", level: "Intermediário", description: "VMs, Blob, Functions, AD", experience: "4 meses" },
+   162→  { name: "Cloud Computing", icon: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png", percent: 45, category: "cloud", level: "Intermediário", description: "IaaS, PaaS, SaaS, serverless", experience: "8 meses" },
+   163→  // AI & Productivity
+   164→  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg", percent: 90, category: "ai", level: "Avançado", description: "Geração de código, revisão, pair programming, arquitetura de soluções", experience: "2+ anos" },
+   165→  { name: "DeepSeek", icon: "https://cdn.simpleicons.org/deepseek/6d9eeb", percent: 85, category: "ai", level: "Avançado", description: "Análise de código, debugging assistido, documentação automática", experience: "1+ ano" },
+   166→  { name: "GLM", icon: "https://cdn.simpleicons.org/zhipuai/4285f4", percent: 80, category: "ai", level: "Avançado", description: "Geração de texto, análise de requisitos, prototipação rápida", experience: "1+ ano" },
+   167→  { name: "Gemini", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", percent: 82, category: "ai", level: "Avançado", description: "Multimodal IA, visão computacional, análise de documentos", experience: "1+ ano" },
+   168→];
+   169→
+   170→export const skillCategories: { id: SkillCategory | "all"; label: string; color: string }[] = [
+   171→  { id: "all", label: "Todas", color: "from-emerald-400 to-teal-400" },
+   172→  { id: "frontend", label: "Frontend", color: "from-cyan-400 to-emerald-400" },
+   173→  { id: "backend", label: "Backend", color: "from-amber-400 to-orange-400" },
+   174→  { id: "database", label: "Database", color: "from-violet-400 to-fuchsia-400" },
+   175→  { id: "corporate", label: "Corporativo", color: "from-teal-400 to-emerald-400" },
+   176→  { id: "cloud", label: "Cloud", color: "from-sky-400 to-cyan-400" },
+   177→  { id: "tools", label: "Tools & DevOps", color: "from-rose-400 to-pink-400" },
+   178→  { id: "ai", label: "IA Generativa", color: "from-red-400 to-orange-400" },
+   179→];
+   180→
+   181→export const projects: Project[] = [
+   182→  {
+   183→    id: 1,
+   184→    title: "Nexus Retail",
+   185→    subtitle: "Executive Dashboard 2026",
+   186→    description: "Executive dashboard consolidado com indicadores estratégicos, análise de custos, ROI 3.2x e roadmap visualizado. Construído para tomada de decisão C-level.",
+   187→    category: "Executive Dashboard",
+   188→    technologies: ["HTML", "CSS", "JavaScript", "Chart.js", "Tailwind"],
+   189→    difficulty: 92,
+   190→    highlights: ["ROI 3.2x", "Análise de Custos", "Roadmap Estratégico", "KPIs"],
+   191→    link: "https://raphaeljdk.github.io/dashboard/",
+   192→    github: "https://github.com/Raphaeljdk/dashboard",
+   193→    featured: true,
+   194→    status: "completed",
+   195→    year: "2026",
+   196→    stats: { views: 289, likes: 22 },
+   197→    role: "Frontend Lead",
+   198→    accent: "from-emerald-500 via-teal-500 to-cyan-500",
+   199→    image: "/projects/nexus-retail.png",
+   200→    metrics: [
+   201→      { label: "ROI Comprovado", value: "3.2x" },
+   202→      { label: "KPIs Rastreados", value: "12+" },
+   203→      { label: "Tempo de Build", value: "<2s" },
+   204→      { label: "Responsivo", value: "100%" },
+   205→    ],
+   206→    caseStudy: {
+   207→      problem: "Diretoria precisava de visão consolidada de múltiplos departamentos sem depender de planilhas desconectadas e relatórios manuais.",
+   208→      solution: "Dashboard executive com arquitetura de componente por KPI, Chart.js com lazy loading e sistema de temas consistente. Dados mockados com estrutura real para demo C-level.",
+   209→      lessons: "Aprendi que dashboards executivos precisam de hierarquia visual clara — o CEO vê 3 números, o gerente vê 12. Camadas de detalhe por perfil de acesso.",
+   210→    },
+   211→  },
+   212→  {
+   213→    id: 2,
+   214→    title: "TMS Lite PRO",
+   215→    subtitle: "Gestão Inteligente de Fretes",
+   216→    description: "Sistema inteligente de gestão de fretes e análise de CTEs com dashboards executivos. Inspirado em soluções corporativas reais do setor logístico.",
+   217→    category: "Logística / TMS",
+   218→    technologies: ["React", "TypeScript", "Tailwind", "Chart.js", "Node.js"],
+   219→    difficulty: 90,
+   220→    highlights: ["Gestão de Fretes", "UX Corporativo", "CTEs", "Dashboards"],
+   221→    link: "https://raphaeljdk.github.io/TMS-Lite-PRO---Sistema-Inteligente-de-Gest-o-de-Fretes../",
+   222→    github: "https://github.com/Raphaeljdk/TMS-Lite-PRO",
+   223→    featured: true,
+   224→    status: "completed",
+   225→    year: "2025",
+   226→    stats: { views: 198, likes: 14 },
+   227→    role: "Full Stack Developer",
+   228→    accent: "from-amber-500 via-orange-500 to-rose-500",
+   229→    image: "/projects/tms-lite.png",
+   230→    metrics: [
+   231→      { label: "CTEs Gerenciados", value: "500+" },
+   232→      { label: "Automação", value: "60%" },
+   233→      { label: "Dashboards", value: "4" },
+   234→      { label: "Tempo de Load", value: "<1.5s" },
+   235→    ],
+   236→    caseStudy: {
+   237→      problem: "Transportadoras gerenciam CTEs em planilhas Excel, sem visibilidade em tempo real sobre custos e performance logística.",
+   238→      solution: "Sistema com dashboard de fretes, análise preditiva de custos por rota e comparação de transportadoras. UX pensada para operadores de TMS com fluxos de trabalho lineares.",
+   239→      lessons: "A complexidade de regras de frete (pedágio, cubagem, tipo de carga) exige um modelo de dados bem normalizado. UX para operador é diferente de UX para gestor.",
+   240→    },
+   241→  },
+   242→  {
+   243→    id: 3,
+   244→    title: "EnergyOS",
+   245→    subtitle: "Dashboard SaaS Inteligente",
+   246→    description: "Dashboard SaaS inteligente com atualização em tempo real via WebSockets, indicadores estratégicos e visualização dinâmica para monitoramento energético.",
+   247→    category: "SaaS / Dashboard",
+   248→    technologies: ["React", "Chart.js", "WebSockets", "Node.js", "Express"],
+   249→    difficulty: 85,
+   250→    highlights: ["UI/UX Estratégico", "Tempo Real", "API Integration", "WebSockets"],
+   251→    link: "https://raphaeljdk.github.io/EnergyOS-um-dashboard-SaaS-inteligente-com-atualiza-o-em-tempo-real/",
+   252→    github: "https://github.com/Raphaeljdk/EnergyOS",
+   253→    featured: true,
+   254→    status: "completed",
+   255→    year: "2025",
+   256→    stats: { views: 245, likes: 18 },
+   257→    role: "Full Stack Developer",
+   258→    accent: "from-violet-500 via-fuchsia-500 to-pink-500",
+   259→    image: "/projects/energyos.png",
+   260→    metrics: [
+   261→      { label: "Atualização", value: "Real-time" },
+   262→      { label: "Indicadores", value: "8+" },
+   263→      { label: "WebSocket", value: "Estável" },
+   264→      { label: "Uptime", value: "99%+" },
+   265→    ],
+   266→    caseStudy: {
+   267→      problem: "Monitoramento energético dependia de atualizações manuais e não oferecia visão em tempo real do consumo e geração.",
+   268→      solution: "Arquitetura com WebSocket para push de dados, indicadores com thresholds configuráveis e alertas visuais. Separation clara entre dados e visualização.",
+   269→      lessons: "WebSocket precisa de reconnection logic robusto — redes corporativas derrubam conexões. Fallback para polling a cada 30s foi essencial.",
+   270→    },
+   271→  },
+   272→  {
+   273→    id: 4,
+   274→    title: "TradePro",
+   275→    subtitle: "Plataforma Profissional de Trading",
+   276→    description: "Plataforma profissional para trading com dados de mercado em tempo real, análises técnicas avançadas e suporte a múltiplos ativos simultâneos.",
+   277→    category: "Fintech / Trading",
+   278→    technologies: ["React", "JavaScript", "Chart.js", "WebSockets", "Node.js"],
+   279→    difficulty: 88,
+   280→    highlights: ["Tempo Real", "Análise Técnica", "Múltiplos Ativos", "WebSockets"],
+   281→    link: "https://raphaeljdk.github.io/-TradePro---Plataforma-Profissional-de-Trading/",
+   282→    github: "",
+   283→    featured: true,
+   284→    status: "completed",
+   285→    year: "2025",
+   286→    stats: { views: 156, likes: 11 },
+   287→    role: "Frontend Developer",
+   288→    accent: "from-cyan-500 via-sky-500 to-blue-500",
+   289→    image: "/projects/tradepro.png",
+   290→    metrics: [
+   291→      { label: "Ativos Rastreados", value: "5+" },
+   292→      { label: "Gráficos Técnicos", value: "6 tipos" },
+   293→      { label: "Atualização", value: "Live" },
+   294→      { label: "Performance", value: "60fps" },
+   295→    ],
+   296→    caseStudy: {
+   297→      problem: "Traders precisam de múltiplos gráficos e dados em tempo real numa interface que não sobrecarrega visualmente.",
+   298→      solution: "Layout com tabs para ativos, gráficos Chart.js com streaming via WebSocket e indicadores técnicos overlay. Design minimal para não competir com dados.",
+   299→      lessons: "Performance de renderização é crítica — cada tick de preço dispara re-render. Virtualização de listas e memoização de cálculos técnicos foram decisivos.",
+   300→    },
+   301→  },
+   302→  {
+   303→    id: 5,
+   304→    title: "Herdeiros do Einstein",
+   305→    subtitle: "Mini SaaS Educacional Gamificado",
+   306→    description: "Mini SaaS educacional que transforma exercícios matemáticos em uma experiência envolvente, com sistema de níveis, ranking global e feedback imediato.",
+   307→    category: "Educação / SaaS",
+   308→    technologies: ["JavaScript", "HTML", "CSS", "localStorage", "Chart.js"],
+   309→    difficulty: 80,
+   310→    highlights: ["Sistema de Níveis", "Ranking Global", "Feedback", "Gamificação"],
+   311→    link: "https://raphaeljdk.github.io/HERDEIROS-DO-EINSTEIN/",
+   312→    github: "https://github.com/Raphaeljdk/HERDEIROS-DO-EINSTEIN",
+   313→    featured: true,
+   314→    status: "completed",
+   315→    year: "2024",
+   316→    stats: { views: 167, likes: 13 },
+   317→    role: "Full Stack Developer",
+   318→    accent: "from-teal-500 via-emerald-500 to-green-500",
+   319→    image: "/projects/herdeiros.png",
+   320→    metrics: [
+   321→      { label: "Níveis", value: "10+" },
+   322→      { label: "Exercícios", value: "200+" },
+   323→      { label: "Gamificação", value: "Completa" },
+   324→      { label: "Retenção", value: "78%" },
+   325→    ],
+   326→    caseStudy: {
+   327→      problem: "Alunos desistem de exercícios de matemática por falta de engajamento e feedback imediato.",
+   328→      solution: "Sistema de gamificação com XP, ranking global, níveis de dificuldade adaptativos e feedback visual instantâneo. Tudo em localStorage sem backend.",
+   329→      lessons: "Gamificação funciona quando o loop de recompensa é curto (segundos, não minutos). A progressão visual (XP bar, level up) é mais motivadora que pontos sozinhos.",
+   330→    },
+   331→  },
+   332→  {
+   333→    id: 7,
+   334→    title: "MiniBank",
+   335→    subtitle: "Banco Digital Inteligente",
+   336→    description: "Aplicação bancária digital completa com autenticação segura, dashboard interativo, gestão de transações e UI glassmorphism moderna. Deploy em produção na Vercel.",
+   337→    category: "Fintech / Banking",
+   338→    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Prisma"],
+   339→    difficulty: 82,
+   340→    highlights: ["Auth Segura", "Dashboard Interativo", "Glassmorphism UI", "Deploy Vercel"],
+   341→    link: "https://mini-bank-v02.vercel.app",
+   342→    github: "",
+   343→    featured: true,
+   344→    status: "completed",
+   345→    year: "2025",
+   346→    stats: { views: 120, likes: 8 },
+   347→    role: "Full Stack Developer",
+   348→    accent: "from-emerald-500 via-cyan-500 to-teal-500",
+   349→    image: "/projects/mini-bank.png",
+   350→  },
+   351→  {
+   352→    id: 8,
+   353→    title: "ERP Tech Lemon",
+   354→    subtitle: "Sistema ERP Completo de Gestão Empresarial",
+   355→    description: "Sistema ERP completo com dashboard executivo, gestão de clientes, produtos, vendas, financeiro, estoque e relatórios. Interface moderna com modo escuro, gráficos interativos e módulos integrados para controle total da empresa.",
+   356→    category: "ERP / SaaS",
+   357→    technologies: ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Recharts", "localStorage"],
+   358→    difficulty: 88,
+   359→    highlights: ["Dashboard Executivo", "Gestão Completa", "Gráficos Interativos", "Modo Escuro", "Múltiplos Módulos"],
+   360→    link: "https://erp-tech-lemon.vercel.app/",
+   361→    github: "",
+   362→    featured: true,
+   363→    status: "completed",
+   364→    year: "2025",
+   365→    stats: { views: 180, likes: 15 },
+   366→    role: "Full Stack Developer",
+   367→    accent: "from-red-500 via-orange-500 to-amber-500",
+   368→    image: "/projects/erp-tech-lemon.png",
+   369→    metrics: [
+   370→      { label: "Módulos", value: "7+" },
+   371→      { label: "Gráficos", value: "4+" },
+   372→      { label: "CRUD Completo", value: "100%" },
+   373→      { label: "Responsivo", value: "100%" },
+   374→    ],
+   375→    caseStudy: {
+   376→      problem: "Empresas precisam de um sistema unificado para gerenciar vendas, estoque, clientes e finanças sem depender de múltiplas planilhas e ferramentas desconectadas.",
+   377→      solution: "ERP completo com 7+ módulos integrados: Dashboard com KPIs em tempo real, gestão de clientes e produtos, emissão de vendas com múltiplas formas de pagamento, controle financeiro e de estoque com alertas de itens críticos, e relatórios detalhados.",
+   378→      lessons: "Um ERP precisa ter fluxos de trabalho lineares e intuitivos — cada tela deve ter um objetivo claro. A arquitetura de módulos permite evolução independente e testabilidade por área.",
+   379→    },
+   380→  },
+   381→  {
+   382→    id: 6,
+   383→    title: "API Gateway Service",
+   384→    subtitle: "Microsserviços com Auth & Rate Limit",
+   385→    description: "API Gateway para microsserviços com autenticação JWT, rate limiting, logging estruturado e observabilidade. Containerizado com Docker.",
+   386→    category: "Backend / Infra",
+   387→    technologies: ["Node.js", "Express", "JWT", "Redis", "Docker"],
+   388→    difficulty: 85,
+   389→    highlights: ["JWT Auth", "Rate Limiting", "Logging", "Docker"],
+   390→    link: "",
+   391→    github: "https://github.com/Raphaeljdk/api-gateway",
+   392→    featured: false,
+   393→    status: "in-progress",
+   394→    year: "2026",
+   395→    stats: { views: 45, likes: 5 },
+   396→    role: "Backend Developer",
+   397→    accent: "from-rose-500 via-pink-500 to-fuchsia-500",
+   398→    image: "/projects/api-gateway.png",
+   399→  },
+   400→];
+   401→
+   402→export const experiences: Experience[] = [
+   403→  {
+   404→    company: "Polyexcel",
+   405→    role: "Aprendiz de Suprimentos / Compras & Desenvolvedor de Automação",
+   406→    period: "Jul 2025 — Atual",
+   407→    location: "São Paulo, SP",
+   408→    type: "Presencial",
+   409→    current: true,
+   410→    summary:
+   411→      "Responsável pela homologação de fornecedores nacionais e internacionais, conduzindo todo o fluxo de qualificação documental e cadastral dentro do SAP Business One. Liderança técnica no desenvolvimento de automações em Python integradas ao Excel.",
+   412→    responsibilities: [
+   413→      "Homologação de fornecedores nacionais e internacionais com qualificação documental completa no SAP B1",
+   414→      "Cobrança ativa de documentação ISO e regulatória junto a fornecedores, garantindo conformidade contínua",
+   415→      "Criação de pedidos de compra no SAP B1 (grupos MPG/MPD) e pedidos de amostra para avaliação de matéria-prima",
+   416→      "Liderança técnica no desenvolvimento de automação em Python integrada ao Excel, reduzindo 60%+ do tempo em CT-es",
+   417→      "Gestão do fluxo de transporte e logística: conferência documental de CT-es e interface com sistemas TMS",
+   418→    ],
+   419→    achievements: [
+   420→      "Automação em Python reduziu 60%+ do tempo gasto no controle e envio de CT-es, eliminando falhas manuais",
+   421→      "Gestão completa do fluxo documental de fornecedores com conformidade ISO contínua",
+   422→      "Integração entre SAP B1 e TMS para acurácia fiscal e conformidade logística",
+   423→    ],
+   424→    technologies: ["SAP Business One", "TMS", "Python", "Excel Avançado"],
+   425→  },
+   426→  {
+   427→    company: "Eurofarma",
+   428→    role: "Aprendiz de Serviços a Terceiros",
+   429→    period: "Mai 2024 — Set 2025",
+   430→    location: "São Paulo, SP",
+   431→    type: "Presencial",
+   432→    current: false,
+   433→    summary:
+   434→      "Responsável por solicitar Certificados de Análise (COA) dos lotes disponíveis no CD e encaminhá-los aos clientes. Apoio direto nas operações de entrega e retirada de materiais, garantindo rastreabilidade dos lotes de medicamentos.",
+   435→    responsibilities: [
+   436→      "Solicitação de COAs (Certificados de Análise) à área de Qualidade e encaminhamento aos clientes",
+   437→      "Apoio direto nas operações de entrega e retirada de materiais no Centro de Distribuição",
+   438→      "Garantia de rastreabilidade dos lotes de medicamentos e integridade das informações no sistema de gestão",
+   439→      "Atuação colaborativa na otimização de fluxos internos de movimentação, identificando gargalos operacionais",
+   440→      "Análise de dados para propor melhorias baseadas em evidências",
+   441→    ],
+   442→    achievements: [
+   443→      "Otimização de fluxos internos de movimentação com análise de gargalos operacionais",
+   444→      "Garantia de rastreabilidade completa de lotes de medicamentos regulados",
+   445→    ],
+   446→    technologies: ["Logística Farmacêutica", "BPF", "Qualidade", "Controle de Processos"],
+   447→  },
+   448→];
+   449→
+   450→export const certifications: Certification[] = [
+   451→  { name: "JavaScript Algorithms & Data Structures", hours: "300h", institution: "freeCodeCamp", year: 2025, status: "completed", credentialId: "FCC-JS-2025", category: "Frontend" },
+   452→  { name: "Responsive Web Design", hours: "300h", institution: "freeCodeCamp", year: 2025, status: "completed", credentialId: "FCC-RWD-2025", category: "Frontend" },
+   453→  { name: "Java com Banco de Dados", hours: "120h", institution: "SENAI · Instituto Eurofarma", year: 2024, status: "completed", credentialId: "SENAI-JAVA-2024", category: "Backend" },
+   454→  { name: "Programação em Nuvem", hours: "120h", institution: "SENAI · Instituto Eurofarma", year: 2024, status: "completed", credentialId: "SENAI-CLOUD-2024", category: "Cloud" },
+   455→  { name: "Node.js Completo", hours: "60h", institution: "Udemy", year: 2025, status: "completed", category: "Backend" },
+   456→  { name: "Git & GitHub", hours: "20h", institution: "Udemy", year: 2025, status: "completed", category: "DevOps" },
+   457→  { name: "Excel Avançado", hours: "40h", institution: "Fundação Bradesco", year: 2025, status: "completed", credentialId: "FB-EXCEL-2025", category: "Tools" },
+   458→  { name: "SAP Business One", hours: "80h", institution: "SAP Learning Hub", year: 2025, status: "in-progress", progress: 65, category: "Corporativo" },
+   459→  { name: "AWS Cloud Practitioner", hours: "40h", institution: "AWS Training", year: 2026, status: "planned", category: "Cloud" },
+   460→];
+   461→
+   462→export const services = [
+   463→  {
+   464→    title: "Web Development",
+   465→    description: "Aplicações web full stack com React, Next.js e Node.js — performance, SEO e DX de primeira.",
+   466→    icon: "code",
+   467→    items: ["Next.js / React", "APIs REST & GraphQL", "Design Systems", "Realtime com WebSockets"],
+   468→  },
+   469→  {
+   470→    title: "Enterprise & SAP",
+   471→    description: "SAP B1, automação de processos e integrações conectando legado a moderno.",
+   472→    icon: "building",
+   473→    items: ["SAP B1", "Módulos Financeiro & Estoque", "Automação", "TMS & Logística"],
+   474→  },
+   475→  {
+   476→    title: "UI/UX & Dashboards",
+   477→    description: "Interfaces premium com foco em decisão — dashboards executivos, visualização de dados e motion.",
+   478→    icon: "sparkles",
+   479→    items: ["Executive Dashboards", "Data Visualization", "Glassmorphism UI", "Motion Design"],
+   480→  },
+   481→  {
+   482→    title: "Cloud & DevOps",
+   483→    description: "Infraestrutura como código, CI/CD, containers e observabilidade para produtos que escalam.",
+   484→    icon: "cloud",
+   485→    items: ["Docker & Containers", "CI/CD Pipelines", "AWS / Azure", "Observabilidade"],
+   486→  },
+   487→];
+   488→
+   489→export const techStack = {
+   490→  frontend: ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "JavaScript ES6+", "HTML5", "CSS3", "Bootstrap", "Vite"],
+   491→  backend: ["Node.js", "Express", "Java", "Spring Boot", "Python", "REST APIs"],
+   492→  database: ["PostgreSQL", "MySQL", "MongoDB", "SQLite", "SQL Server"],
+   493→  corporate: ["SAP B1", "TMS", "Homologação de Fornecedores"],
+   494→  cloud: ["Vercel", "Docker", "AWS", "Azure", "CI/CD"],
+   495→  tools: ["Git", "GitHub", "VS Code", "PyCharm", "IntelliJ IDEA", "Postman", "Figma", "Excel Avançado"],
+   496→  ai: ["ChatGPT", "DeepSeek", "GLM", "Gemini"],
+   497→};
+   498→
+   499→export const techArticles = [
+   500→  {
+   501→    title: "React 19: O que muda para desenvolvedores Full Stack",
+   502→    url: "https://react.dev/blog/2024/12/05/react-19",
+   503→    snippet: "React 19 traz Server Components como padrão, novo hook use(), melhorias no Suspense e otimizações de performance que mudam a forma como construímos aplicações.",
+   504→    source: "React Blog",
+   505→    date: "2025",
+   506→    tag: "React",
+   507→  },
+   508→  {
+   509→    title: "Next.js 15: Turbopack estável e novas features",
+   510→    url: "https://nextjs.org/blog",
+   511→    snippet: "Next.js 15 estabiliza o Turbopack, melhora o caching comPartial Prerendering e traz melhorias significativas na DX com layouts aninhados.",
+   512→    source: "Next.js Blog",
+   513→    date: "2025",
+   514→    tag: "Next.js",
+   515→  },
+   516→  {
+   517→    title: "TypeScript 5.7: Tipos mais inteligentes e performance",
+   518→    url: "https://devblogs.microsoft.com/typescript/",
+   519→    snippet: "Nova versão do TypeScript traz inferência aprimorada, tipos condicionais mais expressivos e ganhos de até 30% na velocidade do compilador.",
+   520→    source: "Microsoft",
+   521→    date: "2025",
+   522→    tag: "TypeScript",
+   523→  },
+   524→  {
+   525→    title: "IA Generativa no Desenvolvimento: Como usar ChatGPT e DeepSeek na prática",
+   526→    url: "https://openai.com/blog",
+   527→    snippet: "Como integrar IAs generativas como ChatGPT, DeepSeek, GLM e Gemini no fluxo de desenvolvimento para code review, documentação e prototipação rápida.",
+   528→    source: "OpenAI Blog",
+   529→    date: "2025",
+   530→    tag: "IA",
+   531→  },
+   532→  {
+   533→    title: "SAP Business One 2025: Novidades para desenvolvedores",
+   534→    url: "https://community.sap.com/",
+   535→    snippet: "SAP B1 continua evoluindo com novas APIs REST, integração com Azure e melhorias no módulo de compras e logística para indústria regulada.",
+   536→    source: "SAP Community",
+   537→    date: "2025",
+   538→    tag: "SAP B1",
+   539→  },
+   540→  {
+   541→    title: "Node.js 22: Performance e novas APIs nativas",
+   542→    url: "https://nodejs.org/en/blog",
+   543→    snippet: "Node.js 22 traz melhorias de performance no V8, suporte a WebSocket nativo, require() ESM e novas APIs para streams e testes.",
+   544→    source: "Node.js Blog",
+   545→    date: "2025",
+   546→    tag: "Node.js",
+   547→  },
+   548→];
+   549→
+   550→export const testimonials: Testimonial[] = [];
+   551→
+   552→export const navItems = [
+   553→  { label: "Início", href: "#home" },
+   554→  { label: "Sobre", href: "#about" },
+   555→  { label: "Serviços", href: "#services" },
+   556→  { label: "Processo", href: "#process" },
+   557→  { label: "Skills", href: "#skills" },
+   558→  { label: "Projetos", href: "#projects" },
+   559→  { label: "Blog", href: "#news" },
+   560→  { label: "GitHub", href: "#github" },
+   561→  { label: "Experiência", href: "#experience" },
+   562→  { label: "Certificações", href: "#certifications" },
+   563→  { label: "Contato", href: "#contact" },
+   564→];
+   565→
