@@ -50,5 +50,7 @@ test
 prompt
 
 server.log
-# Skills directory
-/skills/upload/
+# Skills directory (framework files, not part of portfolio)
+/skills/
+/upload/
+/tool-results/
