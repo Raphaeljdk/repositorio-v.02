@@ -20,6 +20,7 @@ import { personal } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { KanjiBackdrop } from "@/components/portfolio/signature";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -73,6 +74,8 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Section kanji backdrop — 縁 (Connection/Bond) */}
+      <KanjiBackdrop kanji="縁" side="right" top={12} />
       {/* Dot grid texture — 20% opacity */}
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-20" />
 

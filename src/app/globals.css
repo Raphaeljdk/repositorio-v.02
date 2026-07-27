@@ -294,7 +294,9 @@
     box-shadow: var(--shadow-sumi-hover);
   }
 
-  /* Calligraphy differentiator — oversized kanji behind headings */
+  /* Calligraphy differentiator — oversized kanji behind headings.
+     Levedade aumentada: visível mas discreto, como uma aquarela sumi
+     pousada no papel washi. Não compete com o conteúdo. */
   .kanji-watermark {
     position: absolute;
     font-family: var(--font-display), 'Noto Serif JP', serif;
@@ -302,14 +304,14 @@
     pointer-events: none;
     user-select: none;
     color: var(--color-accent-ink);
-    opacity: 0.05;
+    opacity: 0.09;
     line-height: 1;
     z-index: 0;
     mix-blend-mode: multiply;
   }
   .dark .kanji-watermark {
     color: #F2EFE5;
-    opacity: 0.04;
+    opacity: 0.085;
     mix-blend-mode: screen;
   }
 

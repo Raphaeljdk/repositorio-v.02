@@ -14,6 +14,7 @@ import { projects } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
+import { KanjiBackdrop } from "@/components/portfolio/signature";
 
 const BLUR_PLACEHOLDER = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0NCIgaGVpZ2h0PSI3NjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEzNDQiIGhlaWdodD0iNzY4IiBmaWxsPSIjMTRBMTQxNiIvPjwvc3ZnPg==";
 
@@ -45,6 +46,8 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative scroll-mt-24 py-24 sm:py-32">
+      {/* Section kanji backdrop — 創 (Create) */}
+      <KanjiBackdrop kanji="創" side="left" top={5} />
       {/* Subtle top-left accent corner */}
       <div className="pointer-events-none absolute top-0 left-0 h-40 w-40 opacity-20" style={{
         background: "radial-gradient(circle at 0% 0%, var(--color-accent-copper), transparent 70%)",

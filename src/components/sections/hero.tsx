@@ -28,14 +28,15 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade opacity-50" />
 
       {/* SHOGUN differentiator — oversized 道 (The Way) calligraphy watermark.
-          Ties to the logo's 学びの道 (Path of Learning). Quiet, static. */}
+          Ties to the logo's 学びの道 (Path of Learning). Quiet, static.
+          Levemente mais visível em ambos os temas. */}
       <span
         className="kanji-watermark select-none hidden md:block"
         style={{
           fontSize: "min(34vw, 320px)",
           top: "8%",
           right: "-3%",
-          opacity: 0.045,
+          opacity: 0.09,
         }}
         aria-hidden
       >

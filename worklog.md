@@ -326,3 +326,45 @@ Stage Summary:
 - Resume PDF updated: public/curriculo-raphael-freitas.pdf now contains the user's latest CV (Raphael Freitas dos Santos, Full Stack | Arquitetura de Software | SAP B1)
 - All CV data (name, title, phone, email, location, age) matches the site's personal data object — no discrepancies
 - Committed 23abfcb and pushed to GitHub; Vercel will auto-rebuild with correct name + new CV
+
+---
+Task ID: 10
+Agent: Main Agent
+Task: Make the Japanese background art more visible (lightly) in both light and dark themes
+
+Work Log:
+- User: "tanto no tema claro tanto no tema escuro deixe mais visivel o desenho japones de fundo mas levemente"
+- Identified the "Japanese background art" elements:
+  1. Kanji watermark 道 in hero (was opacity 0.045 inline / 0.05 CSS light / 0.04 dark — too faint, VLM often couldn't see it)
+  2. Dot-grid washi paper texture (faint dot pattern)
+  3. No other kanji backdrops elsewhere on the site
+- Increased kanji-watermark opacity in globals.css:
+  * Light theme: 0.05 → 0.09 (multiply blend, ink color)
+  * Dark theme: 0.04 → 0.085 (screen blend, warm white #F2EFE5)
+- Updated hero.tsx inline opacity: 0.045 → 0.09 (matches CSS)
+- Created new KanjiBackdrop component in signature.tsx — a reusable large faint kanji painted behind any section, with props: kanji, side (left/right), top, size, opacity. Uses the .kanji-watermark CSS class (multiply/screen blend, theme-aware).
+- Added section-specific kanji backdrops tied to each section's theme:
+  * About: 学 (Learning) — left side, top 15%
+  * Skills: 技 (Technique/Skill) — right side, top 8%
+  * Projects: 創 (Create) — left side, top 5%
+  * Contact: 縁 (Connection/Bond) — right side, top 12%
+  * (Hero already had 道 — The Way)
+- All backdrops are hidden on mobile (hidden md:block) to prevent clutter on small screens
+- Ran lint: passed, zero errors
+- Verified via VLM in BOTH themes:
+  * HERO light: "clearly visible but subtle, exactly like a light watercolor wash... present and legible, yet unobtrusive"
+  * HERO dark: "appropriately subtle... hits the elegant watermark sweet spot... ghostly but intentional"
+  * ABOUT (学): "clearly visible but subtle... soft ghostly watermark... doesn't interfere with readability"
+  * SKILLS (技) light: "very subtle and light gray... clearly intentional decorative styling"
+  * SKILLS (技) dark: "clearly visible upon inspection... sophisticated visual accent"
+  * PROJECTS (創): "subtle and low-contrast... noticeable upon close inspection"
+  * CONTACT (縁): "very light gray... subtle and low-contrast but distinct shape clearly recognizable"
+  * Mobile 390px: "kanji watermarks hidden on mobile, layout clean and readable" ✓
+- dev.log clean throughout (only GET / 200 responses)
+
+Stage Summary:
+- Japanese background kanji art is now visible-but-subtle in both light and dark themes (opacity ~0.09 light / ~0.085 dark, up from 0.05/0.04)
+- Added 4 NEW section-specific kanji backdrops (学技創縁) so the Japanese calligraphy art now appears throughout the site, not just the hero — each tied thematically to its section
+- All 5 kanji (道学技創縁) form a cohesive calligraphic journey: The Way → Learning → Technique → Creation → Connection
+- Mobile preserves clean layout (kanji backdrops desktop-only)
+- VLM-verified in both themes: every kanji is "clearly visible but subtle" — never competes with content

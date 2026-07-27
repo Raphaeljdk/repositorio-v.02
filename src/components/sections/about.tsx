@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { GitHubHeatmap } from "./github-heatmap";
 import { CurrentlyWidget } from "./currently-widget";
 import { KanjiNumber } from "@/components/portfolio/signature";
+import { KanjiBackdrop } from "@/components/portfolio/signature";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   rocket: Rocket,
@@ -36,6 +37,8 @@ export function About() {
 
   return (
     <section id="about" className="relative scroll-mt-24 pt-28 pb-24 sm:pt-36 sm:pb-32">
+      {/* Section kanji backdrop — 学 (Learning) */}
+      <KanjiBackdrop kanji="学" side="left" top={15} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Sobre"

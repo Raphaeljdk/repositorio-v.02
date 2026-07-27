@@ -331,6 +331,50 @@ export function KanjiNumber({ n, className = "" }: { n: number; className?: stri
 }
 
 /* ------------------------------------------------------------------
+ *  3b. KANJI BACKDROP — 背景漢字
+ *  A large, faint kanji painted behind a section — like a sumi-e
+ *  brushstroke soaking through washi paper. Each section gets a
+ *  kanji tied to its theme. Quiet, never competes with content.
+ * ------------------------------------------------------------------ */
+type KanjiBackdropProps = {
+  /** The kanji character to display (e.g. 学, 技, 創, 縁, 道) */
+  kanji: string;
+  /** Position: "left" or "right" (default right) */
+  side?: "left" | "right";
+  /** Vertical position as % from top (default 10) */
+  top?: number;
+  /** Font size — CSS length, default min(30vw, 280px) */
+  size?: string;
+  /** Opacity override (default uses .kanji-watermark CSS) */
+  opacity?: number;
+  className?: string;
+};
+
+export function KanjiBackdrop({
+  kanji,
+  side = "right",
+  top = 10,
+  size = "min(30vw, 280px)",
+  opacity,
+  className = "",
+}: KanjiBackdropProps) {
+  return (
+    <span
+      className={`kanji-watermark select-none hidden md:block ${className}`}
+      style={{
+        fontSize: size,
+        top: `${top}%`,
+        [side]: "-2%",
+        ...(opacity !== undefined ? { opacity } : {}),
+      }}
+      aria-hidden
+    >
+      {kanji}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------
  *  4. SAKURA PETAL DRIFT — 桜花
  *  A SINGLE petal that drifts diagonally across the viewport
  *  every ~28 seconds. Ties to the cherry blossom in the logo.
