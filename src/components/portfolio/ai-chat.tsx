@@ -1,11 +1,18 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2, Trash2, Bot, User } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { useMounted } from "@/lib/mounted";
+
+function useMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -24,7 +31,7 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 export function AIChatWidget() {
-   const mounted = useMounted();
+  const mounted = useMounted();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -32,7 +39,6 @@ export function AIChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-scroll to bottom on new messages
   useEffect(() => {
     if (scrollRef.current) {
       const viewport = scrollRef.current.querySelector(
@@ -42,7 +48,6 @@ export function AIChatWidget() {
     }
   }, [messages]);
 
-  // Focus input when chat opens
   useEffect(() => {
     if (open && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 300);
@@ -111,7 +116,6 @@ export function AIChatWidget() {
 
   return (
     <div className="fixed bottom-20 right-4 z-[80] sm:bottom-6 sm:right-6">
-      {/* Chat window */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -122,17 +126,16 @@ export function AIChatWidget() {
             className="absolute bottom-16 right-0 mb-2 flex w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-sumi-lg sm:w-[380px]"
             style={{ maxHeight: "min(560px, calc(100vh - 120px))" }}
           >
-            {/* Header */
             <div className="flex items-center gap-3 border-b border-[var(--surface-border)] px-4 py-3.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--color-accent-copper)]/10">
-                <Bot className="h-4.5 w-4.5 text-[var(--color-accent-copper)]" />
+                <Bot className="h-[18px] w-[18px] text-[var(--color-accent-copper)]" />
               </div>
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-foreground">
                   Raphael AI
                 </p>
                 <p className="text-[11px] text-muted-foreground">
-                  Pergunte sobre mim • CV & Projetos
+                  Pergunte sobre mim &bull; CV &amp; Projetos
                 </p>
               </div>
               {messages.length > 0 && (
@@ -156,13 +159,11 @@ export function AIChatWidget() {
               </button>
             </div>
 
-            {/* Messages area */
             <div ref={scrollRef} className="flex-1 overflow-hidden">
               <ScrollArea className="h-full">
                 <div className="flex flex-col gap-3 px-4 py-4">
                   {messages.length === 0 ? (
                     <div className="flex flex-col items-center gap-4 py-6">
-                      {/* Welcome state */}
                       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent-copper)]/8">
                         <Bot className="h-7 w-7 text-[var(--color-accent-copper)]" />
                       </div>
@@ -170,12 +171,11 @@ export function AIChatWidget() {
                         <p className="text-sm font-semibold text-foreground">
                           Olá! Sou o Raphael AI
                         </p>
-                        <p className="mt-1 text-xs text-muted-foreground max-w-[260px]">
+                        <p className="mt-1 max-w-[260px] text-xs text-muted-foreground">
                           Posso responder perguntas corporativas sobre o
                           Raphael com base no currículo e projetos dele.
                         </p>
                       </div>
-                      {/* Suggested questions */}
                       <div className="flex w-full flex-col gap-2">
                         {SUGGESTED_QUESTIONS.map((q) => (
                           <button
@@ -199,7 +199,7 @@ export function AIChatWidget() {
                         )}
                       >
                         {msg.role === "assistant" && (
-                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 mt-0.5">
+                          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10">
                             <Bot className="h-3.5 w-3.5 text-[var(--color-accent-copper)]" />
                           </div>
                         )}
@@ -207,14 +207,14 @@ export function AIChatWidget() {
                           className={cn(
                             "max-w-[80%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed",
                             msg.role === "user"
-                              ? "bg-[var(--color-accent-copper)] text-white rounded-br-md"
-                              : "bg-muted text-foreground rounded-bl-md"
+                              ? "rounded-br-md bg-[var(--color-accent-copper)] text-white"
+                              : "rounded-bl-md bg-muted text-foreground"
                           )}
                         >
                           {msg.content}
                         </div>
                         {msg.role === "user" && (
-                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-foreground/5 mt-0.5">
+                          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-foreground/5">
                             <User className="h-3.5 w-3.5 text-foreground/60" />
                           </div>
                         )}
@@ -238,7 +238,6 @@ export function AIChatWidget() {
               </ScrollArea>
             </div>
 
-            {/* Input area */
             <form
               onSubmit={handleSubmit}
               className="border-t border-[var(--surface-border)] p-3"
@@ -280,14 +279,13 @@ export function AIChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* FAB — Floating Action Button */}
       <motion.button
         type="button"
         onClick={() => setOpen((v) => !v)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
-          "flex h-14 w-14 items-center justify-center rounded-full shadow-sumi-lg transition-colors",
+          "relative flex h-14 w-14 items-center justify-center rounded-full shadow-sumi-lg transition-colors",
           open
             ? "bg-foreground text-background"
             : "bg-[var(--color-accent-copper)] text-white hover:bg-[#EF4444]"
@@ -317,14 +315,12 @@ export function AIChatWidget() {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* Notification pulse */
-          !open && (
-            <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
-              <span className="absolute inline-flex h-full w-full animate-[ping_2s_ease-in-out_infinite] rounded-full bg-[var(--color-accent-copper)] opacity-75" />
-              <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-[var(--color-accent-copper)]" />
-            </span>
-          )
-        }
+        {!open && (
+          <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
+            <span className="absolute inline-flex h-full w-full animate-[ping_2s_ease-in-out_infinite] rounded-full bg-[var(--color-accent-copper)] opacity-75" />
+            <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-[var(--color-accent-copper)]" />
+          </span>
+        )}
       </motion.button>
     </div>
   );

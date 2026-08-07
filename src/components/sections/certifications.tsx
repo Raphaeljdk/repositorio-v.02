@@ -35,7 +35,7 @@ export function Certifications() {
   }, []);
 
   return (
-    <section id="certifications" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="certifications" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       {/* Subtle sage glow */}
       <div className="pointer-events-none absolute left-1/3 top-0 h-[400px] w-[400px] rounded-full bg-[var(--color-accent-sage)]/[0.03] blur-3xl" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -84,7 +84,7 @@ export function Certifications() {
               type="button"
               onClick={() => setFilter(f.id)}
               className={cn(
-                "rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
+                "rounded-lg px-4 py-2 text-sm font-medium active:scale-[0.97] transition-all min-h-[44px] inline-flex items-center",
                 filter === f.id
                   ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
                   : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"

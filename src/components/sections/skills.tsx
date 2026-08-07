@@ -102,7 +102,7 @@ export function Skills() {
   }, [filter, query]);
 
   return (
-    <section id="skills" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="skills" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       {/* Section kanji backdrop — 技 (Technique/Skill) */}
       <KanjiBackdrop kanji="技" side="right" top={8} />
       {/* Subtle radial glow behind the grid */}
@@ -130,7 +130,7 @@ export function Skills() {
                 type="button"
                 onClick={() => setFilter(cat.id as Filter)}
                 className={cn(
-                  "relative rounded-lg px-4 py-1.5 text-sm font-medium active:scale-[0.97] transition-all",
+                  "relative rounded-lg px-4 py-2 text-sm font-medium active:scale-[0.97] transition-all min-h-[44px] inline-flex items-center",
                   filter === cat.id
                     ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
                     : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
@@ -167,7 +167,7 @@ export function Skills() {
         <CategoryBar activeFilter={filter} onSelect={setFilter} />
 
         {/* Bento grid */}
-        <motion.div layout className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <motion.div layout className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((skill, i) => (
               <SkillCard key={skill.name} skill={skill} wide={i < 3} />

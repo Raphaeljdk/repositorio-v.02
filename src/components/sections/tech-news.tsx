@@ -55,7 +55,7 @@ export function TechNews() {
                 type="button"
                 onClick={() => setActiveTag(tag)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-medium transition-all active:scale-[0.97]",
+                  "inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all active:scale-[0.97] min-h-[44px]",
                   isActive
                     ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
                     : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"

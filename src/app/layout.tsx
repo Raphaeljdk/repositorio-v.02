@@ -88,7 +88,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${notoSerifJP.variable} ${jetbrains.variable} antialiased font-sans bg-background text-foreground`}
+        className={`${inter.variable} ${notoSerifJP.variable} ${jetbrains.variable} antialiased font-sans bg-background text-foreground overflow-x-hidden`}
       >
         <ThemeProvider
           attribute="class"

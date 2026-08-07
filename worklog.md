@@ -368,3 +368,62 @@ Stage Summary:
 - All 5 kanji (道学技創縁) form a cohesive calligraphic journey: The Way → Learning → Technique → Creation → Connection
 - Mobile preserves clean layout (kanji backdrops desktop-only)
 - VLM-verified in both themes: every kanji is "clearly visible but subtle" — never competes with content
+
+---
+Task ID: Responsive Audit — 100% Mobile/Tablet/Desktop Fix
+Agent: Main Agent
+Task: Comprehensive responsive audit at 320px, 375px, 414px, 768px, 1024px, 1280px, 1440px+
+
+Work Log:
+- Used agent-browser to capture screenshots at 375px, 320px, 768px viewports
+- Used VLM (vision AI) to analyze each screenshot for responsive issues
+- Used JavaScript evaluation to measure scrollWidth vs clientWidth on all sections
+- Identified root cause of horizontal overflow: absolute-positioned blur circles (600px, 400px) expanding section scrollWidth
+- Identified skills grid not collapsing to single column on mobile (was grid-cols-2)
+- Identified filter buttons with sub-44px touch targets across 4 components
+
+Issues Found & Fixed:
+
+1. CRITICAL — Horizontal overflow (375px: 525px wide, 320px: similar)
+   - Root cause: Skills section had a 600px absolute blur circle expanding section to 488px
+   - Root cause: Certifications section had a 400px absolute blur circle expanding section to 525px
+   - Fix: Added `overflow-hidden` to Skills section (`skills.tsx` line 105)
+   - Fix: Added `overflow-hidden` to Certifications section (`certifications.tsx` line 38)
+   - Safety net: Added `overflow-x-hidden` to body in `layout.tsx`
+
+2. CRITICAL — Skills grid not collapsing on mobile
+   - Was: `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6`
+   - Fixed to: `grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6`
+   - File: `skills.tsx` line 170
+
+3. MODERATE — Filter button touch targets too small (py-1.5 ≈ 30px height)
+   - Skills filter buttons: changed `py-1.5` → `py-2` + added `min-h-[44px] inline-flex items-center`
+   - Projects filter buttons: same fix
+   - Certifications filter buttons: same fix
+   - Tech News tag filters: changed `py-1.5` → `py-2` + added `min-h-[44px]`
+   - Files: `skills.tsx`, `projects.tsx`, `certifications.tsx`, `tech-news.tsx`
+
+Verification:
+- 375px viewport: scrollWidth 375x375 — NO overflow ✓
+- 320px viewport: scrollWidth 320x320 — NO overflow ✓
+- 768px viewport: no overflowing sections ✓
+- 1280px viewport: body overflow-x:hidden prevents horizontal scroll ✓
+- VLM audit at 320px: NO cutoff, NO horizontal scrollbar, NO text overflow ✓
+- VLM audit at 414px: all clear ✓
+- Skills grid confirmed 1-column at 375px via VLM analysis ✓
+- bun run lint: passes with no errors ✓
+
+Components NOT modified (already responsive):
+- Navbar: hamburger menu 48px touch target, mobile menu items min-h-[44px] ✓
+- Hero: overflow-hidden already set, avatar max-w-[260px] fits 320px ✓
+- About: grid-cols-1 on mobile, heatmap has overflow-x-auto ✓
+- Services: grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ✓
+- Process: vertical cards on mobile (lg:hidden), horizontal on lg ✓
+- Projects: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ✓
+- Tech News: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ✓
+- GitHub Activity: grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ✓
+- Experience: timeline left-aligned on mobile, alternating on desktop ✓
+- Contact: grid-cols-1 lg:grid-cols-[1fr_1.1fr], form fields w-full ✓
+- Footer: grid-cols-1 sm:grid-cols-2 lg:grid-cols-3, social icons 40px ✓
+- ScrollToTop: h-11 w-11 (44px) ✓
+- AI Chat Widget: button h-14 w-14 (56px), chat window w-[calc(100vw-2rem)] ✓
