@@ -427,3 +427,32 @@ Components NOT modified (already responsive):
 - Footer: grid-cols-1 sm:grid-cols-2 lg:grid-cols-3, social icons 40px ✓
 - ScrollToTop: h-11 w-11 (44px) ✓
 - AI Chat Widget: button h-14 w-14 (56px), chat window w-[calc(100vw-2rem)] ✓
+
+---
+Task ID: 1
+Agent: Main Agent
+Task: Add Bloom Studio, AI Chatbot, fix responsive issues, increase watermark visibility
+
+Work Log:
+- Added Bloom Studio project (id: 10) to src/lib/data.ts with real screenshot from bloom-studio-oficial.vercel.app
+- Captured real 221KB screenshot of Bloom Studio via agent-browser
+- Created /api/chat API route using z-ai-web-dev-sdk with comprehensive system prompt containing Raphael's full CV, experience, projects, skills, and certifications
+- Built AIChatWidget floating chat component with FAB button, animated open/close, suggested questions, conversation history, and rate limiting
+- Fixed JSX parsing error in ai-chat.tsx (unclosed comments, missing useMounted definition)
+- Increased kanji watermark visibility: light theme 0.09→0.15, dark theme 0.085→0.12
+- Updated hero inline watermark opacity from 0.09 to 0.15
+- Fixed horizontal overflow on mobile in Skills and Certifications sections (added overflow-hidden)
+- Added overflow-x-hidden safety net to body in layout.tsx
+- Fixed Skills grid: changed from grid-cols-2 to grid-cols-1 on mobile
+- Enforced 44px minimum touch targets on all filter buttons (skills, projects, certifications, tech-news)
+- Updated project count stat from 10+ to 11+
+- Verified all changes via agent-browser at 320px, 375px, 768px, and desktop widths
+- Pushed to GitHub (commit 0a112cf)
+
+Stage Summary:
+- Bloom Studio project added with real screenshot ✅
+- AI chatbot (Raphael AI) fully functional with backend API ✅
+- Watermark visibility increased in both themes ✅
+- 100% responsive — no horizontal overflow at any tested width ✅
+- All lint checks pass ✅
+- Pushed to GitHub successfully ✅
