@@ -122,7 +122,7 @@ export const personal = {
 };
 
 export const stats: Stat[] = [
-  { label: "Projetos entregues", value: 10, suffix: "+", icon: "rocket" },
+  { label: "Projetos entregues", value: 11, suffix: "+", icon: "rocket" },
   { label: "Tecnologias dominadas", value: 30, suffix: "+", icon: "layers" },
   { label: "Certificações", value: 9, suffix: "", icon: "award" },
   { label: "IAs utilizadas", value: 4, suffix: "", icon: "sparkles" },
@@ -406,6 +406,36 @@ export const projects: Project[] = [
       problem: "Plataformas de estudo tradicionais forçam um ritmo padronizado e cobram perfeição imediata — o que quebra o ciclo natural de aprendizado e gera frustração.",
       solution: "Plataforma inspirada no wabi-sabi (beleza na imperfeição) com Sensei IA que se adapta ao ritmo do aluno, flashcards com spaced repetition, cadernos que crescem organicamente e Pomodoro Zen que respeita ciclos de foco. Cinco temas japoneses (Washi, Sumi, Koke, Momiji, Sakura) constroem atmosfera imersiva.",
       lessons: "Aprendi que IA em educação não é sobre responder mais rápido — é sobre respeitar o tempo do aprendiz. O wabi-sabi como princípio de design (imperfeição, asimetria, naturalidade) cria conexão emocional que templates perfeitos não alcançam.",
+    },
+  },
+  {
+    id: 10,
+    title: "Bloom Studio",
+    subtitle: "Estúdio de Criação Literária",
+    description: "Plataforma literária completa para escritores, com ferramentas de escrita criativa, organização de projetos literários, gerenciamento de personagens e mundos ficcionais, e uma comunidade para compartilhamento de obras.",
+    category: "Literatura / Plataforma Web",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    difficulty: 85,
+    highlights: ["Escrita Criativa", "Gestão de Projetos Literários", "Personagens & Mundos", "Comunidade de Escritores"],
+    link: "https://bloom-studio-oficial.vercel.app",
+    github: "",
+    featured: true,
+    status: "completed",
+    year: "2025",
+    stats: { views: 145, likes: 12 },
+    role: "Full Stack Developer",
+    accent: "from-rose-400 via-fuchsia-400 to-violet-400",
+    image: "/projects/bloom-studio.png",
+    metrics: [
+      { label: "Escritores", value: "Ativo" },
+      { label: "Deploy", value: "Vercel" },
+      { label: "Responsivo", value: "100%" },
+      { label: "Performance", value: "A+" },
+    ],
+    caseStudy: {
+      problem: "Escritores careciam de uma plataforma dedicada que integrasse ferramentas de escrita com gestão de elementos narrativos complexos como personagens, mundos e arcos de história.",
+      solution: "Plataforma web completa com editor de textos, sistema de organização de projetos literários, fichas de personagens, construção de mundos fictícios e funcionalidades sociais para comunidade de escritores.",
+      lessons: "Plataformas criativas precisam de UI que não compete com o conteúdo — o design deve desaparecer e deixar o escritor imerso na obra. Performance de renderização de texto longo exige virtualização cuidadosa.",
     },
   },
   {

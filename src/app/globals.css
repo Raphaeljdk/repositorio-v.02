@@ -304,14 +304,14 @@
     pointer-events: none;
     user-select: none;
     color: var(--color-accent-ink);
-    opacity: 0.09;
+    opacity: 0.15;
     line-height: 1;
     z-index: 0;
     mix-blend-mode: multiply;
   }
   .dark .kanji-watermark {
     color: #F2EFE5;
-    opacity: 0.085;
+    opacity: 0.12;
     mix-blend-mode: screen;
   }
 

@@ -15,6 +15,7 @@ import { Services } from "@/components/sections/services";
 import { Process } from "@/components/sections/process";
 import { TechNews } from "@/components/sections/tech-news";
 import { SakuraPetalDrift, SumiBrushDivider } from "@/components/portfolio/signature";
+import { AIChatWidget } from "@/components/portfolio/ai-chat";
 
 export default function Home() {
   return (
@@ -47,6 +48,7 @@ export default function Home() {
 
       <Footer />
       <ScrollToTop />
+      <AIChatWidget />
     </div>
   );
 }

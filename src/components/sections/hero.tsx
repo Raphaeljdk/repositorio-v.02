@@ -36,7 +36,7 @@ export function Hero() {
           fontSize: "min(34vw, 320px)",
           top: "8%",
           right: "-3%",
-          opacity: 0.09,
+          opacity: 0.15,
         }}
         aria-hidden
       >
