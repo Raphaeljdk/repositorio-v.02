@@ -49,7 +49,7 @@ Desenvolvedor Full Stack em formação, com vivência prática em processos corp
 ### Experiência profissional
 
 **1. Polyexcel** — Aprendiz de Suprimentos / Compras & Desenvolvedor de Automação
-- Período: Jul 2025 — Atual
+- Período: Set 2025 — Atual
 - Localização: São Paulo, SP (Presencial)
 - Responsabilidades:
   - Homologação de fornecedores nacionais e internacionais com qualificação documental completa no SAP B1
@@ -64,7 +64,7 @@ Desenvolvedor Full Stack em formação, com vivência prática em processos corp
 - Tecnologias: SAP Business One, TMS, Python, Excel Avançado
 
 **2. Eurofarma** — Aprendiz de Serviços a Terceiros
-- Período: Mai 2024 — Set 2025
+- Período: Mai 2024 — Ago 2025
 - Localização: São Paulo, SP (Presencial)
 - Responsabilidades:
   - Solicitação de COAs (Certificados de Análise) à área de Qualidade

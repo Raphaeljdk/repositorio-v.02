@@ -463,7 +463,7 @@ export const experiences: Experience[] = [
   {
     company: "Polyexcel",
     role: "Aprendiz de Suprimentos / Compras & Desenvolvedor de Automação",
-    period: "Jul 2025 — Atual",
+    period: "Set 2025 — Atual",
     location: "São Paulo, SP",
     type: "Presencial",
     current: true,
@@ -486,7 +486,7 @@ export const experiences: Experience[] = [
   {
     company: "Eurofarma",
     role: "Aprendiz de Serviços a Terceiros",
-    period: "Mai 2024 — Set 2025",
+    period: "Mai 2024 — Ago 2025",
     location: "São Paulo, SP",
     type: "Presencial",
     current: false,
