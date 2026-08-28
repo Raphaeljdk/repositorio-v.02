@@ -20,7 +20,7 @@ const TECH_BADGES = [
   "Lucide Icons",
   "ChatGPT",
   "Python",
-  "SAP B1",
+  "Modelagem de Sistemas",
 ];
 
 export function Footer() {
@@ -98,7 +98,7 @@ export function Footer() {
                   {personal.lastName}
                 </span>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  Full Stack Developer &amp; SAP B1 Specialist
+                  Full Stack Developer &amp; Engenheiro de Software
                 </p>
               </div>
             </a>

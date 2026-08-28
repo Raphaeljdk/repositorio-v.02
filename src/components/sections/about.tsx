@@ -68,7 +68,7 @@ export function About() {
                 transition={{ duration: 0.4, delay: 0.3 }}
                 className="mt-6 flex flex-wrap gap-2"
               >
-                {["Arquiteturas escaláveis", "IA Generativa & Produtividade", "SAP B1 + Automação", "Observabilidade", "React · Next.js · TypeScript"].map(
+                {["Arquiteturas escaláveis", "IA Generativa & Produtividade", "Modelagem de Sistemas", "Observabilidade", "React · Next.js · TypeScript"].map(
                   (t) => (
                     <span
                       key={t}

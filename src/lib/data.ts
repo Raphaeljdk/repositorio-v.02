@@ -96,8 +96,8 @@ export const personal = {
   firstName: "Raphael",
   lastName: "Freitas",
   initials: "RF",
-  title: "Desenvolvedor Full Stack | Arquitetura de Software | SAP B1",
-  tagline: "Full Stack · SAP B1 · automações com Python",
+  title: "Desenvolvedor Full Stack | Engenharia de Software | Arquitetura de Sistemas",
+  tagline: "Full Stack · Eng. de Software · Modelagem de Sistemas",
   age: 19,
   location: "São Paulo, SP",
   email: "raphaelfreitasdossantos651@gmail.com",
@@ -116,7 +116,7 @@ export const personal = {
   roles: [
     "Full Stack Developer",
     "Arquitetura de Software",
-    "SAP B1 Specialist",
+    "Engenharia de Software",
     "IA Generativa & Produtividade",
   ],
 };

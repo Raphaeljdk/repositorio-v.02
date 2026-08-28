@@ -20,7 +20,7 @@ const CURRENTLY: CurrentlyItem[] = [
   {
     icon: <BookOpen className="h-3.5 w-3.5" />,
     label: "Estudando",
-    value: "SAP ABAP Fundamentals",
+    value: "Arquitetura de Microsserviços",
     color: "var(--color-accent-sage)",
   },
   {

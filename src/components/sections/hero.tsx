@@ -85,7 +85,7 @@ export function Hero() {
           >
             Desenvolvedor Full Stack
             <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
-            SAP B1
+            Eng. de Software
             <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
             Automação com Python
           </motion.p>

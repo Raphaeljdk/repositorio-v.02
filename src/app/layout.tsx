@@ -27,14 +27,14 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://raphaeljdk.github.io"),
-  title: "Raphael Freitas · Full Stack Developer & SAP Specialist",
+  title: "Raphael Freitas · Full Stack Developer & Engenheiro de Software",
   description:
-    "Portfólio de Raphael Freitas — Desenvolvedor Full Stack. SAP ABAP, TMS, React, Node, TypeScript e soluções corporativas que escalam.",
+    "Portfólio de Raphael Freitas — Desenvolvedor Full Stack com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software. React, Next.js, TypeScript, Node.js.",
   keywords: [
     "Raphael Freitas",
     "Desenvolvedor Full Stack",
-    "SAP ABAP",
-    "TMS",
+    "Engenharia de Software",
+    "Arquitetura de Sistemas",
     "JavaScript",
     "TypeScript",
     "React",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Portfólio de Raphael Freitas — Full Stack Developer especializado em React, Next.js, TypeScript e SAP. São Paulo, Brasil.",
+      "Portfólio de Raphael Freitas — Full Stack Developer com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software. São Paulo, Brasil.",
     url: "https://raphaeljdk.github.io",
     siteName: "Raphael Freitas",
     locale: "pt_BR",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1344,
         height: 768,
-        alt: "Raphael Freitas · Full Stack Developer & SAP Specialist",
+        alt: "Raphael Freitas · Full Stack Developer & Engenheiro de Software",
       },
     ],
   },
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Portfólio de Raphael Freitas — Full Stack Developer especializado em React, Next.js, TypeScript e SAP.",
+      "Portfólio de Raphael Freitas — Full Stack Developer com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software.",
     images: ["/og-image.png"],
   },
   robots: {

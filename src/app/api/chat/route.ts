@@ -44,7 +44,7 @@ Você é o assistente virtual do portfólio de Raphael Freitas. Seu nome é "Rap
 - Disponibilidade: Aberto a oportunidades remotas, híbridas e presenciais
 
 ### Resumo profissional
-Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.
+Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Tem praticidade com arquitetura de sistemas, modelagem de sistemas e engenharia de software. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.
 
 ### Experiência profissional
 

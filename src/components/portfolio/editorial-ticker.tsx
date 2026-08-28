@@ -7,7 +7,7 @@ const ITEMS = [
   "React",
   "Next.js",
   "TypeScript",
-  "SAP B1",
+  "Eng. de Software",
   "Node.js",
   "Tailwind CSS",
   "IA Generativa",
