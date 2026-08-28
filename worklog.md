@@ -456,3 +456,32 @@ Stage Summary:
 - 100% responsive — no horizontal overflow at any tested width ✅
 - All lint checks pass ✅
 - Pushed to GitHub successfully ✅
+
+---
+Task ID: 7
+Agent: Main Agent
+Task: Replace SAP specialist references with Engenharia de Software, Arquitetura de Sistemas, Modelagem de Sistemas
+
+Work Log:
+- Read data.ts: confirmed experience dates already correct (Polyexcel Set 2025 — Atual, Eurofarma Mai 2024 — Ago 2025)
+- Confirmed TMS Lite and StudyAI images exist as valid PNGs (1280x577) with correct paths in data.ts
+- Replaced SAP specialist across 7 files:
+  1. data.ts: title → "Engenharia de Software | Arquitetura de Sistemas", tagline → "Eng. de Software · Modelagem de Sistemas", roles → "Engenharia de Software"
+  2. hero.tsx: "SAP B1" → "Eng. de Software"
+  3. about.tsx: tag "SAP B1 + Automação" → "Modelagem de Sistemas"
+  4. editorial-ticker.tsx: "SAP B1" → "Eng. de Software"
+  5. footer.tsx: subtitle → "Engenheiro de Software", tech badge → "Modelagem de Sistemas"
+  6. layout.tsx: title, description, keywords, OG, Twitter metadata all updated
+  7. currently-widget.tsx: studying → "Arquitetura de Microsserviços"
+  8. chat/route.ts: system prompt updated with new expertise areas
+- Ran lint: clean (no errors)
+- Verified in browser: hero shows "Eng. de Software", about shows "Modelagem de Sistemas", footer shows "Engenheiro de Software"
+- Verified TMS Lite and StudyAI images loading correctly (opacity: 1, display: block, correct natural dimensions)
+- Committed locally, push failed due to expired GitHub token
+
+Stage Summary:
+- All SAP specialist references replaced with Engenharia de Software, Arquitetura de Sistemas, Modelagem de Sistemas
+- SAP B1 remains as a skill/tool (in skills section, tech stack strip, experience, certifications) — not as a specialist label
+- Experience dates were already correct
+- Project images confirmed working
+- Local commit ready, needs token refresh for push
