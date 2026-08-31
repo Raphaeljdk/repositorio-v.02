@@ -163,6 +163,19 @@ function ProjectCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+          {/* Impact badge — top-right, always visible */}
+          {project.metrics && project.metrics.length > 0 && (
+            <div className="absolute top-2.5 right-2.5 flex flex-col items-end gap-1.5">
+              {project.metrics.slice(0, 2).map((m) => (
+                <span
+                  key={m.label}
+                  className="rounded-md bg-black/70 px-2 py-0.5 font-code text-[10px] font-bold text-white backdrop-blur-sm"
+                >
+                  {m.value}
+                </span>
+              ))}
+            </div>
+          )}
           {/* Hover overlay */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
             <span className="text-sm font-medium text-white">

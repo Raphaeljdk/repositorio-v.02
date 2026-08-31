@@ -12,6 +12,12 @@ type Filter = SkillCategory | "all";
 
 const ACCENT_COLORS = ["#D93838", "#F2C14E", "#2B5B84", "#B91C1C", "#9A3412", "#7C2D12", "#E55050"] as const;
 
+// Top 8 skills by proficiency — shown prominently above the full grid
+const featuredSkills = skills
+  .filter((s) => s.percent >= 78)
+  .sort((a, b) => b.percent - a.percent)
+  .slice(0, 8);
+
 function CategoryBar({ activeFilter, onSelect }: { activeFilter: Filter; onSelect: (f: Filter) => void }) {
   const categoryCounts = useMemo(() => {
     return (skillCategories.filter((c) => c.id !== "all") as { id: SkillCategory; label: string }[]).map((cat) => ({
@@ -112,7 +118,7 @@ export function Skills() {
           label="Stack"
           title="Ferramentas que dominou."
           kanji={3}
-          description="25+ tecnologias distribuídas em 6 categorias. Do SAP ao React, do banco de dados ao cloud."
+          description="Top skills destacadas. Clique nas categorias para explorar as 25+ tecnologias."
         />
 
         {/* Filters */}
@@ -166,11 +172,28 @@ export function Skills() {
         {/* Category overview bar — horizontal stacked bar showing distribution */}
         <CategoryBar activeFilter={filter} onSelect={setFilter} />
 
-        {/* Bento grid */}
-        <motion.div layout className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        {/* Featured skills — top tier shown prominently */}
+        {filter === "all" && !query && (
+          <div className="mt-10">
+            <p className="mono-label mb-4">Principais</p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {featuredSkills.map((skill, i) => (
+                <SkillCard key={skill.name} skill={skill} featured />
+              ))}
+            </div>
+            <div className="mt-8 flex items-center gap-3">
+              <div className="h-px flex-1 bg-[var(--surface-border)]" />
+              <span className="font-code text-[10px] text-muted-foreground">TODAS AS {skills.length} TECNOLOGIAS</span>
+              <div className="h-px flex-1 bg-[var(--surface-border)]" />
+            </div>
+          </div>
+        )}
+
+        {/* Full grid */}
+        <motion.div layout className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6", filter === "all" && !query && "mt-8")}>
           <AnimatePresence mode="popLayout">
             {filtered.map((skill, i) => (
-              <SkillCard key={skill.name} skill={skill} wide={i < 3} />
+              <SkillCard key={skill.name} skill={skill} wide={filter === "all" && !query && i < 3} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -185,7 +208,7 @@ export function Skills() {
   );
 }
 
-function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: boolean }) {
+function SkillCard({ skill, wide, featured }: { skill: (typeof skills)[number]; wide: boolean; featured?: boolean }) {
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
 
   const catColor = ACCENT_COLORS[skillCategories.findIndex((c) => c.id === skill.category) % ACCENT_COLORS.length] ?? ACCENT_COLORS[0];
@@ -202,7 +225,8 @@ function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: bool
       onMouseLeave={onMouseLeave}
       className={cn(
         "card-surface group rounded-xl p-4 border-l-2",
-        wide && "lg:col-span-2"
+        wide && "lg:col-span-2",
+        featured && "ring-1 ring-[var(--color-accent-copper)]/20"
       )}
       style={{ borderLeftColor: catColor }}
     >
@@ -210,20 +234,25 @@ function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: bool
         <img
           src={skill.icon}
           alt={skill.name}
-          className="h-8 w-8"
+          className={cn("", featured ? "h-10 w-10" : "h-8 w-8")}
           loading="lazy"
         />
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-foreground truncate">
+          <h3 className={cn("font-semibold text-foreground truncate", featured ? "text-base" : "text-sm")}>
             {skill.name}
           </h3>
           <p className="font-code text-[10px] text-muted-foreground">
             {skill.level}
           </p>
         </div>
+        {featured && (
+          <span className="font-code text-lg font-bold text-[var(--color-accent-copper)]">
+            {skill.percent}<span className="text-[10px] text-muted-foreground">%</span>
+          </span>
+        )}
       </div>
 
-      {/* Description — shown below name, no tooltip */}
+      {/* Description — shown below name */}
       <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
         {skill.description}
       </p>
@@ -232,7 +261,7 @@ function SkillCard({ skill, wide }: { skill: (typeof skills)[number]; wide: bool
       <div className="mt-3 relative progress-glow">
         <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
           <span>{skill.experience}</span>
-          <span>{skill.percent}%</span>
+          {!featured && <span>{skill.percent}%</span>}
         </div>
         <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
           <motion.div

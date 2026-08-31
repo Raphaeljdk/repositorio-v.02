@@ -73,7 +73,7 @@
   --secondary: #F0EEE6;
   --secondary-foreground: #1A1A1A;
   --muted: #F0EEE6;
-  --muted-foreground: #5C5751;
+  --muted-foreground: #4A4640;
   --accent: #F0EEE6;
   --accent-foreground: #1A1A1A;
   --destructive: #D93838;
@@ -132,7 +132,7 @@
   --secondary: #1F1F1C;
   --secondary-foreground: #F2EFE5;
   --muted: #1F1F1C;
-  --muted-foreground: #9A9388;
+  --muted-foreground: #A8A198;
   --accent: #1F1F1C;
   --accent-foreground: #F2EFE5;
   --destructive: #E55050;
@@ -311,7 +311,7 @@
   }
   .dark .kanji-watermark {
     color: #F2EFE5;
-    opacity: 0.12;
+    opacity: 0.05;
     mix-blend-mode: screen;
   }
 

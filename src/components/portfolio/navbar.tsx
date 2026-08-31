@@ -1,22 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, ArrowUpRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { navItems, personal } from "@/lib/data";
+import { navItems, moreNavItems, personal } from "@/lib/data";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const moreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      const sections = navItems.map((n) => n.href.slice(1));
+      const sections = [...navItems, ...moreNavItems].map((n) => n.href.slice(1));
       const offset = window.innerHeight * 0.4;
       let current = "#home";
       for (const id of sections) {
@@ -35,6 +37,18 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close "Mais" dropdown on outside click
+  useEffect(() => {
+    if (!moreOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [moreOpen]);
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -60,6 +74,7 @@ export function Navbar() {
 
   const go = (href: string) => {
     setOpen(false);
+    setMoreOpen(false);
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -80,7 +95,7 @@ export function Navbar() {
               : "bg-transparent border border-transparent"
           )}
         >
-          {/* Logo — brand image + name */}
+          {/* Logo */}
           <a
             href="#home"
             onClick={(e) => {
@@ -100,14 +115,14 @@ export function Navbar() {
                 unoptimized
               />
             </span>
-            <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground xs:block sm:block">
+            <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground sm:block">
               {personal.firstName}
               <span className="text-[var(--color-accent-copper)]">.</span>
               {personal.lastName}
             </span>
           </a>
 
-          {/* Desktop nav — underline style */}
+          {/* Desktop nav — 6 main + "Mais" dropdown */}
           <div className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => (
               <a
@@ -134,13 +149,56 @@ export function Navbar() {
                 )}
               </a>
             ))}
+
+            {/* "Mais" dropdown */}
+            <div ref={moreRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setMoreOpen((v) => !v)}
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1.5 text-sm font-medium transition-colors",
+                  moreOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Mais
+                <ChevronDown className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  moreOpen && "rotate-180"
+                )} />
+              </button>
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 min-w-[180px] overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-1.5 shadow-sumi-modal"
+                  >
+                    {moreNavItems.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          go(item.href);
+                        }}
+                        className="block min-h-[40px] rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Right cluster */}
           <div className="flex items-center gap-2">
             <span className="hidden items-center gap-1.5 md:flex">
               <span className="block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
-              <span className="font-code text-[11px] text-foreground/70">Disponível para oportunidades</span>
+              <span className="font-code text-[11px] text-foreground/70">Disponível</span>
             </span>
             <div className="hidden items-center gap-1 md:flex">
               <a
@@ -185,11 +243,10 @@ export function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile menu */}
+        {/* Mobile menu — all items including "more" */}
         <AnimatePresence>
           {open && (
             <>
-              {/* Backdrop — full screen, blurred */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -198,7 +255,6 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md lg:hidden"
               />
-              {/* Menu panel — above backdrop and navbar */}
               <motion.div
                 initial={{ opacity: 0, y: -8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -206,7 +262,7 @@ export function Navbar() {
                 transition={{ duration: 0.2 }}
                 className="fixed left-4 right-4 top-[72px] z-[61] max-h-[calc(100vh-88px)] overflow-y-auto overflow-x-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 shadow-2xl lg:hidden"
               >
-                {navItems.map((item) => (
+                {[...navItems, ...moreNavItems].map((item) => (
                   <a
                     key={item.href}
                     href={item.href}

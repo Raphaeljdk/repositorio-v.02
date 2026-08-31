@@ -90,12 +90,13 @@ export function Hero() {
             Automação com Python
           </motion.p>
 
-          {/* Bio */}
+          {/* One-liner pitch — 3 seconds to understand who you are */}
           <motion.p
             variants={fadeUp}
-            className="mt-6 mx-auto max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base sm:leading-relaxed lg:mx-0"
+            className="mt-6 mx-auto max-w-lg text-base leading-relaxed text-foreground/80 sm:text-lg sm:leading-relaxed lg:mx-0"
           >
-            {personal.bio}
+            Construindo produtos full stack que resolvem problemas reais —{" "}
+            <span className="text-[var(--color-accent-copper)]">da arquitetura ao deploy</span>.
           </motion.p>
 
           {/* CTAs */}

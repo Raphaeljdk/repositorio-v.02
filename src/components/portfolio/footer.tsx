@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail, ArrowUp, ArrowUpRight, Send } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUp, ArrowUpRight, Send, Download } from "lucide-react";
 import Image from "next/image";
 import { personal, navItems } from "@/lib/data";
 import { motion } from "framer-motion";
@@ -42,29 +42,37 @@ export function Footer() {
       {/* Gradient top border — thicker, more prominent */}
       <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-accent-copper)]/40 to-transparent" />
 
-      {/* Top CTA band — full width copper accent */}
+      {/* Top CTA band — dual CTAs for different audiences */}
       <div className="border-b border-[var(--surface-border)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-8 sm:px-6">
           <div className="text-center sm:text-left">
             <h3 className="font-display text-xl font-bold text-foreground sm:text-2xl">
-              Vamos construir algo{" "}
-              <span className="text-[var(--color-accent-copper)]">incrível</span> juntos?
+              Tem um projeto em mente?
             </h3>
             <p className="mt-1.5 text-sm text-muted-foreground max-w-md">
-              Estou disponível para oportunidades, projetos freelance e colaborações open source.
+              Disponível para oportunidades de dev, projetos freelance e colaborações.
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <a
+              href="/curriculo-raphael-freitas.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-xl border border-[var(--surface-border)] px-5 py-3 text-sm font-semibold text-foreground transition-all hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]"
+            >
+              <Download className="h-4 w-4" />
+              <span className="hidden sm:inline">Currículo</span>
+              <span className="sm:hidden">CV</span>
+            </a>
             <motion.a
-              href="#contact"
-              onClick={go("#contact")}
+              href="#projects"
+              onClick={go("#projects")}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="group inline-flex items-center gap-2.5 rounded-xl bg-[var(--color-accent-copper)] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(220,38,38,0.25)] transition-all hover:shadow-[0_6px_28px_rgba(220,38,38,0.35)] hover:bg-[#EF4444]"
             >
               <Send className="h-4 w-4" />
-              Entrar em contato
+              Fale comigo
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </motion.a>
           </div>

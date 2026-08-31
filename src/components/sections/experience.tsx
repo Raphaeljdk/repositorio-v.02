@@ -33,9 +33,14 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const summaryCards = [
   { label: `${experiences.length} experiências`, icon: Building2 },
-  { label: "SAP + TMS", icon: Building2 },
+  { label: "Indústria regulada", icon: Building2 },
   { label: "São Paulo", icon: MapPin },
 ];
+
+const companyLogos: Record<string, { initial: string; color: string }> = {
+  Polyexcel: { initial: "PX", color: "#2B5B84" },
+  Eurofarma: { initial: "EF", color: "#16A34A" },
+};
 
 /* ------------------------------------------------------------------ */
 /*  Sub-component: Single Experience Entry                             */
@@ -95,7 +100,16 @@ function ExperienceEntry({
                 isDesktop && isLeft && "md:justify-end"
               )}
             >
-              <Building2 className="h-5 w-5 shrink-0 text-[var(--color-accent-copper)]" />
+              {companyLogos[exp.company] ? (
+                <span
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-white"
+                  style={{ backgroundColor: companyLogos[exp.company].color }}
+                >
+                  {companyLogos[exp.company].initial}
+                </span>
+              ) : (
+                <Building2 className="h-5 w-5 shrink-0 text-[var(--color-accent-copper)]" />
+              )}
               <h3 className="font-display text-xl font-extrabold text-foreground leading-tight">
                 {exp.company}
               </h3>

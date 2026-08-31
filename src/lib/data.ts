@@ -612,13 +612,14 @@ export const testimonials: Testimonial[] = [];
 export const navItems = [
   { label: "Início", href: "#home" },
   { label: "Sobre", href: "#about" },
-  { label: "Serviços", href: "#services" },
-  { label: "Processo", href: "#process" },
-  { label: "Skills", href: "#skills" },
   { label: "Projetos", href: "#projects" },
-  { label: "Blog", href: "#news" },
-  { label: "GitHub", href: "#github" },
   { label: "Experiência", href: "#experience" },
-  { label: "Certificações", href: "#certifications" },
+  { label: "Skills", href: "#skills" },
   { label: "Contato", href: "#contact" },
+];
+
+export const moreNavItems = [
+  { label: "Serviços", href: "#services" },
+  { label: "Certificações", href: "#certifications" },
+  { label: "GitHub", href: "#github" },
 ];

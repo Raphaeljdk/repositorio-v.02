@@ -12,8 +12,6 @@ import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/portfolio/footer";
 import { Services } from "@/components/sections/services";
-import { Process } from "@/components/sections/process";
-import { TechNews } from "@/components/sections/tech-news";
 import { SakuraPetalDrift, SumiBrushDivider } from "@/components/portfolio/signature";
 import { AIChatWidget } from "@/components/portfolio/ai-chat";
 
@@ -31,12 +29,8 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
-        <Process />
-        <SumiBrushDivider className="my-0" />
         <Skills />
         <Projects />
-        <TechNews />
-        <SumiBrushDivider className="my-0" />
         <GitHubActivity />
         <SumiBrushDivider className="my-0" />
         <Experience />
