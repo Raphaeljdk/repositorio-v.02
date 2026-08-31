@@ -535,3 +535,24 @@ Stage Summary:
 - Premium custom cursor with 7 contextual icon states deployed
 - All changes verified via agent-browser (no console errors, clean HMR)
 - Remaining from original audit: hero simplification, navbar reduction, process/blog removal, dark mode kanji opacity, project impact badges, footer CTA, profile photo, contrast improvement
+---
+Task ID: 12
+Agent: Main Agent
+Task: 8 high-impact improvements to portfolio
+
+Work Log:
+- Added ScrollProgress component to page.tsx (gradient bar copper→gold→blue at top)
+- Flattened navbar: removed "Mais" dropdown, all 9 nav items shown inline with smaller text (13px)
+- Removed unused state (moreOpen, moreRef), imports (ChevronDown, useRef)
+- Added floating "Disponível para projetos" badge in hero (green ping dot, appears with delay 1.3s)
+- Fixed Services "Saiba mais" from dead div to clickable button that scrolls to #contact
+- Bumped dark mode kanji watermark opacity from 0.05 → 0.08
+- Changed experience timeline line from solid surface-border to copper gradient (50% → 15% → transparent)
+- Added visible "Empresa (opcional)" field to contact form
+- Renamed honeypot from "company" to "website" to avoid conflict
+- Added hover animation (translateY + shadow) to footer tech stack badges
+
+Stage Summary:
+- All 8 improvements deployed and verified (agent-browser: zero errors, "Saiba mais" scrolls correctly, nav items all visible)
+- Lint passes clean
+- Page height ~14.5kpx, all sections render correctly

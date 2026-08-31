@@ -159,6 +159,20 @@ export function Hero() {
         </motion.div>
       </div>
 
+      {/* Floating availability badge — catches recruiter attention */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-6 right-6 z-10 hidden sm:flex items-center gap-2 rounded-full border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 shadow-sumi"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inset-0 rounded-full bg-emerald-400 animate-[ping_2s_ease-in-out_infinite]" />
+          <span className="relative block h-2 w-2 rounded-full bg-emerald-500" />
+        </span>
+        <span className="text-xs font-medium text-foreground">Disponível para projetos</span>
+      </motion.div>
+
       {/* Quiet scroll cue */}
       <motion.a
         href="#about"

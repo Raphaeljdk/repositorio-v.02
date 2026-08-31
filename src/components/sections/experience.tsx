@@ -288,7 +288,7 @@ export function Experience() {
           {/* Timeline container */}
           <div className="relative">
             {/* Centered vertical line (desktop) / left line (mobile) */}
-            <div className="absolute top-2 bottom-2 w-px bg-[var(--surface-border)] left-4 sm:left-6 md:left-1/2 md:-translate-x-px" />
+            <div className="absolute top-2 bottom-2 w-px left-4 sm:left-6 md:left-1/2 md:-translate-x-px bg-gradient-to-b from-[var(--color-accent-copper)]/50 via-[var(--color-accent-copper)]/15 to-transparent" />
 
             <div className="space-y-10">
               {experiences.map((exp, idx) => {

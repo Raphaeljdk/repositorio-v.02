@@ -1,5 +1,6 @@
 import { AnimatedBackground } from "@/components/portfolio/animated-background";
 import { NoiseOverlay } from "@/components/portfolio/noise-overlay";
+import { ScrollProgress } from "@/components/portfolio/scroll-progress";
 import { Navbar } from "@/components/portfolio/navbar";
 import { Hero } from "@/components/sections/hero";
 import { ScrollToTop } from "@/components/portfolio/scroll-to-top";
@@ -18,6 +19,7 @@ import { AIChatWidget } from "@/components/portfolio/ai-chat";
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col">
+      <ScrollProgress />
       <AnimatedBackground />
       <NoiseOverlay />
       {/* Signature: a single sakura petal drifts across rarely.

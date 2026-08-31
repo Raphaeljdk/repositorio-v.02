@@ -181,7 +181,7 @@ export function Footer() {
               {TECH_BADGES.map((tech, i) => (
                 <span
                   key={tech}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] px-2.5 py-1.5 text-[11px] text-muted-foreground transition-colors hover:text-foreground hover:border-[var(--color-accent-copper)]/50"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] px-2.5 py-1.5 text-[11px] text-muted-foreground transition-all duration-200 hover:text-foreground hover:border-[var(--color-accent-copper)]/50 hover:-translate-y-0.5 hover:shadow-sm"
                 >
                   <span
                     className="h-1.5 w-1.5 rounded-full"

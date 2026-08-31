@@ -29,9 +29,9 @@ export function Contact() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    company: "",
     subject: "",
     message: "",
-    company: "",
   });
   const { toast } = useToast();
 
@@ -54,7 +54,7 @@ export function Contact() {
         title: "Mensagem enviada!",
         description: "Obrigado pelo contato. Responderei em breve.",
       });
-      setForm({ name: "", email: "", subject: "", message: "", company: "" });
+      setForm({ name: "", email: "", company: "", subject: "", message: "" });
       setTimeout(() => setStatus("idle"), 4000);
     } catch (err) {
       setStatus("error");
@@ -264,6 +264,13 @@ export function Contact() {
                     placeholder="voce@exemplo.com"
                     required
                   />
+                  <Field
+                    label="Empresa (opcional)"
+                    id="company"
+                    value={form.company}
+                    onChange={update("company")}
+                    placeholder="Nome da empresa"
+                  />
                 </div>
                 <Field
                   label="Assunto"
@@ -298,13 +305,13 @@ export function Contact() {
                 {/* Honeypot */}
                 <input
                   type="text"
-                  name="company"
-                  value={form.company}
-                  onChange={update("company")}
+                  name="website"
+                  value={form.subject === '' ? '' : ''}
                   tabIndex={-1}
                   autoComplete="off"
                   className="hidden"
                   aria-hidden
+                  readOnly
                 />
 
                 <button

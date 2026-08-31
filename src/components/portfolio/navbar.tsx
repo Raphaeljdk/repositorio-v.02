@@ -1,24 +1,24 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { navItems, moreNavItems, personal } from "@/lib/data";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
+const allNavItems = [...navItems, ...moreNavItems];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
   const [active, setActive] = useState("#home");
-  const moreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      const sections = [...navItems, ...moreNavItems].map((n) => n.href.slice(1));
+      const sections = allNavItems.map((n) => n.href.slice(1));
       const offset = window.innerHeight * 0.4;
       let current = "#home";
       for (const id of sections) {
@@ -37,18 +37,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // Close "Mais" dropdown on outside click
-  useEffect(() => {
-    if (!moreOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
-        setMoreOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [moreOpen]);
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -74,7 +62,6 @@ export function Navbar() {
 
   const go = (href: string) => {
     setOpen(false);
-    setMoreOpen(false);
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -122,9 +109,9 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Desktop nav — 6 main + "Mais" dropdown */}
-          <div className="hidden items-center gap-1 lg:flex">
-            {navItems.map((item) => (
+          {/* Desktop nav — all items inline */}
+          <div className="hidden items-center gap-0.5 lg:flex">
+            {allNavItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -133,7 +120,7 @@ export function Navbar() {
                   go(item.href);
                 }}
                 className={cn(
-                  "relative px-3 py-1.5 text-sm font-medium transition-colors",
+                  "relative px-2.5 py-1.5 text-[13px] font-medium transition-colors",
                   active === item.href
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -143,55 +130,12 @@ export function Navbar() {
                 {active === item.href && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute bottom-0 left-3 right-3 h-px bg-[var(--color-accent-copper)]"
+                    className="absolute bottom-0 left-2.5 right-2.5 h-px bg-[var(--color-accent-copper)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </a>
             ))}
-
-            {/* "Mais" dropdown */}
-            <div ref={moreRef} className="relative">
-              <button
-                type="button"
-                onClick={() => setMoreOpen((v) => !v)}
-                className={cn(
-                  "flex items-center gap-1 px-3 py-1.5 text-sm font-medium transition-colors",
-                  moreOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Mais
-                <ChevronDown className={cn(
-                  "h-3.5 w-3.5 transition-transform duration-200",
-                  moreOpen && "rotate-180"
-                )} />
-              </button>
-              <AnimatePresence>
-                {moreOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -4, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -4, scale: 0.96 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 min-w-[180px] overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-1.5 shadow-sumi-modal"
-                  >
-                    {moreNavItems.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          go(item.href);
-                        }}
-                        className="block min-h-[40px] rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </div>
 
           {/* Right cluster */}
@@ -262,7 +206,7 @@ export function Navbar() {
                 transition={{ duration: 0.2 }}
                 className="fixed left-4 right-4 top-[72px] z-[61] max-h-[calc(100vh-88px)] overflow-y-auto overflow-x-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 shadow-2xl lg:hidden"
               >
-                {[...navItems, ...moreNavItems].map((item) => (
+                {[...allNavItems].map((item) => (
                   <a
                     key={item.href}
                     href={item.href}

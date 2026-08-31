@@ -97,7 +97,7 @@ export function Services() {
 
                 {/* Items list with dot accents */}
                 <ul className="mt-4 space-y-2">
-                  {s.items.map((item, j) => (
+                  {s.items.map((item) => (
                     <li
                       key={item}
                       className="flex items-center gap-2.5 text-xs text-foreground/70 transition-colors group-hover:text-foreground/90"
@@ -111,11 +111,16 @@ export function Services() {
                   ))}
                 </ul>
 
-                {/* Hover CTA */}
-                <div className="mt-5 flex items-center gap-1.5 text-xs font-medium opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" style={{ color: accent }}>
+                {/* Hover CTA — scrolls to contact */}
+                <button
+                  type="button"
+                  onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="mt-5 flex items-center gap-1.5 text-xs font-medium opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                  style={{ color: accent }}
+                >
                   Saiba mais
                   <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
+                </button>
               </motion.div>
             );
           })}

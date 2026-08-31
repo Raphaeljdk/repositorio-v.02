@@ -311,7 +311,7 @@
   }
   .dark .kanji-watermark {
     color: #F2EFE5;
-    opacity: 0.05;
+    opacity: 0.08;
     mix-blend-mode: screen;
   }
 
