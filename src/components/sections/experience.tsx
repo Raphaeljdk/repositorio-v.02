@@ -37,9 +37,9 @@ const summaryCards = [
   { label: "São Paulo", icon: MapPin },
 ];
 
-const companyLogos: Record<string, { initial: string; color: string }> = {
-  Polyexcel: { initial: "PX", color: "#2B5B84" },
-  Eurofarma: { initial: "EF", color: "#16A34A" },
+const companyLogos: Record<string, { src: string; alt: string }> = {
+  Polyexcel: { src: "/logos/polyexcel.svg", alt: "Polyexcel logo" },
+  Eurofarma: { src: "/logos/eurofarma.jpg", alt: "Eurofarma logo" },
 };
 
 /* ------------------------------------------------------------------ */
@@ -101,12 +101,12 @@ function ExperienceEntry({
               )}
             >
               {companyLogos[exp.company] ? (
-                <span
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold text-white"
-                  style={{ backgroundColor: companyLogos[exp.company].color }}
-                >
-                  {companyLogos[exp.company].initial}
-                </span>
+                <img
+                  src={companyLogos[exp.company].src}
+                  alt={companyLogos[exp.company].alt}
+                  className="h-8 w-auto max-w-[120px] object-contain rounded-md"
+                  loading="lazy"
+                />
               ) : (
                 <Building2 className="h-5 w-5 shrink-0 text-[var(--color-accent-copper)]" />
               )}
