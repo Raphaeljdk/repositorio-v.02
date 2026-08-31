@@ -485,3 +485,29 @@ Stage Summary:
 - Experience dates were already correct
 - Project images confirmed working
 - Local commit ready, needs token refresh for push
+
+---
+Task ID: 1
+Agent: main
+Task: Skills T-shaped hierarchy + SAP B1 precision fixes
+
+Work Log:
+- Added SkillTier type ("expert" | "proficient" | "learning") to data model
+- Reordered all 27 skills by proficiency (highest first) within each category
+- Assigned tiers: expert (85%+): 9 skills, proficient (65-84%): 10 skills, learning (<65%): 8 skills
+- Completely redesigned skills.tsx with T-shaped hierarchy view
+- Added T-shaped diagram visual summary at top of section
+- Added T-Shaped / Categorias toggle for switching between views
+- Each tier has distinct icon (Crown/TrendingUp/Sprout), color (gold/copper/sage), and grid layout
+- Expert cards show rank badges (#1, #2, etc.)
+- Fixed about.tsx: "SAP" → "SAP B1" in tech strip
+- Fixed certifications.tsx: "SAP ABAP em curso" → "SAP B1 em curso"
+- Fixed data.ts: service title "Enterprise & SAP" → "SAP B1 & Automação"
+- Verified all changes in browser via agent-browser
+- Lint passes clean, dev server compiles without errors
+- Pushed to GitHub (commit 556982e)
+
+Stage Summary:
+- Skills now clearly ranked by proficiency with T-shaped visual hierarchy
+- All SAP references precisely say "SAP B1" or "SAP Business One" (no generic SAP, no ABAP)
+- 4 files modified: about.tsx, certifications.tsx, skills.tsx, data.ts
