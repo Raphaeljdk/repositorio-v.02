@@ -54,9 +54,12 @@ export function HankoSeal({
   variant = "default",
   animated = false,
 }: HankoSealProps) {
+  const mounted = useMounted();
   const reduce = useReducedMotion();
   // unique filter id per instance so multiple seals don't clash
   const [id] = useState(() => `hanko-${Math.random().toString(36).slice(2, 9)}`);
+
+  if (!mounted) return null;
 
   const Wrapper = animated ? motion.div : "div";
   const wrapperProps = animated && !reduce
@@ -212,7 +215,18 @@ type SumiBrushDividerProps = {
 };
 
 export function SumiBrushDivider({ className = "", width = "100%" }: SumiBrushDividerProps) {
+  const mounted = useMounted();
   const [id] = useState(() => `sumi-${Math.random().toString(36).slice(2, 9)}`);
+
+  if (!mounted) {
+    return (
+      <div
+        className={`pointer-events-none ${className}`}
+        aria-hidden
+        style={{ height: "56px", width }}
+      />
+    );
+  }
 
   return (
     <div

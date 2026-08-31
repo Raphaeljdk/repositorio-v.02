@@ -65,13 +65,13 @@ export function Certifications() {
             index={1}
           />
           <SummaryItem
-            label="SAP B1 em curso"
-            value="65%"
+            label="SAP em curso"
+            value="3"
             index={2}
           />
           <SummaryItem
-            label="+3 certificações SAP"
-            value="2026"
+            label="Eng. Software"
+            value="2029"
             index={3}
           />
         </motion.div>

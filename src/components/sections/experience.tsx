@@ -38,7 +38,7 @@ const summaryCards = [
 ];
 
 const companyLogos: Record<string, { src: string; alt: string }> = {
-  Polyexcel: { src: "/logos/polyexcel.svg", alt: "Polyexcel logo" },
+  Polyexcel: { src: "/logos/polyexcel.webp", alt: "Polyexcel logo" },
   Eurofarma: { src: "/logos/eurofarma.jpg", alt: "Eurofarma logo" },
 };
 

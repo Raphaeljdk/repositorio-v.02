@@ -519,7 +519,6 @@ export const certifications: Certification[] = [
   { name: "Node.js Completo", hours: "60h", institution: "Udemy", year: 2025, status: "completed", category: "Backend" },
   { name: "Git & GitHub", hours: "20h", institution: "Udemy", year: 2025, status: "completed", category: "DevOps" },
   { name: "Excel Avançado", hours: "40h", institution: "Fundação Bradesco", year: 2025, status: "completed", credentialId: "FB-EXCEL-2025", category: "Tools" },
-  { name: "SAP Business One", hours: "80h", institution: "SAP Learning Hub", year: 2025, status: "in-progress", progress: 65, category: "Corporativo" },
   { name: "SAP Certified Associate - Back-End Developer ABAP Cloud", hours: "60h", institution: "SAP Learning Hub", year: 2026, status: "in-progress", progress: 30, category: "Corporativo" },
   { name: "Discovering SAP Activate - Agile Project Delivery", hours: "40h", institution: "SAP Learning Hub", year: 2026, status: "in-progress", progress: 20, category: "Corporativo" },
   { name: "Exploring Development Options in SAP Analytics Cloud", hours: "40h", institution: "SAP Learning Hub", year: 2026, status: "in-progress", progress: 15, category: "Corporativo" },
