@@ -767,9 +767,11 @@
   outline-color: #E55050;
 }
 
-/* Interactive elements get pointer cursor (for custom cursor) */
-a, button, [role="button"], input, textarea, select, [tabindex] {
-  cursor: none;
+/* Interactive elements get pointer cursor (for custom cursor) — hidden on mouse, shown on touch */
+@media not (pointer: coarse) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
 }
 @media (pointer: coarse) {
   a, button, [role="button"], input, textarea, select, [tabindex] {

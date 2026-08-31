@@ -3,6 +3,7 @@ import { Inter, Noto_Serif_JP, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/portfolio/theme-provider";
+import { CustomCursor } from "@/components/portfolio/custom-cursor";
 
 /* SHOGUN DIGITAL typography system */
 const inter = Inter({
@@ -96,6 +97,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           {children}
           <Toaster />
         </ThemeProvider>

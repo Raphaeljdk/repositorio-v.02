@@ -25,7 +25,7 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useSyncExternalStore, useEffect, useState } from "react";
+import { useSyncExternalStore, useEffect, useId, useState } from "react";
 
 /* ------------------------------------------------------------------
  *  useMounted — hydration-safe mount detection
@@ -56,8 +56,9 @@ export function HankoSeal({
 }: HankoSealProps) {
   const mounted = useMounted();
   const reduce = useReducedMotion();
-  // unique filter id per instance so multiple seals don't clash
-  const [id] = useState(() => `hanko-${Math.random().toString(36).slice(2, 9)}`);
+  // useId() is deterministic across SSR and client — no hydration mismatch
+  const reactId = useId();
+  const id = `hanko-${reactId.replace(/:/g, "")}`;
 
   if (!mounted) return null;
 
@@ -216,7 +217,8 @@ type SumiBrushDividerProps = {
 
 export function SumiBrushDivider({ className = "", width = "100%" }: SumiBrushDividerProps) {
   const mounted = useMounted();
-  const [id] = useState(() => `sumi-${Math.random().toString(36).slice(2, 9)}`);
+  const reactId = useId();
+  const id = `sumi-${reactId.replace(/:/g, "")}`;
 
   if (!mounted) {
     return (
