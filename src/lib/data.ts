@@ -14,6 +14,8 @@ export type SkillCategory =
   | "cloud"
   | "ai";
 
+export type SkillTier = "expert" | "proficient" | "learning";
+
 export interface Skill {
   name: string;
   icon: string;
@@ -22,6 +24,8 @@ export interface Skill {
   level: string;
   description: string;
   experience: string;
+  /** T-shaped tier: expert (85%+), proficient (65-84%), learning (<65%) */
+  tier: SkillTier;
 }
 
 export interface Project {
@@ -131,40 +135,40 @@ export const stats: Stat[] = [
 ];
 
 export const skills: Skill[] = [
-  // Frontend
-  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", percent: 92, category: "frontend", level: "Avançado", description: "Estrutura semântica, SEO, acessibilidade WCAG", experience: "2+ anos" },
-  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", percent: 88, category: "frontend", level: "Avançado", description: "Flexbox, Grid, animações, design systems", experience: "2+ anos" },
-  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", percent: 85, category: "frontend", level: "Avançado", description: "ES6+, async/await, DOM, APIs REST", experience: "2+ anos" },
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", percent: 65, category: "frontend", level: "Intermediário-Avançado", description: "Hooks, Server Components, Next.js", experience: "1+ ano" },
-  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", percent: 80, category: "frontend", level: "Avançado", description: "Design tokens, theming, responsividade", experience: "1+ ano" },
-  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", percent: 60, category: "frontend", level: "Intermediário", description: "Tipagem estática, generics, inferência", experience: "8 meses" },
-  { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", percent: 45, category: "frontend", level: "Intermediário", description: "Composition API, Pinia, Vue Router", experience: "6 meses" },
-  // Backend
-  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", percent: 78, category: "backend", level: "Avançado", description: "Express, APIs REST, WebSockets", experience: "1+ ano" },
-  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", percent: 60, category: "backend", level: "Intermediário", description: "POO, Spring Boot, JPA, Maven", experience: "1+ ano" },
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", percent: 50, category: "backend", level: "Intermediário", description: "Django, Flask, automação", experience: "8 meses" },
-  // Database
-  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", percent: 65, category: "database", level: "Intermediário", description: "Joins, procedures, otimização", experience: "1+ ano" },
-  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", percent: 55, category: "database", level: "Intermediário", description: "CTEs, JSONB, window functions", experience: "8 meses" },
-  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", percent: 45, category: "database", level: "Intermediário", description: "NoSQL, agregações, índices", experience: "6 meses" },
-  // Tools
-  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Branches, rebase, hooks, workflows", experience: "2+ anos" },
-  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Actions, Projects, Pages, Copilot", experience: "2+ anos" },
-  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", percent: 95, category: "tools", level: "Especialista", description: "Debug, extensões, atalhos, tasks", experience: "2+ anos" },
-  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", percent: 35, category: "tools", level: "Intermediário", description: "Containers, compose, imagens", experience: "6 meses" },
-  { name: "Excel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftoffice/microsoftoffice-original.svg", percent: 75, category: "tools", level: "Avançado", description: "Power Query, dashboards, VBA", experience: "2+ anos" },
-  // Corporate
-  { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano" },
-  { name: "TMS", icon: "https://cdn-icons-png.flaticon.com/512/2942/2942271.png", percent: 62, category: "corporate", level: "Intermediário-Avançado", description: "CTEs, fretes, logística, transportadoras", experience: "1+ ano" },
-  // Cloud
-  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", percent: 38, category: "cloud", level: "Intermediário", description: "EC2, S3, Lambda, IAM", experience: "8 meses" },
-  { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original-wordmark.svg", percent: 30, category: "cloud", level: "Intermediário", description: "VMs, Blob, Functions, AD", experience: "4 meses" },
-  { name: "Cloud Computing", icon: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png", percent: 45, category: "cloud", level: "Intermediário", description: "IaaS, PaaS, SaaS, serverless", experience: "8 meses" },
-  // AI & Productivity
-  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg", percent: 90, category: "ai", level: "Avançado", description: "Geração de código, revisão, pair programming, arquitetura de soluções", experience: "2+ anos" },
-  { name: "DeepSeek", icon: "https://cdn.simpleicons.org/deepseek/6d9eeb", percent: 85, category: "ai", level: "Avançado", description: "Análise de código, debugging assistido, documentação automática", experience: "1+ ano" },
-  { name: "GLM", icon: "https://cdn.simpleicons.org/zhipuai/4285f4", percent: 80, category: "ai", level: "Avançado", description: "Geração de texto, análise de requisitos, prototipação rápida", experience: "1+ ano" },
-  { name: "Gemini", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", percent: 82, category: "ai", level: "Avançado", description: "Multimodal IA, visão computacional, análise de documentos", experience: "1+ ano" },
+  // ─── FRONTEND ────────────────────────────────────────────────
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", percent: 92, category: "frontend", level: "Avançado", description: "Estrutura semântica, SEO, acessibilidade WCAG", experience: "2+ anos", tier: "expert" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", percent: 88, category: "frontend", level: "Avançado", description: "Flexbox, Grid, animações, design systems", experience: "2+ anos", tier: "expert" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", percent: 85, category: "frontend", level: "Avançado", description: "ES6+, async/await, DOM, APIs REST", experience: "2+ anos", tier: "expert" },
+  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", percent: 80, category: "frontend", level: "Avançado", description: "Design tokens, theming, responsividade", experience: "1+ ano", tier: "proficient" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", percent: 65, category: "frontend", level: "Intermediário-Avançado", description: "Hooks, Server Components, Next.js", experience: "1+ ano", tier: "proficient" },
+  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", percent: 60, category: "frontend", level: "Intermediário", description: "Tipagem estática, generics, inferência", experience: "8 meses", tier: "proficient" },
+  { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", percent: 45, category: "frontend", level: "Intermediário", description: "Composition API, Pinia, Vue Router", experience: "6 meses", tier: "learning" },
+  // ─── BACKEND ─────────────────────────────────────────────────
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", percent: 78, category: "backend", level: "Avançado", description: "Express, APIs REST, WebSockets", experience: "1+ ano", tier: "proficient" },
+  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", percent: 60, category: "backend", level: "Intermediário", description: "POO, Spring Boot, JPA, Maven", experience: "1+ ano", tier: "proficient" },
+  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", percent: 50, category: "backend", level: "Intermediário", description: "Django, Flask, automação", experience: "8 meses", tier: "learning" },
+  // ─── DATABASE ────────────────────────────────────────────────
+  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", percent: 65, category: "database", level: "Intermediário", description: "Joins, procedures, otimização", experience: "1+ ano", tier: "proficient" },
+  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", percent: 55, category: "database", level: "Intermediário", description: "CTEs, JSONB, window functions", experience: "8 meses", tier: "learning" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", percent: 45, category: "database", level: "Intermediário", description: "NoSQL, agregações, índices", experience: "6 meses", tier: "learning" },
+  // ─── TOOLS ───────────────────────────────────────────────────
+  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", percent: 95, category: "tools", level: "Especialista", description: "Debug, extensões, atalhos, tasks", experience: "2+ anos", tier: "expert" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Branches, rebase, hooks, workflows", experience: "2+ anos", tier: "expert" },
+  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", percent: 82, category: "tools", level: "Avançado", description: "Actions, Projects, Pages, Copilot", experience: "2+ anos", tier: "expert" },
+  { name: "Excel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftoffice/microsoftoffice-original.svg", percent: 75, category: "tools", level: "Avançado", description: "Power Query, dashboards, VBA", experience: "2+ anos", tier: "proficient" },
+  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", percent: 35, category: "tools", level: "Intermediário", description: "Containers, compose, imagens", experience: "6 meses", tier: "learning" },
+  // ─── CORPORATE ───────────────────────────────────────────────
+  { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano", tier: "proficient" },
+  { name: "TMS", icon: "https://cdn-icons-png.flaticon.com/512/2942/2942271.png", percent: 62, category: "corporate", level: "Intermediário-Avançado", description: "CTEs, fretes, logística, transportadoras", experience: "1+ ano", tier: "proficient" },
+  // ─── CLOUD ───────────────────────────────────────────────────
+  { name: "Cloud Computing", icon: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png", percent: 45, category: "cloud", level: "Intermediário", description: "IaaS, PaaS, SaaS, serverless", experience: "8 meses", tier: "learning" },
+  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", percent: 38, category: "cloud", level: "Intermediário", description: "EC2, S3, Lambda, IAM", experience: "8 meses", tier: "learning" },
+  { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original-wordmark.svg", percent: 30, category: "cloud", level: "Intermediário", description: "VMs, Blob, Functions, AD", experience: "4 meses", tier: "learning" },
+  // ─── IA GENERATIVA ──────────────────────────────────────────
+  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg", percent: 90, category: "ai", level: "Avançado", description: "Geração de código, revisão, pair programming, arquitetura de soluções", experience: "2+ anos", tier: "expert" },
+  { name: "DeepSeek", icon: "https://cdn.simpleicons.org/deepseek/6d9eeb", percent: 85, category: "ai", level: "Avançado", description: "Análise de código, debugging assistido, documentação automática", experience: "1+ ano", tier: "expert" },
+  { name: "Gemini", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", percent: 82, category: "ai", level: "Avançado", description: "Multimodal IA, visão computacional, análise de documentos", experience: "1+ ano", tier: "expert" },
+  { name: "GLM", icon: "https://cdn.simpleicons.org/zhipuai/4285f4", percent: 80, category: "ai", level: "Avançado", description: "Geração de texto, análise de requisitos, prototipação rápida", experience: "1+ ano", tier: "proficient" },
 ];
 
 export const skillCategories: { id: SkillCategory | "all"; label: string; color: string }[] = [
@@ -527,10 +531,10 @@ export const services = [
     items: ["Next.js / React", "APIs REST & GraphQL", "Design Systems", "Realtime com WebSockets"],
   },
   {
-    title: "Enterprise & SAP",
-    description: "SAP B1, automação de processos e integrações conectando legado a moderno.",
+    title: "SAP B1 & Automação",
+    description: "Rotina SAP Business One, automação de processos e integrações conectando legado a moderno.",
     icon: "building",
-    items: ["SAP B1", "Módulos Financeiro & Estoque", "Automação", "TMS & Logística"],
+    items: ["SAP B1", "Módulos Financeiro & Estoque", "Automação Python", "TMS & Logística"],
   },
   {
     title: "UI/UX & Dashboards",

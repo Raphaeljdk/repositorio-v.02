@@ -65,7 +65,7 @@ export function Certifications() {
             index={1}
           />
           <SummaryItem
-            label="SAP ABAP em curso"
+            label="SAP B1 em curso"
             value="65%"
             index={2}
           />

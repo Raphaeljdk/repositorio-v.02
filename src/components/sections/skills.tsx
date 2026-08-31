@@ -2,85 +2,61 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { skillCategories, skills, type SkillCategory } from "@/lib/data";
+import { Crown, TrendingUp, Sprout } from "lucide-react";
+import { skillCategories, skills, type SkillCategory, type SkillTier } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 import { useCardGlow } from "@/hooks/use-card-glow";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
 
 type Filter = SkillCategory | "all";
+type TierView = "tiers" | "categories";
 
 const ACCENT_COLORS = ["#D93838", "#F2C14E", "#2B5B84", "#B91C1C", "#9A3412", "#7C2D12", "#E55050"] as const;
 
-// Top 8 skills by proficiency — shown prominently above the full grid
-const featuredSkills = skills
-  .filter((s) => s.percent >= 78)
-  .sort((a, b) => b.percent - a.percent)
-  .slice(0, 8);
+const TIER_CONFIG: Record<SkillTier, { label: string; sublabel: string; Icon: typeof Crown; color: string; ringColor: string }> = {
+  expert: {
+    label: "Especialistas",
+    sublabel: "Domínio profundo — o eixo do T",
+    Icon: Crown,
+    color: "text-[var(--color-accent-gold)]",
+    ringColor: "ring-[var(--color-accent-gold)]/25",
+  },
+  proficient: {
+    label: "Proficientes",
+    sublabel: "Trabalho diário — a barra do T",
+    Icon: TrendingUp,
+    color: "text-[var(--color-accent-copper)]",
+    ringColor: "ring-[var(--color-accent-copper)]/20",
+  },
+  learning: {
+    label: "Em Desenvolvimento",
+    sublabel: "Explorando e crescendo",
+    Icon: Sprout,
+    color: "text-[var(--color-accent-sage)]",
+    ringColor: "ring-[var(--color-accent-sage)]/20",
+  },
+};
 
-function CategoryBar({ activeFilter, onSelect }: { activeFilter: Filter; onSelect: (f: Filter) => void }) {
-  const categoryCounts = useMemo(() => {
-    return (skillCategories.filter((c) => c.id !== "all") as { id: SkillCategory; label: string }[]).map((cat) => ({
-      ...cat,
-      count: skills.filter((s) => s.category === cat.id).length,
-      avgPercent: Math.round(skills.filter((s) => s.category === cat.id).reduce((a, b) => a + b.percent, 0) / Math.max(1, skills.filter((s) => s.category === cat.id).length)),
-    }));
-  }, []);
+const tierOrder: SkillTier[] = ["expert", "proficient", "learning"];
 
-  const total = categoryCounts.reduce((a, c) => a + c.count, 0);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.15 }}
-      className="mt-8"
-    >
-      <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted/40">
-        {categoryCounts.map((cat, i) => {
-          const width = (cat.count / total) * 100;
-          const isActive = activeFilter === cat.id || activeFilter === "all";
-          return (
-            <motion.button
-              key={cat.id}
-              type="button"
-              onClick={() => onSelect(activeFilter === cat.id ? "all" : cat.id)}
-              className={cn(
-                "relative h-full transition-opacity duration-300",
-                isActive ? "opacity-100" : "opacity-40"
-              )}
-              style={{ width: `${width}%`, backgroundColor: ACCENT_COLORS[i % ACCENT_COLORS.length] }}
-              whileHover={{ opacity: 1, scaleY: 1.5 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              title={`${cat.label}: ${cat.count} tecnologias · ${cat.avgPercent}% avg`}
-            />
-          );
-        })}
-      </div>
-      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
-        {categoryCounts.map((cat, i) => (
-          <button
-            key={cat.id}
-            type="button"
-            onClick={() => onSelect(activeFilter === cat.id ? "all" : cat.id)}
-            className={cn(
-              "inline-flex items-center gap-1.5 font-code text-[10px] transition-colors",
-              activeFilter === cat.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: ACCENT_COLORS[i % ACCENT_COLORS.length] }} />
-            {cat.label} <span className="text-muted-foreground/60">{cat.count}</span>
-          </button>
-        ))}
-      </div>
-    </motion.div>
-  );
+// Pre-sorted tier groups (already sorted by percent in data.ts)
+function getTierGroups() {
+  return tierOrder.map((tier) => ({
+    tier,
+    skills: skills.filter((s) => s.tier === tier),
+  }));
 }
+
+const tierGroups = getTierGroups();
+const expertCount = tierGroups.find((g) => g.tier === "expert")!.skills.length;
+const proficientCount = tierGroups.find((g) => g.tier === "proficient")!.skills.length;
+const learningCount = tierGroups.find((g) => g.tier === "learning")!.skills.length;
 
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
+  const [view, setView] = useState<TierView>("tiers");
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -107,44 +83,132 @@ export function Skills() {
       .sort((a, b) => b.percent - a.percent);
   }, [filter, query]);
 
+  const filteredTierGroups = useMemo(() => {
+    if (query || filter !== "all") {
+      // When filtering, put everything in one flat list
+      return null;
+    }
+    return tierOrder.map((tier) => ({
+      tier,
+      skills: skills.filter((s) => s.tier === tier),
+    }));
+  }, [filter, query]);
+
   return (
     <section id="skills" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
-      {/* Section kanji backdrop — 技 (Technique/Skill) */}
       <KanjiBackdrop kanji="技" side="right" top={8} />
-      {/* Subtle radial glow behind the grid */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[var(--color-accent-copper)]/[0.03] blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[var(--color-accent-copper)]/[0.03] blur-3xl" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           label="Stack"
           title="Ferramentas que dominou."
           kanji={3}
-          description="Top skills destacadas. Clique nas categorias para explorar as 25+ tecnologias."
+          description="Perfil T-shaped: domínio profundo no eixo, amplitude na barra. Rankeadas por proficiência real."
         />
 
-        {/* Filters */}
+        {/* T-shaped diagram - visual summary */}
+        {view === "tiers" && !query && filter === "all" && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-10 card-surface rounded-xl p-5 sm:p-6"
+          >
+            <div className="flex items-end justify-center gap-1 sm:gap-2">
+              {/* Top bar of the T — proficient breadth */}
+              <div className="flex items-end gap-1 sm:gap-1.5 mb-2">
+                {["Frontend", "Backend", "DB", "Tools", "Corp", "Cloud", "IA"].map((cat, i) => (
+                  <motion.div
+                    key={cat}
+                    initial={{ scaleY: 0, opacity: 0 }}
+                    whileInView={{ scaleY: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 + i * 0.06 }}
+                    className="flex flex-col items-center gap-1"
+                    style={{ transformOrigin: "bottom" }}
+                  >
+                    <span className="font-code text-[9px] text-muted-foreground hidden sm:block">{cat}</span>
+                    <div className="h-3 w-6 sm:h-4 sm:w-8 rounded-t-sm bg-[var(--color-accent-copper)]/60" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            {/* Shaft of the T — deep expertise */}
+            <div className="mx-auto w-12 sm:w-16">
+              <motion.div
+                initial={{ height: 0 }}
+                whileInView={{ height: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="h-16 sm:h-20 w-full rounded-b-sm bg-[var(--color-accent-gold)]/70"
+              />
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-4 text-[10px] font-code text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-2 w-2 rounded-sm bg-[var(--color-accent-gold)]/70" />
+                Eixo: {expertCount} especialistas
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="inline-block h-2 w-2 rounded-sm bg-[var(--color-accent-copper)]/60" />
+                Barra: {proficientCount} proficientes + {learningCount} explorando
+              </span>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Controls row */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-10 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+          className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
         >
-          <div className="flex flex-wrap gap-2">
-            {skillCategories.map((cat) => (
+          {/* View toggle + Category filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex rounded-lg border border-[var(--surface-border)] p-0.5">
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setFilter(cat.id as Filter)}
+                onClick={() => { setView("tiers"); setFilter("all"); }}
                 className={cn(
-                  "relative rounded-lg px-4 py-2 text-sm font-medium active:scale-[0.97] transition-all min-h-[44px] inline-flex items-center",
-                  filter === cat.id
-                    ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
-                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
+                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px]",
+                  view === "tiers" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                {cat.label}
+                T-Shaped
               </button>
-            ))}
+              <button
+                type="button"
+                onClick={() => setView("categories")}
+                className={cn(
+                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px]",
+                  view === "categories" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Categorias
+              </button>
+            </div>
+
+            {view === "categories" && (
+              <div className="flex flex-wrap gap-1.5">
+                {skillCategories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setFilter(cat.id as Filter)}
+                    className={cn(
+                      "rounded-lg px-3 py-1.5 text-xs font-medium active:scale-[0.97] transition-all min-h-[36px] inline-flex items-center",
+                      filter === cat.id
+                        ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
+                        : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
+                    )}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Search */}
@@ -169,34 +233,85 @@ export function Skills() {
           </motion.div>
         </motion.div>
 
-        {/* Category overview bar — horizontal stacked bar showing distribution */}
-        <CategoryBar activeFilter={filter} onSelect={setFilter} />
+        {/* TIER VIEW — grouped by proficiency */}
+        {filteredTierGroups && view === "tiers" ? (
+          <div className="mt-10 space-y-10">
+            {filteredTierGroups.map(({ tier, skills: tierSkills }, groupIdx) => {
+              const config = TIER_CONFIG[tier];
+              const TierIcon = config.Icon;
+              return (
+                <motion.div
+                  key={tier}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, delay: groupIdx * 0.1 }}
+                >
+                  {/* Tier header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={cn("flex h-8 w-8 items-center justify-center rounded-lg", config.ringColor, "ring-1")}>
+                      <TierIcon className={cn("h-4 w-4", config.color)} />
+                    </span>
+                    <div>
+                      <h3 className={cn("font-display text-base font-bold", config.color)}>
+                        {config.label}
+                        <span className="ml-2 font-code text-xs font-normal text-muted-foreground">{tierSkills.length} skills</span>
+                      </h3>
+                      <p className="text-[11px] text-muted-foreground">{config.sublabel}</p>
+                    </div>
+                  </div>
 
-        {/* Featured skills — top tier shown prominently */}
-        {filter === "all" && !query && (
-          <div className="mt-10">
-            <p className="mono-label mb-4">Principais</p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-              {featuredSkills.map((skill, i) => (
-                <SkillCard key={skill.name} skill={skill} featured />
-              ))}
-            </div>
-            <div className="mt-8 flex items-center gap-3">
-              <div className="h-px flex-1 bg-[var(--surface-border)]" />
-              <span className="font-code text-[10px] text-muted-foreground">TODAS AS {skills.length} TECNOLOGIAS</span>
-              <div className="h-px flex-1 bg-[var(--surface-border)]" />
-            </div>
+                  {/* Tier grid */}
+                  <div className={cn(
+                    "grid gap-3",
+                    tier === "expert"
+                      ? "grid-cols-2 sm:grid-cols-3"
+                      : tier === "proficient"
+                        ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
+                        : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                  )}>
+                    <AnimatePresence mode="popLayout">
+                      {tierSkills.map((skill, i) => (
+                        <SkillCard
+                          key={skill.name}
+                          skill={skill}
+                          tier={tier}
+                          rank={i + 1}
+                        />
+                      ))}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Separator between tiers */}
+                  {groupIdx < tierOrder.length - 1 && (
+                    <div className="mt-10 flex items-center gap-3">
+                      <div className="h-px flex-1 bg-[var(--surface-border)]" />
+                      <span className="font-code text-[9px] text-muted-foreground/50">
+                        {TIER_CONFIG[tierOrder[groupIdx + 1]].label.toUpperCase()}
+                      </span>
+                      <div className="h-px flex-1 bg-[var(--surface-border)]" />
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
+        ) : (
+          /* CATEGORY / SEARCH VIEW — flat grid */
+          <motion.div layout className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((skill, i) => (
+                <SkillCard
+                  key={skill.name}
+                  skill={skill}
+                  tier={skill.tier}
+                  rank={i + 1}
+                  wide={i < 3}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         )}
-
-        {/* Full grid */}
-        <motion.div layout className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6", filter === "all" && !query && "mt-8")}>
-          <AnimatePresence mode="popLayout">
-            {filtered.map((skill, i) => (
-              <SkillCard key={skill.name} skill={skill} wide={filter === "all" && !query && i < 3} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
 
         {filtered.length === 0 && (
           <div className="mt-12 text-center text-sm text-muted-foreground">
@@ -208,10 +323,11 @@ export function Skills() {
   );
 }
 
-function SkillCard({ skill, wide, featured }: { skill: (typeof skills)[number]; wide: boolean; featured?: boolean }) {
+function SkillCard({ skill, tier, rank, wide }: { skill: (typeof skills)[number]; tier: SkillTier; rank: number; wide?: boolean }) {
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
-
+  const config = TIER_CONFIG[tier];
   const catColor = ACCENT_COLORS[skillCategories.findIndex((c) => c.id === skill.category) % ACCENT_COLORS.length] ?? ACCENT_COLORS[0];
+  const isExpert = tier === "expert";
 
   return (
     <motion.div
@@ -219,51 +335,55 @@ function SkillCard({ skill, wide, featured }: { skill: (typeof skills)[number]; 
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.92 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.3, delay: rank * 0.03 }}
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "card-surface group rounded-xl p-4 border-l-2",
+        "card-surface group rounded-xl p-4 border-l-2 relative overflow-hidden",
         wide && "lg:col-span-2",
-        featured && "ring-1 ring-[var(--color-accent-copper)]/20"
+        isExpert && "ring-1 " + config.ringColor
       )}
       style={{ borderLeftColor: catColor }}
     >
+      {/* Rank badge for experts */}
+      {isExpert && (
+        <span className="absolute top-2 right-2 font-code text-[9px] font-bold text-muted-foreground/40">
+          #{rank}
+        </span>
+      )}
+
       <div className="flex items-center gap-3">
         <img
           src={skill.icon}
           alt={skill.name}
-          className={cn("", featured ? "h-10 w-10" : "h-8 w-8")}
+          className={cn("", isExpert ? "h-10 w-10" : "h-7 w-7")}
           loading="lazy"
         />
         <div className="min-w-0 flex-1">
-          <h3 className={cn("font-semibold text-foreground truncate", featured ? "text-base" : "text-sm")}>
+          <h3 className={cn("font-semibold text-foreground truncate", isExpert ? "text-base" : "text-sm")}>
             {skill.name}
           </h3>
-          <p className="font-code text-[10px] text-muted-foreground">
+          <p className={cn("font-code text-[10px] text-muted-foreground", isExpert && "text-[11px]")}>
             {skill.level}
           </p>
         </div>
-        {featured && (
-          <span className="font-code text-lg font-bold text-[var(--color-accent-copper)]">
-            {skill.percent}<span className="text-[10px] text-muted-foreground">%</span>
-          </span>
-        )}
+        <span className={cn("font-code font-bold", isExpert ? "text-lg" : "text-sm", config.color)}>
+          {skill.percent}<span className={cn("text-muted-foreground", isExpert ? "text-[10px]" : "text-[9px]")}>%</span>
+        </span>
       </div>
 
       {/* Description — shown below name */}
-      <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+      <p className={cn("mt-2 leading-relaxed text-muted-foreground", isExpert ? "text-xs line-clamp-2" : "text-[11px] line-clamp-1")}>
         {skill.description}
       </p>
 
-      {/* Progress bar with glow */}
+      {/* Progress bar */}
       <div className="mt-3 relative progress-glow">
         <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
           <span>{skill.experience}</span>
-          {!featured && <span>{skill.percent}%</span>}
         </div>
-        <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
+        <div className={cn("mt-1 w-full overflow-hidden rounded-full bg-muted/60", isExpert ? "h-2" : "h-1.5")}>
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: `${skill.percent}%` }}
@@ -272,7 +392,7 @@ function SkillCard({ skill, wide, featured }: { skill: (typeof skills)[number]; 
             className="h-full rounded-full"
             style={{
               background: `linear-gradient(90deg, ${catColor}, ${catColor}88)`,
-              boxShadow: `0 0 8px ${catColor}40`,
+              boxShadow: `0 0 ${isExpert ? 12 : 6}px ${catColor}40`,
             }}
           />
         </div>
