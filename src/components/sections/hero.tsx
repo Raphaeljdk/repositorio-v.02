@@ -27,6 +27,20 @@ export function Hero() {
       {/* Faint dot grid */}
       <div className="pointer-events-none absolute inset-0 dot-grid dot-grid-fade opacity-50" />
 
+      {/* Subtle gradient overlay — warm wash from bottom-left */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: "radial-gradient(ellipse 80% 50% at 20% 80%, rgba(217,56,56,0.04) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(242,193,78,0.03) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 dark:block hidden"
+        style={{
+          background: "radial-gradient(ellipse 80% 50% at 20% 80%, rgba(229,80,80,0.06) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(242,193,78,0.04) 0%, transparent 60%)",
+        }}
+      />
+
       {/* SHOGUN differentiator — oversized 道 (The Way) calligraphy watermark.
           Ties to the logo's 学びの道 (Path of Learning). Quiet, static.
           Levemente mais visível em ambos os temas. */}
@@ -65,7 +79,7 @@ export function Hero() {
               hand-pressed red seal that marks this as his work. */}
           <motion.div variants={fadeUp} className="relative mt-5">
             <motion.h1
-              className="relative font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.027em] sm:text-6xl md:text-7xl lg:text-[5rem]"
+              className="hero-name-glow relative font-display text-[2.75rem] font-bold leading-[0.98] tracking-[-0.027em] sm:text-6xl md:text-7xl lg:text-[5rem]"
             >
               Raphael Freitas
             </motion.h1>
@@ -79,16 +93,22 @@ export function Hero() {
           </motion.div>
 
           {/* Role — static, concrete, no typewriter */}
-          <motion.p
-            variants={fadeUp}
-            className="mt-4 text-base font-medium text-foreground/75 sm:text-lg"
-          >
-            Desenvolvedor Full Stack
-            <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
-            Eng. de Software
-            <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
-            Automação com Python
-          </motion.p>
+          <motion.div variants={fadeUp} className="mt-4">
+            <p className="text-base font-medium text-foreground/75 sm:text-lg">
+              Desenvolvedor Full Stack
+              <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
+              Eng. de Software
+              <span className="mx-2 text-[var(--color-accent-copper)]">·</span>
+              Automação com Python
+            </p>
+            {/* Decorative accent line under role */}
+            <div
+              className="mt-3 h-[2px] w-16 rounded-full"
+              style={{
+                background: "linear-gradient(90deg, var(--color-accent-copper), var(--color-accent-gold), transparent)",
+              }}
+            />
+          </motion.div>
 
           {/* One-liner pitch — 3 seconds to understand who you are */}
           <motion.p
@@ -134,6 +154,19 @@ export function Hero() {
           className="relative mx-auto w-full max-w-[260px] sm:max-w-[300px] lg:max-w-[340px]"
         >
           <div className="relative aspect-square">
+            {/* Subtle radial gradient behind avatar */}
+            <div
+              className="pointer-events-none absolute -inset-8 rounded-full opacity-60"
+              style={{
+                background: "radial-gradient(circle, rgba(217,56,56,0.08) 0%, rgba(242,193,78,0.04) 40%, transparent 70%)",
+              }}
+            />
+            <div
+              className="pointer-events-none absolute -inset-8 hidden rounded-full dark:block"
+              style={{
+                background: "radial-gradient(circle, rgba(229,80,80,0.1) 0%, rgba(242,193,78,0.06) 40%, transparent 70%)",
+              }}
+            />
             {/* Single static ring — sumi border, no rotation, no gradient */}
             <div className="absolute -inset-2 rounded-full border border-[var(--color-accent-copper)]/15" />
             {/* Logo image — circular, clean, with a 6s breath cycle.
@@ -167,7 +200,7 @@ export function Hero() {
         className="absolute bottom-6 right-6 z-10 hidden sm:flex items-center gap-2 rounded-full border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 shadow-sumi"
       >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inset-0 rounded-full bg-emerald-400 animate-[ping_2s_ease-in-out_infinite]" />
+          <span className="absolute inset-0 rounded-full bg-emerald-400 pulse-smooth" />
           <span className="relative block h-2 w-2 rounded-full bg-emerald-500" />
         </span>
         <span className="text-xs font-medium text-foreground">Disponível para projetos</span>

@@ -58,40 +58,27 @@ const proficientCount = tierGroups.find((g) => g.tier === "proficient")!.skills.
 const learningCount = tierGroups.find((g) => g.tier === "learning")!.skills.length;
 
 /* ─── LogoLoop data — tech logos from skills ─── */
-const CHATGPT_LOGO = {
-  src: "/chatgpt-logo.png",
-  alt: "ChatGPT",
-  title: "ChatGPT",
-  href: "https://chat.openai.com",
-};
+const skillsLogoItems = skills
+  .filter((s) => s.percent >= 60)
+  .sort((a, b) => b.percent - a.percent)
+  .slice(0, 12)
+  .map((s) => ({
+    src: s.icon,
+    alt: s.name,
+    title: s.name,
+    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+  }));
 
-const skillsLogoItems = [
-  CHATGPT_LOGO,
-  ...skills
-    .filter((s) => s.percent >= 60)
-    .sort((a, b) => b.percent - a.percent)
-    .slice(0, 11)
-    .map((s) => ({
-      src: s.icon,
-      alt: s.name,
-      title: s.name,
-      href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
-    })),
-];
-
-const skillsLogoItems2 = [
-  ...skills
-    .filter((s) => s.percent < 60 || s.percent >= 60)
-    .sort((a, b) => a.percent - b.percent)
-    .slice(0, 11)
-    .map((s) => ({
-      src: s.icon,
-      alt: s.name,
-      title: s.name,
-      href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
-    })),
-  CHATGPT_LOGO,
-];
+const skillsLogoItems2 = skills
+  .filter((s) => s.percent >= 30)
+  .sort((a, b) => a.percent - b.percent)
+  .slice(0, 12)
+  .map((s) => ({
+    src: s.icon,
+    alt: s.name,
+    title: s.name,
+    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+  }));
 
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -254,13 +241,13 @@ export function Skills() {
         >
           {/* View toggle + Category filters */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex rounded-lg border border-[var(--surface-border)] p-0.5">
+            <div className="flex rounded-full border border-[var(--surface-border)] bg-[var(--surface)]/80 p-1 shadow-sm">
               <button
                 type="button"
                 onClick={() => { setView("carousel"); setFilter("all"); }}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px] inline-flex items-center gap-1.5",
-                  view === "carousel" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
+                  "rounded-full px-4 py-1.5 text-xs font-medium transition-all min-h-[36px] inline-flex items-center gap-1.5",
+                  view === "carousel" ? "bg-[var(--color-accent-copper)] text-white shadow-[0_2px_8px_rgba(217,56,56,0.3)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
                 <Sparkles className="h-3 w-3" />
@@ -270,8 +257,8 @@ export function Skills() {
                 type="button"
                 onClick={() => { setView("tiers"); setFilter("all"); }}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px]",
-                  view === "tiers" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
+                  "rounded-full px-4 py-1.5 text-xs font-medium transition-all min-h-[36px]",
+                  view === "tiers" ? "bg-[var(--color-accent-copper)] text-white shadow-[0_2px_8px_rgba(217,56,56,0.3)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
                 T-Shaped
@@ -280,8 +267,8 @@ export function Skills() {
                 type="button"
                 onClick={() => setView("categories")}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px]",
-                  view === "categories" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
+                  "rounded-full px-4 py-1.5 text-xs font-medium transition-all min-h-[36px]",
+                  view === "categories" ? "bg-[var(--color-accent-copper)] text-white shadow-[0_2px_8px_rgba(217,56,56,0.3)]" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
                 Categorias
@@ -420,13 +407,18 @@ export function Skills() {
         )}
       </div>
 
+      {/* Copper accent section divider */}
+      <div className="mx-auto mt-12 max-w-7xl px-4 sm:px-6">
+        <div className="copper-divider" />
+      </div>
+
       {/* ── LogoLoop marquee — tech logos scrolling ── */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.8 }}
-        className="mt-12 relative"
+        className="mt-8 relative bg-[var(--surface)]/40"
         style={{ height: "80px", position: "relative", overflow: "hidden" }}
       >
         <LogoLoop
@@ -456,7 +448,7 @@ export function Skills() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative"
+        className="relative bg-[var(--surface)]/30"
         style={{ height: "80px", position: "relative", overflow: "hidden" }}
       >
         <LogoLoop

@@ -48,7 +48,7 @@ export function About() {
           description="Ponte entre o rigor corporativo regulado e a velocidade do ecossistema web — entregando produtos que performam, escalam e resolvem problemas reais do negócio."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-[1.3fr_1fr]">
+        <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1fr]">
           {/* Left: story + info cards */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -118,7 +118,7 @@ export function About() {
                 ].map((tech) => (
                   <div
                     key={tech.name}
-                    className="group/item flex items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-2 transition-all duration-200 hover:border-[var(--color-accent-copper)]/50 hover:shadow-sm"
+                    className="group/item flex items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-2 transition-all duration-300 hover:border-[var(--color-accent-copper)]/50 hover:shadow-[0_4px_12px_rgba(217,56,56,0.1)] hover:-translate-y-1 hover:scale-[1.02]"
                   >
                     <img
                       src={tech.icon}
@@ -135,7 +135,7 @@ export function About() {
             </motion.div>
 
             {/* Info cards — with Lucide icons, no emojis */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
                 { label: "Localização", value: personal.location, icon: <MapPin className="h-4 w-4" /> },
                 { label: "Universidade", value: personal.university, icon: <GraduationCap className="h-4 w-4" /> },

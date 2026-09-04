@@ -80,7 +80,7 @@ export function Navbar() {
           className={cn(
             "flex items-center justify-between gap-4 rounded-xl px-4 py-2.5 transition-all duration-300",
             scrolled
-              ? "border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm nav-scrolled-shadow"
+              ? "border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-sm nav-scrolled-shadow nav-glow-border scrolled"
               : "bg-transparent border border-transparent"
           )}
         >
@@ -127,7 +127,10 @@ export function Navbar() {
           {/* Right cluster */}
           <div className="flex items-center gap-2">
             <span className="hidden items-center gap-1.5 md:flex">
-              <span className="block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] pulse-smooth" />
+                <span className="relative block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
+              </span>
               <span className="font-code text-[11px] text-foreground/70">Disponível</span>
             </span>
             <div className="hidden items-center gap-1 md:flex">

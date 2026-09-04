@@ -42,8 +42,18 @@ export function Footer() {
       {/* Gradient top border — thicker, more prominent */}
       <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-accent-copper)]/40 to-transparent" />
 
+      {/* Subtle noise texture overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          backgroundRepeat: "repeat",
+          backgroundSize: "200px 200px",
+        }}
+      />
+
       {/* Top CTA band — dual CTAs for different audiences */}
-      <div className="border-b border-[var(--surface-border)]">
+      <div className="relative z-10 border-b border-[var(--surface-border)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-8 sm:px-6">
           <div className="text-center sm:text-left">
             <h3 className="font-display text-xl font-bold text-foreground sm:text-2xl">
@@ -80,7 +90,7 @@ export function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]">
           {/* Column 1: Brand + bio */}
           <div>

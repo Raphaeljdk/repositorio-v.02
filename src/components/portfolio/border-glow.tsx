@@ -175,13 +175,12 @@ const BorderGlow = ({
   }, [animated]);
 
   const glowVars = buildGlowVars(glowColor, glowIntensity);
-  const lightSurface = isLightColor(backgroundColor);
 
   return (
     <div
       ref={cardRef}
       onPointerMove={handlePointerMove}
-      className={`border-glow-card${lightSurface ? " border-glow-card--light" : ""} ${className}`}
+      className={`border-glow-card ${className}`}
       style={{
         "--card-bg": backgroundColor,
         "--edge-sensitivity": edgeSensitivity,
