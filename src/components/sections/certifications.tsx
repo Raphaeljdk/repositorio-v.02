@@ -125,6 +125,15 @@ function getCertIconClass(category: string, name: string): LucideIcon {
   return Award;
 }
 
+const CERT_CATEGORY_LABELS: Record<string, string> = {
+  Frontend: "Frontend",
+  Backend: "Backend",
+  Cloud: "Nuvem",
+  DevOps: "DevOps",
+  Tools: "Ferramentas",
+  Corporativo: "Corporativo",
+};
+
 function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; delay: number }) {
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLDivElement>();
   const { toast } = useToast();
@@ -208,7 +217,7 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
         <span>{cert.year}</span>
         <span>·</span>
         <span className="rounded-md bg-muted/50 px-1.5 py-0.5 text-[10px]">
-          {cert.category}
+          {CERT_CATEGORY_LABELS[cert.category] ?? cert.category}
         </span>
       </div>
 

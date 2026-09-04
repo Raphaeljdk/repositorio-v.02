@@ -116,7 +116,7 @@ export function Footer() {
                   {personal.lastName}
                 </span>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  Full Stack Developer &amp; Engenheiro de Software
+                  Desenvolvedor Full Stack &amp; Engenheiro de Software
                 </p>
               </div>
             </a>
@@ -145,7 +145,7 @@ export function Footer() {
               </a>
               <a
                 href={`mailto:${personal.email}`}
-                aria-label="Email"
+                aria-label="E-mail"
                 className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-muted-foreground transition-all hover:text-foreground hover:border-[var(--color-accent-copper)] hover:shadow-[0_2px_8px_rgba(220,38,38,0.1)]"
               >
                 <Mail className="h-4 w-4" />
@@ -186,7 +186,7 @@ export function Footer() {
 
           {/* Column 3: Tech stack */}
           <div>
-            <p className="mono-label mb-4">Tech Stack</p>
+            <p className="mono-label mb-4">Stack Tecnológica</p>
             <div className="flex flex-wrap gap-2">
               {TECH_BADGES.map((tech, i) => (
                 <span

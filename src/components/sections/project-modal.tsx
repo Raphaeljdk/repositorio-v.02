@@ -157,12 +157,12 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 </div>
               )}
 
-              {/* Case Study — Problem / Solution / Lessons */}
+              {/* Estudo de Caso — Problema / Solução / Lições */}
               {project.caseStudy && (
                 <div className="mt-5 space-y-3">
                   <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
                     <Target className="h-3.5 w-3.5" />
-                    Case Study
+                    Estudo de Caso
                   </p>
 
                   {/* Problem */}
@@ -237,7 +237,7 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
               <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-[var(--surface-border)] pt-4">
                 <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Eye className="h-3.5 w-3.5" />
-                  {project.stats.views} views
+                  {project.stats.views} visualizações
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <User className="h-3.5 w-3.5" />

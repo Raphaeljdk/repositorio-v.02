@@ -118,7 +118,7 @@ export const personal = {
   university: "Estácio",
   degree: "Bacharelado em Engenharia de Software (Cursando)",
   roles: [
-    "Full Stack Developer",
+    "Desenvolvedor Full Stack",
     "Arquitetura de Software",
     "Engenharia de Software",
     "IA Generativa & Produtividade",
@@ -175,10 +175,10 @@ export const skillCategories: { id: SkillCategory | "all"; label: string; color:
   { id: "all", label: "Todas", color: "from-emerald-400 to-teal-400" },
   { id: "frontend", label: "Frontend", color: "from-cyan-400 to-emerald-400" },
   { id: "backend", label: "Backend", color: "from-amber-400 to-orange-400" },
-  { id: "database", label: "Database", color: "from-violet-400 to-fuchsia-400" },
+  { id: "database", label: "Banco de Dados", color: "from-violet-400 to-fuchsia-400" },
   { id: "corporate", label: "Corporativo", color: "from-teal-400 to-emerald-400" },
   { id: "cloud", label: "Cloud", color: "from-sky-400 to-cyan-400" },
-  { id: "tools", label: "Tools & DevOps", color: "from-rose-400 to-pink-400" },
+  { id: "tools", label: "Ferramentas & DevOps", color: "from-rose-400 to-pink-400" },
   { id: "ai", label: "IA Generativa", color: "from-red-400 to-orange-400" },
 ];
 
@@ -198,7 +198,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2026",
     stats: { views: 289, likes: 22 },
-    role: "Frontend Lead",
+    role: "Líder Frontend",
     accent: "from-emerald-500 via-teal-500 to-cyan-500",
     image: "/projects/nexus-retail.png",
     metrics: [
@@ -228,7 +228,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 198, likes: 14 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-amber-500 via-orange-500 to-rose-500",
     image: "/projects/tms-lite.png",
     metrics: [
@@ -258,7 +258,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 245, likes: 18 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-violet-500 via-fuchsia-500 to-pink-500",
     image: "/projects/energyos.png",
     metrics: [
@@ -288,7 +288,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 156, likes: 11 },
-    role: "Frontend Developer",
+    role: "Desenvolvedor Frontend",
     accent: "from-cyan-500 via-sky-500 to-blue-500",
     image: "/projects/tradepro.png",
     metrics: [
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2024",
     stats: { views: 167, likes: 13 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-teal-500 via-emerald-500 to-green-500",
     image: "/projects/herdeiros.png",
     metrics: [
@@ -348,7 +348,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 120, likes: 8 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-emerald-500 via-cyan-500 to-teal-500",
     image: "/projects/mini-bank.png",
   },
@@ -367,7 +367,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 180, likes: 15 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-red-500 via-orange-500 to-amber-500",
     image: "/projects/erp-tech-lemon.png",
     metrics: [
@@ -397,7 +397,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2026",
     stats: { views: 312, likes: 28 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-rose-500 via-amber-500 to-red-500",
     image: "/projects/study-ai.png",
     metrics: [
@@ -427,7 +427,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2025",
     stats: { views: 145, likes: 12 },
-    role: "Full Stack Developer",
+    role: "Desenvolvedor Full Stack",
     accent: "from-rose-400 via-fuchsia-400 to-violet-400",
     image: "/projects/bloom-studio.png",
     metrics: [
@@ -457,7 +457,7 @@ export const projects: Project[] = [
     status: "in-progress",
     year: "2026",
     stats: { views: 45, likes: 5 },
-    role: "Backend Developer",
+    role: "Desenvolvedor Backend",
     accent: "from-rose-500 via-pink-500 to-fuchsia-500",
     image: "/projects/api-gateway.png",
   },
@@ -527,10 +527,10 @@ export const certifications: Certification[] = [
 
 export const services = [
   {
-    title: "Web Development",
+    title: "Desenvolvimento Web",
     description: "Aplicações web full stack com React, Next.js e Node.js — desempenho, SEO e DX de primeira.",
     icon: "code",
-    items: ["Next.js / React", "APIs REST & GraphQL", "Design Systems", "Realtime com WebSockets"],
+    items: ["Next.js / React", "APIs REST & GraphQL", "Sistemas de Design", "Tempo real com WebSockets"],
   },
   {
     title: "SAP B1 & Automação",
@@ -542,7 +542,7 @@ export const services = [
     title: "UI/UX & Dashboards",
     description: "Interfaces premium com foco em decisão — dashboards executivos, visualização de dados e motion.",
     icon: "sparkles",
-    items: ["Executive Dashboards", "Data Visualization", "Glassmorphism UI", "Motion Design"],
+    items: ["Dashboards Executivos", "Visualização de Dados", "Glassmorphism UI", "Motion Design"],
   },
   {
     title: "Cloud & DevOps",
@@ -620,7 +620,7 @@ export const navItems = [
   { label: "Sobre", href: "#about" },
   { label: "Projetos", href: "#projects" },
   { label: "Experiência", href: "#experience" },
-  { label: "Skills", href: "#skills" },
+  { label: "Habilidades", href: "#skills" },
   { label: "Contato", href: "#contact" },
 ];
 

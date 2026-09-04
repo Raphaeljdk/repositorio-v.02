@@ -80,7 +80,7 @@ export function GitHubHeatmap() {
         </div>
         <div>
           <p className="font-display text-xl font-bold text-[var(--color-accent-copper)] tabular-nums">{currentStreak}</p>
-          <p className="text-[10px] text-muted-foreground">streak atual</p>
+          <p className="text-[10px] text-muted-foreground">sequência atual</p>
         </div>
       </div>
 

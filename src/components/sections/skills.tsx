@@ -155,9 +155,9 @@ export function Skills() {
             {/* Quick stats under carousel */}
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                { label: "Expert", count: expertCount, color: "var(--color-accent-gold)" },
-                { label: "Proficient", count: proficientCount, color: "var(--color-accent-copper)" },
-                { label: "Learning", count: learningCount, color: "var(--color-accent-sage)" },
+                { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)" },
+                { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)" },
+                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)" },
               ].map((t) => (
                 <BorderGlow
                   key={t.label}
@@ -251,7 +251,7 @@ export function Skills() {
                 )}
               >
                 <Sparkles className="h-3 w-3" />
-                Carousel
+                Carrossel
               </button>
               <button
                 type="button"
@@ -342,7 +342,7 @@ export function Skills() {
                     <div>
                       <h3 className={cn("font-display text-base font-bold", config.color)}>
                         {config.label}
-                        <span className="ml-2 font-code text-xs font-normal text-muted-foreground">{tierSkills.length} skills</span>
+                        <span className="ml-2 font-code text-xs font-normal text-muted-foreground">{tierSkills.length} habilidades</span>
                       </h3>
                       <p className="text-[11px] text-muted-foreground">{config.sublabel}</p>
                     </div>
@@ -430,7 +430,7 @@ export function Skills() {
           pauseOnHover
           fadeOut
           scaleOnHover
-          ariaLabel="Technology stack logos"
+          ariaLabel="Logos da stack de tecnologia"
         />
         <GradualBlur
           position="bottom"
@@ -460,7 +460,7 @@ export function Skills() {
           pauseOnHover
           fadeOut
           scaleOnHover
-          ariaLabel="Technology stack logos row 2"
+          ariaLabel="Logos da stack de tecnologia — linha 2"
         />
         <GradualBlur
           position="bottom"

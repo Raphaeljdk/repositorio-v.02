@@ -234,7 +234,7 @@ export function Navbar() {
                     href={`mailto:${personal.email}`}
                     className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] py-2.5 text-sm text-muted-foreground"
                   >
-                    <Mail className="h-4 w-4" /> Email
+                    <Mail className="h-4 w-4" /> E-mail
                   </a>
                 </div>
                 <div className="mt-2 px-2">

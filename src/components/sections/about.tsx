@@ -102,7 +102,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="card-surface rounded-xl p-5"
             >
-              <p className="mono-label mb-3">Tech Stack Principal</p>
+              <p className="mono-label mb-3">Stack Tecnológica Principal</p>
               <div className="flex flex-wrap gap-2.5">
                 {[
                   { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },

@@ -28,7 +28,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://raphaeljdk.github.io"),
-  title: "Raphael Freitas · Full Stack Developer & Engenheiro de Software",
+  title: "Raphael Freitas · Desenvolvedor Full Stack & Engenheiro de Software",
   description:
     "Portfólio do Raphael Freitas — Desenvolvedor Full Stack com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software. React, Next.js, TypeScript, Node.js.",
   keywords: [
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Raphael Freitas" }],
   creator: "Raphael Freitas",
   openGraph: {
-    title: "Raphael Freitas · Full Stack Developer",
+    title: "Raphael Freitas · Desenvolvedor Full Stack",
     description:
-      "Portfólio do Raphael Freitas — Full Stack Developer com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software. São Paulo, Brasil.",
+      "Portfólio do Raphael Freitas — Desenvolvedor Full Stack com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software. São Paulo, Brasil.",
     url: "https://raphaeljdk.github.io",
     siteName: "Raphael Freitas",
     locale: "pt_BR",
@@ -59,15 +59,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1344,
         height: 768,
-        alt: "Raphael Freitas · Full Stack Developer & Engenheiro de Software",
+        alt: "Raphael Freitas · Desenvolvedor Full Stack & Engenheiro de Software",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Raphael Freitas · Full Stack Developer",
+    title: "Raphael Freitas · Desenvolvedor Full Stack",
     description:
-      "Portfólio do Raphael Freitas — Full Stack Developer com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software.",
+      "Portfólio do Raphael Freitas — Desenvolvedor Full Stack com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software.",
     images: ["/og-image.png"],
   },
   robots: {

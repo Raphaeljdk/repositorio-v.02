@@ -77,8 +77,8 @@ function CarouselItem({
         <div className="carousel-item-title">{item.title}</div>
         <p className="carousel-item-description">{item.description}</p>
         <div className="carousel-item-meta">
-          <span className="carousel-item-count">{item.skillCount} skills</span>
-          <span className="carousel-item-top">Top: {item.topSkill}</span>
+          <span className="carousel-item-count">{item.skillCount} habilidades</span>
+          <span className="carousel-item-top">Principal: {item.topSkill}</span>
         </div>
       </div>
     </motion.div>
@@ -291,7 +291,7 @@ export default function SkillsCarousel({
               type="button"
               key={index}
               className={`carousel-indicator ${activeIndex === index ? "active" : "inactive"}`}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Ir para slide ${index + 1}`}
               aria-current={activeIndex === index}
               animate={{ scale: activeIndex === index ? 1.2 : 1 }}
               onClick={() => setPosition(loop ? index + 1 : index)}

@@ -170,7 +170,7 @@ function ProcessStepMobile({
             className="font-code text-[10px] font-bold"
             style={{ color: step.color }}
           >
-            STEP {step.step}
+            PASSO {step.step}
           </span>
         </div>
         <h3 className="mt-1 text-sm font-bold text-foreground">{step.title}</h3>
