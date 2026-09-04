@@ -141,6 +141,14 @@
   color: #F2EFE5;
 }
 
+.carousel-circle-top {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--item-accent, #D93838);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
 .carousel-circle-desc {
   font-size: 10px;
   color: #4A4640;
@@ -156,9 +164,28 @@
   font-family: var(--font-code, monospace);
   color: #6B6560;
   margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 .dark .carousel-circle-meta {
   color: #8A8480;
+}
+
+.carousel-circle-percent {
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.carousel-circle-separator {
+  opacity: 0.4;
+}
+
+/* Skill logo image inside the circle icon container */
+.carousel-skill-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 /* ─── Round mode (container is also round) ─── */

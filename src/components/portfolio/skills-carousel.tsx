@@ -2,13 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import Image from "next/image";
 import {
   Monitor, Server, Database, Wrench, Building2, Cloud, Brain,
 } from "lucide-react";
 import { skills, skillCategories, type SkillCategory } from "@/lib/data";
 import "./skills-carousel.css";
 
-/* ─── Map categories to Lucide icons ─── */
+/* ─── Map categories to Lucide icons (fallback) ─── */
 const CATEGORY_ICONS: Record<SkillCategory, ReactNode> = {
   frontend: <Monitor className="carousel-icon" />,
   backend: <Server className="carousel-icon" />,
@@ -38,6 +39,8 @@ interface CarouselItemData {
   accent: string;
   skillCount: number;
   topSkill: string;
+  topSkillIcon: string;  // URL da logo da melhor habilidade
+  topSkillPercent: number; // Percentual da melhor habilidade
 }
 
 const DRAG_BUFFER = 0;
@@ -69,15 +72,29 @@ function CarouselItem({
       transition={transition}
     >
       {round ? (
-        /* Circular layout: icon centered, title below, meta at bottom */
+        /* Circular layout with top skill logo */
         <div className="carousel-circle-content">
-          <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}15`, borderColor: `${item.accent}30` }}>
-            {item.icon}
+          <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}12`, borderColor: `${item.accent}30` }}>
+            {item.topSkillIcon ? (
+              <Image
+                src={item.topSkillIcon}
+                alt={item.topSkill}
+                className="carousel-skill-logo"
+                width={32}
+                height={32}
+                unoptimized
+              />
+            ) : (
+              item.icon
+            )}
           </span>
           <div className="carousel-circle-title">{item.title}</div>
+          <div className="carousel-circle-top">{item.topSkill}</div>
           <div className="carousel-circle-desc">{item.description}</div>
           <div className="carousel-circle-meta">
-            <span style={{ color: item.accent }}>{item.skillCount}</span> habilidades
+            <span className="carousel-circle-percent" style={{ color: item.accent }}>{item.topSkillPercent}%</span>
+            <span className="carousel-circle-separator">·</span>
+            <span>{item.skillCount} habilidades</span>
           </div>
         </div>
       ) : (
@@ -125,9 +142,9 @@ export default function SkillsCarousel({
       .filter((c) => c.id !== "all")
       .map((cat, i) => {
         const catSkills = skills.filter((s) => s.category === cat.id);
-        const topSkill = catSkills.length > 0
-          ? catSkills.reduce((a, b) => a.percent > b.percent ? a : b).name
-          : "—";
+        const topSkillObj = catSkills.length > 0
+          ? catSkills.reduce((a, b) => a.percent > b.percent ? a : b)
+          : null;
         return {
           title: cat.label,
           description: catSkills.length > 0
@@ -137,7 +154,9 @@ export default function SkillsCarousel({
           icon: CATEGORY_ICONS[cat.id as SkillCategory] ?? <Monitor className="carousel-icon" />,
           accent: CATEGORY_ACCENTS[cat.id as SkillCategory] ?? "#D93838",
           skillCount: catSkills.length,
-          topSkill,
+          topSkill: topSkillObj?.name ?? "—",
+          topSkillIcon: topSkillObj?.icon ?? "",
+          topSkillPercent: topSkillObj?.percent ?? 0,
         };
       });
   }, []);

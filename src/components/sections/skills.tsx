@@ -148,7 +148,7 @@ export function Skills() {
                 autoplayDelay={3000}
                 pauseOnHover={true}
                 loop={true}
-                round={false}
+                round={true}
               />
             </div>
 
