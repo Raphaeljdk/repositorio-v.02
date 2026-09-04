@@ -112,9 +112,9 @@ export const personal = {
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
-  bio: "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.",
+  bio: "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina no SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.",
   bioLong:
-    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
+    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina no SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
   university: "Estácio",
   degree: "Bacharelado em Engenharia de Software (Cursando)",
   roles: [
@@ -238,7 +238,7 @@ export const projects: Project[] = [
       { label: "Tempo de Load", value: "<1.5s" },
     ],
     caseStudy: {
-      problem: "Transportadoras gerenciam CTEs em planilhas Excel, sem visibilidade em tempo real sobre custos e performance logística.",
+      problem: "Transportadoras gerenciam CTEs em planilhas Excel, sem visibilidade em tempo real sobre custos e desempenho logístico.",
       solution: "Sistema com dashboard de fretes, análise preditiva de custos por rota e comparação de transportadoras. UX pensada para operadores de TMS com fluxos de trabalho lineares.",
       lessons: "A complexidade de regras de frete (pedágio, cubagem, tipo de carga) exige um modelo de dados bem normalizado. UX para operador é diferente de UX para gestor.",
     },
@@ -269,7 +269,7 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       problem: "Monitoramento energético dependia de atualizações manuais e não oferecia visão em tempo real do consumo e geração.",
-      solution: "Arquitetura com WebSocket para push de dados, indicadores com thresholds configuráveis e alertas visuais. Separation clara entre dados e visualização.",
+      solution: "Arquitetura com WebSocket para push de dados, indicadores com thresholds configuráveis e alertas visuais. Separação clara entre dados e visualização.",
       lessons: "WebSocket precisa de reconnection logic robusto — redes corporativas derrubam conexões. Fallback para polling a cada 30s foi essencial.",
     },
   },
@@ -295,12 +295,12 @@ export const projects: Project[] = [
       { label: "Ativos Rastreados", value: "5+" },
       { label: "Gráficos Técnicos", value: "6 tipos" },
       { label: "Atualização", value: "Live" },
-      { label: "Performance", value: "60fps" },
+      { label: "Desempenho", value: "60fps" },
     ],
     caseStudy: {
       problem: "Traders precisam de múltiplos gráficos e dados em tempo real numa interface que não sobrecarrega visualmente.",
       solution: "Layout com tabs para ativos, gráficos Chart.js com streaming via WebSocket e indicadores técnicos overlay. Design minimal para não competir com dados.",
-      lessons: "Performance de renderização é crítica — cada tick de preço dispara re-render. Virtualização de listas e memoização de cálculos técnicos foram decisivos.",
+      lessons: "Desempenho de renderização é crítico — cada tick de preço dispara re-render. Virtualização de listas e memoização de cálculos técnicos foram decisivos.",
     },
   },
   {
@@ -409,7 +409,7 @@ export const projects: Project[] = [
     caseStudy: {
       problem: "Plataformas de estudo tradicionais forçam um ritmo padronizado e cobram perfeição imediata — o que quebra o ciclo natural de aprendizado e gera frustração.",
       solution: "Plataforma inspirada no wabi-sabi (beleza na imperfeição) com Sensei IA que se adapta ao ritmo do aluno, flashcards com spaced repetition, cadernos que crescem organicamente e Pomodoro Zen que respeita ciclos de foco. Cinco temas japoneses (Washi, Sumi, Koke, Momiji, Sakura) constroem atmosfera imersiva.",
-      lessons: "Aprendi que IA em educação não é sobre responder mais rápido — é sobre respeitar o tempo do aprendiz. O wabi-sabi como princípio de design (imperfeição, asimetria, naturalidade) cria conexão emocional que templates perfeitos não alcançam.",
+      lessons: "Aprendi que IA em educação não é sobre responder mais rápido — é sobre respeitar o tempo do aprendiz. O wabi-sabi como princípio de design (imperfeição, assimetria, naturalidade) cria conexão emocional que templates perfeitos não alcançam.",
     },
   },
   {
@@ -434,12 +434,12 @@ export const projects: Project[] = [
       { label: "Escritores", value: "Ativo" },
       { label: "Deploy", value: "Vercel" },
       { label: "Responsivo", value: "100%" },
-      { label: "Performance", value: "A+" },
+      { label: "Desempenho", value: "A+" },
     ],
     caseStudy: {
       problem: "Escritores careciam de uma plataforma dedicada que integrasse ferramentas de escrita com gestão de elementos narrativos complexos como personagens, mundos e arcos de história.",
       solution: "Plataforma web completa com editor de textos, sistema de organização de projetos literários, fichas de personagens, construção de mundos fictícios e funcionalidades sociais para comunidade de escritores.",
-      lessons: "Plataformas criativas precisam de UI que não compete com o conteúdo — o design deve desaparecer e deixar o escritor imerso na obra. Performance de renderização de texto longo exige virtualização cuidadosa.",
+      lessons: "Plataformas criativas precisam de UI que não compete com o conteúdo — o design deve desaparecer e deixar o escritor imerso na obra. Desempenho de renderização de texto longo exige virtualização cuidadosa.",
     },
   },
   {
@@ -528,13 +528,13 @@ export const certifications: Certification[] = [
 export const services = [
   {
     title: "Web Development",
-    description: "Aplicações web full stack com React, Next.js e Node.js — performance, SEO e DX de primeira.",
+    description: "Aplicações web full stack com React, Next.js e Node.js — desempenho, SEO e DX de primeira.",
     icon: "code",
     items: ["Next.js / React", "APIs REST & GraphQL", "Design Systems", "Realtime com WebSockets"],
   },
   {
     title: "SAP B1 & Automação",
-    description: "Rotina SAP Business One, automação de processos e integrações conectando legado a moderno.",
+    description: "Rotina no SAP Business One, automação de processos e integrações conectando legado a moderno.",
     icon: "building",
     items: ["SAP B1", "Módulos Financeiro & Estoque", "Automação Python", "TMS & Logística"],
   },
@@ -566,7 +566,7 @@ export const techArticles = [
   {
     title: "React 19: O que muda para desenvolvedores Full Stack",
     url: "https://react.dev/blog/2024/12/05/react-19",
-    snippet: "React 19 traz Server Components como padrão, novo hook use(), melhorias no Suspense e otimizações de performance que mudam a forma como construímos aplicações.",
+    snippet: "React 19 traz Server Components como padrão, novo hook use(), melhorias no Suspense e otimizações de desempenho que mudam a forma como construímos aplicações.",
     source: "React Blog",
     date: "2025",
     tag: "React",
@@ -580,7 +580,7 @@ export const techArticles = [
     tag: "Next.js",
   },
   {
-    title: "TypeScript 5.7: Tipos mais inteligentes e performance",
+    title: "TypeScript 5.7: Tipos mais inteligentes e desempenho",
     url: "https://devblogs.microsoft.com/typescript/",
     snippet: "Nova versão do TypeScript traz inferência aprimorada, tipos condicionais mais expressivos e ganhos de até 30% na velocidade do compilador.",
     source: "Microsoft",
@@ -604,9 +604,9 @@ export const techArticles = [
     tag: "SAP B1",
   },
   {
-    title: "Node.js 22: Performance e novas APIs nativas",
+    title: "Node.js 22: Desempenho e novas APIs nativas",
     url: "https://nodejs.org/en/blog",
-    snippet: "Node.js 22 traz melhorias de performance no V8, suporte a WebSocket nativo, require() ESM e novas APIs para streams e testes.",
+    snippet: "Node.js 22 traz melhorias de desempenho no V8, suporte a WebSocket nativo, require() ESM e novas APIs para streams e testes.",
     source: "Node.js Blog",
     date: "2025",
     tag: "Node.js",

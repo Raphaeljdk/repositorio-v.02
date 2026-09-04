@@ -272,7 +272,7 @@ export function AIChatWidget() {
                 </button>
               </div>
               <p className="mt-1.5 text-center text-[10px] text-muted-foreground/40">
-                IA baseada no currículo e projetos de Raphael
+                IA baseada no currículo e projetos do Raphael
               </p>
             </form>
           </motion.div>

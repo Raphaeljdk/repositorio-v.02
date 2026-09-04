@@ -235,7 +235,7 @@ export function GitHubActivity() {
               Atualizar
             </button>
             <span className="font-code text-[10px] text-muted-foreground/60">
-              Atualizado as {lastUpdated}
+              Atualizado às {lastUpdated}
             </span>
           </div>
         )}

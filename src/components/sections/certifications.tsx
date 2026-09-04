@@ -71,7 +71,7 @@ export function Certifications() {
             index={2}
           />
           <SummaryItem
-            label="Eng. Software"
+            label="Eng. de Software"
             value="2029"
             index={3}
           />

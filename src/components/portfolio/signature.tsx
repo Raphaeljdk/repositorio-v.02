@@ -80,7 +80,7 @@ export function HankoSeal({
         height: size,
         transform: "rotate(-5deg)",
       }}
-      aria-label="Carimbo pessoal de Raphael Freitas"
+      aria-label="Carimbo pessoal do Raphael Freitas"
       role="img"
     >
       <svg

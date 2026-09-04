@@ -137,7 +137,7 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 <div className="mt-5">
                   <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground mb-2.5 flex items-center gap-1.5">
                     <TrendingUp className="h-3.5 w-3.5" />
-                    Métricas de Impacto
+                    Métricas de impacto
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {project.metrics.map((m) => (

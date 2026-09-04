@@ -9,7 +9,7 @@ const MARQUEE_STATS = [
   { value: 30, suffix: "+", label: "Tecnologias", color: "#2B5B84" },
   { value: 4, suffix: "", label: "IAs Utilizadas", color: "#F2C14E" },
   { value: 9, suffix: "", label: "Certificações", color: "#B91C1C" },
-  { value: 4500, suffix: "+", label: "Horas Estudo", color: "#B91C1C" },
+  { value: 4500, suffix: "+", label: "Horas de Estudo", color: "#B91C1C" },
   { value: 15, suffix: "", label: "Repositórios", color: "#9A3412" },
 ];
 

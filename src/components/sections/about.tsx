@@ -45,7 +45,7 @@ export function About() {
           label="Sobre"
           title="Engenharia com intenção."
           kanji={1}
-          description="Ponte entre o rigor corporativo regulado e a velocidade do ecossistema web — entregando produtos que performam, escalam e resolvem problemas reais do negócio."
+          description="Ponte entre o rigor corporativo regulado e a velocidade do ecossistema web — entregando produtos que entregam desempenho, escalam e resolvem problemas reais do negócio."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1fr]">

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://raphaeljdk.github.io"),
   title: "Raphael Freitas · Full Stack Developer & Engenheiro de Software",
   description:
-    "Portfólio de Raphael Freitas — Desenvolvedor Full Stack com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software. React, Next.js, TypeScript, Node.js.",
+    "Portfólio do Raphael Freitas — Desenvolvedor Full Stack com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software. React, Next.js, TypeScript, Node.js.",
   keywords: [
     "Raphael Freitas",
     "Desenvolvedor Full Stack",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Portfólio de Raphael Freitas — Full Stack Developer com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software. São Paulo, Brasil.",
+      "Portfólio do Raphael Freitas — Full Stack Developer com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software. São Paulo, Brasil.",
     url: "https://raphaeljdk.github.io",
     siteName: "Raphael Freitas",
     locale: "pt_BR",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Raphael Freitas · Full Stack Developer",
     description:
-      "Portfólio de Raphael Freitas — Full Stack Developer com praticidade em arquitetura de sistemas, modelagem de sistemas e engenharia de software.",
+      "Portfólio do Raphael Freitas — Full Stack Developer com prática em arquitetura de sistemas, modelagem de sistemas e engenharia de software.",
     images: ["/og-image.png"],
   },
   robots: {
