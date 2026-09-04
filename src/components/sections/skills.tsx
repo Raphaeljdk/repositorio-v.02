@@ -10,6 +10,8 @@ import { useCardGlow } from "@/hooks/use-card-glow";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
 import BorderGlow from "@/components/portfolio/border-glow";
 import SkillsCarousel from "@/components/portfolio/skills-carousel";
+import LogoLoop from "@/components/portfolio/logo-loop";
+import GradualBlur from "@/components/portfolio/gradual-blur";
 
 type Filter = SkillCategory | "all";
 type TierView = "tiers" | "categories" | "carousel";
@@ -54,6 +56,29 @@ const tierGroups = getTierGroups();
 const expertCount = tierGroups.find((g) => g.tier === "expert")!.skills.length;
 const proficientCount = tierGroups.find((g) => g.tier === "proficient")!.skills.length;
 const learningCount = tierGroups.find((g) => g.tier === "learning")!.skills.length;
+
+/* ─── LogoLoop data — tech logos from skills ─── */
+const skillsLogoItems = skills
+  .filter((s) => s.percent >= 60)
+  .sort((a, b) => b.percent - a.percent)
+  .slice(0, 12)
+  .map((s) => ({
+    src: s.icon,
+    alt: s.name,
+    title: s.name,
+    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+  }));
+
+const skillsLogoItems2 = skills
+  .filter((s) => s.percent < 60 || s.percent >= 60)
+  .sort((a, b) => a.percent - b.percent)
+  .slice(0, 12)
+  .map((s) => ({
+    src: s.icon,
+    alt: s.name,
+    title: s.name,
+    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+  }));
 
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -381,6 +406,66 @@ export function Skills() {
           </div>
         )}
       </div>
+
+      {/* ── LogoLoop marquee — tech logos scrolling ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.8 }}
+        className="mt-12 relative"
+        style={{ height: "80px", position: "relative", overflow: "hidden" }}
+      >
+        <LogoLoop
+          logos={skillsLogoItems}
+          speed={80}
+          direction="left"
+          logoHeight={36}
+          gap={48}
+          pauseOnHover
+          fadeOut
+          scaleOnHover
+          ariaLabel="Technology stack logos"
+        />
+        <GradualBlur
+          position="bottom"
+          height="2rem"
+          strength={1.5}
+          divCount={4}
+          curve="bezier"
+          opacity={0.9}
+        />
+      </motion.div>
+
+      {/* Second row — reverse direction */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative"
+        style={{ height: "80px", position: "relative", overflow: "hidden" }}
+      >
+        <LogoLoop
+          logos={skillsLogoItems2}
+          speed={60}
+          direction="right"
+          logoHeight={32}
+          gap={40}
+          pauseOnHover
+          fadeOut
+          scaleOnHover
+          ariaLabel="Technology stack logos row 2"
+        />
+        <GradualBlur
+          position="bottom"
+          height="2rem"
+          strength={1.5}
+          divCount={4}
+          curve="bezier"
+          opacity={0.9}
+        />
+      </motion.div>
     </section>
   );
 }
