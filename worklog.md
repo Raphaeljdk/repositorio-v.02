@@ -556,3 +556,22 @@ Stage Summary:
 - All 8 improvements deployed and verified (agent-browser: zero errors, "Saiba mais" scrolls correctly, nav items all visible)
 - Lint passes clean
 - Page height ~14.5kpx, all sections render correctly
+---
+Task ID: 8
+Agent: Main Agent
+Task: Add ChatGPT logo, fix dark mode conflicts, create PillNav, improve CSS
+
+Work Log:
+- Extracted ChatGPT logo from uploaded zip and copied to /public/chatgpt-logo.png
+- Fixed dark mode bug: --card-bg CSS variable was never defined, BorderGlow always used dark fallback
+- Added --card-bg to globals.css for both light (#FBFAF4) and dark (#161614) modes
+- Fixed isLightColor() to handle CSS variables at runtime
+- Fixed border-glow.css, skills-carousel.css, logo-loop.css, gradual-blur.css for proper .dark class theming
+- Created PillNav component with framer-motion (no GSAP) and integrated into navbar
+- Added ChatGPT logo to LogoLoop marquee and About tech stack
+- Reduced carousel auto-play delay to 3000ms
+- Pushed to GitHub (commit c691c5c)
+
+Stage Summary:
+- ChatGPT logo integrated, dark mode fixed, PillNav created, all CSS themed properly
+
