@@ -1,0 +1,87 @@
+/* ─── PillNav — SHOGUN DIGITAL themed ─── */
+
+.pill-nav {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  isolation: isolate;
+}
+
+.pill-nav-indicator {
+  position: absolute;
+  top: 0;
+  border-radius: 10px;
+  background: var(--color-accent-copper);
+  z-index: 0;
+  pointer-events: none;
+  box-shadow:
+    0 0 12px rgba(217, 56, 56, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .pill-nav-indicator {
+  background: #E55050;
+  box-shadow:
+    0 0 16px rgba(229, 80, 80, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pill-nav-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  user-select: none;
+  min-height: 32px;
+}
+
+.pill-nav-item:hover {
+  color: var(--foreground);
+}
+
+.pill-nav-item.active {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* Focus ring */
+.pill-nav-item:focus-visible {
+  outline: 2px solid var(--color-accent-copper);
+  outline-offset: -2px;
+  border-radius: 9px;
+}
+
+/* Responsive — smaller on mobile */
+@media (max-width: 639px) {
+  .pill-nav {
+    gap: 1px;
+    padding: 2px;
+  }
+  .pill-nav-item {
+    padding: 5px 10px;
+    font-size: 11px;
+    min-height: 28px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pill-nav-indicator {
+    transition: none !important;
+  }
+}

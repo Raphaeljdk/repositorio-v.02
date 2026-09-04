@@ -61,7 +61,7 @@ export function About() {
             <BorderGlow
               edgeSensitivity={25}
               glowColor="10 80 60"
-              backgroundColor="var(--card-bg, #161614)"
+              backgroundColor="var(--card-bg)"
               borderRadius={14}
               glowRadius={20}
               glowIntensity={0.7}
@@ -113,7 +113,7 @@ export function About() {
                   { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
                   { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
                   { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg" },
-                  { name: "ChatGPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openai/openai-original.svg" },
+                  { name: "ChatGPT", icon: "/chatgpt-logo.png" },
                   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
                 ].map((tech) => (
                   <div
@@ -235,7 +235,7 @@ function InfoCard({
     <BorderGlow
       edgeSensitivity={20}
       glowColor="10 80 60"
-      backgroundColor="var(--card-bg, #161614)"
+      backgroundColor="var(--card-bg)"
       borderRadius={12}
       glowRadius={14}
       glowIntensity={0.5}

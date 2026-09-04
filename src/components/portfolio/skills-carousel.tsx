@@ -97,7 +97,7 @@ interface SkillsCarouselProps {
 export default function SkillsCarousel({
   baseWidth = 340,
   autoplay = true,
-  autoplayDelay = 4000,
+  autoplayDelay = 3000,
   pauseOnHover = true,
   loop = true,
   round = false,
@@ -163,7 +163,11 @@ export default function SkillsCarousel({
     if (!autoplay || itemsForRender.length <= 1) return undefined;
     if (pauseOnHover && isHovered) return undefined;
     const timer = setInterval(() => {
-      setPosition((prev) => Math.min(prev + 1, itemsForRender.length - 1));
+      setPosition((prev) => {
+        const next = prev + 1;
+        if (loop && next >= itemsForRender.length) return prev; // Will be handled by animation complete
+        return Math.min(next, itemsForRender.length - 1);
+      });
     }, autoplayDelay);
     return () => clearInterval(timer);
   }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length]);

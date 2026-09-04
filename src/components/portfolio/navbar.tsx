@@ -6,6 +6,8 @@ import { Menu, X, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { navItems, moreNavItems, personal } from "@/lib/data";
 import { ThemeToggle } from "./theme-toggle";
+import { PillNav } from "./pill-nav";
+import "./pill-nav.css";
 import { cn } from "@/lib/utils";
 
 const allNavItems = [...navItems, ...moreNavItems];
@@ -109,33 +111,17 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Desktop nav — all items inline */}
-          <div className="hidden items-center gap-0.5 lg:flex">
-            {allNavItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  go(item.href);
-                }}
-                className={cn(
-                  "relative px-2.5 py-1.5 text-[13px] font-medium transition-colors",
-                  active === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {item.label}
-                {active === item.href && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute bottom-0 left-2.5 right-2.5 h-px bg-[var(--color-accent-copper)]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
-            ))}
+          {/* Desktop nav — PillNav with sliding pill indicator */}
+          <div className="hidden lg:flex">
+            <PillNav
+              items={allNavItems.map((item) => ({
+                id: item.href,
+                label: item.label,
+                href: item.href,
+              }))}
+              activeId={active}
+              onItemClick={(href) => go(href)}
+            />
           </div>
 
           {/* Right cluster */}

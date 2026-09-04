@@ -97,6 +97,7 @@
   /* Surfaces — warm off-white, sumi borders */
   --surface: #FBFAF4;
   --surface-border: rgba(0, 0, 0, 0.06);
+  --card-bg: #FBFAF4;
 
   /* Gradients — restrained, in-palette */
   --gradient-brand: linear-gradient(135deg, #D93838 0%, #F2C14E 100%);
@@ -157,6 +158,7 @@
   /* Surfaces — elevated warm dark */
   --surface: #161614;
   --surface-border: rgba(255, 255, 255, 0.08);
+  --card-bg: #161614;
 
   /* Gradients — brightened accents for dark contrast */
   --gradient-brand: linear-gradient(135deg, #E55050 0%, #F2C14E 100%);

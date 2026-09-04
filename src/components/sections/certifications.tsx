@@ -146,7 +146,7 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
     <BorderGlow
       edgeSensitivity={20}
       glowColor="10 80 60"
-      backgroundColor="var(--card-bg, #161614)"
+      backgroundColor="var(--card-bg)"
       borderRadius={12}
       glowRadius={16}
       glowIntensity={0.5}

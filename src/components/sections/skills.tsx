@@ -58,27 +58,40 @@ const proficientCount = tierGroups.find((g) => g.tier === "proficient")!.skills.
 const learningCount = tierGroups.find((g) => g.tier === "learning")!.skills.length;
 
 /* ─── LogoLoop data — tech logos from skills ─── */
-const skillsLogoItems = skills
-  .filter((s) => s.percent >= 60)
-  .sort((a, b) => b.percent - a.percent)
-  .slice(0, 12)
-  .map((s) => ({
-    src: s.icon,
-    alt: s.name,
-    title: s.name,
-    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
-  }));
+const CHATGPT_LOGO = {
+  src: "/chatgpt-logo.png",
+  alt: "ChatGPT",
+  title: "ChatGPT",
+  href: "https://chat.openai.com",
+};
 
-const skillsLogoItems2 = skills
-  .filter((s) => s.percent < 60 || s.percent >= 60)
-  .sort((a, b) => a.percent - b.percent)
-  .slice(0, 12)
-  .map((s) => ({
-    src: s.icon,
-    alt: s.name,
-    title: s.name,
-    href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
-  }));
+const skillsLogoItems = [
+  CHATGPT_LOGO,
+  ...skills
+    .filter((s) => s.percent >= 60)
+    .sort((a, b) => b.percent - a.percent)
+    .slice(0, 11)
+    .map((s) => ({
+      src: s.icon,
+      alt: s.name,
+      title: s.name,
+      href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+    })),
+];
+
+const skillsLogoItems2 = [
+  ...skills
+    .filter((s) => s.percent < 60 || s.percent >= 60)
+    .sort((a, b) => a.percent - b.percent)
+    .slice(0, 11)
+    .map((s) => ({
+      src: s.icon,
+      alt: s.name,
+      title: s.name,
+      href: `https://www.google.com/search?q=${encodeURIComponent(s.name + " technology")}`,
+    })),
+  CHATGPT_LOGO,
+];
 
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -145,7 +158,7 @@ export function Skills() {
               <SkillsCarousel
                 baseWidth={380}
                 autoplay={true}
-                autoplayDelay={4000}
+                autoplayDelay={3000}
                 pauseOnHover={true}
                 loop={true}
                 round={false}
@@ -163,7 +176,7 @@ export function Skills() {
                   key={t.label}
                   edgeSensitivity={25}
                   glowColor="10 80 60"
-                  backgroundColor="var(--card-bg, #161614)"
+                  backgroundColor="var(--card-bg)"
                   borderRadius={12}
                   glowRadius={20}
                   glowIntensity={0.8}
@@ -480,7 +493,7 @@ function SkillCard({ skill, tier, rank, wide }: { skill: (typeof skills)[number]
     <BorderGlow
       edgeSensitivity={25}
       glowColor="10 80 60"
-      backgroundColor="var(--card-bg, #161614)"
+      backgroundColor="var(--card-bg)"
       borderRadius={12}
       glowRadius={16}
       glowIntensity={0.6}

@@ -15,10 +15,24 @@
   isolation: isolate;
 }
 
+/* Light mode — softer blur */
+.gradual-blur-parent .gradual-blur-inner > div {
+  opacity: 0.85;
+}
+
+/* Dark mode — stronger blur */
+.dark .gradual-blur-parent .gradual-blur-inner > div {
+  opacity: 1;
+}
+
 @supports not (backdrop-filter: blur(1px)) {
   .gradual-blur-inner > div {
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0.5;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0.4;
+  }
+  .dark .gradual-blur-inner > div {
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0.6;
   }
 }
 

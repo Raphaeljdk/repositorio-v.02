@@ -36,6 +36,23 @@ function buildGradientVars(colors: string[]): Record<string, string> {
 }
 
 function isLightColor(color: string) {
+  // Handle CSS variables — resolve at runtime if possible
+  if (color.startsWith("var(")) {
+    if (typeof document !== "undefined") {
+      try {
+        const varName = color.match(/var\(--([\w-]+)/)?.[1];
+        if (varName) {
+          const resolved = getComputedStyle(document.documentElement).getPropertyValue(`--${varName}`).trim();
+          if (resolved && resolved.startsWith("#")) return isLightColor(resolved);
+        }
+        // Fallback: check if document is in dark mode
+        return !document.documentElement.classList.contains("dark");
+      } catch {
+        return true; // Default to light for SSR
+      }
+    }
+    return true; // SSR default: assume light
+  }
   const value = color.trim().replace("#", "");
   if (!/^[\da-f]{3}([\da-f]{3})?$/i.test(value)) return false;
   const hex = value.length === 3 ? value.split("").map((char) => char + char).join("") : value;
@@ -83,7 +100,7 @@ const BorderGlow = ({
   className = "",
   edgeSensitivity = 30,
   glowColor = "10 80 60",
-  backgroundColor = "#0E0E0C",
+  backgroundColor = "var(--card-bg)",
   borderRadius = 28,
   glowRadius = 40,
   glowIntensity = 1.0,
