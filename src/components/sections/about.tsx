@@ -21,6 +21,7 @@ import { GitHubHeatmap } from "./github-heatmap";
 import { CurrentlyWidget } from "./currently-widget";
 import { KanjiNumber } from "@/components/portfolio/signature";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
+import BorderGlow from "@/components/portfolio/border-glow";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   rocket: Rocket,
@@ -57,7 +58,17 @@ export function About() {
             className="space-y-6"
           >
             {/* Bio card */}
-            <div className="card-surface border-t-2 border-t-[var(--color-accent-copper)] rounded-xl p-6 sm:p-8">
+            <BorderGlow
+              edgeSensitivity={25}
+              glowColor="10 80 60"
+              backgroundColor="var(--card-bg, #161614)"
+              borderRadius={14}
+              glowRadius={20}
+              glowIntensity={0.7}
+              coneSpread={30}
+              colors={["#D93838", "#F2C14E", "#2B5B84"]}
+            >
+            <div className="border-t-2 border-t-[var(--color-accent-copper)] p-6 sm:p-8">
               <p className="relative text-base leading-relaxed text-foreground/90 sm:text-lg">
                 {personal.bioLong}
               </p>
@@ -81,6 +92,7 @@ export function About() {
                 )}
               </motion.div>
             </div>
+            </BorderGlow>
 
             {/* Tech stack quick-view — horizontal icon strip */}
             <motion.div
@@ -220,15 +232,26 @@ function InfoCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="card-surface rounded-xl p-4 [transition:transform_0.3s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease] hover:[transform:scale(1.02)_translateY(-2px)] hover:border-[var(--color-accent-copper)]">
-      <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded-md text-[var(--color-accent-copper)]">
-          {icon}
-        </span>
-        <span className="mono-label">{label}</span>
+    <BorderGlow
+      edgeSensitivity={20}
+      glowColor="10 80 60"
+      backgroundColor="var(--card-bg, #161614)"
+      borderRadius={12}
+      glowRadius={14}
+      glowIntensity={0.5}
+      coneSpread={30}
+      colors={["#D93838", "#F2C14E", "#2B5B84"]}
+    >
+      <div className="p-4 [transition:transform_0.3s_ease,border-color_0.3s_ease,box-shadow_0.3s_ease] hover:[transform:scale(1.02)_translateY(-2px)] hover:border-[var(--color-accent-copper)]">
+        <div className="flex items-center gap-2">
+          <span className="flex h-6 w-6 items-center justify-center rounded-md text-[var(--color-accent-copper)]">
+            {icon}
+          </span>
+          <span className="mono-label">{label}</span>
+        </div>
+        <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
       </div>
-      <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
-    </div>
+    </BorderGlow>
   );
 }
 

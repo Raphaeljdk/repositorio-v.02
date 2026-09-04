@@ -9,6 +9,7 @@ import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 import { useCardGlow } from "@/hooks/use-card-glow";
 import { useToast } from "@/hooks/use-toast";
+import BorderGlow from "@/components/portfolio/border-glow";
 
 const FILTERS = [
   { id: "all", label: "Todas" },
@@ -142,6 +143,16 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
   };
 
   return (
+    <BorderGlow
+      edgeSensitivity={20}
+      glowColor="10 80 60"
+      backgroundColor="var(--card-bg, #161614)"
+      borderRadius={12}
+      glowRadius={16}
+      glowIntensity={0.5}
+      coneSpread={30}
+      colors={["#D93838", "#F2C14E", "#2B5B84"]}
+    >
     <motion.div
       layout
       initial={{ opacity: 0, y: 16 }}
@@ -151,7 +162,7 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="card-surface card-glow rounded-xl p-5"
+      className="card-glow p-5"
     >
       <div className="flex items-start justify-between">
         <span
@@ -245,6 +256,7 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
         </div>
       )}
     </motion.div>
+    </BorderGlow>
   );
 }
 

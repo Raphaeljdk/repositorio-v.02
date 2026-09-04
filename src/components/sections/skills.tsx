@@ -2,15 +2,17 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Crown, TrendingUp, Sprout } from "lucide-react";
+import { Crown, TrendingUp, Sprout, Sparkles } from "lucide-react";
 import { skillCategories, skills, type SkillCategory, type SkillTier } from "@/lib/data";
 import { SectionHeading } from "./about";
 import { cn } from "@/lib/utils";
 import { useCardGlow } from "@/hooks/use-card-glow";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
+import BorderGlow from "@/components/portfolio/border-glow";
+import SkillsCarousel from "@/components/portfolio/skills-carousel";
 
 type Filter = SkillCategory | "all";
-type TierView = "tiers" | "categories";
+type TierView = "tiers" | "categories" | "carousel";
 
 const ACCENT_COLORS = ["#D93838", "#F2C14E", "#2B5B84", "#B91C1C", "#9A3412", "#7C2D12", "#E55050"] as const;
 
@@ -56,7 +58,7 @@ const learningCount = tierGroups.find((g) => g.tier === "learning")!.skills.leng
 export function Skills() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
-  const [view, setView] = useState<TierView>("tiers");
+  const [view, setView] = useState<TierView>("carousel");
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -85,7 +87,6 @@ export function Skills() {
 
   const filteredTierGroups = useMemo(() => {
     if (query || filter !== "all") {
-      // When filtering, put everything in one flat list
       return null;
     }
     return tierOrder.map((tier) => ({
@@ -106,7 +107,57 @@ export function Skills() {
           description="Perfil T-shaped: domínio profundo no eixo, amplitude na barra. Rankeadas por proficiência real."
         />
 
-        {/* T-shaped diagram - visual summary */}
+        {/* ── CAROUSEL VIEW ── */}
+        {view === "carousel" && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mt-10 flex flex-col items-center gap-8"
+          >
+            <div className="w-full max-w-md mx-auto" style={{ minHeight: "420px", position: "relative" }}>
+              <SkillsCarousel
+                baseWidth={380}
+                autoplay={true}
+                autoplayDelay={4000}
+                pauseOnHover={true}
+                loop={true}
+                round={false}
+              />
+            </div>
+
+            {/* Quick stats under carousel */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {[
+                { label: "Expert", count: expertCount, color: "var(--color-accent-gold)" },
+                { label: "Proficient", count: proficientCount, color: "var(--color-accent-copper)" },
+                { label: "Learning", count: learningCount, color: "var(--color-accent-sage)" },
+              ].map((t) => (
+                <BorderGlow
+                  key={t.label}
+                  edgeSensitivity={25}
+                  glowColor="10 80 60"
+                  backgroundColor="var(--card-bg, #161614)"
+                  borderRadius={12}
+                  glowRadius={20}
+                  glowIntensity={0.8}
+                  coneSpread={30}
+                  colors={["#D93838", "#F2C14E", "#2B5B84"]}
+                  className="inline-flex"
+                >
+                  <div className="flex items-center gap-2 px-4 py-2">
+                    <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: t.color }} />
+                    <span className="font-code text-xs text-muted-foreground">{t.label}</span>
+                    <span className="font-code text-sm font-bold" style={{ color: t.color }}>{t.count}</span>
+                  </div>
+                </BorderGlow>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* T-shaped diagram - visual summary (only in tiers view) */}
         {view === "tiers" && !query && filter === "all" && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -116,7 +167,6 @@ export function Skills() {
             className="mt-10 card-surface rounded-xl p-5 sm:p-6"
           >
             <div className="flex items-end justify-center gap-1 sm:gap-2">
-              {/* Top bar of the T — proficient breadth */}
               <div className="flex items-end gap-1 sm:gap-1.5 mb-2">
                 {["Frontend", "Backend", "DB", "Tools", "Corp", "Cloud", "IA"].map((cat, i) => (
                   <motion.div
@@ -134,7 +184,6 @@ export function Skills() {
                 ))}
               </div>
             </div>
-            {/* Shaft of the T — deep expertise */}
             <div className="mx-auto w-12 sm:w-16">
               <motion.div
                 initial={{ height: 0 }}
@@ -168,6 +217,17 @@ export function Skills() {
           {/* View toggle + Category filters */}
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex rounded-lg border border-[var(--surface-border)] p-0.5">
+              <button
+                type="button"
+                onClick={() => { setView("carousel"); setFilter("all"); }}
+                className={cn(
+                  "rounded-md px-3 py-1.5 text-xs font-medium transition-all min-h-[36px] inline-flex items-center gap-1.5",
+                  view === "carousel" ? "bg-[var(--color-accent-copper)] text-white" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Sparkles className="h-3 w-3" />
+                Carousel
+              </button>
               <button
                 type="button"
                 onClick={() => { setView("tiers"); setFilter("all"); }}
@@ -211,30 +271,32 @@ export function Skills() {
             )}
           </div>
 
-          {/* Search */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative"
-          >
-            <input
-              id="skill-search"
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar tecnologia..."
-              className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] lg:w-64"
-            />
-            <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-[var(--surface-border)] bg-muted px-1.5 py-0.5 font-code text-[10px] text-muted-foreground lg:block">
-              /
-            </kbd>
-          </motion.div>
+          {/* Search — only in tiers/categories */}
+          {view !== "carousel" && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="relative"
+            >
+              <input
+                id="skill-search"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Buscar tecnologia..."
+                className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-[var(--color-accent-copper)] lg:w-64"
+              />
+              <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-[var(--surface-border)] bg-muted px-1.5 py-0.5 font-code text-[10px] text-muted-foreground lg:block">
+                /
+              </kbd>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* TIER VIEW — grouped by proficiency */}
-        {filteredTierGroups && view === "tiers" ? (
+        {view === "tiers" && filteredTierGroups ? (
           <div className="mt-10 space-y-10">
             {filteredTierGroups.map(({ tier, skills: tierSkills }, groupIdx) => {
               const config = TIER_CONFIG[tier];
@@ -296,7 +358,7 @@ export function Skills() {
               );
             })}
           </div>
-        ) : (
+        ) : view === "categories" ? (
           /* CATEGORY / SEARCH VIEW — flat grid */
           <motion.div layout className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             <AnimatePresence mode="popLayout">
@@ -311,9 +373,9 @@ export function Skills() {
               ))}
             </AnimatePresence>
           </motion.div>
-        )}
+        ) : null}
 
-        {filtered.length === 0 && (
+        {view !== "carousel" && filtered.length === 0 && (
           <div className="mt-12 text-center text-sm text-muted-foreground">
             Nenhuma tecnologia encontrada para &ldquo;{query}&rdquo;.
           </div>
@@ -330,73 +392,84 @@ function SkillCard({ skill, tier, rank, wide }: { skill: (typeof skills)[number]
   const isExpert = tier === "expert";
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.92 }}
-      transition={{ duration: 0.3, delay: rank * 0.03 }}
-      ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className={cn(
-        "card-surface group rounded-xl p-4 border-l-2 relative overflow-hidden",
-        wide && "lg:col-span-2",
-        isExpert && "ring-1 " + config.ringColor
-      )}
-      style={{ borderLeftColor: catColor }}
+    <BorderGlow
+      edgeSensitivity={25}
+      glowColor="10 80 60"
+      backgroundColor="var(--card-bg, #161614)"
+      borderRadius={12}
+      glowRadius={16}
+      glowIntensity={0.6}
+      coneSpread={30}
+      colors={[catColor, "#F2C14E", "#2B5B84"]}
+      className={cn(wide && "lg:col-span-2")}
     >
-      {/* Rank badge for experts */}
-      {isExpert && (
-        <span className="absolute top-2 right-2 font-code text-[9px] font-bold text-muted-foreground/40">
-          #{rank}
-        </span>
-      )}
+      <motion.div
+        layout
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.92 }}
+        transition={{ duration: 0.3, delay: rank * 0.03 }}
+        ref={ref}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        className={cn(
+          "group p-4 border-l-2 relative overflow-hidden",
+          isExpert && "ring-1 " + config.ringColor
+        )}
+        style={{ borderLeftColor: catColor }}
+      >
+        {/* Rank badge for experts */}
+        {isExpert && (
+          <span className="absolute top-2 right-2 font-code text-[9px] font-bold text-muted-foreground/40">
+            #{rank}
+          </span>
+        )}
 
-      <div className="flex items-center gap-3">
-        <img
-          src={skill.icon}
-          alt={skill.name}
-          className={cn("", isExpert ? "h-10 w-10" : "h-7 w-7")}
-          loading="lazy"
-        />
-        <div className="min-w-0 flex-1">
-          <h3 className={cn("font-semibold text-foreground truncate", isExpert ? "text-base" : "text-sm")}>
-            {skill.name}
-          </h3>
-          <p className={cn("font-code text-[10px] text-muted-foreground", isExpert && "text-[11px]")}>
-            {skill.level}
-          </p>
-        </div>
-        <span className={cn("font-code font-bold", isExpert ? "text-lg" : "text-sm", config.color)}>
-          {skill.percent}<span className={cn("text-muted-foreground", isExpert ? "text-[10px]" : "text-[9px]")}>%</span>
-        </span>
-      </div>
-
-      {/* Description — shown below name */}
-      <p className={cn("mt-2 leading-relaxed text-muted-foreground", isExpert ? "text-xs line-clamp-2" : "text-[11px] line-clamp-1")}>
-        {skill.description}
-      </p>
-
-      {/* Progress bar */}
-      <div className="mt-3 relative progress-glow">
-        <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
-          <span>{skill.experience}</span>
-        </div>
-        <div className={cn("mt-1 w-full overflow-hidden rounded-full bg-muted/60", isExpert ? "h-2" : "h-1.5")}>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.percent}%` }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="h-full rounded-full"
-            style={{
-              background: `linear-gradient(90deg, ${catColor}, ${catColor}88)`,
-              boxShadow: `0 0 ${isExpert ? 12 : 6}px ${catColor}40`,
-            }}
+        <div className="flex items-center gap-3">
+          <img
+            src={skill.icon}
+            alt={skill.name}
+            className={cn("", isExpert ? "h-10 w-10" : "h-7 w-7")}
+            loading="lazy"
           />
+          <div className="min-w-0 flex-1">
+            <h3 className={cn("font-semibold text-foreground truncate", isExpert ? "text-base" : "text-sm")}>
+              {skill.name}
+            </h3>
+            <p className={cn("font-code text-[10px] text-muted-foreground", isExpert && "text-[11px]")}>
+              {skill.level}
+            </p>
+          </div>
+          <span className={cn("font-code font-bold", isExpert ? "text-lg" : "text-sm", config.color)}>
+            {skill.percent}<span className={cn("text-muted-foreground", isExpert ? "text-[10px]" : "text-[9px]")}>%</span>
+          </span>
         </div>
-      </div>
-    </motion.div>
+
+        {/* Description */}
+        <p className={cn("mt-2 leading-relaxed text-muted-foreground", isExpert ? "text-xs line-clamp-2" : "text-[11px] line-clamp-1")}>
+          {skill.description}
+        </p>
+
+        {/* Progress bar */}
+        <div className="mt-3 relative progress-glow">
+          <div className="flex items-center justify-between font-code text-[10px] text-muted-foreground">
+            <span>{skill.experience}</span>
+          </div>
+          <div className={cn("mt-1 w-full overflow-hidden rounded-full bg-muted/60", isExpert ? "h-2" : "h-1.5")}>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${skill.percent}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="h-full rounded-full"
+              style={{
+                background: `linear-gradient(90deg, ${catColor}, ${catColor}88)`,
+                boxShadow: `0 0 ${isExpert ? 12 : 6}px ${catColor}40`,
+              }}
+            />
+          </div>
+        </div>
+      </motion.div>
+    </BorderGlow>
   );
 }
