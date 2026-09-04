@@ -61,26 +61,43 @@ function CarouselItem({
       className={`carousel-item ${round ? "round" : ""}`}
       style={{
         width: itemWidth,
-        height: round ? itemWidth : "100%",
+        height: itemWidth,
         rotateY,
-        ...(round && { borderRadius: "50%" }),
+        borderRadius: "50%",
         "--item-accent": item.accent,
       } as React.CSSProperties}
       transition={transition}
     >
-      <div className={`carousel-item-header ${round ? "round" : ""}`}>
-        <span className="carousel-icon-container" style={{ backgroundColor: `${item.accent}20` }}>
-          {item.icon}
-        </span>
-      </div>
-      <div className="carousel-item-content">
-        <div className="carousel-item-title">{item.title}</div>
-        <p className="carousel-item-description">{item.description}</p>
-        <div className="carousel-item-meta">
-          <span className="carousel-item-count">{item.skillCount} habilidades</span>
-          <span className="carousel-item-top">Principal: {item.topSkill}</span>
+      {round ? (
+        /* Circular layout: icon centered, title below, meta at bottom */
+        <div className="carousel-circle-content">
+          <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}15`, borderColor: `${item.accent}30` }}>
+            {item.icon}
+          </span>
+          <div className="carousel-circle-title">{item.title}</div>
+          <div className="carousel-circle-desc">{item.description}</div>
+          <div className="carousel-circle-meta">
+            <span style={{ color: item.accent }}>{item.skillCount}</span> habilidades
+          </div>
         </div>
-      </div>
+      ) : (
+        /* Original rectangular layout */
+        <>
+          <div className="carousel-item-header">
+            <span className="carousel-icon-container" style={{ backgroundColor: `${item.accent}20` }}>
+              {item.icon}
+            </span>
+          </div>
+          <div className="carousel-item-content">
+            <div className="carousel-item-title">{item.title}</div>
+            <p className="carousel-item-description">{item.description}</p>
+            <div className="carousel-item-meta">
+              <span className="carousel-item-count">{item.skillCount} habilidades</span>
+              <span className="carousel-item-top">Principal: {item.topSkill}</span>
+            </div>
+          </div>
+        </>
+      )}
     </motion.div>
   );
 }
@@ -165,7 +182,7 @@ export default function SkillsCarousel({
     const timer = setInterval(() => {
       setPosition((prev) => {
         const next = prev + 1;
-        if (loop && next >= itemsForRender.length) return prev; // Will be handled by animation complete
+        if (loop && next >= itemsForRender.length) return prev;
         return Math.min(next, itemsForRender.length - 1);
       });
     }, autoplayDelay);
@@ -251,7 +268,7 @@ export default function SkillsCarousel({
       className={`carousel-container ${round ? "round" : ""}`}
       style={{
         width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px`, borderRadius: "50%" }),
+        height: round ? `${baseWidth}px` : `${itemWidth + 60}px`,
       }}
     >
       <motion.div

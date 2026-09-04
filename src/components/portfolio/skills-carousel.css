@@ -30,20 +30,21 @@
   display: flex;
 }
 
-/* Light mode item */
+/* ─── Circular item (default now) ─── */
 .carousel-item {
   position: relative;
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: calc(var(--outer-r) - var(--p-distance));
+  border-radius: 50%;
   background: linear-gradient(160deg, #FBFAF4 0%, #F5F3EC 50%, #F0EEE6 100%);
   overflow: hidden;
   cursor: grab;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
 /* Dark mode item */
@@ -53,8 +54,10 @@
 }
 
 .carousel-item:hover {
-  border-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 4px 20px -4px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .dark .carousel-item:hover {
@@ -66,23 +69,99 @@
   cursor: grabbing;
 }
 
-/* Accent line at the top of each card */
+/* Accent ring around the circle */
 .carousel-item::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--item-accent, #D93838), transparent);
-  opacity: 0.4;
-  border-radius: 1px;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--item-accent, #D93838);
+  opacity: 0.25;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.dark .carousel-item::before {
-  opacity: 0.6;
+.carousel-item:hover::before {
+  opacity: 0.5;
 }
 
+/* ─── Circular content layout ─── */
+.carousel-circle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16% 22%;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-circle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: rgba(217, 56, 56, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .carousel-circle-icon {
+  background-color: rgba(217, 56, 56, 0.08);
+  border-color: rgb(255 255 255 / 4%);
+}
+
+.carousel-item:hover .carousel-circle-icon {
+  transform: scale(1.08);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark .carousel-item:hover .carousel-circle-icon {
+  border-color: rgb(255 255 255 / 8%);
+}
+
+.carousel-circle-icon .carousel-icon {
+  height: 24px;
+  width: 24px;
+}
+
+.carousel-circle-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: #1A1A1A;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.dark .carousel-circle-title {
+  color: #F2EFE5;
+}
+
+.carousel-circle-desc {
+  font-size: 10px;
+  color: #4A4640;
+  line-height: 1.5;
+  max-width: 85%;
+}
+.dark .carousel-circle-desc {
+  color: #A8A198;
+}
+
+.carousel-circle-meta {
+  font-size: 9px;
+  font-family: var(--font-code, monospace);
+  color: #6B6560;
+  margin-top: 2px;
+}
+.dark .carousel-circle-meta {
+  color: #8A8480;
+}
+
+/* ─── Round mode (container is also round) ─── */
 .carousel-container.round {
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -103,11 +182,6 @@
   border-color: rgb(255 255 255 / 6%);
 }
 
-.carousel-item-header.round {
-  padding: 0;
-  margin: 0;
-}
-
 .carousel-indicators-container.round {
   position: absolute;
   z-index: 2;
@@ -116,6 +190,7 @@
   transform: translateX(-50%);
 }
 
+/* ─── Rectangular layout (for non-round fallback) ─── */
 .carousel-item-header {
   margin-bottom: 12px;
   padding: 18px 20px 0 20px;
@@ -207,6 +282,7 @@
   color: #A8A198;
 }
 
+/* ─── Indicators ─── */
 .carousel-indicators-container {
   display: flex;
   width: 100%;
