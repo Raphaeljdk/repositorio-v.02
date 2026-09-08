@@ -701,3 +701,25 @@ Stage Summary:
 - Added prefers-reduced-motion support
 - Carousel retains visual polish (rotating ring, radial progress, shimmer) without performance cost
 - All lint clean, no runtime errors
+---
+Task ID: 4
+Agent: Main Agent
+Task: Make carousel transition smoother (was stuttery/laggy)
+
+Work Log:
+- Changed spring physics: stiffness 300→120, damping 30→20, mass 0.8 (critically damped, buttery smooth)
+- Reduced 3D rotation range: ±90° → ±50° (much less GPU work per frame)
+- Added clamp:true to rotateY transform (prevents extreme angles on edges)
+- Removed dynamic perspectiveOrigin (was recalculating every frame)
+- Increased perspective: 1000 → 1200 (less distortion = less GPU work)
+- Added will-change:transform on carousel track
+- Added transform-style:preserve-3d on track for proper 3D compositing
+- Added backface-visibility:hidden on items (prevents flicker during rotation)
+- Added will-change:transform on items
+- Lowered velocity threshold: 500 → 400 (easier swipe detection)
+
+Stage Summary:
+- Carousel transitions are now smooth and buttery instead of snappy/stuttery
+- 3D effect still visible but lighter (±50° instead of ±90°)
+- No visual defects, VLM confirms polished look
+- No lint errors, no runtime errors

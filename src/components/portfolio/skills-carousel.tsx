@@ -45,9 +45,10 @@ interface CarouselItemData {
 }
 
 const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
+const VELOCITY_THRESHOLD = 400;
 const GAP = 16;
-const SPRING_OPTIONS = { type: "spring" as const, stiffness: 300, damping: 30 };
+/* Softer, buttery spring — critically damped for zero overshoot */
+const SPRING_OPTIONS = { type: "spring" as const, stiffness: 120, damping: 20, mass: 0.8 };
 
 /* ─── SVG Radial Progress Arc (memoized via useMemo in parent) ─── */
 function RadialProgressArc({ percent, accent, size }: { percent: number; accent: string; size: number }) {
@@ -105,9 +106,10 @@ function CarouselItem({
   round: boolean; trackItemOffset: number; x: ReturnType<typeof useMotionValue<number>>;
   transition: typeof SPRING_OPTIONS | { duration: number };
 }) {
+  /* Reduced 3D rotation range — less GPU work, smoother feel */
   const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
-  const outputRange = [90, 0, -90];
-  const rotateY = useTransform(x, range, outputRange, { clamp: false });
+  const outputRange = [50, 0, -50];
+  const rotateY = useTransform(x, range, outputRange, { clamp: true });
 
   const arcSize = itemWidth + 10;
 
@@ -395,9 +397,9 @@ export default function SkillsCarousel({
         style={{
           width: itemWidth,
           gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${position * trackItemOffset + itemWidth / 2}px 50%`,
+          perspective: 1200,
           x,
+          willChange: "transform",
         }}
         onDragEnd={handleDragEnd}
         animate={{ x: -(position * trackItemOffset) }}

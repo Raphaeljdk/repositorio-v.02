@@ -40,6 +40,8 @@
 
 .carousel-track {
   display: flex;
+  will-change: transform;
+  transform-style: preserve-3d;
 }
 
 /* ─── Navigation Arrows ─── */
@@ -119,6 +121,8 @@
   cursor: grab;
   text-align: center;
   contain: layout paint;
+  will-change: transform;
+  backface-visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
     inset 0 1px 3px rgba(255, 255, 255, 0.6),
