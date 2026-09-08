@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useSyncExternalStore } from "react";
 import { ArrowUpRight, Pointer, Type, Menu, X, ExternalLink, Copy, Mail, ChevronUp } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -69,6 +69,7 @@ const DOT_SIZE: Record<CursorState, number> = {
  */
 export function CustomCursor() {
   const isTouch = useIsTouch();
+  const reduce = useReducedMotion();
   const mounted = useMounted();
   const [visible, setVisible] = useState(false);
   const [cursorState, setCursorState] = useState<CursorState>("default");
@@ -136,7 +137,7 @@ export function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    if (isTouch) return;
+    if (isTouch || reduce) return;
 
     window.addEventListener("mousemove", updatePosition, { passive: true });
 
@@ -175,9 +176,15 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", handleLeave);
       document.removeEventListener("mouseenter", handleEnter);
     };
-  }, [updatePosition, detectState, isTouch]);
+  }, [updatePosition, detectState, isTouch, reduce]);
 
-  if (!mounted || isTouch) return null;
+  useEffect(() => {
+    const active = mounted && !isTouch && !reduce && visible;
+    document.documentElement.classList.toggle("custom-cursor-active", active);
+    return () => document.documentElement.classList.remove("custom-cursor-active");
+  }, [mounted, isTouch, reduce, visible]);
+
+  if (!mounted || isTouch || reduce) return null;
 
   const iconConfig = STATE_ICONS[cursorState];
   const isInteractive = cursorState !== "default";

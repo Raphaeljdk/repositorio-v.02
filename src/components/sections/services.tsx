@@ -5,7 +5,7 @@ import { Code2, Building2, Sparkles, Cloud, ArrowUpRight, BrainCircuit } from "l
 import { services } from "@/lib/data";
 import { SectionHeading } from "./about";
 
-const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+const ICONS: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   code: Code2,
   building: Building2,
   sparkles: Sparkles,

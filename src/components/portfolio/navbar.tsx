@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Menu, X, Github, Linkedin, Mail, ArrowUpRight,
   Home, User, FolderOpen, Briefcase, Wrench, MessageCircle,
@@ -33,6 +33,7 @@ const NAV_ICONS: Record<string, React.ReactNode> = {
 const desktopNavItems = allNavItems.filter((item) => item.href !== "#contact" && item.href !== "#github");
 
 export function Navbar() {
+  const reduce = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
@@ -85,7 +86,7 @@ export function Navbar() {
   const go = (href: string) => {
     setOpen(false);
     const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    el?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
   };
 
   /* Mobile nav items — exclude "Contato" since there's a CTA button */
@@ -101,7 +102,7 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav
           className={cn(
-            "flex items-center justify-between gap-4 rounded-xl px-3 sm:px-4 py-2.5 transition-all duration-300",
+            "portfolio-nav flex items-center justify-between gap-4 rounded-xl px-3 sm:px-4 py-2.5 transition-all duration-300",
             scrolled
               ? "border border-[var(--surface-border)] bg-[var(--surface)]/95 backdrop-blur-md nav-scrolled-shadow nav-glow-border scrolled"
               : "bg-transparent border border-transparent"
@@ -149,14 +150,14 @@ export function Navbar() {
 
           {/* Right cluster */}
           <div className="flex items-center gap-2 shrink-0">
-            <span className="hidden items-center gap-1.5 lg:flex">
+            <span className="nav-availability hidden items-center gap-1.5 lg:flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inset-0 rounded-full bg-[var(--color-accent-sage)] pulse-smooth" />
                 <span className="relative block h-2 w-2 rounded-full bg-[var(--color-accent-sage)]" />
               </span>
               <span className="font-code text-[11px] text-foreground/70">Disponível</span>
             </span>
-            <div className="hidden items-center gap-1.5 lg:flex">
+            <div className="nav-socials hidden items-center gap-1.5 lg:flex">
               <a
                 href={personal.github}
                 target="_blank"
@@ -192,6 +193,8 @@ export function Navbar() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
               className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-foreground transition-colors hover:bg-muted lg:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -218,6 +221,7 @@ export function Navbar() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -16, scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 32, mass: 0.8 }}
+                id="mobile-navigation"
                 className="fixed left-3 right-3 top-[68px] z-[61] max-h-[calc(100vh-84px)] overflow-y-auto overflow-x-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-2xl lg:hidden"
               >
                 {/* Header */}

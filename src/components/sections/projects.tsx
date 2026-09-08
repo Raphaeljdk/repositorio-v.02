@@ -13,6 +13,7 @@ import {
 import { projects } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
+import { useCardGlow } from "@/hooks/use-card-glow";
 import { cn } from "@/lib/utils";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
 
@@ -67,6 +68,7 @@ export function Projects() {
                 key={f.id}
                 type="button"
                 onClick={() => setFilter(f.id)}
+                aria-pressed={filter === f.id}
                 className={cn(
                   "rounded-lg px-4 py-2 text-sm font-medium active:scale-[0.97] transition-all min-h-[44px] inline-flex items-center",
                   filter === f.id
@@ -123,6 +125,7 @@ function ProjectCard({
   index: number;
   onClick: () => void;
 }) {
+  const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLElement>();
   const statusMap = {
     completed: "Concluído",
     "in-progress": "Em progresso",
@@ -131,6 +134,9 @@ function ProjectCard({
 
   return (
     <motion.article
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       layout
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +148,7 @@ function ProjectCard({
         ease: [0.22, 1, 0.36, 1],
       }}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
+        "project-card group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
         project.featured && "md:col-span-2 lg:col-span-1"
       )}
       onClick={onClick}
@@ -150,6 +156,7 @@ function ProjectCard({
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
     >
+      <span className="project-number" aria-hidden>{String(index + 1).padStart(2, "0")} / RF</span>
       {/* Screenshot preview */}
       {project.image && (
         <div className="relative aspect-video overflow-hidden">
@@ -177,7 +184,7 @@ function ProjectCard({
             </div>
           )}
           {/* Hover overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
             <span className="text-sm font-medium text-white">
               Ver detalhes{" "}
               <span className="text-[var(--color-accent-copper)]">→</span>

@@ -1,84 +1,47 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Children, type ReactNode } from "react";
 
-const container: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
+const ease = [0.22, 1, 0.36, 1] as const;
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.64, ease } },
 };
 
-const item: Variants = {
-  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-export function RevealOnScroll({
-  children,
-  className = "",
-  stagger = true,
-}: {
+export function RevealOnScroll({ children, className = "", stagger = true }: {
   children: ReactNode;
   className?: string;
   stagger?: boolean;
 }) {
-  if (!stagger) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    );
-  }
-
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
-      variants={container}
+      variants={stagger ? { hidden: {}, visible: { transition: { staggerChildren: 0.07 } } } : item}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "0px 0px -40px 0px", amount: "some" }}
       className={className}
     >
-      <motion.div variants={item}>
-        {children}
-      </motion.div>
+      {stagger ? Children.map(children, child => (
+        <motion.div variants={item}>{child}</motion.div>
+      )) : children}
     </motion.div>
   );
 }
 
-/** Shimmer/glow line that animates across a section */
-export function AnimatedLine({
-  className = "",
-  color = "var(--color-accent-copper)",
-}: {
+export function AnimatedLine({ className = "", color = "var(--color-accent-copper)" }: {
   className?: string;
   color?: string;
 }) {
+  const reduce = useReducedMotion();
   return (
     <motion.div
-      initial={{ scaleX: 0, opacity: 0 }}
+      initial={reduce ? false : { scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease }}
       className={`h-px w-full origin-left ${className}`}
       style={{ background: `linear-gradient(90deg, ${color}, transparent)` }}
       aria-hidden
@@ -86,23 +49,15 @@ export function AnimatedLine({
   );
 }
 
-/** Number counter that animates when in view */
-export function AnimatedNumber({
-  value,
-  className = "",
-}: {
-  value: number;
-  className?: string;
-}) {
+export function AnimatedNumber({ value, className = "" }: { value: number; className?: string }) {
+  const reduce = useReducedMotion();
   return (
     <motion.span
-      initial={{ opacity: 0, y: 10 }}
+      initial={reduce ? false : { opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.45, ease }}
       className={className}
-    >
-      {value}
-    </motion.span>
+    >{value}</motion.span>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Rocket,
   Layers,
@@ -271,25 +271,28 @@ export function SectionHeading({
   align?: "left" | "center";
   kanji?: number;
 }) {
+  const reduce = useReducedMotion();
+  const reveal = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } } };
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      initial={reduce ? false : "hidden"}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}
     >
-      <div className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
+      <motion.div variants={reveal} className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
         {kanji && <KanjiNumber n={kanji} />}
         <span className="mono-label">{label}</span>
-      </div>
-      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+      </motion.div>
+      <motion.h2 variants={reveal} className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         {title}
-      </h2>
+      </motion.h2>
       {description && (
         <>
-          <div className="mt-3 h-px w-12 bg-[var(--color-accent-copper)]" />
-          <p className="mt-3 text-sm text-muted-foreground sm:text-base leading-relaxed">{description}</p>
+          <motion.div variants={reveal} className={cn("mt-4 h-px w-12 bg-[var(--color-accent-copper)]", align === "center" && "mx-auto")} />
+          <motion.p variants={reveal} className="mt-3 text-sm text-muted-foreground sm:text-base leading-relaxed">{description}</motion.p>
         </>
       )}
     </motion.div>

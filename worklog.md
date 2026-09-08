@@ -751,3 +751,131 @@ Stage Summary:
 - Spring animation is snappier (stiffness:200) with shorter settle tail
 - Ghost/overlap artifacts eliminated via flat transform-style and proper containment
 - Conic accent ring is more subtle (opacity 0.2, 12s spin cycle)
+
+---
+Task ID: 3
+Agent: Merge Agent
+Task: Merge projects.tsx improvements and add useCardGlow hook
+
+Work Log:
+- Verified useCardGlow hook already existed at src/hooks/use-card-glow.ts with matching content (no changes needed)
+- Updated projects.tsx with 7 improvements from uploaded version:
+  1. Added import for useCardGlow from "@/hooks/use-card-glow"
+  2. Added aria-pressed={filter === f.id} to filter buttons for accessibility
+  3. Added useCardGlow<HTMLElement>() call in ProjectCard component
+  4. Added ref, onMouseMove, onMouseLeave props to motion.article
+  5. Added "project-card" class to the article className
+  6. Added project number span: <span className="project-number" aria-hidden>{String(index + 1).padStart(2, "0")} / RF</span>
+  7. Added group-focus-visible:opacity-100 to hover overlay alongside group-hover:opacity-100
+- Updated services.tsx ICONS type to include style prop: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>>
+
+Summary: All improvements from the uploaded zip have been successfully merged into the current project. The useCardGlow hook was already present. Projects section now has card glow tracking, project numbering, project-card class, and improved accessibility (aria-pressed, focus-visible). Services ICONS type now supports the style prop used in rendering.
+
+---
+Task ID: 4
+Agent: Merge Agent
+Task: Merge navbar, custom-cursor, reveal-on-scroll, and magnetic-button improvements from uploaded zip
+
+Work Log:
+- Read worklog.md to understand previous work context
+- Compared current navbar.tsx vs uploaded version — uploaded adds useReducedMotion, portfolio-nav/nav-availability/nav-socials CSS classes, aria-expanded/aria-controls on hamburger button, id="mobile-navigation" on sidebar panel, smooth/instant scroll behavior based on reduced motion preference
+- Replaced navbar.tsx entirely with uploaded version
+- Compared current custom-cursor.tsx vs uploaded version — uploaded adds useReducedMotion (reduce variable), skip cursor on reduced motion, custom-cursor-active class toggle on documentElement, reduce in useEffect dependency array and early return
+- Replaced custom-cursor.tsx entirely with uploaded version
+- Compared current reveal-on-scroll.tsx vs uploaded version — uploaded has completely rewritten approach: useReducedMotion with early return of static div, Children.map for proper stagger, custom easing [0.22, 1, 0.36, 1], better stagger timing (0.07 vs 0.08), better viewport margin, AnimatedLine and AnimatedNumber with reduce support (initial={reduce ? false : ...})
+- Replaced reveal-on-scroll.tsx entirely with uploaded version
+- Compared current magnetic-button.tsx vs uploaded version — uploaded adds useReducedMotion, discriminated union type (HTMLMotionProps<"a"> | HTMLMotionProps<"button">) instead of ComponentPropsWithoutRef, (hover: hover) and (pointer: fine) media query check, reduce-aware style (x: reduce ? 0 : x), proper type casting for rest spread
+- Replaced magnetic-button.tsx entirely with uploaded version
+- Compared current theme-provider.tsx vs uploaded version — uploaded wraps children with MotionConfig reducedMotion="user" for global reduced motion support
+- Replaced theme-provider.tsx with uploaded version
+- Verified dev.log — no compilation errors, app running successfully
+
+Summary: All 5 component files successfully merged with their improved uploaded versions. Key improvements across all files: useReducedMotion accessibility support, better TypeScript types, improved UX patterns (aria attributes, body scroll lock, CSS class toggles, media query checks).
+
+---
+Task ID: 5
+Agent: CSS Merge Agent
+Task: Merge CSS improvements - editorial.css and globals.css
+
+Work Log:
+- Read worklog.md to understand previous work context
+- Read uploaded editorial.css (137 lines) — hero editorial composition styles, project card glow, responsive breakpoints
+- Created /home/z/my-project/src/app/editorial.css by copying uploaded version as-is
+- Read current globals.css (922 lines) and uploaded globals.css (1017 lines) in full
+- Applied 6 targeted merges to globals.css:
+  1. Added `@import "./editorial.css";` after existing @import statements (line 3)
+  2. Kept current font variables (--font-geist-sans, --font-geist-mono, --font-display, --font-code) unchanged — uploaded uses different names (inter/noto/jetbrains) but layout.tsx uses current config
+  3. Updated custom cursor media query from `@media not (pointer: coarse) { *, *::before, *::after {` to `@media (hover: hover) and (pointer: fine) { html.custom-cursor-active, html.custom-cursor-active * {` — more targeted, only applies when custom-cursor-active class is on html
+  4. Updated `.magnetic-hover:hover` transform from `translateY(-4px) scale(1.02)` to simpler `translateY(-3px)`
+  5. Added shared finishing CSS custom properties block before cursor section: --ease-out-ink, --duration-interaction, --duration-reveal, plus @layer base rules for scroll-padding-top, text-wrap, touch-action, accent-color, and focus-visible styling
+  6. Added `html { overflow-x: clip; }` at end of file to prevent decorative off-canvas marks from creating horizontal page movement
+- Verified dev.log — compilation successful, no errors
+
+Summary: Created editorial.css with hero composition styles and merged 6 CSS improvements into globals.css. Key improvements: editorial import, targeted custom cursor (only when class active), simpler hover transform, shared timing/focus custom properties, and overflow-x clipping.
+---
+Task ID: 2
+Agent: Merge Agent
+Task: Merge hero.tsx and about.tsx improvements from uploaded zip
+
+Work Log:
+- Read worklog.md to understand previous work context (Task 1)
+- Read current and uploaded versions of hero.tsx and about.tsx
+- Replaced hero.tsx completely with uploaded version featuring:
+  - 3D pointer tracking using useSpring rotateX/rotateY (spring-based physics)
+  - Custom entrance animation with [0.22, 1, 0.36, 1] easing
+  - Staggered entrance with staggerChildren: 0.1, delayChildren: 0.08
+  - useReducedMotion support - skip animations if user prefers reduced motion
+  - HankoSeal component in hero title
+  - Editorial CSS classes (hero-editorial, hero-paper-grid, hero-sun-wash, hero-kanji, etc.)
+  - Enso circle SVG with pathLength animation
+  - Orbit decorations around logo (hero-orbit-outer, hero-orbit-inner)
+  - Art coordinate text and caption
+  - Bottom stack bar and scroll cue
+- Created /src/app/editorial.css with all hero editorial CSS classes
+  - Adapted font variable references: --font-display instead of --font-noto, --font-code instead of --font-jetbrains
+  - Uses --ease-out-ink, --surface-border, --surface, --primary, --foreground, --muted-foreground CSS variables
+  - Includes responsive breakpoints (1023px, 639px) and prefers-reduced-motion support
+  - Includes project-card interactive lighting and portfolio-nav responsive rules
+- Verified globals.css already had @import "./editorial.css" and --ease-out-ink definition
+- Removed duplicate html { overflow-x: clip; } from globals.css (now in editorial.css)
+- Updated about.tsx SectionHeading with uploaded improvements:
+  - Added useReducedMotion import from framer-motion
+  - Added useReducedMotion hook: const reduce = useReducedMotion()
+  - Changed from single motion.div to staggered reveal variant pattern
+  - Added reveal variant: { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }
+  - Changed initial from inline object to reduce ? false : "hidden" pattern
+  - Added variants with staggerChildren: 0.08
+  - Changed whileInView from inline animation to "visible" variant trigger
+  - Updated viewport margin from "-80px" to "0px 0px -40px 0px" for more precise triggering
+  - Wrapped each child (label, h2, divider, p) in motion.div/motion.h2/motion.p with variants={reveal}
+  - Added center alignment support for divider with mx-auto
+- Ran lint check: all passing
+- Checked dev server log: no errors, successful compilation
+
+Files Changed:
+- /src/components/sections/hero.tsx (complete replacement)
+- /src/components/sections/about.tsx (SectionHeading updated)
+- /src/app/editorial.css (new file)
+- /src/app/globals.css (removed duplicate overflow-x rule)
+
+Result: All hero and about section improvements merged successfully. No broken imports or components.
+
+---
+Task ID: 8
+Agent: Creative Improvements Agent
+Task: Add creative improvements on top of merged code
+
+Work Log:
+- Added animated gradient orb (.hero-gradient-orb) behind hero with slow circular drift animation and dark mode support
+- Added typewriter effect (useTypewriter hook) to hero role line, cycling through 4 roles: "Desenvolvedor Full Stack", "Eng. de Software", "Arquiteto de Sistemas", "Automação & IA"
+- Typewriter respects useReducedMotion — falls back to static "Desenvolvedor Full Stack / Eng. de Software" when reduced motion preferred
+- Added blinking cursor (.hero-type-cursor) with CSS step-end animation
+- Added CSS-only floating particle field (.hero-particles + 8 .hero-particle divs) with staggered delays and durations
+- Enhanced project card glow from 9% to 12% primary color opacity for more vivid hover effect
+- Added gradient orb, particle, and cursor to prefers-reduced-motion override (animation: none)
+- Verified ScrollProgress is already rendered in page.tsx — no change needed
+- Lint passes with zero errors, dev server compiles successfully
+
+Files Modified:
+- /home/z/my-project/src/components/sections/hero.tsx (added useTypewriter hook, gradient orb div, particle divs, typed role with cursor)
+- /home/z/my-project/src/app/editorial.css (added .hero-gradient-orb + @keyframes orb-drift, .hero-type-cursor + @keyframes cursor-blink, .hero-particles/.hero-particle + @keyframes particle-float, updated .project-card::after opacity 9%→12%, updated reduced-motion rules)

@@ -1,14 +1,12 @@
 "use client";
 
-import { useCallback, type ReactNode, type ComponentPropsWithoutRef } from "react";
-import { motion, useSpring } from "framer-motion";
+import { useCallback, type ReactNode } from "react";
+import { motion, useSpring, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 
-type MagneticButtonProps = {
-  children: ReactNode;
-  className?: string;
-  as?: "a" | "button";
-} & ComponentPropsWithoutRef<"a"> &
-  ComponentPropsWithoutRef<"button">;
+type MagneticButtonProps = { children: ReactNode; className?: string } & (
+  | ({ as: "a" } & HTMLMotionProps<"a">)
+  | ({ as?: "button" } & HTMLMotionProps<"button">)
+);
 
 const springConfig = { stiffness: 200, damping: 20, mass: 0.5 };
 
@@ -18,10 +16,12 @@ export function MagneticButton({
   as = "button",
   ...rest
 }: MagneticButtonProps) {
+  const reduce = useReducedMotion();
   const x = useSpring(0, springConfig);
   const y = useSpring(0, springConfig);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (reduce || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -33,7 +33,7 @@ export function MagneticButton({
 
     x.set(offsetX);
     y.set(offsetY);
-  }, [x, y]);
+  }, [x, y, reduce]);
 
   const handleMouseLeave = useCallback(() => {
     x.set(0);
@@ -45,11 +45,11 @@ export function MagneticButton({
   return (
     <Component
       className={className}
-      style={{ x, y }}
+      style={{ x: reduce ? 0 : x, y: reduce ? 0 : y }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       transition={{ type: "spring", ...springConfig }}
-      {...rest}
+      {...(rest as HTMLMotionProps<"a"> & HTMLMotionProps<"button">)}
     >
       {children}
     </Component>
