@@ -152,31 +152,29 @@ export function Skills() {
               />
             </div>
 
-            {/* Quick stats under carousel */}
-            <div className="flex flex-wrap justify-center gap-3">
+            {/* Premium stat cards under carousel */}
+            <div className="carousel-stat-cards">
               {[
-                { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)" },
-                { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)" },
-                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)" },
+                { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)", Icon: Crown },
+                { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)", Icon: TrendingUp },
+                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)", Icon: Sprout },
               ].map((t) => (
-                <BorderGlow
+                <motion.div
                   key={t.label}
-                  edgeSensitivity={25}
-                  glowColor="10 80 60"
-                  backgroundColor="var(--card-bg)"
-                  borderRadius={12}
-                  glowRadius={20}
-                  glowIntensity={0.8}
-                  coneSpread={30}
-                  colors={["#D93838", "#F2C14E", "#2B5B84"]}
-                  className="inline-flex"
+                  className="carousel-stat-card"
+                  style={{ "--stat-accent": t.color } as React.CSSProperties}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ y: -4 }}
                 >
-                  <div className="flex items-center gap-2 px-4 py-2">
-                    <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: t.color }} />
-                    <span className="font-code text-xs text-muted-foreground">{t.label}</span>
-                    <span className="font-code text-sm font-bold" style={{ color: t.color }}>{t.count}</span>
-                  </div>
-                </BorderGlow>
+                  <span className="carousel-stat-icon" style={{ color: t.color }}>
+                    <t.Icon style={{ width: 18, height: 18 }} />
+                  </span>
+                  <span className="carousel-stat-count" style={{ color: t.color }}>{t.count}</span>
+                  <span className="carousel-stat-label">{t.label}</span>
+                </motion.div>
               ))}
             </div>
           </motion.div>

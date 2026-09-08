@@ -5,6 +5,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import {
   Monitor, Server, Database, Wrench, Building2, Cloud, Brain,
+  ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { skills, skillCategories, type SkillCategory } from "@/lib/data";
 import "./skills-carousel.css";
@@ -48,6 +49,58 @@ const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
 const SPRING_OPTIONS = { type: "spring" as const, stiffness: 300, damping: 30 };
 
+/* ─── SVG Radial Progress Arc ─── */
+function RadialProgressArc({ percent, accent, size }: { percent: number; accent: string; size: number }) {
+  const strokeWidth = 2.5;
+  const radius = (size / 2) - strokeWidth - 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percent / 100) * circumference;
+  const center = size / 2;
+
+  return (
+    <svg
+      className="carousel-progress-svg"
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
+      aria-hidden="true"
+    >
+      {/* Track circle */}
+      <circle
+        className="carousel-progress-track"
+        cx={center}
+        cy={center}
+        r={radius}
+      />
+      {/* Progress arc */}
+      <circle
+        className="carousel-progress-arc"
+        cx={center}
+        cy={center}
+        r={radius}
+        stroke={accent}
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        style={{
+          "--progress-circumference": circumference,
+          "--progress-offset": offset,
+          transform: `rotate(-90deg)`,
+          transformOrigin: `${center}px ${center}px`,
+        } as React.CSSProperties}
+      />
+      {/* End cap dot */}
+      {percent > 0 && percent < 100 && (
+        <circle
+          className="carousel-progress-endcap"
+          cx={center + radius * Math.cos(((percent / 100) * 360 - 90) * (Math.PI / 180))}
+          cy={center + radius * Math.sin(((percent / 100) * 360 - 90) * (Math.PI / 180))}
+          r={2}
+          fill={accent}
+        />
+      )}
+    </svg>
+  );
+}
+
 function CarouselItem({
   item, index, itemWidth, round, trackItemOffset, x, transition,
 }: {
@@ -58,6 +111,9 @@ function CarouselItem({
   const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
   const outputRange = [90, 0, -90];
   const rotateY = useTransform(x, range, outputRange, { clamp: false });
+
+  /* SVG arc size = itemWidth + 12 (6px inset on each side) */
+  const arcSize = itemWidth + 12;
 
   return (
     <motion.div
@@ -72,31 +128,40 @@ function CarouselItem({
       transition={transition}
     >
       {round ? (
-        /* Circular layout with top skill logo */
-        <div className="carousel-circle-content">
-          <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}12`, borderColor: `${item.accent}30` }}>
-            {item.topSkillIcon ? (
-              <Image
-                src={item.topSkillIcon}
-                alt={item.topSkill}
-                className="carousel-skill-logo"
-                width={32}
-                height={32}
-                unoptimized
-              />
-            ) : (
-              item.icon
-            )}
-          </span>
-          <div className="carousel-circle-title">{item.title}</div>
-          <div className="carousel-circle-top">{item.topSkill}</div>
-          <div className="carousel-circle-desc">{item.description}</div>
-          <div className="carousel-circle-meta">
-            <span className="carousel-circle-percent" style={{ color: item.accent }}>{item.topSkillPercent}%</span>
-            <span className="carousel-circle-separator">·</span>
-            <span>{item.skillCount} habilidades</span>
+        /* Circular layout with radial progress arc */
+        <>
+          <RadialProgressArc
+            percent={item.topSkillPercent}
+            accent={item.accent}
+            size={arcSize}
+          />
+          <div className="carousel-circle-content">
+            <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}12`, borderColor: `${item.accent}30` }}>
+              {item.topSkillIcon ? (
+                <Image
+                  src={item.topSkillIcon}
+                  alt={item.topSkill}
+                  className="carousel-skill-logo"
+                  width={34}
+                  height={34}
+                  unoptimized
+                />
+              ) : (
+                item.icon
+              )}
+            </span>
+            <div className="carousel-circle-title">{item.title}</div>
+            <div className="carousel-circle-top">{item.topSkill}</div>
+            <div className="carousel-circle-desc">{item.description}</div>
+            <div className="carousel-circle-meta">
+              <span className="carousel-circle-percent" style={{ color: item.accent }}>{item.topSkillPercent}%</span>
+              <span className="carousel-circle-separator">·</span>
+              <span className="carousel-skill-count-badge" style={{ borderColor: `${item.accent}25`, color: item.accent }}>
+                {item.skillCount} hab.
+              </span>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         /* Original rectangular layout */
         <>
@@ -281,6 +346,27 @@ export default function SkillsCarousel({
   const activeIndex =
     items.length === 0 ? 0 : loop ? (position - 1 + items.length) % items.length : Math.min(position, items.length - 1);
 
+  /* Navigation handlers */
+  const handlePrev = () => {
+    setPosition((prev) => {
+      const next = prev - 1;
+      if (loop && next < 0) return prev;
+      return Math.max(0, next);
+    });
+  };
+
+  const handleNext = () => {
+    setPosition((prev) => {
+      const next = prev + 1;
+      const max = itemsForRender.length - 1;
+      if (loop && next > max) return prev;
+      return Math.min(next, max);
+    });
+  };
+
+  /* Current item for label */
+  const currentItem = items[activeIndex];
+
   return (
     <div
       ref={containerRef}
@@ -288,8 +374,29 @@ export default function SkillsCarousel({
       style={{
         width: `${baseWidth}px`,
         height: round ? `${baseWidth}px` : `${itemWidth + 60}px`,
-      }}
+        "--item-accent": currentItem?.accent ?? "#D93838",
+      } as React.CSSProperties}
     >
+      {/* Navigation Arrows */}
+      <div className="carousel-nav-arrows">
+        <button
+          type="button"
+          className="carousel-nav-btn"
+          onClick={handlePrev}
+          aria-label="Slide anterior"
+        >
+          <ChevronLeft />
+        </button>
+        <button
+          type="button"
+          className="carousel-nav-btn"
+          onClick={handleNext}
+          aria-label="Próximo slide"
+        >
+          <ChevronRight />
+        </button>
+      </div>
+
       <motion.div
         className="carousel-track"
         drag={isAnimating ? false : "x"}
@@ -322,19 +429,28 @@ export default function SkillsCarousel({
       </motion.div>
       <div className={`carousel-indicators-container ${round ? "round" : ""}`}>
         <div className="carousel-indicators">
-          {items.map((_, index) => (
+          {items.map((item, index) => (
             <motion.button
               type="button"
               key={index}
               className={`carousel-indicator ${activeIndex === index ? "active" : "inactive"}`}
-              aria-label={`Ir para slide ${index + 1}`}
+              aria-label={`Ir para ${item.title}`}
               aria-current={activeIndex === index}
-              animate={{ scale: activeIndex === index ? 1.2 : 1 }}
+              animate={{
+                scale: activeIndex === index ? 1.15 : 1,
+                backgroundColor: activeIndex === index ? item.accent : undefined,
+              }}
               onClick={() => setPosition(loop ? index + 1 : index)}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0.2 }}
             />
           ))}
         </div>
+        {/* Current category label */}
+        {currentItem && (
+          <span className="carousel-indicator-label" style={{ color: currentItem.accent }}>
+            {currentItem.title}
+          </span>
+        )}
       </div>
     </div>
   );
