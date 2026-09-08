@@ -27,7 +27,8 @@
   box-shadow:
     0 8px 40px -12px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  contain: layout;
+  contain: layout paint style;
+  isolation: isolate;
 }
 
 .dark .carousel-container {
@@ -41,7 +42,7 @@
 .carousel-track {
   display: flex;
   will-change: transform;
-  transform-style: preserve-3d;
+  transform-style: flat;
 }
 
 /* ─── Navigation Arrows ─── */
@@ -121,9 +122,9 @@
   cursor: grab;
   text-align: center;
   contain: layout paint;
-  will-change: transform;
+  will-change: transform, opacity;
   backface-visibility: hidden;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
     inset 0 1px 3px rgba(255, 255, 255, 0.6),
     inset 0 -1px 2px rgba(0, 0, 0, 0.03),
@@ -138,7 +139,7 @@
     0 4px 20px -6px rgba(0, 0, 0, 0.25);
 }
 
-/* Animated accent ring — single conic-gradient, GPU-composited */
+/* Animated accent ring — subtle, no spinning during transitions */
 .carousel-item::before {
   content: "";
   position: absolute;
@@ -148,24 +149,24 @@
   background: conic-gradient(
     from var(--item-ring-start, 0deg),
     var(--item-accent, #D93838),
-    transparent 25%,
+    transparent 30%,
     var(--item-accent, #D93838) 50%,
-    transparent 75%,
+    transparent 80%,
     var(--item-accent, #D93838)
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.35;
+  opacity: 0.2;
   pointer-events: none;
-  animation: carousel-ring-spin 8s linear infinite;
-  transition: opacity 0.3s ease;
+  animation: carousel-ring-spin 12s linear infinite;
+  transition: opacity 0.4s ease;
   will-change: transform;
 }
 
 .carousel-item:hover::before {
-  opacity: 0.75;
+  opacity: 0.6;
 }
 
 /* Shimmer — lightweight translateX instead of background-position */
@@ -198,7 +199,6 @@
 }
 
 .carousel-item:hover {
-  transform: scale(1.02);
   box-shadow:
     0 0 40px 12px rgba(217, 56, 56, 0.06),
     0 8px 32px -8px rgba(0, 0, 0, 0.1),

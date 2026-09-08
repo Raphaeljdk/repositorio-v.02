@@ -47,8 +47,8 @@ interface CarouselItemData {
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 400;
 const GAP = 16;
-/* Softer, buttery spring — critically damped for zero overshoot */
-const SPRING_OPTIONS = { type: "spring" as const, stiffness: 120, damping: 20, mass: 0.8 };
+/* Snappy, elegant spring — critically damped with shorter settle tail */
+const SPRING_OPTIONS = { type: "spring" as const, stiffness: 200, damping: 26, mass: 0.8 };
 
 /* ─── SVG Radial Progress Arc (memoized via useMemo in parent) ─── */
 function RadialProgressArc({ percent, accent, size }: { percent: number; accent: string; size: number }) {
@@ -106,10 +106,18 @@ function CarouselItem({
   round: boolean; trackItemOffset: number; x: ReturnType<typeof useMotionValue<number>>;
   transition: typeof SPRING_OPTIONS | { duration: number };
 }) {
-  /* Reduced 3D rotation range — less GPU work, smoother feel */
+  /* Subtle 3D rotation — gentle coverflow, no ghost artifacts */
   const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
-  const outputRange = [50, 0, -50];
-  const rotateY = useTransform(x, range, outputRange, { clamp: true });
+  const rotateYOutputRange = [18, 0, -18];
+  const rotateY = useTransform(x, range, rotateYOutputRange, { clamp: true });
+
+  /* Distance-based opacity: center item full, neighbors fade gracefully */
+  const opacityRange = [0.35, 1, 0.35];
+  const itemOpacity = useTransform(x, range, opacityRange, { clamp: true });
+
+  /* Subtle scale: center item slightly larger */
+  const scaleRange = [0.92, 1, 0.92];
+  const itemScale = useTransform(x, range, scaleRange, { clamp: true });
 
   const arcSize = itemWidth + 10;
 
@@ -120,6 +128,8 @@ function CarouselItem({
         width: itemWidth,
         height: itemWidth,
         rotateY,
+        opacity: itemOpacity,
+        scale: itemScale,
         borderRadius: "50%",
         "--item-accent": item.accent,
       } as React.CSSProperties}
@@ -397,7 +407,7 @@ export default function SkillsCarousel({
         style={{
           width: itemWidth,
           gap: `${GAP}px`,
-          perspective: 1200,
+          perspective: 2000,
           x,
           willChange: "transform",
         }}

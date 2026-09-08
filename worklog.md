@@ -723,3 +723,31 @@ Stage Summary:
 - 3D effect still visible but lighter (±50° instead of ±90°)
 - No visual defects, VLM confirms polished look
 - No lint errors, no runtime errors
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Fix ugly carousel transition in skills carousel
+
+Work Log:
+- Analyzed the skills carousel transition issues using agent-browser
+- Identified root causes: aggressive 3D rotateY (±50°), ghost artifacts from preserve-3d, conic-gradient ring too prominent, no opacity fade on side items, spring too slow to settle
+- Reduced rotateY from ±50° to ±18° for subtle coverflow effect (no ghost artifacts)
+- Added distance-based opacity fade: center item at 1.0, side items at 0.35
+- Added distance-based scale: center item at 1.0, side items at 0.92
+- Changed spring from stiffness:120/damping:20 to stiffness:200/damping:26 for snappier transitions
+- Changed transform-style from preserve-3d to flat to eliminate ghost 3D overlap artifacts
+- Increased perspective from 1200 to 2000 for gentler 3D effect
+- Added isolation:isolate and contain:layout paint style to container for better rendering
+- Reduced conic-gradient ring opacity from 0.35 to 0.2, slowed spin from 8s to 12s
+- Removed scale(1.02) from hover to avoid conflicting with motion scale
+- Updated will-change to include opacity for GPU compositing
+- Verified with agent-browser: all transitions smooth, no ghost artifacts, professional quality
+
+Stage Summary:
+- Carousel transitions now smooth and elegant with no visual artifacts
+- 3D coverflow effect is subtle (±18° rotation at 2000px perspective)
+- Side items gracefully fade and scale down during transitions
+- Spring animation is snappier (stiffness:200) with shorter settle tail
+- Ghost/overlap artifacts eliminated via flat transform-style and proper containment
+- Conic accent ring is more subtle (opacity 0.2, 12s spin cycle)
