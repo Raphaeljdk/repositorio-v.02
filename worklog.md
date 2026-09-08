@@ -668,3 +668,36 @@ Stage Summary:
 - All dark mode and responsive behavior maintained
 - No lint errors, no runtime errors
 - VLM verification confirms: circular carousel with glow aesthetic, stat cards visible, modern clean design
+---
+Task ID: 3
+Agent: Main Agent
+Task: Replace SAP logo, optimize CSS performance, refine carousel visuals
+
+Work Log:
+- Updated SAP B1 skill icon to user-provided URL: https://tse1.mm.bing.net/th/id/OIP.dQnK05UytfYVrDT6lXQlLgHaDq
+- Complete CSS rewrite for performance optimization:
+  - REMOVED: container::before rotating conic-gradient border (heavy mask compositing)
+  - REMOVED: container::after corner accents (unnecessary layer)
+  - REMOVED: Multiple backdrop-filter: blur() usages (replaced with lightweight gradient backgrounds)
+  - REMOVED: SVG drop-shadow filters on progress arcs (GPU costly)
+  - REMOVED: carousel-pulse-icon animation (replaced with simple scale transition)
+  - REMOVED: carousel-counter-pop animation (removed decorative pop)
+  - REMOVED: carousel-glow-breathe animation (unused)
+  - REMOVED: carousel-float animation (unused)
+  - OPTIMIZED: Shimmer animation from background-position to translateX (GPU-composited)
+  - OPTIMIZED: Single ring animation (8s instead of 6s/3s dual-speed)
+  - OPTIMIZED: Added `contain: layout paint` on carousel items for GPU isolation
+  - OPTIMIZED: Added `will-change: transform` on rotating ring
+  - OPTIMIZED: Reduced transition durations for snappier feel
+  - ADDED: `prefers-reduced-motion` media query for accessibility
+  - REFINED: Cleaner stat cards with gradient backgrounds instead of blur
+  - REFINED: Tighter padding and spacing for a more polished look
+  - REFINED: Smaller indicator dots and refined typography
+- Updated TSX: slightly adjusted arc sizing and icon dimensions
+
+Stage Summary:
+- SAP B1 now uses the user's custom logo
+- CSS is significantly lighter: no backdrop-filter on items, no heavy SVG filters, no dual-speed animations
+- Added prefers-reduced-motion support
+- Carousel retains visual polish (rotating ring, radial progress, shimmer) without performance cost
+- All lint clean, no runtime errors

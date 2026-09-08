@@ -40,8 +40,8 @@ interface CarouselItemData {
   accent: string;
   skillCount: number;
   topSkill: string;
-  topSkillIcon: string;  // URL da logo da melhor habilidade
-  topSkillPercent: number; // Percentual da melhor habilidade
+  topSkillIcon: string;
+  topSkillPercent: number;
 }
 
 const DRAG_BUFFER = 0;
@@ -49,9 +49,9 @@ const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
 const SPRING_OPTIONS = { type: "spring" as const, stiffness: 300, damping: 30 };
 
-/* ─── SVG Radial Progress Arc ─── */
+/* ─── SVG Radial Progress Arc (memoized via useMemo in parent) ─── */
 function RadialProgressArc({ percent, accent, size }: { percent: number; accent: string; size: number }) {
-  const strokeWidth = 2.5;
+  const strokeWidth = 2;
   const radius = (size / 2) - strokeWidth - 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percent / 100) * circumference;
@@ -64,14 +64,12 @@ function RadialProgressArc({ percent, accent, size }: { percent: number; accent:
       fill="none"
       aria-hidden="true"
     >
-      {/* Track circle */}
       <circle
         className="carousel-progress-track"
         cx={center}
         cy={center}
         r={radius}
       />
-      {/* Progress arc */}
       <circle
         className="carousel-progress-arc"
         cx={center}
@@ -87,13 +85,12 @@ function RadialProgressArc({ percent, accent, size }: { percent: number; accent:
           transformOrigin: `${center}px ${center}px`,
         } as React.CSSProperties}
       />
-      {/* End cap dot */}
       {percent > 0 && percent < 100 && (
         <circle
           className="carousel-progress-endcap"
           cx={center + radius * Math.cos(((percent / 100) * 360 - 90) * (Math.PI / 180))}
           cy={center + radius * Math.sin(((percent / 100) * 360 - 90) * (Math.PI / 180))}
-          r={2}
+          r={1.5}
           fill={accent}
         />
       )}
@@ -112,8 +109,7 @@ function CarouselItem({
   const outputRange = [90, 0, -90];
   const rotateY = useTransform(x, range, outputRange, { clamp: false });
 
-  /* SVG arc size = itemWidth + 12 (6px inset on each side) */
-  const arcSize = itemWidth + 12;
+  const arcSize = itemWidth + 10;
 
   return (
     <motion.div
@@ -128,7 +124,6 @@ function CarouselItem({
       transition={transition}
     >
       {round ? (
-        /* Circular layout with radial progress arc */
         <>
           <RadialProgressArc
             percent={item.topSkillPercent}
@@ -136,14 +131,14 @@ function CarouselItem({
             size={arcSize}
           />
           <div className="carousel-circle-content">
-            <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}12`, borderColor: `${item.accent}30` }}>
+            <span className="carousel-circle-icon" style={{ backgroundColor: `${item.accent}10`, borderColor: `${item.accent}25` }}>
               {item.topSkillIcon ? (
                 <Image
                   src={item.topSkillIcon}
                   alt={item.topSkill}
                   className="carousel-skill-logo"
-                  width={34}
-                  height={34}
+                  width={32}
+                  height={32}
                   unoptimized
                 />
               ) : (
@@ -156,17 +151,16 @@ function CarouselItem({
             <div className="carousel-circle-meta">
               <span className="carousel-circle-percent" style={{ color: item.accent }}>{item.topSkillPercent}%</span>
               <span className="carousel-circle-separator">·</span>
-              <span className="carousel-skill-count-badge" style={{ borderColor: `${item.accent}25`, color: item.accent }}>
+              <span className="carousel-skill-count-badge" style={{ borderColor: `${item.accent}20`, color: item.accent }}>
                 {item.skillCount} hab.
               </span>
             </div>
           </div>
         </>
       ) : (
-        /* Original rectangular layout */
         <>
           <div className="carousel-item-header">
-            <span className="carousel-icon-container" style={{ backgroundColor: `${item.accent}20` }}>
+            <span className="carousel-icon-container" style={{ backgroundColor: `${item.accent}18` }}>
               {item.icon}
             </span>
           </div>
@@ -201,7 +195,6 @@ export default function SkillsCarousel({
   loop = true,
   round = false,
 }: SkillsCarouselProps) {
-  /* Build items from skills data grouped by category */
   const items: CarouselItemData[] = useMemo(() => {
     return skillCategories
       .filter((c) => c.id !== "all")
@@ -346,7 +339,6 @@ export default function SkillsCarousel({
   const activeIndex =
     items.length === 0 ? 0 : loop ? (position - 1 + items.length) % items.length : Math.min(position, items.length - 1);
 
-  /* Navigation handlers */
   const handlePrev = () => {
     setPosition((prev) => {
       const next = prev - 1;
@@ -364,7 +356,6 @@ export default function SkillsCarousel({
     });
   };
 
-  /* Current item for label */
   const currentItem = items[activeIndex];
 
   return (
@@ -437,7 +428,7 @@ export default function SkillsCarousel({
               aria-label={`Ir para ${item.title}`}
               aria-current={activeIndex === index}
               animate={{
-                scale: activeIndex === index ? 1.15 : 1,
+                scale: activeIndex === index ? 1.1 : 1,
                 backgroundColor: activeIndex === index ? item.accent : undefined,
               }}
               onClick={() => setPosition(loop ? index + 1 : index)}
@@ -445,7 +436,6 @@ export default function SkillsCarousel({
             />
           ))}
         </div>
-        {/* Current category label */}
         {currentItem && (
           <span className="carousel-indicator-label" style={{ color: currentItem.accent }}>
             {currentItem.title}

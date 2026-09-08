@@ -1,29 +1,9 @@
-/* ─── Skills Carousel — PREMIUM REDESIGN ─── */
+/* ─── Skills Carousel — Optimized Premium ─── */
 
-/* ─── Keyframes ─── */
-@keyframes carousel-border-rotate {
+/* ─── Keyframes (GPU-optimized: only transform/opacity) ─── */
+@keyframes carousel-ring-spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
-}
-
-@keyframes carousel-border-rotate-fast {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes carousel-shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes carousel-pulse-icon {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.08); }
-}
-
-@keyframes carousel-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-3px); }
 }
 
 @keyframes carousel-progress-draw {
@@ -31,102 +11,31 @@
   to   { stroke-dashoffset: var(--progress-offset); }
 }
 
-@keyframes carousel-glow-breathe {
-  0%, 100% { opacity: 0.4; }
-  50%      { opacity: 0.7; }
+@keyframes carousel-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-@keyframes carousel-counter-pop {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* ─── Container — Premium Frame ─── */
+/* ─── Container ─── */
 .carousel-container {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
-  padding: 24px;
-  background: rgba(248, 246, 240, 0.55);
-  backdrop-filter: blur(24px) saturate(1.4);
+  border-radius: 24px;
+  padding: 20px;
+  background: rgba(250, 248, 242, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 12px 48px -12px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  --outer-r: 28px;
-  --p-distance: 14px;
-}
-
-/* Animated gradient border on container */
-.carousel-container::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 29px;
-  padding: 1px;
-  background: conic-gradient(
-    from var(--container-rotation, 0deg),
-    rgba(217, 56, 56, 0.2),
-    rgba(242, 193, 78, 0.2),
-    rgba(56, 189, 248, 0.2),
-    rgba(167, 139, 250, 0.2),
-    rgba(217, 56, 56, 0.2)
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: carousel-border-rotate 12s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Decorative corner accents */
-.carousel-container::after {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border-radius: 20px;
-  border: 1px solid transparent;
-  pointer-events: none;
-  z-index: 2;
-  background:
-    /* Top-left corner */
-    linear-gradient(135deg, rgba(217, 56, 56, 0.3) 0%, transparent 40%) top left / 18px 18px no-repeat,
-    /* Top-right corner */
-    linear-gradient(225deg, rgba(217, 56, 56, 0.3) 0%, transparent 40%) top right / 18px 18px no-repeat,
-    /* Bottom-left corner */
-    linear-gradient(45deg, rgba(217, 56, 56, 0.3) 0%, transparent 40%) bottom left / 18px 18px no-repeat,
-    /* Bottom-right corner */
-    linear-gradient(315deg, rgba(217, 56, 56, 0.3) 0%, transparent 40%) bottom right / 18px 18px no-repeat;
+    0 8px 40px -12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  contain: layout;
 }
 
 .dark .carousel-container {
-  background: rgb(14 14 12 / 40%);
+  background: rgba(18, 18, 16, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
   box-shadow:
-    0 0 0 1px rgb(255 255 255 / 4%),
-    0 12px 48px -12px rgb(0 0 0 / 50%),
-    inset 0 1px 0 rgb(255 255 255 / 6%);
-}
-
-.dark .carousel-container::before {
-  background: conic-gradient(
-    from var(--container-rotation, 0deg),
-    rgba(217, 56, 56, 0.25),
-    rgba(242, 193, 78, 0.25),
-    rgba(56, 189, 248, 0.25),
-    rgba(167, 139, 250, 0.25),
-    rgba(217, 56, 56, 0.25)
-  );
-}
-
-.dark .carousel-container::after {
-  background:
-    linear-gradient(135deg, rgba(217, 56, 56, 0.2) 0%, transparent 40%) top left / 18px 18px no-repeat,
-    linear-gradient(225deg, rgba(217, 56, 56, 0.2) 0%, transparent 40%) top right / 18px 18px no-repeat,
-    linear-gradient(45deg, rgba(217, 56, 56, 0.2) 0%, transparent 40%) bottom left / 18px 18px no-repeat,
-    linear-gradient(315deg, rgba(217, 56, 56, 0.2) 0%, transparent 40%) bottom right / 18px 18px no-repeat;
+    0 8px 40px -12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .carousel-track {
@@ -140,11 +49,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4px;
+  padding: 0 6px;
   pointer-events: none;
   z-index: 5;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.3s ease;
 }
 
 .carousel-container:hover .carousel-nav-arrows {
@@ -156,53 +65,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(248, 246, 240, 0.65);
-  backdrop-filter: blur(12px);
+  background: rgba(250, 248, 242, 0.75);
+  backdrop-filter: blur(8px);
   cursor: pointer;
-  color: #4A4640;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  color: #5A5650;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.08);
 }
 
 .carousel-nav-btn:hover {
-  background: rgba(248, 246, 240, 0.85);
   border-color: var(--item-accent, rgba(217, 56, 56, 0.4));
   color: var(--item-accent, #D93838);
-  box-shadow:
-    0 4px 20px -4px rgba(0, 0, 0, 0.1),
-    0 0 20px 4px rgba(217, 56, 56, 0.08);
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .carousel-nav-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .dark .carousel-nav-btn {
-  background: rgba(30, 30, 26, 0.65);
-  border-color: rgb(255 255 255 / 8%);
+  background: rgba(28, 28, 24, 0.7);
+  border-color: rgba(255, 255, 255, 0.08%);
   color: #A8A198;
 }
 
 .dark .carousel-nav-btn:hover {
-  background: rgba(30, 30, 26, 0.85);
   border-color: var(--item-accent, rgba(217, 56, 56, 0.5));
   color: var(--item-accent, #D93838);
-  box-shadow:
-    0 4px 20px -4px rgb(0 0 0 / 40%),
-    0 0 20px 4px rgba(217, 56, 56, 0.12);
 }
 
 .carousel-nav-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
-/* ─── Circular item — PREMIUM ─── */
+/* ─── Circular item ─── */
 .carousel-item {
   position: relative;
   display: flex;
@@ -212,76 +113,70 @@
   justify-content: center;
   border: none;
   border-radius: 50%;
-  /* Glassmorphic background */
-  background: rgba(248, 246, 240, 0.5);
-  backdrop-filter: blur(16px) saturate(1.3);
+  /* Soft frosted background — no backdrop-filter for perf */
+  background: linear-gradient(145deg, rgba(255,255,255,0.55) 0%, rgba(248,246,240,0.45) 100%);
   overflow: visible;
   cursor: grab;
-  transition:
-    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.3s ease;
   text-align: center;
+  contain: layout paint;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.5),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 16px -4px rgba(0, 0, 0, 0.06);
+    inset 0 1px 3px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.03),
+    0 4px 20px -6px rgba(0, 0, 0, 0.08);
 }
 
-/* Dark mode item */
 .dark .carousel-item {
-  background: rgba(30, 30, 26, 0.45);
+  background: linear-gradient(145deg, rgba(32,32,28,0.5) 0%, rgba(20,20,18,0.45) 100%);
   box-shadow:
-    inset 0 1px 2px rgb(255 255 255 / 5%),
-    inset 0 -1px 2px rgb(0 0 0 / 20%),
-    0 4px 16px -4px rgb(0 0 0 / 30%);
+    inset 0 1px 2px rgba(255, 255, 255, 0.04),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.15),
+    0 4px 20px -6px rgba(0, 0, 0, 0.25);
 }
 
-/* Animated conic-gradient border ring */
+/* Animated accent ring — single conic-gradient, GPU-composited */
 .carousel-item::before {
   content: "";
   position: absolute;
-  inset: -3px;
+  inset: -2px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 2px;
   background: conic-gradient(
     from var(--item-ring-start, 0deg),
     var(--item-accent, #D93838),
-    transparent 30%,
-    var(--item-accent, #D93838)66%,
-    transparent 80%,
+    transparent 25%,
+    var(--item-accent, #D93838) 50%,
+    transparent 75%,
     var(--item-accent, #D93838)
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.5;
+  opacity: 0.35;
   pointer-events: none;
-  animation: carousel-border-rotate 6s linear infinite;
+  animation: carousel-ring-spin 8s linear infinite;
   transition: opacity 0.3s ease;
+  will-change: transform;
 }
 
 .carousel-item:hover::before {
-  opacity: 1;
-  animation: carousel-border-rotate-fast 3s linear infinite;
+  opacity: 0.75;
 }
 
-/* Shimmer overlay on hover */
+/* Shimmer — lightweight translateX instead of background-position */
 .carousel-item::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
   background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.12) 45%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.12) 55%,
-    transparent 60%
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
   );
-  background-size: 200% 100%;
+  width: 50%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -290,36 +185,29 @@
 
 .carousel-item:hover::after {
   opacity: 1;
-  animation: carousel-shimmer 2.5s ease-in-out infinite;
+  animation: carousel-shimmer 1.8s ease-in-out infinite;
 }
 
 .dark .carousel-item::after {
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.04) 45%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 55%,
-    transparent 60%
-  );
-  background-size: 200% 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  width: 50%;
 }
 
 .carousel-item:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
   box-shadow:
-    0 0 60px 20px rgba(217, 56, 56, 0.08),
+    0 0 40px 12px rgba(217, 56, 56, 0.06),
     0 8px 32px -8px rgba(0, 0, 0, 0.1),
-    inset 0 2px 4px rgba(255, 255, 255, 0.6),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.04);
+    inset 0 1px 3px rgba(255, 255, 255, 0.65),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .dark .carousel-item:hover {
   box-shadow:
-    0 0 60px 20px rgba(217, 56, 56, 0.1),
-    0 8px 32px -8px rgb(0 0 0 / 40%),
-    inset 0 1px 2px rgb(255 255 255 / 6%),
-    inset 0 -1px 2px rgb(0 0 0 / 20%);
+    0 0 40px 12px rgba(217, 56, 56, 0.08),
+    0 8px 32px -8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .carousel-item:active {
@@ -329,21 +217,21 @@
 /* ─── SVG Radial Progress Arc ─── */
 .carousel-progress-svg {
   position: absolute;
-  inset: -6px;
-  width: calc(100% + 12px);
-  height: calc(100% + 12px);
+  inset: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
   pointer-events: none;
   z-index: 2;
 }
 
 .carousel-progress-track {
   fill: none;
-  stroke: rgba(0, 0, 0, 0.04);
-  stroke-width: 2.5;
+  stroke: rgba(0, 0, 0, 0.05);
+  stroke-width: 2;
 }
 
 .dark .carousel-progress-track {
-  stroke: rgb(255 255 255 / 5%);
+  stroke: rgba(255, 255, 255, 0.06);
 }
 
 .carousel-progress-arc {
@@ -351,13 +239,11 @@
   stroke: var(--item-accent, #D93838);
   stroke-width: 2.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 4px rgba(217, 56, 56, 0.3));
-  animation: carousel-progress-draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: carousel-progress-draw 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .carousel-progress-endcap {
   fill: var(--item-accent, #D93838);
-  filter: drop-shadow(0 0 3px rgba(217, 56, 56, 0.4));
 }
 
 /* ─── Circular content layout ─── */
@@ -366,77 +252,79 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 16% 20%;
+  gap: 5px;
+  padding: 16% 18%;
   width: 100%;
   height: 100%;
   position: relative;
   z-index: 4;
 }
 
-/* Icon container — premium with blur backdrop */
+/* Icon container */
 .carousel-circle-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 62px;
-  height: 62px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(8px);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
   flex-shrink: 0;
   box-shadow:
-    0 4px 12px -4px rgba(0, 0, 0, 0.08),
+    0 3px 10px -3px rgba(0, 0, 0, 0.07),
     inset 0 1px 2px rgba(255, 255, 255, 0.4);
   position: relative;
 }
 
 .dark .carousel-circle-icon {
-  background: rgba(30, 30, 26, 0.4);
-  border-color: rgb(255 255 255 / 6%);
+  background: rgba(28, 28, 24, 0.45);
+  border-color: rgba(255, 255, 255, 0.06);
   box-shadow:
-    0 4px 12px -4px rgb(0 0 0 / 30%),
-    inset 0 1px 2px rgb(255 255 255 / 4%);
+    0 3px 10px -3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.03);
 }
 
 .carousel-item:hover .carousel-circle-icon {
-  transform: scale(1.1);
-  animation: carousel-pulse-icon 1.5s ease-in-out infinite;
+  transform: scale(1.08);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark .carousel-item:hover .carousel-circle-icon {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .carousel-circle-icon .carousel-icon {
-  height: 28px;
-  width: 28px;
+  height: 24px;
+  width: 24px;
 }
 
-/* Category title — bold, with subtle text-shadow */
+/* Category title */
 .carousel-circle-title {
   font-weight: 800;
-  font-size: 16px;
+  font-size: 15px;
   color: #1A1A1A;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
+
 .dark .carousel-circle-title {
   color: #F2EFE5;
-  text-shadow: 0 1px 4px rgb(0 0 0 / 20%);
 }
 
 /* Top skill — accent colored */
 .carousel-circle-top {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--item-accent, #D93838);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
   line-height: 1.2;
 }
 
-/* Description — smaller, muted, ellipsis */
+/* Description */
 .carousel-circle-desc {
-  font-size: 10px;
+  font-size: 9.5px;
   color: #6B6560;
   line-height: 1.5;
   max-width: 88%;
@@ -450,7 +338,7 @@
   color: #8A8480;
 }
 
-/* Skill count badge/tag */
+/* Meta row */
 .carousel-circle-meta {
   font-size: 9px;
   font-family: var(--font-code, monospace);
@@ -458,7 +346,7 @@
   margin-top: 2px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 .dark .carousel-circle-meta {
   color: #8A8480;
@@ -466,7 +354,7 @@
 
 .carousel-circle-percent {
   font-weight: 800;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: -0.02em;
 }
 
@@ -474,44 +362,44 @@
   opacity: 0.3;
 }
 
-/* Skill count as a small badge */
+/* Skill count badge */
 .carousel-skill-count-badge {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  padding: 1px 6px;
-  border-radius: 8px;
+  padding: 1px 5px;
+  border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   background: rgba(0, 0, 0, 0.03);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  transition: all 0.25s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .dark .carousel-skill-count-badge {
-  border-color: rgb(255 255 255 / 6%);
-  background: rgb(255 255 255 / 4%);
+  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .carousel-item:hover .carousel-skill-count-badge {
   border-color: rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .dark .carousel-item:hover .carousel-skill-count-badge {
-  border-color: rgb(255 255 255 / 10%);
-  background: rgb(255 255 255 / 8%);
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-/* Skill logo image inside the circle icon container */
+/* Skill logo */
 .carousel-skill-logo {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 
-/* ─── Round mode (container is also round) ─── */
+/* ─── Round mode ─── */
 .carousel-container.round {
   border: none;
 }
@@ -524,8 +412,9 @@
   align-items: center;
   text-align: center;
 }
+
 .dark .carousel-item.round {
-  background: rgba(30, 30, 26, 0.45);
+  background: linear-gradient(145deg, rgba(32,32,28,0.5) 0%, rgba(20,20,18,0.45) 100%);
 }
 
 .carousel-indicators-container.round {
@@ -536,7 +425,7 @@
   transform: translateX(-50%);
 }
 
-/* ─── Rectangular layout (for non-round fallback) ─── */
+/* ─── Rectangular layout (non-round fallback) ─── */
 .carousel-item-header {
   margin-bottom: 12px;
   padding: 18px 20px 0 20px;
@@ -551,11 +440,11 @@
   border-radius: 12px;
   background-color: rgba(217, 56, 56, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 .dark .carousel-icon-container {
   background-color: rgba(217, 56, 56, 0.08);
-  border-color: rgb(255 255 255 / 4%);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .carousel-item:hover .carousel-icon-container {
@@ -565,7 +454,7 @@
 }
 .dark .carousel-item:hover .carousel-icon-container {
   background-color: rgba(217, 56, 56, 0.15);
-  border-color: rgb(255 255 255 / 8%);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .carousel-icon {
@@ -613,7 +502,7 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 .dark .carousel-item-meta {
-  border-top-color: rgb(255 255 255 / 4%);
+  border-top-color: rgba(255, 255, 255, 0.04);
 }
 
 .carousel-item-count {
@@ -628,42 +517,41 @@
   color: #A8A198;
 }
 
-/* ─── Indicators — STYLISH ─── */
+/* ─── Indicators ─── */
 .carousel-indicators-container {
   display: flex;
   width: 100%;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .carousel-indicators {
-  margin-top: 12px;
+  margin-top: 10px;
   display: flex;
   width: auto;
-  gap: 6px;
+  gap: 5px;
   justify-content: center;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 5px 10px;
+  border-radius: 16px;
   background: rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(8px);
   align-items: center;
 }
 
 .dark .carousel-indicators {
-  background: rgb(255 255 255 / 4%);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .carousel-indicator {
-  height: 6px;
-  width: 6px;
+  height: 5px;
+  width: 5px;
   border: none;
   padding: 0;
   appearance: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease, transform 0.25s ease;
 }
 
 .carousel-indicator:focus-visible {
@@ -671,16 +559,16 @@
   outline-offset: 2px;
 }
 
-/* Active indicator — pill with accent glow */
+/* Active indicator */
 .carousel-indicator.active {
   background-color: var(--item-accent, #D93838);
-  box-shadow: 0 0 14px 2px rgba(217, 56, 56, 0.3);
-  width: 28px;
-  border-radius: 4px;
-  height: 6px;
+  box-shadow: 0 0 10px 1px rgba(217, 56, 56, 0.25);
+  width: 24px;
+  border-radius: 3px;
+  height: 5px;
 }
 .dark .carousel-indicator.active {
-  box-shadow: 0 0 16px 3px rgba(217, 56, 56, 0.35);
+  box-shadow: 0 0 12px 2px rgba(217, 56, 56, 0.3);
 }
 
 /* Inactive dots */
@@ -688,39 +576,38 @@
   background-color: rgba(74, 70, 64, 0.2);
 }
 .dark .carousel-indicator.inactive {
-  background-color: rgba(168, 161, 152, 0.25);
+  background-color: rgba(168, 161, 152, 0.2);
 }
 
 .carousel-indicator.inactive:hover {
   background-color: rgba(74, 70, 64, 0.4);
-  transform: scale(1.4);
+  transform: scale(1.3);
 }
 .dark .carousel-indicator.inactive:hover {
-  background-color: rgba(168, 161, 152, 0.5);
+  background-color: rgba(168, 161, 152, 0.45);
 }
 
-/* Current category label below indicators */
+/* Category label below indicators */
 .carousel-indicator-label {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(74, 70, 64, 0.5);
+  color: rgba(74, 70, 64, 0.45);
   transition: color 0.3s ease;
 }
-
 .dark .carousel-indicator-label {
-  color: rgba(168, 161, 152, 0.4);
+  color: rgba(168, 161, 152, 0.35);
 }
 
-/* ─── Premium Stat Cards (below carousel) ─── */
+/* ─── Stat Cards ─── */
 .carousel-stat-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  max-width: 480px;
-  margin-top: 8px;
+  max-width: 460px;
+  margin-top: 6px;
 }
 
 .carousel-stat-card {
@@ -728,37 +615,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 12px 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(248, 246, 240, 0.5);
-  backdrop-filter: blur(16px) saturate(1.2);
+  padding: 14px 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(170deg, rgba(255,255,255,0.5) 0%, rgba(248,246,240,0.4) 100%);
   box-shadow:
-    0 4px 16px -4px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 3px 12px -4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
 }
 
 .carousel-stat-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow:
-    0 8px 28px -8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 6px 20px -6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .dark .carousel-stat-card {
-  background: rgba(30, 30, 26, 0.4);
-  border-color: rgb(255 255 255 / 5%);
+  background: linear-gradient(170deg, rgba(28,28,24,0.45) 0%, rgba(20,20,18,0.4) 100%);
+  border-color: rgba(255, 255, 255, 0.04);
   box-shadow:
-    0 4px 16px -4px rgb(0 0 0 / 30%),
-    inset 0 1px 0 rgb(255 255 255 / 4%);
+    0 3px 12px -4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .dark .carousel-stat-card:hover {
   box-shadow:
-    0 8px 28px -8px rgb(0 0 0 / 40%),
-    inset 0 1px 0 rgb(255 255 255 / 6%);
+    0 6px 20px -6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 /* Left accent bar */
@@ -766,51 +652,50 @@
   content: "";
   position: absolute;
   left: 0;
-  top: 12px;
-  bottom: 12px;
-  width: 3px;
+  top: 10px;
+  bottom: 10px;
+  width: 2.5px;
   border-radius: 2px;
   background: var(--stat-accent, #D93838);
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+  opacity: 0.5;
+  transition: opacity 0.25s ease, width 0.25s ease;
 }
 
 .carousel-stat-card:hover::before {
-  opacity: 1;
+  opacity: 0.9;
+  width: 3px;
 }
 
 .carousel-stat-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  margin-bottom: 6px;
-  transition: transform 0.3s ease;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: transform 0.25s ease;
 }
 
 .carousel-stat-card:hover .carousel-stat-icon {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .carousel-stat-count {
   font-weight: 800;
-  font-size: 28px;
+  font-size: 26px;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--stat-accent, #D93838);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  animation: carousel-counter-pop 0.4s ease-out;
 }
 
 .carousel-stat-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #6B6560;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 .dark .carousel-stat-label {
@@ -820,23 +705,40 @@
 /* ─── Responsive ─── */
 @media (max-width: 480px) {
   .carousel-stat-cards {
-    gap: 8px;
+    gap: 6px;
   }
   .carousel-stat-card {
-    padding: 12px 8px 10px;
+    padding: 10px 6px 8px;
   }
   .carousel-stat-count {
-    font-size: 22px;
+    font-size: 20px;
   }
   .carousel-stat-label {
-    font-size: 9px;
+    font-size: 8px;
   }
   .carousel-nav-btn {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
   }
   .carousel-nav-btn svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-item::before {
+    animation: none;
+    opacity: 0.4;
+  }
+  .carousel-item::after {
+    animation: none;
+  }
+  .carousel-item:hover {
+    transform: none;
+  }
+  .carousel-progress-arc {
+    animation: none;
   }
 }

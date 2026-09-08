@@ -158,7 +158,7 @@ export const skills: Skill[] = [
   { name: "Excel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftoffice/microsoftoffice-original.svg", percent: 75, category: "tools", level: "Avançado", description: "Power Query, dashboards, VBA", experience: "2+ anos", tier: "proficient" },
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", percent: 35, category: "tools", level: "Intermediário", description: "Containers, compose, imagens", experience: "6 meses", tier: "learning" },
   // ─── CORPORATE ───────────────────────────────────────────────
-  { name: "SAP B1", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sap/sap-original.svg", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano", tier: "proficient" },
+  { name: "SAP B1", icon: "https://tse1.mm.bing.net/th/id/OIP.dQnK05UytfYVrDT6lXQlLgHaDq?r=0&rs=1&pid=ImgDetMain&o=7&rm=3", percent: 65, category: "corporate", level: "Intermediário", description: "Módulos Financeiro, Estoque, Vendas, Compras", experience: "1+ ano", tier: "proficient" },
   { name: "TMS", icon: "https://cdn-icons-png.flaticon.com/512/2942/2942271.png", percent: 62, category: "corporate", level: "Intermediário-Avançado", description: "CTEs, fretes, logística, transportadoras", experience: "1+ ano", tier: "proficient" },
   // ─── CLOUD ───────────────────────────────────────────────────
   { name: "Cloud Computing", icon: "https://cdn-icons-png.flaticon.com/512/3242/3242257.png", percent: 45, category: "cloud", level: "Intermediário", description: "IaaS, PaaS, SaaS, serverless", experience: "8 meses", tier: "learning" },
