@@ -115,7 +115,7 @@ export function AIChatWidget() {
   if (!mounted) return null;
 
   return (
-    <div className="fixed bottom-20 right-4 z-[80] sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-6 right-4 z-[80] sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -123,7 +123,7 @@ export function AIChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-16 right-0 mb-2 flex w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-sumi-lg sm:w-[380px]"
+            className="absolute bottom-14 right-0 mb-2 flex w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-sumi-lg sm:w-[380px]"
             style={{ maxHeight: "min(560px, calc(100vh - 120px))" }}
           >
             <div className="flex items-center gap-3 border-b border-[var(--surface-border)] px-4 py-3.5">

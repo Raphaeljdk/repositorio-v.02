@@ -728,6 +728,48 @@
     width: 14px;
     height: 14px;
   }
+  /* Smaller carousel text on mobile */
+  .carousel-circle-title {
+    font-size: 13px;
+  }
+  .carousel-circle-top {
+    font-size: 10px;
+  }
+  .carousel-circle-desc {
+    font-size: 8.5px;
+  }
+  .carousel-circle-meta {
+    font-size: 8px;
+  }
+  .carousel-circle-percent {
+    font-size: 10px;
+  }
+  .carousel-circle-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .carousel-circle-icon .carousel-icon {
+    height: 20px;
+    width: 20px;
+  }
+  .carousel-circle-icon .carousel-skill-logo {
+    width: 24px;
+    height: 24px;
+  }
+  /* Always show nav arrows on mobile (no hover) */
+  .carousel-nav-arrows {
+    opacity: 0.7;
+  }
+}
+
+/* Touch devices — always show nav arrows, hide on hover-only */
+@media (pointer: coarse) {
+  .carousel-nav-arrows {
+    opacity: 0.7 !important;
+  }
+  .carousel-container:hover .carousel-nav-arrows {
+    opacity: 0.7 !important;
+  }
 }
 
 /* ─── Reduced motion ─── */

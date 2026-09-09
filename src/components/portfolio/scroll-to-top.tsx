@@ -35,7 +35,7 @@ export function ScrollToTop() {
           whileTap={{ scale: 0.95 }}
           onClick={goTop}
           aria-label="Voltar ao topo"
-          className="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-foreground shadow-lg transition-colors hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]"
+          className="fixed bottom-6 left-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-foreground shadow-lg transition-colors hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)]"
         >
           <ArrowUp className="h-4 w-4" />
         </motion.button>

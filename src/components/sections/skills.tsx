@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Crown, TrendingUp, Sprout, Sparkles } from "lucide-react";
 import { skillCategories, skills, type SkillCategory, type SkillTier } from "@/lib/data";
@@ -85,6 +85,24 @@ export function Skills() {
   const [query, setQuery] = useState("");
   const [view, setView] = useState<TierView>("carousel");
 
+  /* Responsive carousel width — tracks container size */
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
+  const [carouselWidth, setCarouselWidth] = useState(380);
+
+  useEffect(() => {
+    const el = carouselContainerRef.current;
+    if (!el) return;
+    const update = () => {
+      const w = el.clientWidth;
+      /* Max 380, min 280 — leaves room for container padding */
+      setCarouselWidth(Math.max(280, Math.min(380, w)));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (
@@ -141,9 +159,9 @@ export function Skills() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-10 flex flex-col items-center gap-8"
           >
-            <div className="w-full max-w-md mx-auto" style={{ minHeight: "420px", position: "relative" }}>
+            <div ref={carouselContainerRef} className="w-full max-w-md mx-auto" style={{ minHeight: "420px", position: "relative" }}>
               <SkillsCarousel
-                baseWidth={380}
+                baseWidth={carouselWidth}
                 autoplay={true}
                 autoplayDelay={3000}
                 pauseOnHover={true}
@@ -157,7 +175,7 @@ export function Skills() {
               {[
                 { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)", Icon: Crown },
                 { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)", Icon: TrendingUp },
-                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)", Icon: Sprout },
+                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)", Icon: Sprout, shortLabel: "Dev" },
               ].map((t) => (
                 <motion.div
                   key={t.label}
@@ -173,7 +191,7 @@ export function Skills() {
                     <t.Icon style={{ width: 18, height: 18 }} />
                   </span>
                   <span className="carousel-stat-count" style={{ color: t.color }}>{t.count}</span>
-                  <span className="carousel-stat-label">{t.label}</span>
+                  <span className="carousel-stat-label"><span className="hidden sm:inline">{t.label}</span><span className="sm:hidden">{(t as { shortLabel?: string }).shortLabel ?? t.label}</span></span>
                 </motion.div>
               ))}
             </div>
