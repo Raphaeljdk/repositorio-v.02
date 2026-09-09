@@ -197,6 +197,8 @@ interface SkillsCarouselProps {
   pauseOnHover?: boolean;
   loop?: boolean;
   round?: boolean;
+  /** Slot rendered between the carousel and indicators — e.g. stat cards */
+  belowCarouselSlot?: ReactNode;
 }
 
 export default function SkillsCarousel({
@@ -206,6 +208,7 @@ export default function SkillsCarousel({
   pauseOnHover = true,
   loop = true,
   round = false,
+  belowCarouselSlot,
 }: SkillsCarouselProps) {
   const items: CarouselItemData[] = useMemo(() => {
     return skillCategories
@@ -371,7 +374,8 @@ export default function SkillsCarousel({
   const currentItem = items[activeIndex];
 
   return (
-    <>
+    <div className="carousel-layout">
+      {/* 1. Carousel container (the circle) */}
       <div
         ref={containerRef}
         className={`carousel-container ${round ? "round" : ""}`}
@@ -432,7 +436,11 @@ export default function SkillsCarousel({
           ))}
         </motion.div>
       </div>
-      {/* Indicators rendered outside container — positioned at bottom by parent */}
+
+      {/* 2. Slot: stat cards rendered here (between circle and indicators) */}
+      {belowCarouselSlot}
+
+      {/* 3. Indicators at the very bottom */}
       <div className={`carousel-indicators-container ${round ? "round" : ""}`}>
         <div className="carousel-indicators">
           {items.map((item, index) => (
@@ -457,6 +465,6 @@ export default function SkillsCarousel({
           </span>
         )}
       </div>
-    </>
+    </div>
   );
 }

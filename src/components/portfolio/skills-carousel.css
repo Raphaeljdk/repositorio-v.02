@@ -602,23 +602,12 @@
   color: rgba(168, 161, 152, 0.3);
 }
 
-/* ─── Carousel Layout — flex column with CSS order to put indicators last ─── */
+/* ─── Carousel Layout — flex column, natural DOM order: container → slot → indicators ─── */
 .carousel-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-}
-
-/* Order: carousel container first, stat cards second, indicators last */
-.carousel-layout .carousel-container {
-  order: 1;
-}
-.carousel-layout .carousel-stat-cards {
-  order: 2;
-}
-.carousel-layout .carousel-indicators-container {
-  order: 3;
 }
 
 /* ─── Stat Cards ─── */

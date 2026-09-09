@@ -158,7 +158,7 @@ export function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-10 carousel-layout"
+            className="mt-10"
           >
             <SkillsCarousel
               baseWidth={carouselWidth}
@@ -167,33 +167,34 @@ export function Skills() {
               pauseOnHover={true}
               loop={true}
               round={true}
+              belowCarouselSlot={
+                /* Stat cards rendered between circle and indicators */
+                <div className="carousel-stat-cards">
+                  {[
+                    { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)", Icon: Crown },
+                    { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)", Icon: TrendingUp },
+                    { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)", Icon: Sprout, shortLabel: "Dev" },
+                  ].map((t) => (
+                    <motion.div
+                      key={t.label}
+                      className="carousel-stat-card"
+                      style={{ "--stat-accent": t.color } as React.CSSProperties}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4 }}
+                      whileHover={{ y: -4 }}
+                    >
+                      <span className="carousel-stat-icon" style={{ color: t.color }}>
+                        <t.Icon style={{ width: 18, height: 18 }} />
+                      </span>
+                      <span className="carousel-stat-count" style={{ color: t.color }}>{t.count}</span>
+                      <span className="carousel-stat-label"><span className="hidden sm:inline">{t.label}</span><span className="sm:hidden">{(t as { shortLabel?: string }).shortLabel ?? t.label}</span></span>
+                    </motion.div>
+                  ))}
+                </div>
+              }
             />
-
-            {/* Premium stat cards — order:2 via CSS, above indicators */}
-            <div className="carousel-stat-cards">
-              {[
-                { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)", Icon: Crown },
-                { label: "Proficiente", count: proficientCount, color: "var(--color-accent-copper)", Icon: TrendingUp },
-                { label: "Em Desenvolvimento", count: learningCount, color: "var(--color-accent-sage)", Icon: Sprout, shortLabel: "Dev" },
-              ].map((t) => (
-                <motion.div
-                  key={t.label}
-                  className="carousel-stat-card"
-                  style={{ "--stat-accent": t.color } as React.CSSProperties}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <span className="carousel-stat-icon" style={{ color: t.color }}>
-                    <t.Icon style={{ width: 18, height: 18 }} />
-                  </span>
-                  <span className="carousel-stat-count" style={{ color: t.color }}>{t.count}</span>
-                  <span className="carousel-stat-label"><span className="hidden sm:inline">{t.label}</span><span className="sm:hidden">{(t as { shortLabel?: string }).shortLabel ?? t.label}</span></span>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         )}
 
