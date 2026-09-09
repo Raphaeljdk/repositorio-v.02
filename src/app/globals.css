@@ -940,3 +940,76 @@
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 12%, transparent);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Theme Transition — Cross-fade on dark/light mode switch
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Fallback CSS fade for browsers without View Transitions API */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              fill 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* View Transitions API — circular reveal from toggle button position */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Dark → Light: new content sweeps in as a circle from the button */
+::view-transition-new(root) {
+  animation: theme-circle-reveal 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Light → Dark: old content sweeps out as a circle */
+::view-transition-old(root) {
+  animation: theme-circle-reveal 0.45s cubic-bezier(0.4, 0, 0.2, 1) reverse;
+}
+
+@keyframes theme-circle-reveal {
+  from {
+    clip-path: circle(0% at var(--transition-x, 50%) var(--transition-y, 50%));
+  }
+  to {
+    clip-path: circle(var(--transition-radius, 100%) at var(--transition-x, 50%) var(--transition-y, 50%));
+  }
+}
+
+/* Respect reduced motion — instant switch */
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    animation: none !important;
+  }
+}
+
+/* Theme toggle button — responsive sizing */
+.theme-toggle-btn {
+  /* Mobile-first: 44px touch target */
+  width: 44px;
+  height: 44px;
+}
+@media (min-width: 640px) {
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Decorative off-canvas marks never create horizontal page movement. */
+html { overflow-x: clip; }
