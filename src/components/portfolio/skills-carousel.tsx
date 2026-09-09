@@ -371,65 +371,68 @@ export default function SkillsCarousel({
   const currentItem = items[activeIndex];
 
   return (
-    <div
-      ref={containerRef}
-      className={`carousel-container ${round ? "round" : ""}`}
-      style={{
-        width: `${baseWidth}px`,
-        height: round ? `${baseWidth}px` : `${itemWidth + 60}px`,
-        "--item-accent": currentItem?.accent ?? "#D93838",
-      } as React.CSSProperties}
-    >
-      {/* Navigation Arrows */}
-      <div className="carousel-nav-arrows">
-        <button
-          type="button"
-          className="carousel-nav-btn"
-          onClick={handlePrev}
-          aria-label="Slide anterior"
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          type="button"
-          className="carousel-nav-btn"
-          onClick={handleNext}
-          aria-label="Próximo slide"
-        >
-          <ChevronRight />
-        </button>
-      </div>
-
-      <motion.div
-        className="carousel-track"
-        drag={isAnimating ? false : "x"}
-        {...dragProps}
+    <>
+      <div
+        ref={containerRef}
+        className={`carousel-container ${round ? "round" : ""}`}
         style={{
-          width: itemWidth,
-          gap: `${GAP}px`,
-          perspective: 2000,
-          x,
-          willChange: "transform",
-        }}
-        onDragEnd={handleDragEnd}
-        animate={{ x: -(position * trackItemOffset) }}
-        transition={effectiveTransition}
-        onAnimationStart={() => setIsAnimating(true)}
-        onAnimationComplete={handleAnimationComplete}
+          width: `${baseWidth}px`,
+          height: round ? `${baseWidth}px` : `${itemWidth + 60}px`,
+          "--item-accent": currentItem?.accent ?? "#D93838",
+        } as React.CSSProperties}
       >
-        {itemsForRender.map((item, index) => (
-          <CarouselItem
-            key={`${item.id}-${index}`}
-            item={item}
-            index={index}
-            itemWidth={itemWidth}
-            round={round}
-            trackItemOffset={trackItemOffset}
-            x={x}
-            transition={effectiveTransition}
-          />
-        ))}
-      </motion.div>
+        {/* Navigation Arrows */}
+        <div className="carousel-nav-arrows">
+          <button
+            type="button"
+            className="carousel-nav-btn"
+            onClick={handlePrev}
+            aria-label="Slide anterior"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            type="button"
+            className="carousel-nav-btn"
+            onClick={handleNext}
+            aria-label="Próximo slide"
+          >
+            <ChevronRight />
+          </button>
+        </div>
+
+        <motion.div
+          className="carousel-track"
+          drag={isAnimating ? false : "x"}
+          {...dragProps}
+          style={{
+            width: itemWidth,
+            gap: `${GAP}px`,
+            perspective: 2000,
+            x,
+            willChange: "transform",
+          }}
+          onDragEnd={handleDragEnd}
+          animate={{ x: -(position * trackItemOffset) }}
+          transition={effectiveTransition}
+          onAnimationStart={() => setIsAnimating(true)}
+          onAnimationComplete={handleAnimationComplete}
+        >
+          {itemsForRender.map((item, index) => (
+            <CarouselItem
+              key={`${item.id}-${index}`}
+              item={item}
+              index={index}
+              itemWidth={itemWidth}
+              round={round}
+              trackItemOffset={trackItemOffset}
+              x={x}
+              transition={effectiveTransition}
+            />
+          ))}
+        </motion.div>
+      </div>
+      {/* Indicators rendered outside container — positioned at bottom by parent */}
       <div className={`carousel-indicators-container ${round ? "round" : ""}`}>
         <div className="carousel-indicators">
           {items.map((item, index) => (
@@ -454,6 +457,6 @@ export default function SkillsCarousel({
           </span>
         )}
       </div>
-    </div>
+    </>
   );
 }

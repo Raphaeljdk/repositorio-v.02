@@ -153,24 +153,23 @@ export function Skills() {
         {/* ── CAROUSEL VIEW ── */}
         {view === "carousel" && (
           <motion.div
+            ref={carouselContainerRef}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-10 flex flex-col items-center gap-8"
+            className="mt-10 carousel-layout"
           >
-            <div ref={carouselContainerRef} className="w-full max-w-md mx-auto" style={{ minHeight: "420px", position: "relative" }}>
-              <SkillsCarousel
-                baseWidth={carouselWidth}
-                autoplay={true}
-                autoplayDelay={3000}
-                pauseOnHover={true}
-                loop={true}
-                round={true}
-              />
-            </div>
+            <SkillsCarousel
+              baseWidth={carouselWidth}
+              autoplay={true}
+              autoplayDelay={3000}
+              pauseOnHover={true}
+              loop={true}
+              round={true}
+            />
 
-            {/* Premium stat cards under carousel */}
+            {/* Premium stat cards — order:2 via CSS, above indicators */}
             <div className="carousel-stat-cards">
               {[
                 { label: "Especialista", count: expertCount, color: "var(--color-accent-gold)", Icon: Crown },
