@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="ClimaPro, plataforma de orçamentos para climatização">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06142d"/><stop offset=".48" stop-color="#082d5a"/><stop offset="1" stop-color="#030b1b"/></linearGradient>
+  <linearGradient id="steel" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#b6cdec"/><stop offset="1" stop-color="#47729e"/></linearGradient>
+  <linearGradient id="cyan" x1="0" x2="1"><stop stop-color="#41e8f8"/><stop offset="1" stop-color="#1680fa"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#103b73"/><stop offset="1" stop-color="#030e28"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#139ef4" stop-opacity=".6"/><stop offset="1" stop-color="#139ef4" stop-opacity="0"/></radialGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="23"/></filter>
+  <filter id="shadow"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000" flood-opacity=".7"/></filter>
+  <filter id="small-shadow"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#000" flood-opacity=".5"/></filter>
+  <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#73bdfa" stroke-opacity=".055"/></pattern>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<rect width="1200" height="675" fill="url(#grid)"/>
+<ellipse cx="1010" cy="340" rx="380" ry="390" fill="url(#glow)" opacity=".72"/>
+<circle cx="70" cy="68" r="190" fill="#077fff" opacity=".18" filter="url(#blur)"/>
+<path d="M0 20L495 157M0 630L594 507" stroke="#28b9fd" stroke-width="3" opacity=".72"/>
+<path d="M480 0L970 0 630 430 0 565" stroke="#7fbaff" opacity=".13" fill="none"/>
+<g opacity=".5" stroke="#55bbfa" fill="none"><path d="M0 515Q300 470 500 600T1200 475"/><path d="M0 528Q300 483 500 613T1200 488" opacity=".4"/></g>
+<!-- Brand -->
+<g transform="translate(65 170)" stroke="url(#cyan)" stroke-width="8" stroke-linecap="round" fill="none">
+  <path d="M31 -18V66M-9 24H71M3 -4L59 52M59 -4L3 52"/>
+  <path d="M31 -18L20 -8M31 -18L42 -8M31 66L20 56M31 66L42 56M-9 24L1 13M-9 24L1 35" stroke-width="5"/>
+</g>
+<text x="154" y="222" font-size="93" font-weight="800" font-family="Arial,Helvetica,sans-serif" fill="#f6fbff" letter-spacing="-6">Clima</text>
+<text x="417" y="222" font-size="93" font-weight="800" font-family="Arial,Helvetica,sans-serif" fill="url(#cyan)" letter-spacing="-6">Pro</text>
+<text x="69" y="280" font-size="27" font-family="Arial,Helvetica,sans-serif" font-weight="400" fill="#d5e7f8">Sistema de orçamentos</text>
+<text x="69" y="314" font-size="27" font-family="Arial,Helvetica,sans-serif" font-weight="400" fill="#d5e7f8">para climatização</text>
+<!-- Feature chips -->
+<g font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="600" fill="#f2f9ff">
+ <g><rect x="69" y="366" width="182" height="68" rx="15" fill="#0b2042" stroke="#3e91ce" stroke-opacity=".6"/><rect x="89" y="385" width="29" height="31" rx="4" fill="none" stroke="#2d9aff" stroke-width="3"/><path d="M95 395h17M95 403h17M95 411h10" stroke="#2d9aff" stroke-width="2"/><text x="127" y="407">Orçamentos</text></g>
+ <g><rect x="264" y="366" width="172" height="68" rx="15" fill="#0b2042" stroke="#3e91ce" stroke-opacity=".6"/><rect x="284" y="386" width="29" height="31" rx="4" fill="none" stroke="#1bdafa" stroke-width="3"/><path d="M290 395h15m-15 8h15m-15 8h10" stroke="#1bdafa" stroke-width="2"/><text x="321" y="407">Propostas</text></g>
+ <g><rect x="449" y="366" width="140" height="68" rx="15" fill="#0b2042" stroke="#3e91ce" stroke-opacity=".6"/><path d="M466 385h20l8 8v23h-28z" fill="none" stroke="#27b6fd" stroke-width="3"/><text x="469" y="407" font-size="11" fill="#5ee8fe">PDF</text><text x="503" y="407">PDF</text></g>
+</g>
+<g transform="translate(69 467)">
+<rect width="247" height="37" rx="18.5" fill="#22ade8" fill-opacity=".13" stroke="#22c9ff" stroke-opacity=".65"/>
+<circle cx="21" cy="18" r="5" fill="#3bd8f2"/>
+<text x="39" y="24" font-size="15" font-family="Arial,Helvetica,sans-serif" font-weight="700" letter-spacing="1.4" fill="#b8edff">EM BREVE · LANÇAMENTO</text>
+</g>
+<!-- AC illustration -->
+<g filter="url(#shadow)" transform="translate(679 47)">
+<path d="M20 63Q21 36 49 30L430 0Q462 0 462 35L460 133Q457 160 428 162L37 172Q12 172 13 147Z" fill="url(#steel)" stroke="#84b5e4" stroke-width="4"/>
+<path d="M20 127Q230 119 451 102L450 142Q446 151 428 153L37 163Q21 162 20 151Z" fill="#2b5b8d"/>
+<path d="M37 146L431 127" stroke="#071b39" stroke-width="12" stroke-linecap="round"/>
+<path d="M45 151L427 132" stroke="#36bcf7" stroke-width="3" opacity=".75"/>
+<g stroke="#102f55" stroke-width="4" opacity=".8"><path d="M83 144l-3 12M143 141l-3 12M203 138l-3 12M263 135l-3 12M323 132l-3 12M383 129l-3 12"/></g>
+<text x="366" y="75" font-size="28" fill="#127be6" font-family="Arial,Helvetica,sans-serif" font-weight="400">22°</text>
+</g>
+<g fill="none" stroke="#41c7fc" stroke-linecap="round" opacity=".36">
+<path d="M783 202Q750 255 820 308" stroke-width="12"/><path d="M865 197Q849 260 911 319" stroke-width="15"/><path d="M947 187Q926 255 995 306" stroke-width="13"/>
+</g>
+<!-- SaaS dashboard laptop visual -->
+<g filter="url(#shadow)" transform="translate(621 310)">
+<path d="M55 10L554 1Q573 1 574 20L560 278Q557 289 541 288L28 299Q13 299 17 280L34 31Q37 12 55 10Z" fill="#061126" stroke="#3a93df" stroke-width="5"/>
+<path d="M57 27L552 18L541 266L34 278Z" fill="url(#glass)"/>
+<path d="M34 54L546 44" stroke="#81cafd" stroke-opacity=".14"/>
+<path d="M147 45L131 271" stroke="#57b4ed" stroke-opacity=".26" stroke-width="2"/>
+<text x="68" y="56" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="20" fill="#fff">Clima<tspan fill="#36c8ff">Pro</tspan></text>
+<rect x="54" y="80" width="91" height="28" rx="6" fill="#123f94"/>
+<g font-size="12" fill="#b8d4ed" font-family="Arial,Helvetica,sans-serif">
+ <text x="67" y="99" fill="#fff">Visão geral</text>
+ <text x="65" y="137">Orçamentos</text><text x="65" y="163">Propostas</text><text x="65" y="189">Clientes</text><text x="65" y="215">Equipamentos</text>
+</g>
+<text x="180" y="86" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#e6f6ff">Visão geral</text>
+<g fill="#143863" stroke="#4789cd" stroke-opacity=".4">
+ <rect x="181" y="107" width="108" height="64" rx="9"/>
+ <rect x="301" y="105" width="107" height="64" rx="9"/>
+ <rect x="419" y="102" width="108" height="64" rx="9"/>
+ <rect x="179" y="185" width="229" height="71" rx="9"/>
+ <rect x="421" y="179" width="108" height="72" rx="9"/>
+</g>
+<g fill="#d4edff" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="600">
+<text x="194" y="126">Orçamentos</text><text x="314" y="124">Propostas</text><text x="432" y="121">Clientes</text><text x="192" y="204">Atividade</text><text x="432" y="198">Status</text>
+</g>
+<g fill="#47ccfc"><rect x="196" y="143" width="55" height="7" rx="3"/><rect x="314" y="141" width="65" height="7" rx="3"/><rect x="433" y="139" width="52" height="7" rx="3"/></g>
+<g stroke="#27baff" stroke-width="3" fill="none"><path d="M197 242L231 229 255 235 283 215 311 226 341 209 369 215"/><path d="M435 231h72M435 220h57"/></g>
+<path d="M1 296L576 283L610 321L0 344Q-16 344-7 332Z" fill="url(#steel)" stroke="#578cc5" stroke-width="3"/>
+<path d="M92 307L521 299L540 315L70 326Z" fill="#0a2f57" opacity=".7"/>
+</g>
+<rect x="0" y="668" width="1200" height="7" fill="url(#cyan)" opacity=".74"/>
+</svg>
