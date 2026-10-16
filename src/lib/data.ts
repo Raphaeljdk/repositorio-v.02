@@ -239,7 +239,7 @@ export const projects: Project[] = [
     stats: { views: 0, likes: 0 },
     role: "Desenvolvimento Full Stack",
     accent: "from-sky-700 via-blue-800 to-slate-900",
-    image: "/projects/climapro-cover.avif",
+    image: "/projects/climapro-cover.svg",
     imageCaption: "Capa conceitual do ClimaPro — interface ilustrativa",
     caseStudy: {
       problem: "A elaboração de orçamentos de climatização pode envolver cadastro de equipamentos, serviços, dimensionamento e apresentação clara das alternativas ao cliente.",
