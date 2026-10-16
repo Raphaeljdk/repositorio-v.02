@@ -173,19 +173,31 @@ function ProjectCard({
           </div>
         </div>
       )}
-      {/* Screenshot preview */}
+      {/* Real site preview or representative project photography */}
       {project.image && (
-        <div className="relative aspect-video overflow-hidden">
+        <div className={cn("relative aspect-video overflow-hidden", project.spotlight && "lg:max-h-[420px]")}>
+          {project.image.startsWith("https://") && (
+            <div className={cn("absolute inset-0 flex items-end bg-gradient-to-br p-6 text-white", project.accent)} aria-hidden="true">
+              <span className="font-display text-2xl font-bold">{project.title}</span>
+            </div>
+          )}
           <Image
             src={project.image}
-            alt={project.title}
+            alt={project.imageCaption || `Prévia do projeto ${project.title}`}
             fill
+            unoptimized={project.image.startsWith("https://")}
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDER}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            onError={(event) => { event.currentTarget.style.opacity = "0"; }}
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            sizes={project.spotlight ? "(max-width: 768px) 100vw, 67vw" : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"}
           />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+          {project.imageCaption && (
+            <span className="absolute bottom-3 left-3 z-10 rounded-md border border-white/20 bg-black/65 px-2.5 py-1 font-code text-[10px] font-medium text-white backdrop-blur-sm">
+              {project.imageCaption}
+            </span>
+          )}
           {/* Impact badge — top-right, always visible */}
           {project.metrics && project.metrics.length > 0 && (
             <div className="absolute top-2.5 right-2.5 flex flex-col items-end gap-1.5">
