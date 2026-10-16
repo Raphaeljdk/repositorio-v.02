@@ -59,7 +59,7 @@ export function Projects() {
             label="Projetos"
             title="Coisas que construí."
             kanji={4}
-            description="Cada projeto é um caso de uso real — do SaaS em tempo real ao executive dashboard."
+            description="Projetos autorais e soluções para negócios — com destaque para meu primeiro trabalho entregue a uma empresa real."
           />
           {/* Filters */}
           <div className="flex flex-wrap gap-2">
@@ -149,7 +149,7 @@ function ProjectCard({
       }}
       className={cn(
         "project-card group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
-        project.featured && "md:col-span-2 lg:col-span-1"
+        project.spotlight ? "md:col-span-2 lg:col-span-2" : project.featured && "md:col-span-2 lg:col-span-1"
       )}
       onClick={onClick}
       role="button"
@@ -157,6 +157,22 @@ function ProjectCard({
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
     >
       <span className="project-number" aria-hidden>{String(index + 1).padStart(2, "0")} / RF</span>
+      {/* Branded fallback for projects without a supplied screenshot */}
+      {!project.image && (
+        <div className={cn("relative flex aspect-video items-end overflow-hidden bg-gradient-to-br p-6 text-white sm:p-8", project.accent)}>
+          <div className="pointer-events-none absolute -right-10 -top-20 h-64 w-64 rounded-full border-[28px] border-white/10" />
+          <div className="pointer-events-none absolute bottom-[-70px] right-[20%] h-52 w-52 rounded-full border border-white/20" />
+          <div className="relative z-10 max-w-[90%]">
+            <p className="mb-3 font-code text-[10px] font-semibold uppercase tracking-[0.2em] text-white/75">
+              {project.spotlight ? "PROJETO COMERCIAL / 2026" : "SOLUÇÃO WEB / 2026"}
+            </p>
+            <p className={cn("font-display text-2xl font-bold tracking-tight sm:text-3xl", project.spotlight && "lg:text-4xl")}>
+              {project.title}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-white/85">{project.subtitle}</p>
+          </div>
+        </div>
+      )}
       {/* Screenshot preview */}
       {project.image && (
         <div className="relative aspect-video overflow-hidden">
@@ -196,14 +212,24 @@ function ProjectCard({
       {/* Top accent line */}
       <div className="h-0.5 w-full" style={{ background: `linear-gradient(90deg, var(--color-accent-copper), var(--color-accent-gold))` }} />
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className={cn("flex flex-1 flex-col p-5", project.spotlight && "sm:p-7")}>
+        {project.milestone && (
+          <span className={cn(
+            "mb-3 inline-flex w-fit items-center rounded-full border px-3 py-1 font-code text-[10px] font-bold uppercase tracking-wide",
+            project.spotlight
+              ? "border-[var(--color-accent-copper)]/40 bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]"
+              : "border-[var(--surface-border)] text-muted-foreground"
+          )}>
+            {project.milestone}
+          </span>
+        )}
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div>
             <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">
               {project.category} · {project.year}
             </p>
-            <h3 className="mt-1 font-display text-lg font-bold tracking-tight text-foreground">
+            <h3 className={cn("mt-1 font-display text-lg font-bold tracking-tight text-foreground", project.spotlight && "text-2xl")}>
               {project.title}
             </h3>
             <p className="text-xs text-[var(--color-accent-copper)]">{project.subtitle}</p>
@@ -222,7 +248,7 @@ function ProjectCard({
           </span>
         </div>
 
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+        <p className={cn("mt-3 text-sm leading-relaxed text-muted-foreground", project.spotlight ? "line-clamp-5" : "line-clamp-3")}>
           {project.description}
         </p>
 
@@ -250,12 +276,27 @@ function ProjectCard({
           ))}
         </div>
 
+        {project.spotlight && project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="mt-5 inline-flex w-fit items-center gap-2 rounded-lg bg-[var(--color-accent-copper)] px-4 py-2.5 text-xs font-semibold text-white transition hover:brightness-110"
+          >
+            Conhecer o projeto publicado
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        )}
+
         {/* Footer */}
         <div className="mt-auto pt-4 flex items-center justify-between border-t border-[var(--surface-border)] text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-3">
-            <span className="inline-flex items-center gap-1">
-              <Eye className="h-3.5 w-3.5" /> {project.stats.views}
-            </span>
+            {project.stats.views > 0 && (
+              <span className="inline-flex items-center gap-1">
+                <Eye className="h-3.5 w-3.5" /> {project.stats.views}
+              </span>
+            )}
             <span>{project.role}</span>
           </span>
 
