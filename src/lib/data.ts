@@ -46,6 +46,10 @@ export interface Project {
   role: string;
   accent: string;
   image?: string;
+  /** Gives the project a wider card in the portfolio grid. */
+  spotlight?: boolean;
+  /** Editorial marker for a meaningful project milestone. */
+  milestone?: string;
   metrics?: { label: string; value: string }[];
   caseStudy?: {
     problem: string;
@@ -183,6 +187,61 @@ export const skillCategories: { id: SkillCategory | "all"; label: string; color:
 ];
 
 export const projects: Project[] = [
+  {
+    id: 11,
+    title: "Matilha Prado",
+    subtitle: "Meu primeiro projeto para uma empresa real",
+    description: "Meu primeiro trabalho de desenvolvimento para uma empresa real: uma plataforma digital para a Matilha Prado, com loja virtual, portal do cliente e gestão administrativa. O site já está publicado e continua evoluindo conforme as necessidades do negócio, incluindo melhorias no catálogo, nos pedidos e nas integrações.",
+    category: "Cliente real / E-commerce",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Vercel"],
+    difficulty: 94,
+    highlights: ["Primeiro cliente real", "Loja virtual e catálogo", "Portal do cliente", "Painel administrativo", "Evolução e integrações"],
+    link: "https://www.matilhaprado.com.br/#inicio",
+    github: "",
+    featured: true,
+    spotlight: true,
+    milestone: "PRIMEIRO CLIENTE REAL",
+    status: "completed",
+    year: "2026",
+    stats: { views: 0, likes: 0 },
+    role: "Desenvolvimento Full Stack",
+    accent: "from-emerald-700 via-teal-700 to-slate-900",
+    metrics: [
+      { label: "Cliente", value: "Empresa real" },
+      { label: "Entrega", value: "Site publicado" },
+      { label: "Solução", value: "Loja + portal" },
+      { label: "Evolução", value: "Contínua" },
+    ],
+    caseStudy: {
+      problem: "Uma empresa do segmento pet precisava fortalecer sua presença digital e oferecer uma experiência conectada para clientes, vendas e gestão.",
+      solution: "Desenvolvimento e publicação de uma plataforma web com vitrine de produtos, e-commerce, área do cliente e ferramentas administrativas. O trabalho inclui ajustes contínuos de usabilidade e evolução das integrações operacionais, sem tratar funcionalidades ainda em implantação como finalizadas.",
+      lessons: "Trabalhar com uma empresa real exige conciliar requisitos comerciais, experiência de compra, segurança de dados e manutenção após a publicação. As decisões precisam responder a necessidades concretas do cliente.",
+    },
+  },
+  {
+    id: 12,
+    title: "ClimaPro — Orçamentos",
+    subtitle: "Projeto em conversa com a empresa do meu pai",
+    description: "Sistema web de orçamentos e gestão de serviços de climatização que desenvolvi como proposta para a empresa do meu pai. A versão demonstrativa já está publicada, com criação de propostas, PDFs e visualização conceitual de ambientes, mas a adoção pela empresa ainda está em discussão.",
+    category: "Sistema comercial / Proposta",
+    technologies: ["Next.js", "React", "TypeScript", "Prisma", "Vercel"],
+    difficulty: 88,
+    highlights: ["Orçamentos de climatização", "Propostas em PDF", "Visualização conceitual 3D", "Adoção em discussão"],
+    link: "https://sistema-orcamento-ar-condicionado-j.vercel.app/",
+    github: "",
+    featured: true,
+    milestone: "PROPOSTA EM DISCUSSÃO",
+    status: "in-progress",
+    year: "2026",
+    stats: { views: 0, likes: 0 },
+    role: "Desenvolvimento Full Stack",
+    accent: "from-sky-700 via-blue-800 to-slate-900",
+    caseStudy: {
+      problem: "A elaboração de orçamentos de climatização pode envolver cadastro de equipamentos, serviços, dimensionamento e apresentação clara das alternativas ao cliente.",
+      solution: "Construção de uma demonstração web com fluxo de orçamentos, propostas em PDF, apresentação conceitual de ambientes e opções de equipamentos. O sistema está sendo apresentado e discutido com a empresa antes de qualquer decisão de implantação.",
+      lessons: "Uma solução precisa ser validada com quem executa o serviço no dia a dia. Uma demonstração funcional não deve ser confundida com implantação comercial aprovada.",
+    },
+  },
   {
     id: 1,
     title: "Nexus Retail",
