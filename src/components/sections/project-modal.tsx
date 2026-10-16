@@ -110,6 +110,13 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 </div>
               )}
 
+              {/* Editorial milestone: visible in case study as well as on the card */}
+              {project.milestone && (
+                <span className="mb-3 inline-flex rounded-full border border-[var(--color-accent-copper)]/40 bg-[var(--color-accent-copper)]/10 px-3 py-1 font-code text-[10px] font-bold uppercase tracking-wide text-[var(--color-accent-copper)]">
+                  {project.milestone}
+                </span>
+              )}
+
               {/* Category & Year */}
               <div className="flex items-center gap-2">
                 <span className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -235,10 +242,12 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
 
               {/* Stats + Difficulty row */}
               <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-[var(--surface-border)] pt-4">
-                <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <Eye className="h-3.5 w-3.5" />
-                  {project.stats.views} visualizações
-                </span>
+                {project.stats.views > 0 && (
+                  <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Eye className="h-3.5 w-3.5" />
+                    {project.stats.views} visualizações
+                  </span>
+                )}
                 <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <User className="h-3.5 w-3.5" />
                   {project.role}
