@@ -46,6 +46,7 @@ export interface Project {
   role: string;
   accent: string;
   image?: string;
+  imageCaption?: string;
   /** Gives the project a wider card in the portfolio grid. */
   spotlight?: boolean;
   /** Editorial marker for a meaningful project milestone. */
@@ -206,6 +207,8 @@ export const projects: Project[] = [
     stats: { views: 0, likes: 0 },
     role: "Desenvolvimento Full Stack",
     accent: "from-emerald-700 via-teal-700 to-slate-900",
+    image: "https://image.thum.io/get/noanimate/width/1200/crop/675/maxAge/168/https://www.matilhaprado.com.br/",
+    imageCaption: "Captura da loja Matilha Prado",
     metrics: [
       { label: "Cliente", value: "Empresa real" },
       { label: "Entrega", value: "Site publicado" },
@@ -236,6 +239,8 @@ export const projects: Project[] = [
     stats: { views: 0, likes: 0 },
     role: "Desenvolvimento Full Stack",
     accent: "from-sky-700 via-blue-800 to-slate-900",
+    image: "https://unsplash.com/photos/r0IZXw84v14/download?force=true&w=1200",
+    imageCaption: "Imagem ilustrativa de climatização",
     caseStudy: {
       problem: "A elaboração de orçamentos de climatização pode envolver cadastro de equipamentos, serviços, dimensionamento e apresentação clara das alternativas ao cliente.",
       solution: "Construção de uma demonstração web com fluxo de orçamentos, propostas em PDF, apresentação conceitual de ambientes e opções de equipamentos. O sistema está sendo apresentado e discutido com a empresa antes de qualquer decisão de implantação.",
