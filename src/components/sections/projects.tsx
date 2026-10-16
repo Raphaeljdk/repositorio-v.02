@@ -1,23 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Github,
-  ExternalLink,
-  Eye,
-  ArrowUpRight,
-  CircleDot,
-} from "lucide-react";
-import { projects } from "@/lib/data";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Github, ArrowUpRight, ArrowRight, Check, Clock3 } from "lucide-react";
+import { projects, type Project } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
 import { useCardGlow } from "@/hooks/use-card-glow";
 import { cn } from "@/lib/utils";
 import { KanjiBackdrop } from "@/components/portfolio/signature";
-
-const BLUR_PLACEHOLDER = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTM0NCIgaGVpZ2h0PSI3NjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEzNDQiIGhlaWdodD0iNzY4IiBmaWxsPSIjMTRBMTQxNiIvPjwvc3ZnPg==";
 
 const FILTERS = [
   { id: "all", label: "Todos" },
@@ -25,90 +17,51 @@ const FILTERS = [
   { id: "completed", label: "Concluídos" },
   { id: "in-progress", label: "Em progresso" },
 ] as const;
-
 type FilterId = (typeof FILTERS)[number]["id"];
 
 export function Projects() {
+  const reduce = useReducedMotion();
   const [filter, setFilter] = useState<FilterId>("all");
-  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+  const [selected, setSelected] = useState<Project | null>(null);
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const filtered = useMemo(() => projects.filter(p =>
+    filter === "all" || (filter === "featured" ? p.featured : filter === "completed" ? p.status === "completed" : p.status !== "completed")
+  ), [filter]);
 
-  const filtered = useMemo(() => {
-    switch (filter) {
-      case "featured":
-        return projects.filter((p) => p.featured);
-      case "completed":
-        return projects.filter((p) => p.status === "completed");
-      case "in-progress":
-        return projects.filter((p) => p.status !== "completed");
-      default:
-        return projects;
-    }
-  }, [filter]);
+  function openProject(project: Project, event: MouseEvent<HTMLButtonElement>) {
+    opener.current = event.currentTarget;
+    setSelected(project);
+  }
 
   return (
-    <section id="projects" className="relative scroll-mt-24 py-24 sm:py-32">
-      {/* Section kanji backdrop — 創 (Create) */}
+    <section id="projects" className="portfolio-projects relative scroll-mt-24 py-24 sm:py-32">
       <KanjiBackdrop kanji="創" side="left" top={5} />
-      {/* Subtle top-left accent corner */}
-      <div className="pointer-events-none absolute top-0 left-0 h-40 w-40 opacity-20" style={{
-        background: "radial-gradient(circle at 0% 0%, var(--color-accent-copper), transparent 70%)",
-      }} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            label="Projetos"
-            title="Coisas que construí."
-            kanji={4}
-            description="Projetos autorais e soluções para negócios — com destaque para meu primeiro trabalho entregue a uma empresa real."
-          />
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2">
-            {FILTERS.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setFilter(f.id)}
-                aria-pressed={filter === f.id}
-                className={cn(
-                  "rounded-lg px-4 py-2 text-sm font-medium active:scale-[0.97] transition-all min-h-[44px] inline-flex items-center",
-                  filter === f.id
-                    ? "bg-[var(--color-accent-copper)] text-white shadow-[0_0_12px_rgba(220,38,38,0.3)]"
-                    : "border border-[var(--surface-border)] text-muted-foreground hover:text-foreground hover:border-[var(--color-accent-copper)] hover:bg-muted/50"
-                )}
-              >
+        <SectionHeading label="Projetos" title="Ideias que viram realidade." kanji={4}
+          description="Do primeiro cliente real às próximas ideias. Conheça os projetos, os desafios e o que existe por trás de cada entrega." />
+        <div className="project-toolbar">
+          <div className="project-filters" role="group" aria-label="Filtrar projetos">
+            {FILTERS.map(f => (
+              <button key={f.id} type="button" onClick={() => setFilter(f.id)} aria-pressed={filter === f.id}
+                className={cn("project-filter", filter === f.id && "is-active")}>
                 {f.label}
               </button>
             ))}
           </div>
+          <p className="project-count" role="status" aria-live="polite">{String(filtered.length).padStart(2, "0")} projetos</p>
         </div>
-
-        {/* Bento grid — featured span 2 cols */}
-        <motion.div layout className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i} onClick={() => setSelectedProject(p)} />
+        <motion.div layout={!reduce} className="project-grid">
+          <AnimatePresence initial={false}>
+            {filtered.map(p => (
+              <ProjectCard key={p.id} project={p} onOpen={event => openProject(p, event)} />
             ))}
           </AnimatePresence>
         </motion.div>
-
-        {/* Project Detail Modal */}
-        <ProjectModal
-          project={selectedProject}
-          open={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-
-        {/* CTA */}
-        <div className="mt-12 flex justify-center">
-          <a
-            href="https://github.com/Raphaeljdk"
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-lg border border-[var(--surface-border)] px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-[var(--color-accent-copper)]"
-          >
-            <Github className="h-4 w-4" />
-            Ver todos os repositórios
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ProjectModal project={selected} open={!!selected} onClose={() => setSelected(null)}
+          onReturnFocus={() => opener.current?.focus({ preventScroll: true })} />
+        <div className="mt-10 flex justify-center">
+          <a href="https://github.com/Raphaeljdk" target="_blank" rel="noopener noreferrer" className="project-action">
+            <Github size={16} aria-hidden="true" /> Explorar todos os repositórios <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -116,229 +69,53 @@ export function Projects() {
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-  onClick,
-}: {
-  project: (typeof projects)[number];
-  index: number;
-  onClick: () => void;
-}) {
+function ProjectCard({ project, onOpen }: { project: Project; onOpen: (event: MouseEvent<HTMLButtonElement>) => void }) {
+  const reduce = useReducedMotion();
   const { ref, onMouseMove, onMouseLeave } = useCardGlow<HTMLElement>();
-  const statusMap = {
-    completed: "Concluído",
-    "in-progress": "Em progresso",
-    planned: "Planejado",
-  } as const;
+  const [imageFailed, setImageFailed] = useState(false);
+  const status = project.status === "completed" ? "Concluído" : project.status === "planned" ? "Planejado" : "Em desenvolvimento";
 
   return (
-    <motion.article
-      ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      layout
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 16 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.5,
-        delay: (index % 3) * 0.06,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className={cn(
-        "project-card group relative flex flex-col overflow-hidden rounded-xl bg-[var(--surface)] border border-[var(--surface-border)] transition-[border-color] duration-300 hover:border-[var(--color-accent-copper)] cursor-pointer",
-        project.spotlight ? "md:col-span-2 lg:col-span-2" : project.featured && "md:col-span-2 lg:col-span-1"
-      )}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
-    >
-      <span className="project-number" aria-hidden>{String(index + 1).padStart(2, "0")} / RF</span>
-      {/* Branded fallback for projects without a supplied screenshot */}
-      {!project.image && (
-        <div className={cn("relative flex aspect-video items-end overflow-hidden bg-gradient-to-br p-6 text-white sm:p-8", project.accent)}>
-          <div className="pointer-events-none absolute -right-10 -top-20 h-64 w-64 rounded-full border-[28px] border-white/10" />
-          <div className="pointer-events-none absolute bottom-[-70px] right-[20%] h-52 w-52 rounded-full border border-white/20" />
-          <div className="relative z-10 max-w-[90%]">
-            <p className="mb-3 font-code text-[10px] font-semibold uppercase tracking-[0.2em] text-white/75">
-              {project.spotlight ? "PROJETO COMERCIAL / 2026" : "SOLUÇÃO WEB / 2026"}
-            </p>
-            <p className={cn("font-display text-2xl font-bold tracking-tight sm:text-3xl", project.spotlight && "lg:text-4xl")}>
-              {project.title}
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-white/85">{project.subtitle}</p>
-          </div>
-        </div>
-      )}
-      {/* Real site preview or representative project photography */}
-      {project.image && (
-        <div className={cn("relative aspect-video overflow-hidden", project.spotlight && "lg:max-h-[420px]")}>
-          {project.image.startsWith("https://") && (
-            <div className={cn("absolute inset-0 flex items-end bg-gradient-to-br p-6 text-white", project.accent)} aria-hidden="true">
-              <span className="font-display text-2xl font-bold">{project.title}</span>
-            </div>
-          )}
-          <Image
-            src={project.image}
-            alt={project.imageCaption || `Prévia do projeto ${project.title}`}
-            fill
-            unoptimized={project.image.startsWith("https://")}
-            placeholder="blur"
-            blurDataURL={BLUR_PLACEHOLDER}
-            onError={(event) => { event.currentTarget.style.opacity = "0"; }}
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            sizes={project.spotlight ? "(max-width: 768px) 100vw, 67vw" : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"}
-          />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
-          {project.imageCaption && (
-            <span className="absolute bottom-3 left-3 z-10 rounded-md border border-white/20 bg-black/65 px-2.5 py-1 font-code text-[10px] font-medium text-white backdrop-blur-sm">
-              {project.imageCaption}
-            </span>
-          )}
-          {/* Impact badge — top-right, always visible */}
-          {project.metrics && project.metrics.length > 0 && (
-            <div className="absolute top-2.5 right-2.5 flex flex-col items-end gap-1.5">
-              {project.metrics.slice(0, 2).map((m) => (
-                <span
-                  key={m.label}
-                  className="rounded-md bg-black/70 px-2 py-0.5 font-code text-[10px] font-bold text-white backdrop-blur-sm"
-                >
-                  {m.value}
-                </span>
-              ))}
-            </div>
-          )}
-          {/* Hover overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-            <span className="text-sm font-medium text-white">
-              Ver detalhes{" "}
-              <span className="text-[var(--color-accent-copper)]">→</span>
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* Top accent line */}
-      <div className="h-0.5 w-full" style={{ background: `linear-gradient(90deg, var(--color-accent-copper), var(--color-accent-gold))` }} />
-
-      <div className={cn("flex flex-1 flex-col p-5", project.spotlight && "sm:p-7")}>
-        {project.milestone && (
-          <span className={cn(
-            "mb-3 inline-flex w-fit items-center rounded-full border px-3 py-1 font-code text-[10px] font-bold uppercase tracking-wide",
-            project.spotlight
-              ? "border-[var(--color-accent-copper)]/40 bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)]"
-              : "border-[var(--surface-border)] text-muted-foreground"
-          )}>
-            {project.milestone}
-          </span>
+    <motion.article ref={ref} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+      layout={!reduce} initial={reduce ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }} viewport={{ once: true, margin: "0px 0px -24px 0px" }}
+      transition={{ duration: reduce ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className={cn("project-card", project.spotlight && "project-card--spotlight")}>
+      <button type="button" className="project-preview" onClick={onOpen} aria-label={`Ver prévia e detalhes de ${project.title}`}>
+        <span className={cn("project-fallback bg-gradient-to-br", project.accent)} aria-hidden="true">
+          <span>{project.title}</span>
+        </span>
+        {project.image && !imageFailed && (
+          <Image src={project.image} alt={project.imageCaption || `Prévia de ${project.title}`} fill
+            unoptimized={project.image.startsWith("https://")} onError={() => setImageFailed(true)}
+            sizes="(max-width: 639px) calc(100vw - 32px), (max-width: 1023px) 50vw, 600px"
+            className="project-preview-image" />
         )}
-        {/* Header */}
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">
-              {project.category} · {project.year}
-            </p>
-            <h3 className={cn("mt-1 font-display text-lg font-bold tracking-tight text-foreground", project.spotlight && "text-2xl")}>
-              {project.title}
-            </h3>
-            <p className="text-xs text-[var(--color-accent-copper)]">{project.subtitle}</p>
-          </div>
-          <span
-            className={cn(
-              "shrink-0 rounded-md px-2 py-0.5 font-code text-[10px] font-medium",
-              project.status === "completed"
-                ? "bg-[var(--color-accent-sage)]/10 text-[var(--color-accent-sage)]"
-                : project.status === "in-progress"
-                  ? "bg-[var(--color-accent-gold)]/10 text-[var(--color-accent-gold)]"
-                  : "bg-muted text-muted-foreground"
-            )}
-          >
-            {statusMap[project.status]}
-          </span>
+        <span className="project-preview-bar" aria-hidden="true"><i /><i /><i /><span>{project.spotlight ? "PROJETO EM DESTAQUE" : project.category}</span><ArrowUpRight size={16} /></span>
+        <span className="project-preview-hint" aria-hidden="true">Explorar projeto <ArrowUpRight size={17} /></span>
+      </button>
+      <div className="project-body">
+        <div className="project-meta">
+          <span>{project.category} / {project.year}</span>
+          <span className="project-status">{project.status === "completed" ? <Check size={12} /> : <Clock3 size={12} />}{status}</span>
         </div>
-
-        <p className={cn("mt-3 text-sm leading-relaxed text-muted-foreground", project.spotlight ? "line-clamp-5" : "line-clamp-3")}>
-          {project.description}
-        </p>
-
-        {/* Highlights — clean text, no sparkles */}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {project.highlights.slice(0, 3).map((h) => (
-            <span
-              key={h}
-              className="rounded-md border border-[var(--surface-border)] px-2 py-0.5 text-[10px] text-muted-foreground"
-            >
-              {h}
-            </span>
-          ))}
+        {project.milestone && <p className="project-milestone">{project.milestone}</p>}
+        <h3><button type="button" onClick={onOpen} className="project-title-button">{project.title}</button></h3>
+        <p className="project-subtitle">{project.subtitle}</p>
+        <p className="project-description">{project.description}</p>
+        <div className="project-tags" aria-label="Tecnologias utilizadas">
+          {project.technologies.map(t => <span key={t}>{t}</span>)}
         </div>
-
-        {/* Tech tags in monospace */}
-        <div className="mt-3 flex flex-wrap gap-1">
-          {project.technologies.map((t) => (
-            <span
-              key={t}
-              className="rounded-md bg-muted/50 px-1.5 py-0.5 font-code text-[10px] text-muted-foreground"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        {project.spotlight && project.link && (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="mt-5 inline-flex w-fit items-center gap-2 rounded-lg bg-[var(--color-accent-copper)] px-4 py-2.5 text-xs font-semibold text-white transition hover:brightness-110"
-          >
-            Conhecer o projeto publicado
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        )}
-
-        {/* Footer */}
-        <div className="mt-auto pt-4 flex items-center justify-between border-t border-[var(--surface-border)] text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-3">
-            {project.stats.views > 0 && (
-              <span className="inline-flex items-center gap-1">
-                <Eye className="h-3.5 w-3.5" /> {project.stats.views}
-              </span>
-            )}
-            <span>{project.role}</span>
-          </span>
-
-          {/* Links — clean icons on hover */}
-          <div className="flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Abrir ${project.title}`}
-                onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
-              >
-                <ExternalLink className="h-3.5 w-3.5" />
-              </a>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Código de ${project.title}`}
-                onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border border-[var(--surface-border)] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
-              >
-                <Github className="h-3.5 w-3.5" />
-              </a>
-            )}
-          </div>
+        <div className="project-actions">
+          {project.link && (
+            <a href={project.link} target="_blank" rel="noopener noreferrer" className={cn("project-action", project.spotlight && "project-action--primary")}>
+              {project.spotlight ? "Visitar a Matilha Prado" : "Visitar projeto"}<ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          )}
+          <button type="button" onClick={onOpen} className="project-action project-action--quiet" aria-label={`Ver detalhes de ${project.title}`}>
+            Detalhes <ArrowRight size={15} aria-hidden="true" />
+          </button>
+          {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-action project-action--icon" aria-label={`Código de ${project.title}`}><Github size={17} /></a>}
         </div>
       </div>
     </motion.article>

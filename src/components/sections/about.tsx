@@ -280,7 +280,7 @@ export function SectionHeading({
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -40px 0px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}
+      className={cn("section-heading max-w-2xl", align === "center" && "mx-auto text-center")}
     >
       <motion.div variants={reveal} className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
         {kanji && <KanjiNumber n={kanji} />}

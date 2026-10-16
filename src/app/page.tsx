@@ -19,6 +19,7 @@ import { AIChatWidget } from "@/components/portfolio/ai-chat";
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col">
+      <a href="#main-content" className="skip-link">Pular para o conteúdo</a>
       <ScrollProgress />
       <AnimatedBackground />
       <NoiseOverlay />
@@ -27,7 +28,7 @@ export default function Home() {
       <SakuraPetalDrift />
       <Navbar />
 
-      <main className="relative flex-1">
+      <main id="main-content" tabIndex={-1} className="relative flex-1">
         <Hero />
         <About />
         <Services />

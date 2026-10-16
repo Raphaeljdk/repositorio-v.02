@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValue, useReducedMotion, useTransform, type MotionStyle } from "framer-motion";
 import Image from "next/image";
 import {
   Monitor, Server, Database, Wrench, Building2, Cloud, Brain,
@@ -132,7 +132,7 @@ function CarouselItem({
         scale: itemScale,
         borderRadius: "50%",
         "--item-accent": item.accent,
-      } as React.CSSProperties}
+      } as MotionStyle}
       transition={transition}
     >
       {round ? (
@@ -253,6 +253,9 @@ export default function SkillsCarousel({
   const initializedRef = useRef(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const inView = useInView(containerRef, { amount: 0.25 });
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
@@ -269,9 +272,11 @@ export default function SkillsCarousel({
   }, [pauseOnHover]);
 
   useEffect(() => {
-    if (!autoplay || itemsForRender.length <= 1) return undefined;
+    if (!autoplay || reduce || !inView || isFocused || itemsForRender.length <= 1) return undefined;
+    if (window.matchMedia("(pointer: coarse)").matches) return undefined;
     if (pauseOnHover && isHovered) return undefined;
     const timer = setInterval(() => {
+      if (document.hidden) return;
       setPosition((prev) => {
         const next = prev + 1;
         if (loop && next >= itemsForRender.length) return prev;
@@ -279,7 +284,7 @@ export default function SkillsCarousel({
       });
     }, autoplayDelay);
     return () => clearInterval(timer);
-  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length]);
+  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length, loop, reduce, inView, isFocused]);
 
   useEffect(() => {
     if (!initializedRef.current) {
@@ -288,7 +293,6 @@ export default function SkillsCarousel({
     }
     const startingPosition = loop ? 1 : 0;
     x.set(-startingPosition * trackItemOffset);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPosition(startingPosition);
   }, [items.length, loop, trackItemOffset, x]);
 
@@ -299,7 +303,7 @@ export default function SkillsCarousel({
     }
   }, [itemsForRender.length, loop, position]);
 
-  const effectiveTransition = isJumping ? { duration: 0 } : SPRING_OPTIONS;
+  const effectiveTransition = isJumping || reduce ? { duration: 0 } : SPRING_OPTIONS;
 
   const handleAnimationComplete = () => {
     if (!loop || itemsForRender.length <= 1) {
@@ -374,7 +378,7 @@ export default function SkillsCarousel({
   const currentItem = items[activeIndex];
 
   return (
-    <div className="carousel-layout">
+    <div className="carousel-layout" onFocusCapture={() => setIsFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false); }}>
       {/* 1. Carousel container (the circle) */}
       <div
         ref={containerRef}

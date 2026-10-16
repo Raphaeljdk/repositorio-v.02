@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
-import { ArrowUpRight, ArrowDown, Download } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Download, BriefcaseBusiness } from "lucide-react";
 import Image from "next/image";
 import { personal } from "@/lib/data";
 import { HankoSeal } from "@/components/portfolio/signature";
@@ -20,30 +20,32 @@ const ROLES = [
   "Automação & IA",
 ];
 
-function useTypewriter(words: string[], speed = 80, pause = 2000) {
-  const [text, setText] = useState("");
+function useTypewriter(words: string[], enabled: boolean, speed = 80, pause = 2000) {
+  const [text, setText] = useState(words[0]);
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (!enabled) return;
     const word = words[wordIndex];
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        setText(word.slice(0, text.length + 1));
         if (text.length === word.length) {
-          setTimeout(() => setIsDeleting(true), pause);
+          setIsDeleting(true);
           return;
         }
+        setText(word.slice(0, text.length + 1));
       } else {
-        setText(word.slice(0, text.length - 1));
         if (text.length === 0) {
           setIsDeleting(false);
           setWordIndex((prev) => (prev + 1) % words.length);
+        } else {
+          setText(word.slice(0, text.length - 1));
         }
       }
-    }, isDeleting ? speed / 2 : speed);
+    }, !isDeleting && text === word ? pause : isDeleting ? speed / 2 : speed);
     return () => clearTimeout(timeout);
-  }, [text, wordIndex, isDeleting, words, speed, pause]);
+  }, [text, wordIndex, isDeleting, words, speed, pause, enabled]);
 
   return text;
 }
@@ -60,7 +62,7 @@ export function Hero() {
   };
   const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: reduce ? "instant" : "smooth" });
 
-  const typedRole = useTypewriter(ROLES);
+  const typedRole = useTypewriter(ROLES, !reduce);
 
   return (
     <section id="home" className="hero-editorial">
@@ -104,11 +106,8 @@ export function Hero() {
           </motion.div>
 
           <motion.p variants={entrance} className="hero-role">
-            {reduce ? (
-              <>Desenvolvedor Full Stack <span>/</span> Eng. de Software</>
-            ) : (
-              <>{typedRole}<span className="hero-type-cursor">|</span> <span>/</span> Eng. de Software</>
-            )}
+            <span className="sr-only">Desenvolvedor Full Stack · Engenharia de Software</span>
+            <span data-typewriter aria-hidden="true">{reduce ? ROLES[0] : typedRole}<span className="hero-type-cursor">|</span></span>
           </motion.p>
           <motion.p variants={entrance} className="hero-description">
             Construindo produtos que resolvem problemas reais.
@@ -128,6 +127,11 @@ export function Hero() {
             <span className="hero-status-dot" /> Disponível para projetos
             <span className="hero-availability-divider" /> Automação com Python
           </motion.div>
+          <motion.a variants={entrance} href="#projects" onClick={e => { e.preventDefault(); go("#projects"); }} className="hero-proof">
+            <span className="hero-proof-icon"><BriefcaseBusiness size={17} aria-hidden="true" /></span>
+            <span><strong>Do código ao primeiro cliente real.</strong>Conheça o projeto Matilha Prado.</span>
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </motion.a>
         </motion.div>
 
         <motion.div
@@ -148,7 +152,7 @@ export function Hero() {
                 transition={{ duration: 2.3, delay: 0.6, ease }} />
             </svg>
             <div className="hero-logo-frame">
-              <Image src="/raphael-logo.png" alt="Raphael Freitas — dragão, bonsai e cerejeira" width={500} height={500} priority unoptimized className="hero-logo" />
+              <Image src="/raphael-logo.png" alt="Raphael Freitas — dragão, bonsai e cerejeira" width={500} height={500} priority sizes="(max-width: 639px) 200px, (max-width: 1023px) 300px, 370px" className="hero-logo" />
             </div>
             <span className="hero-orbit-label" aria-hidden>継続は力なり</span>
           </motion.div>

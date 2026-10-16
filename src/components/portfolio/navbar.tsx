@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import * as Dialog from "@radix-ui/react-dialog";
 import {
   Menu, X, Github, Linkedin, Mail, ArrowUpRight,
   Home, User, FolderOpen, Briefcase, Wrench, MessageCircle,
@@ -37,9 +38,12 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    const updatePosition = () => {
+      frame = 0;
       setScrolled(window.scrollY > 24);
       const sections = allNavItems.map((n) => n.href.slice(1));
       const offset = window.innerHeight * 0.4;
@@ -56,37 +60,25 @@ export function Navbar() {
       }
       setActive(current);
     };
-    onScroll();
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(updatePosition); };
+    updatePosition();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
   }, []);
 
-  // Body scroll lock when mobile menu is open
+  // Close the mobile dialog if the desktop navigation becomes visible.
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  // Escape key to close mobile menu
-  useEffect(() => {
-    if (!open) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   const go = (href: string) => {
     setOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
+    requestAnimationFrame(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
+    });
   };
 
   /* Mobile nav items — exclude "Contato" since there's a CTA button */
@@ -190,6 +182,7 @@ export function Navbar() {
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
             <button
+              ref={menuButton}
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Fechar menu" : "Abrir menu"}
@@ -203,27 +196,20 @@ export function Navbar() {
         </nav>
 
         {/* Mobile menu — improved sidebar */}
-        <AnimatePresence>
-          {open && (
-            <>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
+          <Dialog.Portal>
               {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setOpen(false)}
+              <Dialog.Overlay
                 className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm lg:hidden"
               />
               {/* Sidebar panel */}
-              <motion.div
-                initial={{ opacity: 0, x: -16, scale: 0.97 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -16, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 32, mass: 0.8 }}
+              <Dialog.Content
+                onCloseAutoFocus={event => { event.preventDefault(); menuButton.current?.focus({ preventScroll: true }); }}
                 id="mobile-navigation"
                 className="fixed left-3 right-3 top-[68px] z-[61] max-h-[calc(100vh-84px)] overflow-y-auto overflow-x-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-2xl lg:hidden"
               >
+                <Dialog.Title className="sr-only">Navegação do portfólio</Dialog.Title>
+                <Dialog.Description className="sr-only">Escolha uma seção para conhecer o trabalho de Raphael.</Dialog.Description>
                 {/* Header */}
                 <div className="flex items-center gap-3 border-b border-[var(--surface-border)] px-4 py-3">
                   <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full ring-1 ring-[var(--color-accent-copper)]/30">
@@ -251,6 +237,7 @@ export function Navbar() {
                     </span>
                     <span className="font-code text-[9px] text-[var(--color-accent-sage)]">Disponível</span>
                   </span>
+                  <Dialog.Close className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[var(--surface-border)]" aria-label="Fechar menu de navegação"><X size={18} /></Dialog.Close>
                 </div>
 
                 {/* Navigation items */}
@@ -262,6 +249,7 @@ export function Navbar() {
                       <a
                         key={item.href}
                         href={item.href}
+                        aria-current={isActive ? "location" : undefined}
                         onClick={(e) => {
                           e.preventDefault();
                           go(item.href);
@@ -332,10 +320,9 @@ export function Navbar() {
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
+              </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
     </header>
   );
