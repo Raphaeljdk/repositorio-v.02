@@ -98,15 +98,27 @@ export function ProjectModal({ project, open, onClose }: ProjectModalProps) {
                 <X className="h-4 w-4" />
               </button>
 
-              {/* Screenshot image */}
+              {/* Project photography and site preview */}
               {project.image && (
-                <div className="relative -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 mb-5 aspect-video overflow-hidden">
+                <div className="relative -mx-6 -mt-6 mb-5 aspect-video overflow-hidden sm:-mx-8 sm:-mt-8">
+                  {project.image.startsWith("https://") && (
+                    <div className={`absolute inset-0 flex items-end bg-gradient-to-br p-6 text-white ${project.accent}`} aria-hidden="true">
+                      <span className="font-display text-2xl font-bold">{project.title}</span>
+                    </div>
+                  )}
                   <img
                     src={project.image}
-                    alt={project.title}
-                    className="h-full w-full object-cover"
+                    alt={project.imageCaption || project.title}
+                    loading="lazy"
+                    onError={(event) => { event.currentTarget.style.opacity = "0"; }}
+                    className="relative h-full w-full object-cover object-top"
                   />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+                  {project.imageCaption && (
+                    <span className="absolute bottom-3 left-4 rounded-md bg-black/65 px-2.5 py-1 font-code text-[10px] font-medium text-white backdrop-blur-sm">
+                      {project.imageCaption}
+                    </span>
+                  )}
                 </div>
               )}
 
