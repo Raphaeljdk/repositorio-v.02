@@ -102,14 +102,14 @@ export function Contact() {
           </span>
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr]">
+        <div className="contact-layout mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr]">
           {/* Left — contact info */}
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-3"
+            className="contact-methods space-y-3"
           >
             <ContactRow
               icon={<Mail className="h-4 w-4" />}
@@ -147,7 +147,7 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 rounded-xl bg-[var(--color-accent-copper)] p-6 text-white"
+              className="contact-availability mt-4 rounded-xl bg-[var(--color-accent-copper)] p-6 text-white"
             >
               {/* Status line */}
               <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card-surface rounded-xl p-6 sm:p-8"
+            className="contact-form-panel card-surface rounded-xl p-6 sm:p-8"
             style={{ transform: "none" }}
           >
             {/* Subtle copper gradient overlay at top */}
@@ -246,6 +246,10 @@ export function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="relative space-y-5">
+                <div className="contact-form-heading">
+                  <h3>Conte sua ideia.</h3>
+                  <p>Compartilhe o que você precisa construir ou melhorar.</p>
+                </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <Field
                     label="Nome"
@@ -400,13 +404,13 @@ function ContactRow({
   href?: string;
 }) {
   const Inner = (
-    <div className="group flex min-h-[56px] items-center gap-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 transition-all hover:border-[var(--color-accent-copper)] hover:-translate-y-[1px]">
+    <div className="contact-method group flex min-h-[56px] items-center gap-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 transition-all hover:border-[var(--color-accent-copper)] hover:-translate-y-[1px]">
       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-accent-copper)]/10 text-[var(--color-accent-copper)] transition-colors group-hover:bg-[var(--color-accent-copper)]/20">
         {icon}
       </span>
       <div className="min-w-0 flex-1">
         <p className="mono-label">{label}</p>
-        <p className="truncate text-sm font-medium text-foreground">{value}</p>
+        <p className="contact-method-value text-sm font-medium text-foreground">{value}</p>
       </div>
       {href && (
         <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:text-[var(--color-accent-copper)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

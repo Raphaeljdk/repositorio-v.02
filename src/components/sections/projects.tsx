@@ -80,7 +80,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: (event: Mo
       layout={!reduce} initial={reduce ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }} viewport={{ once: true, margin: "0px 0px -24px 0px" }}
       transition={{ duration: reduce ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("project-card", project.spotlight && "project-card--spotlight")}>
+      className={cn("project-card", project.spotlight && "project-card--spotlight", project.milestone && "project-card--milestone")}>
       <button type="button" className="project-preview" onClick={onOpen} aria-label={`Ver prévia e detalhes de ${project.title}`}>
         <span className={cn("project-fallback bg-gradient-to-br", project.accent)} aria-hidden="true">
           <span>{project.title}</span>

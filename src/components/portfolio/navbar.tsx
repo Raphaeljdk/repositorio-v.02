@@ -87,7 +87,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "portfolio-header fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled ? "py-2" : "py-4"
       )}
     >
@@ -120,7 +120,7 @@ export function Navbar() {
                 unoptimized
               />
             </span>
-            <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground sm:block">
+            <span className="nav-brand-name hidden font-display text-sm font-semibold tracking-tight text-foreground sm:block">
               {personal.firstName}
               <span className="text-[var(--color-accent-copper)]">.</span>
               {personal.lastName}
@@ -188,7 +188,7 @@ export function Navbar() {
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               aria-expanded={open}
               aria-controls="mobile-navigation"
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--surface-border)] text-foreground transition-colors hover:bg-muted lg:hidden"
+              className="nav-menu-trigger flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--surface-border)] text-foreground transition-colors hover:bg-muted lg:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>

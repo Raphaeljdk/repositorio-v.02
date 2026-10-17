@@ -1,142 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Code2, Building2, Sparkles, Cloud, ArrowUpRight, BrainCircuit } from "lucide-react";
 import { services } from "@/lib/data";
 import { SectionHeading } from "./about";
 
-const ICONS: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
-  code: Code2,
-  building: Building2,
-  sparkles: Sparkles,
-  cloud: Cloud,
-};
-
-const SERVICE_ACCENTS = [
-  "#D93838",
-  "#2B5B84",
-  "#F2C14E",
-  "#B91C1C",
-] as const;
+const ICONS = { code: Code2, building: Building2, sparkles: Sparkles, cloud: Cloud };
 
 export function Services() {
+  const reduce = useReducedMotion();
+
   return (
     <section id="services" className="relative scroll-mt-24 py-24 sm:py-32">
-      {/* Subtle diagonal pattern */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `repeating-linear-gradient(
-          45deg,
-          var(--color-accent-copper) 0px,
-          var(--color-accent-copper) 1px,
-          transparent 1px,
-          transparent 24px
-        )`,
-      }} />
-
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          label="Serviços"
-          title="Como posso ajudar."
-          kanji={2}
-          description="Atuação full stack que conecta estratégia corporativa, engenharia moderna, IA generativa e design premium."
-        />
-
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s, i) => {
-            const Icon = ICONS[s.icon] ?? Code2;
-            const accent = SERVICE_ACCENTS[i % SERVICE_ACCENTS.length];
+        <SectionHeading label="Serviços" title="Como posso ajudar." kanji={2}
+          description="Desenvolvimento, automação e interfaces pensadas para a rotina do seu negócio." />
+        <div className="services-grid">
+          {services.map((service, index) => {
+            const Icon = ICONS[service.icon as keyof typeof ICONS] ?? Code2;
             return (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 28, scale: 0.97 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  duration: 0.55,
-                  delay: i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="card-surface group relative rounded-xl p-6 lg:p-7"
-              >
-                {/* Top gradient line */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-0.5 rounded-t-xl"
-                  style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }}
-                />
-
-                {/* Icon container with animated ring */}
-                <div className="relative">
-                  <motion.div
-                    whileHover={{ rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--surface-border)] transition-all duration-300 group-hover:border-transparent"
-                    style={{
-                      backgroundColor: `color-mix(in srgb, ${accent} 10%, transparent)`,
-                      boxShadow: `0 0 0 0 ${accent}00`,
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${accent}20`;
-                      (e.currentTarget as HTMLElement).style.borderColor = `${accent}40`;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accent}00`;
-                      (e.currentTarget as HTMLElement).style.borderColor = "";
-                    }}
-                  >
-                    <Icon className="h-5 w-5" style={{ color: accent }} />
-                  </motion.div>
+              <motion.article key={service.title} className="service-card"
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: reduce ? 0 : 0.4, delay: reduce ? 0 : index * 0.05 }}>
+                <div className="service-card-top">
+                  <span className="service-icon"><Icon size={23} aria-hidden="true" /></span>
+                  <span className="service-index" aria-hidden="true">0{index + 1}</span>
                 </div>
-
-                <h3 className="mt-5 font-display text-base font-bold tracking-tight text-foreground group-hover:text-foreground transition-colors">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {s.description}
-                </p>
-
-                {/* Items list with dot accents */}
-                <ul className="mt-4 space-y-2">
-                  {s.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2.5 text-xs text-foreground/70 transition-colors group-hover:text-foreground/90"
-                    >
-                      <span
-                        className="h-1.5 w-1.5 rounded-full shrink-0 transition-transform duration-300 group-hover:scale-125"
-                        style={{ backgroundColor: accent }}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Hover CTA — scrolls to contact */}
-                <button
-                  type="button"
-                  onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="mt-5 flex items-center gap-1.5 text-xs font-medium opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
-                  style={{ color: accent }}
-                >
-                  Saiba mais
-                  <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
-              </motion.div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <ul>{service.items.map(item => <li key={item}>{item}</li>)}</ul>
+                <a href="#contact" className="service-link"
+                  aria-label={`Conversar sobre ${service.title}`}>
+                  Conversar sobre este serviço <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              </motion.article>
             );
           })}
         </div>
-
-        {/* Bottom accent strip */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16 flex items-center justify-center gap-3 text-xs text-muted-foreground"
-        >
-          <BrainCircuit className="h-4 w-4 text-[var(--color-accent-copper)]" />
-          <span>Integro <span className="font-semibold text-foreground">ChatGPT, DeepSeek, GLM e Gemini</span> no fluxo de desenvolvimento</span>
-        </motion.div>
+        <div className="services-note">
+          <BrainCircuit size={20} aria-hidden="true" />
+          <p>Inteligência artificial no processo. <strong>Intenção em cada entrega.</strong>
+            <span>ChatGPT, DeepSeek, GLM e Gemini como ferramentas de desenvolvimento.</span>
+          </p>
+        </div>
       </div>
     </section>
   );
