@@ -80,6 +80,8 @@ export interface Certification {
   status: "completed" | "in-progress" | "planned";
   progress?: number;
   credentialId?: string;
+  verifyUrl?: string;
+  description?: string;
   category: string;
 }
 
@@ -576,6 +578,17 @@ export const experiences: Experience[] = [
 ];
 
 export const certifications: Certification[] = [
+  {
+    name: "Gestão Financeira",
+    hours: "10h",
+    institution: "Sebrae",
+    year: 2026,
+    status: "completed",
+    credentialId: "6aea70a87727802b8648cd41",
+    verifyUrl: "https://certificados.sebrae.com.br/resultado/6aea70a87727802b8648cd41",
+    description: "Fluxo de caixa e controles financeiros, planejamento financeiro, tomada de decisões, gestão de custos e precificação.",
+    category: "Corporativo",
+  },
   { name: "JavaScript Algorithms & Data Structures", hours: "300h", institution: "freeCodeCamp", year: 2025, status: "completed", credentialId: "FCC-JS-2025", category: "Frontend" },
   { name: "Responsive Web Design", hours: "300h", institution: "freeCodeCamp", year: 2025, status: "completed", credentialId: "FCC-RWD-2025", category: "Frontend" },
   { name: "Java com Banco de Dados", hours: "120h", institution: "SENAI · Instituto Eurofarma", year: 2024, status: "completed", credentialId: "SENAI-JAVA-2024", category: "Backend" },

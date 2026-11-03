@@ -2,7 +2,7 @@
 
 import { useMemo, useState, createElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, Clock, Code2, Database, Cloud, Table2, Server, Copy, Check } from "lucide-react";
+import { Award, Clock, Code2, Database, Cloud, Table2, Server, Copy, Check, Wallet, ExternalLink } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { certifications } from "@/lib/data";
 import { SectionHeading } from "./about";
@@ -44,7 +44,7 @@ export function Certifications() {
           label="Certificações"
           title="Aprendizado contínuo."
           kanji={8}
-          description="Formações que sustentam a stack — do freeCodeCamp ao SENAI, do SAP Learning Hub à AWS."
+          description="Formações em desenvolvimento de software, tecnologia e gestão de negócios — aprendizado que se transforma em prática."
         />
 
         {/* Summary strip — simple, no gradient icons */}
@@ -110,6 +110,7 @@ export function Certifications() {
 }
 
 const CERT_ICON_MAP: Array<{ test: RegExp; Icon: LucideIcon }> = [
+  { test: /Gestão Financeira|Finanças|Precificação/i, Icon: Wallet },
   { test: /JavaScript|Web|Git/i, Icon: Code2 },
   { test: /Java|Banco/i, Icon: Database },
   { test: /Cloud|Nuvem/i, Icon: Cloud },
@@ -208,6 +209,11 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
         {cert.name}
       </h3>
       <p className="mt-1 text-xs text-muted-foreground">{cert.institution}</p>
+      {cert.description && (
+        <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+          {cert.description}
+        </p>
+      )}
 
       <div className="mt-3 flex items-center gap-3 font-code text-[11px] text-muted-foreground">
         <span className="inline-flex items-center gap-1">
@@ -241,14 +247,14 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
       )}
 
       {cert.credentialId && (
-        <div className="mt-3 flex items-center justify-between border-t border-[var(--surface-border)] pt-3">
-          <span className="font-code text-[10px] text-muted-foreground">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--surface-border)] pt-3">
+          <span className="min-w-0 break-all font-code text-[10px] text-muted-foreground">
             ID: {cert.credentialId}
           </span>
           <button
             type="button"
             onClick={handleVerify}
-            className="inline-flex items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline cursor-pointer"
+            className="inline-flex min-h-9 shrink-0 items-center gap-1 font-code text-[10px] text-[var(--color-accent-copper)] hover:underline cursor-pointer"
           >
             {copied ? (
               <>
@@ -263,6 +269,19 @@ function CertCard({ cert, delay }: { cert: (typeof certifications)[number]; dela
             )}
           </button>
         </div>
+      )}
+
+      {cert.verifyUrl && (
+        <a
+          href={cert.verifyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Validar certificado de ${cert.name} no site da ${cert.institution}`}
+          className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-[var(--surface-border)] bg-muted/30 px-3 py-2.5 text-xs font-semibold text-foreground transition-colors hover:border-[var(--color-accent-copper)] hover:text-[var(--color-accent-copper)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent-copper)]"
+        >
+          Validar certificado no Sebrae
+          <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+        </a>
       )}
     </motion.div>
     </BorderGlow>
