@@ -80,23 +80,23 @@ function ExperienceEntry({
       {/* Card */}
       <div
         className={cn(
-          "card-surface rounded-xl p-5 sm:p-6",
+          "card-surface min-w-0 rounded-xl p-4 sm:p-6",
           exp.current && "border-l-[3px] border-l-[var(--color-accent-copper)]",
           isDesktop && isLeft && "md:text-right",
           isDesktop && !isLeft && "md:text-left"
         )}
       >
-        {/* Header row */}
+        {/* Header: stack company, role and metadata on small screens */}
         <div
           className={cn(
-            "flex flex-wrap items-start gap-3",
+            "flex min-w-0 flex-col gap-3 md:flex-row md:flex-wrap md:items-start",
             isDesktop && isLeft && "md:flex-row-reverse md:text-right"
           )}
         >
-          <div className="flex-1 min-w-0">
+          <div className="w-full min-w-0 md:w-auto md:flex-1">
             <div
               className={cn(
-                "flex items-center gap-2",
+                "flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5",
                 isDesktop && isLeft && "md:justify-end"
               )}
             >
@@ -104,13 +104,13 @@ function ExperienceEntry({
                 <img
                   src={companyLogos[exp.company].src}
                   alt={companyLogos[exp.company].alt}
-                  className="h-8 w-auto max-w-[120px] object-contain rounded-md"
+                  className="h-8 w-auto max-w-[110px] shrink-0 rounded-md object-contain"
                   loading="lazy"
                 />
               ) : (
                 <Building2 className="h-5 w-5 shrink-0 text-[var(--color-accent-copper)]" />
               )}
-              <h3 className="font-display text-xl font-extrabold text-foreground leading-tight">
+              <h3 className="min-w-0 break-words font-display text-xl font-extrabold leading-tight text-foreground">
                 {exp.company}
               </h3>
               {exp.current && (
@@ -120,29 +120,30 @@ function ExperienceEntry({
                 </span>
               )}
             </div>
-            <p className="mt-1 text-sm font-semibold text-[var(--color-accent-copper)]">
+            <p className="mt-2 break-words text-sm font-semibold leading-relaxed text-[var(--color-accent-copper)] md:mt-1">
               {exp.role}
             </p>
           </div>
 
           <div
             className={cn(
-              "flex flex-col gap-1 font-code text-xs text-muted-foreground",
-              isDesktop && isLeft && "md:items-start"
+              "flex w-full min-w-0 flex-col items-start gap-2 border-t border-[var(--surface-border)] pt-3 font-code text-[11px] leading-relaxed text-muted-foreground md:w-auto md:max-w-[47%] md:gap-1.5 md:border-0 md:pt-0 md:text-xs",
+              isDesktop && isLeft ? "md:items-start" : "md:items-end"
             )}
           >
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" /> {exp.period}
+            <span className="inline-flex min-w-0 max-w-full items-start gap-2">
+              <Calendar className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span className="break-words">{exp.period}</span>
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5" />
-              {exp.location} · {exp.type}
+            <span className="inline-flex min-w-0 max-w-full items-start gap-2">
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span className="break-words">{exp.location} · {exp.type}</span>
             </span>
           </div>
         </div>
 
         {/* Summary */}
-        <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+        <p className="mt-4 break-words text-sm leading-7 text-foreground/90">
           {exp.summary}
         </p>
 
@@ -158,7 +159,7 @@ function ExperienceEntry({
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.3 + ai * 0.08 }}
-                  className="flex items-start gap-2.5 text-sm text-foreground/90"
+                  className="flex min-w-0 items-start gap-2.5 break-words text-sm leading-relaxed text-foreground/90"
                 >
                   <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[var(--color-accent-copper)]" />
                   <span>{a}</span>
@@ -205,7 +206,7 @@ function ExperienceEntry({
                     {exp.responsibilities.map((r, ri) => (
                       <li
                         key={ri}
-                        className="flex items-start gap-2.5 text-sm text-foreground/90"
+                        className="flex min-w-0 items-start gap-2.5 break-words text-sm leading-relaxed text-foreground/90"
                       >
                         <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[var(--color-accent-copper)]/60" />
                         <span>{r}</span>
@@ -266,17 +267,20 @@ export function Experience() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="mb-12 grid grid-cols-3 gap-3 sm:gap-4"
+            className="mb-9 grid grid-cols-2 gap-3 sm:mb-12 sm:grid-cols-3 sm:gap-4"
           >
-            {summaryCards.map((card) => {
+            {summaryCards.map((card, index) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.label}
-                  className="card-surface rounded-lg px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-center gap-1.5 text-center"
+                  className={cn(
+                    "card-surface flex min-h-[96px] min-w-0 flex-col items-center justify-center gap-1.5 rounded-lg px-3 py-3 text-center sm:min-h-0 sm:px-4 sm:py-4",
+                    index === 2 && "col-span-2 sm:col-span-1"
+                  )}
                 >
                   <Icon className="h-4 w-4 text-[var(--color-accent-copper)]" />
-                  <span className="font-code text-[11px] sm:text-xs font-medium text-foreground/90">
+                  <span className="font-code max-w-full text-balance text-[11px] font-medium leading-relaxed text-foreground/90 sm:text-xs">
                     {card.label}
                   </span>
                   <span className="mx-auto h-[2px] w-6 rounded-full bg-[var(--color-accent-copper)]/60" />
@@ -288,19 +292,19 @@ export function Experience() {
           {/* Timeline container */}
           <div className="relative">
             {/* Centered vertical line (desktop) / left line (mobile) */}
-            <div className="absolute top-2 bottom-2 w-px left-4 sm:left-6 md:left-1/2 md:-translate-x-px bg-gradient-to-b from-[var(--color-accent-copper)]/50 via-[var(--color-accent-copper)]/15 to-transparent" />
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-2 left-[6px] top-2 w-px bg-gradient-to-b from-[var(--color-accent-copper)]/50 via-[var(--color-accent-copper)]/15 to-transparent md:left-1/2 md:-translate-x-px" />
 
-            <div className="space-y-10">
+            <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {experiences.map((exp, idx) => {
                 const isLeft = isDesktop && idx % 2 === 0;
 
                 return (
-                  <div key={exp.company} className="relative">
+                  <div key={exp.company} className="relative min-w-0 pl-5 md:pl-0">
                     {/* Timeline dot — positioned on the center line (desktop) or left (mobile) */}
                     <div
                       className={cn(
-                        "absolute top-6 z-10 flex items-center justify-center",
-                        "left-4 sm:left-6 md:left-1/2",
+                        "pointer-events-none absolute top-7 z-10 flex items-center justify-center",
+                        "left-[6px] md:left-1/2",
                         "-translate-x-1/2"
                       )}
                     >
