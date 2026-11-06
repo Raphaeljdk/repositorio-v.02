@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Github, ArrowUpRight, ArrowRight, Check, Clock3 } from "lucide-react";
+import { Github, ArrowUpRight, ArrowRight, Check, Clock3, Info } from "lucide-react";
 import { projects, type Project } from "@/lib/data";
 import { ProjectModal } from "./project-modal";
 import { SectionHeading } from "./about";
@@ -39,6 +39,14 @@ export function Projects() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading label="Projetos" title="Ideias que viram realidade." kanji={4}
           description="Do primeiro cliente real às próximas ideias. Conheça os projetos, os desafios e o que existe por trás de cada entrega." />
+        <aside aria-label="Sobre as imagens e a seleção de projetos" className="mt-6 flex max-w-3xl items-start gap-3 border-l-2 border-[var(--card-line)] pl-4 text-sm leading-relaxed text-muted-foreground sm:mt-7">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-[var(--primary)]" aria-hidden="true" />
+          <p>
+            As capas são ilustrações próprias dos projetos, não capturas das áreas internas.
+            Mantive de fora os deploys duplicados e algumas ferramentas internas, para que o portfólio
+            continue organizado e apropriado para apresentação profissional.
+          </p>
+        </aside>
         <div className="project-toolbar">
           <div className="project-filters" role="group" aria-label="Filtrar projetos">
             {FILTERS.map(f => (
