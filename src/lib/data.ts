@@ -251,7 +251,7 @@ export const projects: Project[] = [
   },
   {
     id: 13,
-    title: "Ducha Elitte — AquaFlow",
+    title: "Ducha Elitte",
     subtitle: "ERP SaaS para lava-rápidos e estética automotiva",
     description: "Plataforma de gestão de lava-rápidos com comandas, serviços, vistoria e acompanhamento operacional. A evolução multiempresa e os fluxos de cobrança seguem em validação.",
     category: "ERP / Automotivo",
