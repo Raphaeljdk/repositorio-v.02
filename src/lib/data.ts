@@ -250,6 +250,351 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 13,
+    title: "Ducha Elitte — AquaFlow",
+    subtitle: "ERP SaaS para lava-rápidos e estética automotiva",
+    description: "Plataforma de gestão de lava-rápidos com comandas, serviços, vistoria e acompanhamento operacional. A evolução multiempresa e os fluxos de cobrança seguem em validação.",
+    category: "ERP / Automotivo",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Stripe",
+      "Vercel"
+    ],
+    difficulty: 92,
+    highlights: [
+      "Gestão de comandas",
+      "Vistoria de veículos",
+      "Acompanhamento das lavagens",
+      "SaaS em evolução"
+    ],
+    link: "https://ducha-elitte.vercel.app/login?callbackUrl=%2F",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Arquitetura e desenvolvimento Full Stack",
+    accent: "from-cyan-700 via-blue-800 to-slate-950",
+    image: "/projects/ducha-elitte-cover.svg",
+    imageCaption: "Capa conceitual do Ducha Elitte — não é uma captura da área administrativa",
+    milestone: "SAAS EM EVOLUÇÃO",
+    caseStudy: {
+      problem: "Lava-rápidos precisam organizar serviços, acompanhar veículos e consolidar a operação em um só lugar.",
+      solution: "Desenvolvimento de plataforma web para comandas, vistorias, processos operacionais e gestão, com expansão multiempresa em andamento.",
+      lessons: "Sistemas operacionais exigem boa experiência em celular, rastreabilidade e testes de fluxos reais antes da liberação comercial."
+    }
+  },
+  {
+    id: 14,
+    title: "GROMMA BARBER — ERP",
+    subtitle: "Gestão operacional para barbearias",
+    description: "ERP voltado à rotina de barbearias, incluindo profissionais, unidades, serviços, comissões e assinaturas. O produto segue recebendo refinamentos de usabilidade e validação dos relatórios.",
+    category: "ERP / Barbearias",
+    technologies: [
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "Vercel"
+    ],
+    difficulty: 91,
+    highlights: [
+      "Comissões por profissional",
+      "Assinaturas",
+      "Cadastro de unidades",
+      "Relatórios em evolução"
+    ],
+    link: "https://gromma-barber.vercel.app/",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento Full Stack",
+    accent: "from-neutral-800 via-stone-900 to-zinc-950",
+    image: "/projects/gromma-barber-cover.svg",
+    imageCaption: "Capa conceitual do sistema GROMMA BARBER",
+    caseStudy: {
+      problem: "A operação de barbearias precisa conciliar atendimentos, profissionais, assinaturas e regras de comissão.",
+      solution: "Construção de um ERP com cadastros operacionais e evolução de relatórios, distribuição de comissões e fluxo de pagamentos.",
+      lessons: "O layout precisa priorizar listas legíveis e ações rápidas, sem excesso de cartões ou informações secundárias."
+    }
+  },
+  {
+    id: 15,
+    title: "Tarjas Preta MC — PDV",
+    subtitle: "Vendas e preparo para eventos de moto clube",
+    description: "Sistema de ponto de venda e comandas para eventos, com pedidos, filas de preparo e acompanhamento do caixa. A versão web segue em homologação antes do uso operacional definitivo.",
+    category: "PDV / Eventos",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Vercel"
+    ],
+    difficulty: 87,
+    highlights: [
+      "Venda rápida",
+      "Fluxo de preparo",
+      "Comandas e consumo",
+      "Homologação operacional"
+    ],
+    link: "https://sistema-pdv-motoclube.vercel.app/",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento Full Stack",
+    accent: "from-amber-700 via-red-900 to-zinc-950",
+    image: "/projects/tarjas-preta-cover.svg",
+    imageCaption: "Capa conceitual do PDV Tarjas Preta MC",
+    milestone: "PROJETO PARA EVENTOS",
+    caseStudy: {
+      problem: "Eventos com grande movimento precisam registrar consumos e encaminhar pedidos ao preparo com agilidade.",
+      solution: "Protótipo web com caixa, comandas, organização de itens e estados de preparo para teste com a equipe.",
+      lessons: "Antes de uso real, sincronização entre dispositivos, confiabilidade dos pagamentos e operação offline precisam ser homologadas."
+    }
+  },
+  {
+    id: 16,
+    title: "Freitas ERP — Restaurantes",
+    subtitle: "Gestão para bares e restaurantes",
+    description: "Produto independente para restaurantes e bares, planejado para conectar produtos, estoque, comandas, pedidos e caixa. A base de autenticação e gestão de estabelecimentos está em evolução.",
+    category: "ERP / Alimentação",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Neon",
+      "PostgreSQL",
+      "Vercel"
+    ],
+    difficulty: 91,
+    highlights: [
+      "Gestão por estabelecimento",
+      "Permissões e equipe",
+      "Fluxo de caixa em construção",
+      "Comandas e estoque no roadmap"
+    ],
+    link: "https://freitas-erp-restaurantes.vercel.app/",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Produto e desenvolvimento Full Stack",
+    accent: "from-red-700 via-rose-900 to-zinc-950",
+    image: "/projects/freitas-restaurantes-cover.svg",
+    imageCaption: "Capa conceitual do Freitas ERP para restaurantes",
+    caseStudy: {
+      problem: "Negócios de alimentação precisam coordenar frente de caixa, atendimento, cozinha e insumos.",
+      solution: "Arquitetura de um ERP por estabelecimento com autenticação, papéis e evolução planejada do ciclo pedido–pagamento–estoque.",
+      lessons: "O fluxo operacional completo deve ser testado ponta a ponta antes de qualquer promessa de produção comercial."
+    }
+  },
+  {
+    id: 17,
+    title: "Freitas ERP — Lava-Rápidos",
+    subtitle: "Laboratório independente com vistoria visual 3D",
+    description: "Protótipo próprio de ERP para lava-rápidos, separado do Ducha Elitte. Explora comandas, inspeção visual de veículos e evolução da vistoria 3D antes de decidir sua adoção em produtos finais.",
+    category: "Protótipo / Automotivo",
+    technologies: [
+      "TypeScript",
+      "React",
+      "Vercel"
+    ],
+    difficulty: 90,
+    highlights: [
+      "Vistoria visual 3D",
+      "Comandas de veículos",
+      "Laboratório independente",
+      "Testes de usabilidade"
+    ],
+    link: "https://freitas-erp-saas-lab.vercel.app/",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Pesquisa e desenvolvimento Full Stack",
+    accent: "from-violet-700 via-indigo-900 to-slate-950",
+    image: "/projects/erp-lava-rapido-cover.svg",
+    imageCaption: "Capa conceitual do laboratório de ERP e vistoria 3D",
+    milestone: "PROTÓTIPO EXPERIMENTAL",
+    caseStudy: {
+      problem: "Uma vistoria de veículos detalhada deve ser rápida de preencher e clara para o cliente.",
+      solution: "Experimentos independentes com representação visual de avarias, ficha de serviço e componentes de gestão.",
+      lessons: "Protótipos precisam ficar isolados da produção até que a precisão visual, o histórico e as permissões sejam validados."
+    }
+  },
+  {
+    id: 18,
+    title: "Freitas Corp — ERP Pet",
+    subtitle: "Base SaaS independente para pet shops",
+    description: "ERP próprio da Freitas Corp para gestão de produtos, estoque, clientes, pets, serviços e vendas. É um produto independente dos sistemas de clientes e segue evoluindo em ambiente de testes.",
+    category: "ERP / Mercado Pet",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL"
+    ],
+    difficulty: 89,
+    highlights: [
+      "Cadastro de pets e clientes",
+      "Produtos e estoque",
+      "Serviços e agenda",
+      "Estrutura multiempresa"
+    ],
+    link: "https://freitas-corp-pet-erp.vercel.app/",
+    github: "",
+    featured: true,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento e arquitetura Full Stack",
+    accent: "from-teal-700 via-emerald-900 to-zinc-950",
+    image: "/projects/freitas-pet-erp-cover.svg",
+    imageCaption: "Capa conceitual do ERP Pet Freitas Corp",
+    caseStudy: {
+      problem: "Pet shops precisam de controle integrado de produtos, estoque, serviços e histórico dos animais.",
+      solution: "Criação de uma base ERP independente com papéis de acesso, cadastros, vendas e movimentações de estoque.",
+      lessons: "Projetos reutilizáveis devem ter infraestrutura e dados separados dos clientes, além de limites claros para integrações ainda não prontas."
+    }
+  },
+  {
+    id: 19,
+    title: "Freitas Corp — Comercial",
+    subtitle: "CRM e prospecção de clientes",
+    description: "Ferramenta interna para organizar oportunidades, contatos e propostas comerciais da Freitas Corp. Inclui revisão de leads e rascunhos de propostas, com envio sujeito à aprovação humana.",
+    category: "CRM / Vendas",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Neon",
+      "PostgreSQL"
+    ],
+    difficulty: 85,
+    highlights: [
+      "Funil de vendas",
+      "Pesquisa de oportunidades",
+      "Propostas em rascunho",
+      "Aprovação antes do contato"
+    ],
+    link: "https://freitas-secretaria-comercial.vercel.app/",
+    github: "",
+    featured: false,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento de produto e automação",
+    accent: "from-sky-700 via-cyan-900 to-zinc-950",
+    image: "/projects/freitas-comercial-cover.svg",
+    imageCaption: "Capa conceitual da Secretaria Comercial",
+    caseStudy: {
+      problem: "A prospecção manual dispersa informações de contatos, propostas e acompanhamentos.",
+      solution: "CRM com funil, organização de leads, pesquisa de oportunidades e aprovação de propostas antes de qualquer envio.",
+      lessons: "Dados públicos exigem verificação e o contato comercial precisa respeitar consentimento e revisão humana."
+    }
+  },
+  {
+    id: 20,
+    title: "Controle Financeiro Freitas",
+    subtitle: "Gestão financeira pessoal e empresarial",
+    description: "Aplicação web e PWA para acompanhar previsões, despesas, investimentos e contas pessoais e empresariais. Os módulos financeiros continuam recebendo melhorias e testes de consistência.",
+    category: "Finanças / PWA",
+    technologies: [
+      "JavaScript",
+      "Node.js",
+      "PostgreSQL",
+      "Neon",
+      "Vercel"
+    ],
+    difficulty: 86,
+    highlights: [
+      "Fluxo de caixa",
+      "Previsões e realizados",
+      "Investimentos e metas",
+      "Relatórios e exportações"
+    ],
+    link: "https://controle-financeiro-freitas.vercel.app/",
+    github: "",
+    featured: false,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento Full Stack",
+    accent: "from-green-700 via-emerald-900 to-slate-950",
+    image: "/projects/controle-financeiro-cover.svg",
+    imageCaption: "Capa conceitual do Controle Financeiro Freitas",
+    caseStudy: {
+      problem: "O controle financeiro exige distinguir previsões, dinheiro recebido e transferências para evitar resultados incorretos.",
+      solution: "Aplicação com contas pessoais e empresariais, regras recorrentes, metas, investimentos e visão mensal.",
+      lessons: "É essencial separar movimentos efetivos de lançamentos previstos e controlar a privacidade dos registros."
+    }
+  },
+  {
+    id: 21,
+    title: "Freitas Corp — Institucional",
+    subtitle: "Presença digital e apresentação da software house",
+    description: "Projeto web institucional da Freitas Corp para apresentar soluções digitais, a marca e seus serviços. O site segue em evolução na Vercel.",
+    category: "Institucional / Web",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Vercel"
+    ],
+    difficulty: 76,
+    highlights: [
+      "Site institucional",
+      "Portfólio de soluções",
+      "Apresentação comercial"
+    ],
+    link: "https://freitas-corp-raphaeljdks-projects.vercel.app/",
+    github: "",
+    featured: false,
+    status: "in-progress",
+    year: "2026",
+    stats: {
+      views: 0,
+      likes: 0
+    },
+    role: "Desenvolvimento web e identidade digital",
+    accent: "from-rose-800 via-neutral-900 to-slate-950",
+    image: "/projects/freitas-corp-cover.svg",
+    imageCaption: "Capa conceitual da Freitas Corp",
+    caseStudy: {
+      problem: "Uma software house precisa transmitir credibilidade e explicar suas soluções de maneira clara.",
+      solution: "Construção da presença digital institucional, com apresentação da marca e de seus produtos.",
+      lessons: "Comunicação comercial precisa ser objetiva e não confundir funcionalidades em planejamento com soluções entregues."
+    }
+  },
+  {
     id: 1,
     title: "Nexus Retail",
     subtitle: "Executive Dashboard 2026",
