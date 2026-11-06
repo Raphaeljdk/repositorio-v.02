@@ -33,7 +33,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const summaryCards = [
   { label: `${experiences.length} experiências`, icon: Building2 },
-  { label: "Indústria regulada", icon: Building2 },
+  { label: "MEI de tecnologia", icon: Building2 },
   { label: "São Paulo", icon: MapPin },
 ];
 
@@ -257,7 +257,7 @@ export function Experience() {
           label="Experiência"
           title="Onde tenho construído."
           kanji={7}
-          description="Uma ponte entre o mundo corporativo regulado e o ecossistema web moderno."
+          description="Experiência corporativa e empreendedorismo: desenvolvimento de sistemas, gestão de clientes e projetos reais."
         />
 
         <div className="mt-14">

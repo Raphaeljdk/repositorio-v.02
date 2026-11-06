@@ -119,9 +119,9 @@ export const personal = {
   linkedinHandle: "raphael-freitas",
   website: "https://raphaeljdk.github.io",
   availability: "Disponível para oportunidades",
-  bio: "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina no SAP Business One com desenvolvimento de automações em Python. Utiliza IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código.",
+  bio: "Desenvolvedor Full Stack em formação, com experiência em ambientes corporativos e atuação como fundador da Freitas Corp, empreendimento de tecnologia estruturado como MEI. Desenvolve sistemas para empresas, acompanha clientes e organiza a operação do negócio, conciliando essas atividades com o trabalho na área de Suprimentos/Compras da Polyexcel.",
   bioLong:
-    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina no SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
+    "Desenvolvedor Full Stack em formação, com vivência prática em processos corporativos de suprimentos, logística e qualidade dentro de indústrias reguladas. Atualmente atua como Aprendiz de Suprimentos/Compras na Polyexcel, combinando rotina no SAP Business One com desenvolvimento de automações em Python. Acumulei também experiência operacional na Eurofarma com rastreabilidade de lotes, COAs e movimentação de materiais. Também estou à frente da Freitas Corp, empreendimento de tecnologia estruturado como MEI, no qual cuido do desenvolvimento de sistemas, dos projetos, do relacionamento com clientes e da organização comercial e financeira. No desenvolvimento, construo soluções web full stack (React, Next.js, TypeScript, Node.js, Java) e utilizo IAs generativas (ChatGPT, DeepSeek, GLM, Gemini) como ferramentas de produtividade e revisão de código. Perfil analítico, curioso, com facilidade para aprender tecnologias novas e aplicar tecnologia na resolução de problemas reais do negócio.",
   university: "Estácio",
   degree: "Bacharelado em Engenharia de Software (Cursando)",
   roles: [
@@ -875,6 +875,28 @@ export const projects: Project[] = [
 ];
 
 export const experiences: Experience[] = [
+  {
+    company: "Freitas Corp",
+    role: "Fundador e responsável pela gestão e desenvolvimento",
+    period: "2026 — Atual",
+    location: "Cotia, SP",
+    type: "Negócio próprio · MEI",
+    current: true,
+    summary:
+      "À frente da Freitas Corp, empreendimento de tecnologia estruturado como Microempreendedor Individual (MEI). Sou responsável por desenvolver soluções digitais para empresas e por acompanhar projetos, clientes, propostas comerciais e a organização do negócio.",
+    responsibilities: [
+      "Desenvolvimento e manutenção de sites, sistemas web e soluções de gestão adaptadas a cada negócio",
+      "Levantamento de requisitos, planejamento de entregas e acompanhamento de melhorias com clientes",
+      "Elaboração de propostas comerciais, prospecção e atendimento aos clientes",
+      "Organização financeira, documentação de projetos e estruturação de processos da Freitas Corp",
+    ],
+    achievements: [
+      "Desenvolvimento de sistemas e plataformas web voltados a necessidades reais de empresas",
+      "Estruturação de portfólio, propostas comerciais e acompanhamento de projetos",
+      "Conciliação entre desenvolvimento técnico, atendimento e gestão de um negócio de tecnologia",
+    ],
+    technologies: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Gestão de Projetos", "Atendimento ao Cliente"],
+  },
   {
     company: "Polyexcel",
     role: "Aprendiz de Suprimentos / Compras & Desenvolvedor de Automação",
